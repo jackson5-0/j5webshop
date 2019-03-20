@@ -38,6 +38,8 @@ function showProducts(jsonData) {
   for (var i = 0; i < jsonData.length; i++) {
     var product = document.createElement('div');
 
+    product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[i].address}"`);
+
     var code = document.createElement('span');
     var name = document.createElement('span');
     var address = document.createElement('span');
