@@ -18,6 +18,8 @@ public class ProductDaoTest {
     public void init() {
         MysqlDataSource dataSource = new MysqlDataSource();
         dataSource.setUrl("jdbc:mysql://localhost:3306/j5webshop?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        dataSource.setUser("j5webshop");
+        dataSource.setPassword("jacksonfive");
 
         Flyway flyway = Flyway.configure().dataSource(dataSource).load();
         flyway.clean();
@@ -29,7 +31,7 @@ public class ProductDaoTest {
     @Test
     public void testFindByAddress() {
         //Given
-        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
+        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
         //When
         Product product = productDao.findProductByAddress("hacker-jatszma");
         //Then
@@ -41,8 +43,8 @@ public class ProductDaoTest {
     @Test
     public void testListAllProducts() {
         //Given
-        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
-        productDao.createProduct("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990);
+        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
+        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
         //When
         List<Product> list = productDao.listAllProducts();
         //Then
@@ -54,8 +56,8 @@ public class ProductDaoTest {
     @Test
     public void testGetLengthOfProductList() {
         //Given
-        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
-        productDao.createProduct("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990);
+        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
+        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
         //When
         int num = productDao.getLengthOfProductList();
         //Then
@@ -65,10 +67,10 @@ public class ProductDaoTest {
     @Test
     public void testListProductsWithLimit() {
         //Given
-        productDao.createProduct("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990);
-        productDao.createProduct("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990);
-        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
-        productDao.createProduct("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990);
+        productDao.createProduct(new Product("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990));
+        productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
+        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
+        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
         //When
         List<Product> list = productDao.listProductsWithLimit(0,2);
         //Then
