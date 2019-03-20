@@ -18,7 +18,7 @@ public class ProductDao {
     }
 
     public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select code, name, address, publisher, price from j5webshop where address = ?",
+        return jdbcTemplate.queryForObject("select code, name, address, publisher, price from product where address = ?",
                 (rs, rowNum) -> new Product(rs.getString("code"), rs.getString("name"),
                         rs.getString("address"), rs.getString("publisher"), rs.getInt("price")),
                 address);
