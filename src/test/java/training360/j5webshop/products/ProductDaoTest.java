@@ -4,11 +4,16 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class ProductDaoTest {
 
@@ -17,7 +22,7 @@ public class ProductDaoTest {
     @Before
     public void init() {
         MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/j5webshop?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/j5webshoptest?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
         dataSource.setUser("j5webshop");
         dataSource.setPassword("jacksonfive");
 
@@ -78,6 +83,4 @@ public class ProductDaoTest {
         assertThat(list.get(0).getName(), equalTo("Lord of Hellas"));
         assertThat(list.get(1).getName(), equalTo("Trónok harca"));
     }
-
-
 }
