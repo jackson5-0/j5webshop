@@ -23,9 +23,10 @@ public class ProductController {
     @PostMapping("/api/products")
     public ResponseStatus createProduct(@RequestBody Product product){
         Validator validator = new Validator(product);
+        long id;
         if (validator.getResponseStatus().getStatus() == ProductStatus.SUCCESS) {
-            productService.createProduct(product);
-            validator.getResponseStatus().addMessage("A termék sikeresen hozzáadva!");
+            id = productService.createProduct(product);
+            validator.getResponseStatus().addMessage("A terméket (id: " + id + ") sikeresen hozzáadta az adatbázishoz.");
             return validator.getResponseStatus();
         }
         return validator.getResponseStatus();

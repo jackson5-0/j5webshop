@@ -17,16 +17,17 @@ public class ProductService {
         return productDao.findProductByAddress(address);
     }
 
-    public void createProduct(Product product) {
-
+    public long createProduct(Product product) {
+        long id;
         while(true) {
             if (productCodeReserved(product)) {
-                productDao.createProduct(product);
+                id = productDao.createProduct(product);
                 break;
             } else {
                 product.incrementPostFix();
             }
         }
+        return id;
     }
 
     public boolean productCodeReserved(Product product) {
