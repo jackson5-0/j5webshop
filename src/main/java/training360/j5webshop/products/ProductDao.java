@@ -43,4 +43,8 @@ public class ProductDao {
             }
         });
     }
+    public void createProduct(String code, String name, String address, String publisher, int price){
+        jdbcTemplate.update("insert into j5webshop(code,name,address,publisher,price) values(?,?,?,?,?)",
+                code,name,address,publisher,price);
+    }
 }
