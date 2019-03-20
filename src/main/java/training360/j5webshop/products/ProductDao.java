@@ -18,7 +18,7 @@ public class ProductDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public List<Product> listProductsWithLimit(int start,int size) {
+    public List<Product> listProductsWithLimit(int start, int size) {
         return jdbcTemplate.query("select code, name, address, publisher, price from product limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
@@ -47,32 +47,39 @@ public class ProductDao {
         });
     }
 
-//    public void createProduct(Product product){
+    //    public void createProduct(Product product){
 //        jdbcTemplate.update("insert into product (code, name, address, publisher, price) values(?, ?, ?, ?, ?)",
 //                product.getCode(), product.getName(), product.getAddress(), product.getPublisher(), product.getPrice());
-        public long createProduct(Product product){
+    public long createProduct(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(new PreparedStatementCreator() {
-                @Override
-                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                    PreparedStatement ps = connection.prepareStatement
-                            ("insert into product (code, name, address, publisher, price) values(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                    ps.setString(1, product.getCode());
-                    ps.setString(2, product.getName());
-                    ps.setString(3, product.getAddress());
-                    ps.setString(4, product.getPublisher());
-                    ps.setInt(5, product.getPrice());
-                    return ps;
-                    }
-                }, keyHolder
-            );
-            return keyHolder.getKey().longValue();
-        }
+        jdbcTemplate.update(new PreparedStatementCreator() {
+                                @Override
+                                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                                    PreparedStatement ps = connection.prepareStatement
+                                            ("insert into product (code, name, address, publisher, price) values(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                                    ps.setString(1, product.getCode());
+                                    ps.setString(2, product.getName());
+                                    ps.setString(3, product.getAddress());
+                                    ps.setString(4, product.getPublisher());
+                                    ps.setInt(5, product.getPrice());
+                                    return ps;
+                                }
+                            }, keyHolder
+        );
+        return keyHolder.getKey().longValue();
+    }
 
     public Product findProductByAddress(String address) {
         return jdbcTemplate.queryForObject("select code, name, address, publisher, price from product where address = ?",
                 (rs, rowNum) -> new Product(rs.getString("code"), rs.getString("name"),
                         rs.getString("address"), rs.getString("publisher"), rs.getInt("price")),
                 address);
+    }
+
+        public void updateProduct(long id, Product product) {
+        jdbcTemplate.update("update product set name = ?, publisher=?, price=? where id = ?", product.getName(), product.getPublisher(), product.getPrice(), id);
+    }
+    public void deleteProductById(long id) {
+        jdbcTemplate.update("update product set status = 'TÖRÖLT' where id=?", id);
     }
 }

@@ -18,6 +18,7 @@ public class ProductService {
     }
 
     public void createProduct(Product product) {
+
         while(true) {
             if (productCodeReserved(product)) {
                 productDao.createProduct(product);
