@@ -3,7 +3,7 @@ window.onload=function(){
 }
 
 function fetchList(){
-    var url = "/api/index";
+    var url = "/api/products";
     fetch(url)
         .then(function(response){
             return response.json();
@@ -13,7 +13,7 @@ function fetchList(){
         });
 }
 function showTable(jsonData){
-    var table = document.getElementById("index-table");
+    var table = document.getElementById("products_table");
     table.innerHTML = "";
 
     for (var i = 0; i<jsonData.length; i++){
