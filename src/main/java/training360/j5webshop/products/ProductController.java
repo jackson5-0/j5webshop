@@ -12,7 +12,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products/{address}")
-    public Product findProductById(@PathVariable String address) {
+    public Product findProductByAddress(@PathVariable String address) {
         return productService.findProductByAddress(address);
 
     }
@@ -21,11 +21,6 @@ public class ProductController {
         productService.createProduct(product);
     }
 
-    @GetMapping("/products/withlimit?start={start}&size={size}")
-    public List<Product> listProductsWithLimit(@PathVariable int start, @PathVariable int size) {
-        System.out.println(start + " " +size);
-        return productService.listProductsWithLimit(start, size);
-    }
 
     @GetMapping("/products/count")
     public int getLengthOfProductList() {
@@ -33,7 +28,12 @@ public class ProductController {
     }
 
     @GetMapping("/products")
-    public List<Product> listAllProducts() {
-        return productService.listAllProducts();
+    public List<Product> listProducts(@RequestParam(required = false) int start, @RequestParam(required = false) int size) {
+        if (size != 0) {
+            return productService.listProductsWithLimit(start, size);
+        }
+        else {
+            return productService.listAllProducts();
+        }
     }
 }
