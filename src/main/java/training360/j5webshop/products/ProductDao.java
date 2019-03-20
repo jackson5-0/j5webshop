@@ -45,9 +45,9 @@ public class ProductDao {
         });
     }
 
-    public void createProduct(String code, String name, String address, String publisher, int price){
-        jdbcTemplate.update("insert into product (code,name,address,publisher,price) values(?,?,?,?,?)",
-                code,name,address,publisher,price);
+    public void createProduct(Product product){
+        jdbcTemplate.update("insert into product (code, name, address, publisher, price) values(?, ?, ?, ?, ?)",
+                product.getCode(), product.getName(), product.getAddress(), product.getPublisher(), product.getPrice());
     }
 
     public Product findProductByAddress(String address) {
