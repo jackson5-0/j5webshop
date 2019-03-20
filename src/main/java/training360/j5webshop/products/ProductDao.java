@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ProductDao {
+
     private JdbcTemplate jdbcTemplate;
 
     public ProductDao(DataSource dataSource) {
@@ -16,7 +17,7 @@ public class ProductDao {
     }
 
     public List<Product> listProductsWithLimit(int start,int size) {
-        return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop where rownum > ? limit ?", new RowMapper<Product>() {
+        return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop where limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
@@ -31,6 +32,15 @@ public class ProductDao {
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
                         resultSet.getString("address"), resultSet.getString("publisher"), resultSet.getInt("price"));
+            }
+        });
+    }
+
+    public int getLengthOfProductList() {
+        return jdbcTemplate.queryForObject("SELECT count(id) from product", new RowMapper<Integer>() {
+            @Override
+            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getInt("count(id)");
             }
         });
     }
