@@ -2,12 +2,14 @@ package training360.j5webshop.products;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class ProductDao {
     private JdbcTemplate jdbcTemplate;
 

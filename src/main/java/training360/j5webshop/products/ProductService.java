@@ -1,5 +1,8 @@
 package training360.j5webshop.products;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ProductService {
     private ProductDao productDao;
 
