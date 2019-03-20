@@ -17,7 +17,7 @@ public class ProductDao {
     }
 
     public List<Product> listProductsWithLimit(int start,int size) {
-        return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop where rownum > ? limit ?", new RowMapper<Product>() {
+        return jdbcTemplate.query("select code, name, address, publisher, price from product limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
@@ -27,7 +27,7 @@ public class ProductDao {
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop", new RowMapper<Product>() {
+        return jdbcTemplate.query("select code, name, address, publisher, price from product", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
