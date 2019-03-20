@@ -88,15 +88,13 @@
 //    public void testUpdateProduct() {
 //        //Given
 //        productDao.createProduct(new Product("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990));
-//        int id = productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
+//        long id = productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
 //        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
 //        //When
-//        Product modifiedProduct = new Product("TRNHAR01", "Trónok harca II.", "tronok-harca2", "Hasbro", 25900);
+//        Product modifiedProduct = new Product("Trónok harca II.", "Hasbro", 25900);
 //        productDao.updateProduct(id, modifiedProduct);
 //        //Then
-//        assertThat(productDao.findProductById(id).getCode, equalTo("TRNHAR01"));
 //        assertThat(productDao.findProductById(id).getName, equalTo("Trónok harca II."));
-//        assertThat(productDao.findProductById(id).getAddress, equalTo("tronok-harca2"));
 //        assertThat(productDao.findProductById(id).getPublisher, equalTo("Hasbro"));
 //        assertThat(productDao.findProductById(id).getPrice, equalTo(25900));
 //    }
@@ -105,7 +103,7 @@
 //    public void testDeleteProduct() {
 //        //Given
 //        productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
-//        int id = productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
+//        long id = productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
 //        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
 //        //When
 //        int sizeBeforeDelete = productDao.getLengthOfProductList();
