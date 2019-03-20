@@ -36,7 +36,7 @@ public class ProductDao {
     }
 
     public int getLengthOfProductList() {
-        return jdbcTemplate.queryForObject("SELECT count(id) from product", new RowMapper<Integer>() {
+        return jdbcTemplate.queryForObject("select count(id) from product", new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getInt("count(id)");
