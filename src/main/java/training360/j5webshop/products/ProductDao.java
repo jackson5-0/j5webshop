@@ -15,6 +15,13 @@ public class ProductDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    public Product findProductByAddress(String address) {
+        return jdbcTemplate.queryForObject("select code, name, address, publisher, price from j5webshop where address = ?",
+                (rs, rowNum) -> new Product(rs.getString("code"), rs.getString("name"),
+                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price")),
+                address);
+    }
+
     public List<Product> listProductsWithLimit(int start,int size) {
         return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop where rownum > ? limit ?", new RowMapper<Product>() {
             @Override
