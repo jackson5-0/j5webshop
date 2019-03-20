@@ -5,7 +5,6 @@ import org.flywaydb.core.Flyway;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -28,7 +27,7 @@ public class ProductDaoTest {
     }
 
     @Test
-    public void testInsertThanQuery() {
+    public void testFindByAddress() {
         //Given
         productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
         //When
@@ -37,7 +36,45 @@ public class ProductDaoTest {
         assertThat(product.getName(), equalTo("Hacker játszma"));
         assertThat(product.getCode(), equalTo("GEMHAC01"));
         assertThat(product.getPrice(), equalTo(3190));
+    }
 
+    @Test
+    public void testListAllProducts() {
+        //Given
+        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
+        productDao.createProduct("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990);
+        //When
+        List<Product> list = productDao.listAllProducts();
+        //Then
+        assertThat(list.size(), equalTo(2));
+        assertThat(list.get(0).getName(), equalTo("Hacker játszma"));
+        assertThat(list.get(1).getAddress(), equalTo("dixit"));
+    }
+
+    @Test
+    public void testGetLengthOfProductList() {
+        //Given
+        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
+        productDao.createProduct("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990);
+        //When
+        int num = productDao.getLengthOfProductList();
+        //Then
+        assertThat(num, equalTo(2));
+    }
+
+    @Test
+    public void testListProductsWithLimit() {
+        //Given
+        productDao.createProduct("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990);
+        productDao.createProduct("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990);
+        productDao.createProduct("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190);
+        productDao.createProduct("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990);
+        //When
+        List<Product> list = productDao.listProductsWithLimit(0,2);
+        //Then
+        assertThat(list.size(), equalTo(2));
+        assertThat(list.get(0).getName(), equalTo("Lord of Hellas"));
+        assertThat(list.get(1).getName(), equalTo("Trónok harca"));
     }
 
 
