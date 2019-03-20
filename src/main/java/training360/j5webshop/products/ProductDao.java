@@ -2,12 +2,14 @@ package training360.j5webshop.products;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+@Repository
 public class ProductDao {
     private JdbcTemplate jdbcTemplate;
 
@@ -16,7 +18,8 @@ public class ProductDao {
     }
 
     public List<Product> listProductsWithLimit(int start,int size) {
-        return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop where rownum > ? limit ?", new RowMapper<Product>() {
+        System.out.println(start + " " + size);
+        return jdbcTemplate.query("select code, name, address, publisher, price from product limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
@@ -26,7 +29,7 @@ public class ProductDao {
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select code, name, address, publisher, price from j5webshop", new RowMapper<Product>() {
+        return jdbcTemplate.query("select code, name, address, publisher, price from product", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
@@ -45,7 +48,7 @@ public class ProductDao {
     }
 
     public void createProduct(String code, String name, String address, String publisher, int price){
-        jdbcTemplate.update("insert into j5webshop(code,name,address,publisher,price) values(?,?,?,?,?)",
+        jdbcTemplate.update("insert into product(code,name,address,publisher,price) values(?,?,?,?,?)",
                 code,name,address,publisher,price);
     }
 
