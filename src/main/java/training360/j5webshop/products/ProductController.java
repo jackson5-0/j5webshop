@@ -18,8 +18,7 @@ public class ProductController {
     }
     @PostMapping("/api/products")
     public void createProduct(@RequestBody Product product){
-        productService.createProduct(product.getCode(),product.getName(),product.getAddress(),product.getPublisher()
-        ,product.getPrice());
+        productService.createProduct(product);
     }
 
     @GetMapping("/products/withlimit?start={start}&size={size}")

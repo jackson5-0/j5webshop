@@ -7,6 +7,10 @@ public class Product {
    private String publisher;
    private int price;
 
+    public Product() {
+
+    }
+
     public Product(String code, String name, String address, String publisher, int price) {
         this.code = code;
         this.name = name;
