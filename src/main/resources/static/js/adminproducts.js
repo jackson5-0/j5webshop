@@ -29,7 +29,7 @@ function showPageNavigator(jsonData) {
   var pages = document.getElementById('page-number');
   var numberOfPages = Math.ceil(jsonData / 10);
   for (var i = 1; i <= numberOfPages && i < 10; i++) {
-    pages.innerHTML += `<a href="index.html?page=${i}">${i}</a>`;
+    pages.innerHTML += `<a href="adminproducts.html?page=${i}">${i}</a>`;
   }
 }
 
