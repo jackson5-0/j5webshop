@@ -21,8 +21,9 @@ public class ProductController {
         return productService.findProductByAddress(address);
 
     }
+
     @PostMapping("/api/products")
-    public ResponseStatus createProduct(@RequestBody Product product){
+    public ResponseStatus createProduct(@RequestBody Product product) {
         Validator validator = new Validator(product);
         long id;
         if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
@@ -43,8 +44,7 @@ public class ProductController {
     public List<Product> listProducts(@RequestParam(required = false) int start, @RequestParam(required = false) int size) {
         if (size != 0) {
             return productService.listProductsWithLimit(start, size);
-        }
-        else {
+        } else {
             return productService.listAllProducts();
         }
     }
@@ -57,18 +57,20 @@ public class ProductController {
     }
 
     @PutMapping("/admin/deleteproduct/{id}")
-    public ResponseStatus deleteProductById(@PathVariable long id){
+    public ResponseStatus deleteProductById(@PathVariable long id) {
         ResponseStatus status = new ResponseStatus().addMessage("Törlés sikerült!");
         productService.deleteProductById(id);
         return status;
     }
 
     @PostMapping("/admin/updateproduct/{id}")
-    public ResponseStatus updateProduct(@PathVariable long id, @RequestBody Product product){
+    public ResponseStatus updateProduct(@PathVariable long id, @RequestBody Product product) {
 //        new Validator(product);
-        System.out.println(product);
-        productService.updateProduct(id, product);
-        return new ResponseStatus().addMessage("Sikeres módosítás!");
+        if (productService.updateProduct(id, product)) {
+            return new ResponseStatus().addMessage("Sikeres módosítás!");
+        } else {
+            ResponseStatus status = new ResponseStatus().setStatus(ValidationStatus.FAIL);
+            return status.addMessage("A megadott érték már használatban van!");
+        }
     }
-
 }
