@@ -42,27 +42,27 @@ function showProducts(jsonData) {
 
         var codeTd = document.createElement('td');
         codeTd.contentEditable = "true";
-//        codeTd.onchange = updateProduct();
+//        codeTd.onchange = updateProduct;
         codeTd.innerHTML = jsonData[i].code;
 
         var nameTd = document.createElement('td');
         nameTd.contentEditable = "true";
-//        nameTd.onchange = updateProduct();
+//        nameTd.onchange = updateProduct;
         nameTd.innerHTML = jsonData[i].name;
 
         var addressTd = document.createElement('td');
         addressTd.contentEditable = "true";
-//        addressTd.onchange = updateProduct();
+//        addressTd.onchange = updateProduct;
         addressTd.innerHTML = jsonData[i].address;
 
         var publisherTd = document.createElement('td');
         publisherTd.contentEditable = "true";
-//        publisherTd.onchange = updateProduct();
+//        publisherTd.onchange = updateProduct;
         publisherTd.innerHTML = jsonData[i].publisher;
 
         var priceTd = document.createElement('td');
         priceTd.contentEditable = "true";
-//        priceTd.onchange = updateProduct();
+//        priceTd.onchange = updateProduct;
         priceTd.innerHTML = jsonData[i].price;
 
         var statusTd = document.createElement('td');
@@ -121,16 +121,12 @@ function handleCreateForm() {
 }
 
 function deleteProduct() {
-    var id = this["raw-data"].id;
+    var id = this["raw-data"];
     if(!confirm("Biztosan törölni szeretnéd ezt a terméket?")) {
         return;
     }
-    fetch("/api/products/" + id, {
-        method: "POST",      //vagy mégis DELETE? Akkor nem kell a köv 4 sor!
-        body: JSON.stringify(request),
-        headers: {
-           "Content-type": "application/json"
-        }
+    fetch(`/admin/deleteproduct/${id}`, {
+        method: "PUT"      //vagy mégis DELETE? Akkor nem kell a köv 4 sor!
     })
     .then(function(response){
             return response.json();
