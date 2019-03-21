@@ -73,7 +73,7 @@ function showProducts(jsonData) {
         var deleteButton = document.createElement('button');
         deleteButton.innerHTML = "Termék törlése";
         deleteButton.onclick = deleteProduct;
-        buttonTd["raw-data"] = jsonData[i].id;
+        deleteButton["raw-data"] = jsonData[i].id;
         buttonTd.appendChild(deleteButton);
 
         tr.appendChild(codeTd);
@@ -123,6 +123,7 @@ function handleCreateForm() {
 
 function deleteProduct() {
     var id = this["raw-data"];
+    console.log(id);
     if(!confirm("Biztosan törölni szeretnéd ezt a terméket?")) {
         return;
     }
@@ -134,7 +135,7 @@ function deleteProduct() {
     }).then(function(jsonData) {
              if (jsonData.status == 'SUCCESS') {
                  document.getElementById("message-div").setAttribute("class", "alert alert-success");
-                 document.getElementById("message-div").innerHTML = jsonData.message;
+                 document.getElementById("message-div").innerHTML = jsonData.messages[0];
                  fetchProducts();
              }
     });
