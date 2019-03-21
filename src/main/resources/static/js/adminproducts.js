@@ -75,7 +75,9 @@ function showProducts(jsonData) {
         buttonTd["raw-data"] = jsonData[i].id;
         buttonTd.appendChild(deleteButton);
 
+        tr.appendChild(codeTd);
         tr.appendChild(nameTd);
+        tr.appendChild(addressTd);
         tr.appendChild(publisherTd);
         tr.appendChild(priceTd);
         tr.appendChild(statusTd);
