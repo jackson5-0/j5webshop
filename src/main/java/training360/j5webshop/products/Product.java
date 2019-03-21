@@ -27,21 +27,17 @@ public class Product {
     }
 
     public void setCodeAndAddress(){
-        String validName = Normalizer.normalize(this.name,Normalizer.Form.NFKD);
-        validName = validName.replaceAll("\\p{M}", "");
-        String validPublisher = Normalizer.normalize(this.publisher,Normalizer.Form.NFKD);
-        validPublisher = validPublisher.replaceAll("\\p{M}", "");
+        String validName = Normalizer.normalize(this.name,Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
+        String validPublisher = Normalizer.normalize(this.publisher,Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
         String code = validName.substring(0,3).toUpperCase() + validPublisher.substring(0,3).toUpperCase() + postfix;
-        String address = validName.toLowerCase().replace(' ','-') + postfix;
+        String address = validName.trim().toLowerCase().replace(' ','-') + postfix;
 
         setCode(code);
         setAddress(address);
     }
     public void incrementPostFix(){
         postfix = String.format("%02d",(Integer.parseInt(postfix)+1));
-        setCode(code.substring(0,6) + postfix);
-        setAddress(address+postfix);
     }
 
     public String getCode() {

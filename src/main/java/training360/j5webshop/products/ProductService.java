@@ -19,7 +19,8 @@ public class ProductService {
 
     public void createProduct(Product product) {
         while(true) {
-            if (productCodeReserved(product)) {
+            product.setCodeAndAddress();
+            if (codeUnreserved(product)) {
                 productDao.createProduct(product);
                 break;
             } else {
@@ -28,10 +29,8 @@ public class ProductService {
         }
     }
 
-    public boolean productCodeReserved(Product product) {
-        product.setCodeAndAddress();
+    public boolean codeUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            p.setCodeAndAddress();
             if (p.getCode().equals(product.getCode())) {
                 return false;
             }
