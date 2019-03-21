@@ -15,10 +15,12 @@ function fetchList(){
 
 function flushBasket(){
     var id = (new URL(document.location)).searchParams.get('id');
-        fetch(`/flushbasket/${id}`)
-            .then(function (response){
-                return response.json();
-              })
+        fetch(`/flushbasket/${id}`,{
+            method: "DELETE"
+            })
+//            .then(function (response){
+//                return response.json();
+//              })
              .then(function(jsonData){
                 showList(jsonData);
              });
