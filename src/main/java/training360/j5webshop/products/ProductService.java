@@ -56,4 +56,8 @@ public class ProductService {
         productDao.deleteProductById(id);
     }
 
+    public void updateProduct(long id, Product product){
+        productDao.updateProduct(id, product);
+    }
+
 }
