@@ -33,7 +33,7 @@ public class ProductService {
 
     private boolean addressUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            if (p.getAddress().equals(product.getAddress())) {
+            if (p.getAddress().equals(product.getAddress())&& product.getId()!=p.getId()) {
                 return false;
             }
         }
@@ -42,7 +42,7 @@ public class ProductService {
 
     private boolean codeUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            if (p.getCode().equals(product.getCode())) {
+            if (p.getCode().equals(product.getCode()) && product.getId()!=p.getId()) {
                 return false;
             }
         }

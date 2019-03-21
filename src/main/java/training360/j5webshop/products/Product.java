@@ -42,10 +42,7 @@ public class Product {
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
         String code = validName.substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
-        String address = validName.trim().toLowerCase().replace(' ', '-');
-        if (!postfix.equals("01")){
-            address+=postfix;
-        }
+        String address = validName.trim().toLowerCase().replace(' ', '-')+postfix;
 
         setCode(code);
         setAddress(address);
