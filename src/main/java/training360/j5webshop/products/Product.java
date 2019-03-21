@@ -3,22 +3,23 @@ package training360.j5webshop.products;
 import java.text.Normalizer;
 
 public class Product {
-   private String code;
-   private String name;
-   private String address;
-   private String publisher;
-   private int price;
-   private String postfix = "01";
-   private ProductStatus status = ProductStatus.ACTIVE;
+    private long id;
+    private String code;
+    private String name;
+    private String address;
+    private String publisher;
+    private int price;
+    private String postfix = "01";
+    private ProductStatus status = ProductStatus.ACTIVE;
 
     public Product() {
 
     }
 
 
-
-    public Product(String code, String name, String address, String publisher, int price, String status) {
-        this(name,publisher,price);
+    public Product(long id, String code, String name, String address, String publisher, int price, String status) {
+        this(name, publisher, price);
+        this.id = id;
         this.code = code;
         this.address = address;
         this.status = ProductStatus.valueOf(status);
@@ -30,18 +31,19 @@ public class Product {
         this.price = price;
     }
 
-    public void setCodeAndAddress(){
-        String validName = Normalizer.normalize(this.name,Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
-        String validPublisher = Normalizer.normalize(this.publisher,Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
+    public void setCodeAndAddress() {
+        String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
+        String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
-        String code = validName.substring(0,3).toUpperCase() + validPublisher.substring(0,3).toUpperCase() + postfix;
-        String address = validName.trim().toLowerCase().replace(' ','-') + postfix;
+        String code = validName.substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
+        String address = validName.trim().toLowerCase().replace(' ', '-') + postfix;
 
         setCode(code);
         setAddress(address);
     }
-    public void incrementPostFix(){
-        postfix = String.format("%02d",(Integer.parseInt(postfix)+1));
+
+    public void incrementPostFix() {
+        postfix = String.format("%02d", (Integer.parseInt(postfix) + 1));
     }
 
     public String getCode() {
@@ -84,6 +86,14 @@ public class Product {
         this.price = price;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public ProductStatus getStatus() {
         return status;
     }
@@ -95,7 +105,13 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "code='" + code + '\'' +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", price=" + price +
+                ", status=" + status +
                 '}';
     }
 }
