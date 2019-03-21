@@ -20,7 +20,7 @@ public class ProductDao {
     }
 
     public List<Product> listProductsWithLimit(int start, int size) {
-        return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product where status != 'DELETED' limit ?,?", new RowMapper<Product>() {
+        return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product where status != 'DELETED' order by name, publisher limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
@@ -31,7 +31,7 @@ public class ProductDao {
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product", new RowMapper<Product>() {
+        return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product order by name, publisher", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
