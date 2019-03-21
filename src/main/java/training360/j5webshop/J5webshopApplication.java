@@ -26,9 +26,10 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/", "/products/**", "/api/products", "/products/count", "/products").permitAll()
-				.antMatchers().hasRole("USER")
-				.antMatchers("/adminproducts.html", "/admin/deleteproduct/**", "/admin/updateproduct/**").hasRole("ADMIN")
+				.antMatchers("/", "/products/**", "/api/products", "/products/count", "/products")
+					.permitAll()
+				.antMatchers("/adminproducts.html", "/admin/deleteproduct/**", "/admin/updateproduct/**")
+					.hasRole("ADMIN")
 				.and()
 				.formLogin()
 				.and()
@@ -44,7 +45,7 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 	public void configureGlobal(AuthenticationManagerBuilder auth, DataSource dataSource,
 								PasswordEncoder passwordEncoder) throws Exception {
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder)
-				.usersByUsernameQuery("select name, password, enabled from users where name = ?")
-				.authoritiesByUsernameQuery("select name, role from users where name = ?");
+				.usersByUsernameQuery("select username, password, enabled from users where username=?")
+				.authoritiesByUsernameQuery("select username, role from users where username = ?");
 	}
 }

@@ -2,6 +2,7 @@ package training360.j5webshop.products;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.validation.ValidationStatus;
 import training360.j5webshop.products.validation.ValidationStatus;
