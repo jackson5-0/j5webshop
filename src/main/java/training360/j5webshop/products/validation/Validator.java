@@ -12,7 +12,7 @@ public class Validator {
         checkPublisher(product.getPublisher());
         checkPrice(product.getPrice());
         if (responseStatus.getMessages().size() > 0) {
-            responseStatus.setStatus(ProductStatus.FAIL);
+            responseStatus.setStatus(ValidationStatus.FAIL);
         }
     }
 

@@ -3,7 +3,8 @@ package training360.j5webshop.products;
 import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import training360.j5webshop.products.validation.ProductStatus;
+import training360.j5webshop.products.validation.ValidationStatus;
+import training360.j5webshop.products.validation.ValidationStatus;
 import training360.j5webshop.products.validation.Validator;
 import training360.j5webshop.products.validation.ResponseStatus;
 
@@ -24,7 +25,7 @@ public class ProductController {
     public ResponseStatus createProduct(@RequestBody Product product){
         Validator validator = new Validator(product);
         long id;
-        if (validator.getResponseStatus().getStatus() == ProductStatus.SUCCESS) {
+        if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
             id = productService.createProduct(product);
             validator.getResponseStatus().addMessage("A terméket (id: " + id + ") sikeresen hozzáadta az adatbázishoz.");
             return validator.getResponseStatus();
@@ -51,7 +52,7 @@ public class ProductController {
     @ExceptionHandler(JsonParseException.class)
     public ResponseStatus handleParseException(Exception exception) {
         ResponseStatus status = new ResponseStatus().addMessage("Hibás formátum!");
-        status.setStatus(ProductStatus.FAIL);
+        status.setStatus(ValidationStatus.FAIL);
         return status;
     }
 }

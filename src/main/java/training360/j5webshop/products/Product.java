@@ -9,15 +9,19 @@ public class Product {
    private String publisher;
    private int price;
    private String postfix = "01";
+   private ProductStatus status = ProductStatus.ACTIVE;
 
     public Product() {
 
     }
 
-    public Product(String code, String name, String address, String publisher, int price) {
+
+
+    public Product(String code, String name, String address, String publisher, int price, String status) {
         this(name,publisher,price);
         this.code = code;
         this.address = address;
+        this.status = ProductStatus.valueOf(status);
     }
 
     public Product(String name, String publisher, int price) {
@@ -78,6 +82,14 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public ProductStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProductStatus status) {
+        this.status = status;
     }
 
     @Override

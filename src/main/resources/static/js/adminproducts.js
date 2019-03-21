@@ -66,8 +66,6 @@ function showProducts(jsonData) {
         priceTd.innerHTML = jsonData[i].price;
 
         var statusTd = document.createElement('td');
-        statusTd.contentEditable = "true";
-        statusTd.onchange = updateProduct();
         statusTd.innerHTML = jsonData[i].status;
 
         var buttonTd = document.createElement('td');
@@ -105,7 +103,7 @@ function handleCreateForm() {
         return response.json();
       })
       .then(function(jsonData) {
-         if (jsonData.ok) {
+         if (jsonData.status == 'SUCCESS') {         //?
             document.getElementById("name-input").value = "";
             document.getElementById("publisher-input").value = "";
             document.getElementById("price-input").value = "";

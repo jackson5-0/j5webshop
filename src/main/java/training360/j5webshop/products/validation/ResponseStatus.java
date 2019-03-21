@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ResponseStatus {
 
-    private ProductStatus status = ProductStatus.SUCCESS;
+    private ValidationStatus status = ValidationStatus.SUCCESS;
     private List<String> messages = new ArrayList<>();
 
     public ResponseStatus addMessage(String message) {
@@ -13,12 +13,12 @@ public class ResponseStatus {
         return this;
     }
 
-    public ResponseStatus setStatus(ProductStatus status) {
+    public ResponseStatus setStatus(ValidationStatus status) {
         this.status = status;
         return this;
     }
 
-    public ProductStatus getStatus() {
+    public ValidationStatus getStatus() {
         return status;
     }
 

@@ -19,21 +19,23 @@ public class ProductDao {
     }
 
     public List<Product> listProductsWithLimit(int start, int size) {
-        return jdbcTemplate.query("select code, name, address, publisher, price from product limit ?,?", new RowMapper<Product>() {
+        return jdbcTemplate.query("select code, name, address, publisher, price, status from product limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
-                        resultSet.getString("address"), resultSet.getString("publisher"), resultSet.getInt("price"));
+                        resultSet.getString("address"), resultSet.getString("publisher"),
+                        resultSet.getInt("price"), resultSet.getString("status"));
             }
         }, start, size);
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select code, name, address, publisher, price from product", new RowMapper<Product>() {
+        return jdbcTemplate.query("select code, name, address, publisher, price, status from product", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getString("code"), resultSet.getString("name"),
-                        resultSet.getString("address"), resultSet.getString("publisher"), resultSet.getInt("price"));
+                        resultSet.getString("address"), resultSet.getString("publisher"),
+                        resultSet.getInt("price"), resultSet.getString("status"));
             }
         });
     }
@@ -56,12 +58,13 @@ public class ProductDao {
                                 @Override
                                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                                     PreparedStatement ps = connection.prepareStatement
-                                            ("insert into product (code, name, address, publisher, price) values(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                                            ("insert into product (code, name, address, publisher, price, status) values(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                                     ps.setString(1, product.getCode());
                                     ps.setString(2, product.getName());
                                     ps.setString(3, product.getAddress());
                                     ps.setString(4, product.getPublisher());
                                     ps.setInt(5, product.getPrice());
+                                    ps.setString(6, product.getStatus().name());
                                     return ps;
                                 }
                             }, keyHolder
@@ -70,16 +73,17 @@ public class ProductDao {
     }
 
     public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select code, name, address, publisher, price from product where address = ?",
+        return jdbcTemplate.queryForObject("select code, name, address, publisher, price, status from product where address = ?",
                 (rs, rowNum) -> new Product(rs.getString("code"), rs.getString("name"),
-                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price")),
+                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status")),
                 address);
     }
 
         public void updateProduct(long id, Product product) {
-        jdbcTemplate.update("update product set name = ?, publisher=?, price=? where id = ?", product.getName(), product.getPublisher(), product.getPrice(), id);
+        jdbcTemplate.update("update product set code = ?, name = ?, address = ?, publisher=?, price=? where id = ?",
+                product.getCode(), product.getName(), product.getAddress(), product.getPublisher(), product.getPrice(), id);
     }
     public void deleteProductById(long id) {
-        jdbcTemplate.update("update product set status = 'TÖRÖLT' where id=?", id);
+        jdbcTemplate.update("update product set status = 'DELETED' where id=?", id);
     }
 }
