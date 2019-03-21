@@ -63,4 +63,11 @@ public class ProductController {
         return status;
     }
 
+    @PostMapping("/admin/updateproduct/{id}")
+    public ResponseStatus updateProduct(@PathVariable long id, @RequestBody Product product){
+//        new Validator(product);
+        productService.updateProduct(id, product);
+        return new ResponseStatus().addMessage("Sikeres módosítás!");
+    }
+
 }

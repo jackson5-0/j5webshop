@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
+
 @Repository
 public class ProductDao {
     private JdbcTemplate jdbcTemplate;
@@ -79,10 +80,24 @@ public class ProductDao {
                 address);
     }
 
-        public void updateProduct(long id, Product product) {
-        jdbcTemplate.update("update product set code = ?, name = ?, address = ?, publisher=?, price=? where id = ?",
-                product.getCode(), product.getName(), product.getAddress(), product.getPublisher(), product.getPrice(), id);
+    public Product findProductById(long id) {
+        return jdbcTemplate.queryForObject("select code, name, address, publisher, price, status from product where id = ?",
+                (rs, rowNum) -> new Product(rs.getString("code"), rs.getString("name"),
+                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status")), id);
     }
+
+    public void updateProduct(long id, Product product) {
+        String code = product.getCode()== null ? findProductById(id).getCode() : product.getCode();
+        String name = product.getName() == null ? findProductById(id).getName() : product.getName();
+        String address = product.getAddress() == null? findProductById(id).getAddress() : product.getAddress();
+        String publisher = product.getPublisher() == null ? findProductById(id).getPublisher() : product.getPublisher();
+        int price = product.getPrice() == 0 ? findProductById(id).getPrice() : product.getPrice();
+        String status = product.getStatus() == null ? findProductById(id).getStatus().name() : product.getStatus().name();
+
+        jdbcTemplate.update("update product set code = ?, name = ?, address = ?, publisher=?, price=? , status = ? where id = ?",
+               code, name, address, publisher, price, status, id);
+    }
+
     public void deleteProductById(long id) {
         jdbcTemplate.update("update product set status = 'DELETED' where id=?", id);
     }
