@@ -179,6 +179,10 @@ function updateProduct() {
                  document.getElementById("message-div").innerHTML = jsonData.messages[0];
                  fetchProducts();
              }
+             if (jsonData.status=='FAIL'){
+                 document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+                 document.getElementById("message-div").innerHTML = jsonData.messages[0];
+                 fetchProducts();}
     });
     return false;
 }

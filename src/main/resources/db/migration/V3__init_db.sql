@@ -1,20 +1,20 @@
-CREATE TABLE order (
+create table orders (
 id BIGINT AUTO_INCREMENT,
 user_id BIGINT,
 status VARCHAR(100),
 purchase_date datetime,
-constraint pk_order PRIMARY KEY (id),
-constraint fk_order_users FOREIGN KEY order(user_id) REFERENCES users(id),
+constraint pk_orders PRIMARY KEY (id),
+constraint fk_orders_users FOREIGN KEY orders(user_id) REFERENCES users(id)
 )
 engine=InnoDb character set = UTF8 collate = utf8_hungarian_ci;
 
-CREATE TABLE order_item(
+create table order_item (
 id BIGINT AUTO_INCREMENT,
-order_id BIGINT,
+orders_id BIGINT,
 product_id BIGINT,
 price BIGINT,
 constraint pk_order_item PRIMARY KEY(id),
-constraint fk_order_item_order FOREIGN KEY order_item(order_id) REFERENCES order(id),
+constraint fk_order_item_orders FOREIGN KEY order_item(orders_id) REFERENCES orders(id),
 constraint fk_order_item_product FOREIGN KEY order_item(product_id) REFERENCES product(id)
 )
 engine=InnoDb character set = UTF8 collate = utf8_hungarian_ci;

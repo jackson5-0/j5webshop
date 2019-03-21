@@ -19,9 +19,9 @@ public class ProductService {
 
     public long createProduct(Product product) {
         long id;
-        while(true) {
+        while (true) {
             product.setCodeAndAddress();
-            if (codeUnreserved(product)) {
+            if (codeUnreserved(product) && addressUnreserved(product)) {
                 id = productDao.createProduct(product);
                 break;
             } else {
@@ -31,9 +31,18 @@ public class ProductService {
         return id;
     }
 
-    public boolean codeUnreserved(Product product) {
+    private boolean addressUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            if (p.getCode().equals(product.getCode())) {
+            if (p.getAddress().equals(product.getAddress())&& product.getId()!=p.getId()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean codeUnreserved(Product product) {
+        for (Product p : productDao.listAllProducts()) {
+            if (p.getCode().equals(product.getCode()) && product.getId()!=p.getId()) {
                 return false;
             }
         }
@@ -52,12 +61,16 @@ public class ProductService {
         return productDao.getLengthOfProductList();
     }
 
-    public void deleteProductById(long id){
+    public void deleteProductById(long id) {
         productDao.deleteProductById(id);
     }
 
-    public void updateProduct(long id, Product product){
-        productDao.updateProduct(id, product);
+    public boolean updateProduct(long id, Product product) {
+        if (addressUnreserved(product) && codeUnreserved(product)) {
+            productDao.updateProduct(id, product);
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }

@@ -25,6 +25,12 @@ public class Product {
         this.status = ProductStatus.valueOf(status);
     }
 
+    public Product(String code, String name, String address, String publisher, int price) {
+        this(name, publisher, price);
+        this.code = code;
+        this.address = address;
+    }
+
     public Product(String name, String publisher, int price) {
         this.name = name;
         this.publisher = publisher;
@@ -36,7 +42,7 @@ public class Product {
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
         String code = validName.substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
-        String address = validName.trim().toLowerCase().replace(' ', '-') + postfix;
+        String address = validName.trim().toLowerCase().replace(' ', '-')+postfix;
 
         setCode(code);
         setAddress(address);
