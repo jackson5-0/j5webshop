@@ -7,6 +7,7 @@ import training360.j5webshop.products.validation.ProductStatus;
 import training360.j5webshop.products.validation.Validator;
 import training360.j5webshop.products.validation.ResponseStatus;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 @RestController
@@ -24,8 +25,8 @@ public class ProductController {
     public ResponseStatus createProduct(@RequestBody Product product){
         Validator validator = new Validator(product);
         if (validator.getResponseStatus().getStatus() == ProductStatus.SUCCESS) {
-            productService.createProduct(product);
-            validator.getResponseStatus().addMessage("A termék sikeresen hozzáadva!");
+            long id = productService.createProduct(product);
+            validator.getResponseStatus().addMessage(MessageFormat.format("A terméket (id: {0}) sikeresen hozzáadta az adatbázishoz.", id));
             return validator.getResponseStatus();
         }
         return validator.getResponseStatus();
