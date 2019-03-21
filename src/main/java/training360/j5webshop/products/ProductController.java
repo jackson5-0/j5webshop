@@ -55,4 +55,12 @@ public class ProductController {
         status.setStatus(ValidationStatus.FAIL);
         return status;
     }
+
+    @PutMapping("/admin/deleteproduct/{id}")
+    public ResponseStatus deleteProductById(@PathVariable long id){
+        ResponseStatus status = new ResponseStatus().addMessage("Törlés sikerült!");
+        productService.deleteProductById(id);
+        return status;
+    }
+
 }
