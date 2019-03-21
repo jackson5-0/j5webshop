@@ -43,25 +43,31 @@ function showProducts(jsonData) {
         var codeTd = document.createElement('td');
         codeTd.contentEditable = "true";
         codeTd.innerHTML = jsonData[i].code;
+        codeTd.setAttribute('id', 'code-Td' + jsonData[i].id)
 
         var nameTd = document.createElement('td');
         nameTd.contentEditable = "true";
         nameTd.innerHTML = jsonData[i].name;
+        nameTd.setAttribute('id', 'name-Td' + jsonData[i].id)
 
         var addressTd = document.createElement('td');
         addressTd.contentEditable = "true";
         addressTd.innerHTML = jsonData[i].address;
+        addressTd.setAttribute('id', 'address-Td' + jsonData[i].id)
 
         var publisherTd = document.createElement('td');
         publisherTd.contentEditable = "true";
         publisherTd.innerHTML = jsonData[i].publisher;
+        publisherTd.setAttribute('id', 'publisher-Td' + jsonData[i].id)
 
         var priceTd = document.createElement('td');
         priceTd.contentEditable = "true";
         priceTd.innerHTML = jsonData[i].price;
+        priceTd.setAttribute('id', 'price-Td' + jsonData[i].id)
 
         var statusTd = document.createElement('td');
         statusTd.innerHTML = jsonData[i].status;
+        statusTd.setAttribute('id', 'status-Td' + jsonData[i].id)
 
         var buttonTd = document.createElement('td');
         var deleteButton = document.createElement('button');
@@ -144,11 +150,11 @@ function deleteProduct() {
 
 function updateProduct() {
     var id = this["raw-data"].id;           //vagy =(new URL(document.location)).searchParams.get("id");
-    var code = this["raw-data"].code;
-    var name = this["raw-data"].name;
-    var address = this["raw-data"].address;
-    var publisher = this["raw-data"].publisher;
-    var price = this["raw-data"].price;
+    var code = document.getElementById('code-Td' + id).innerHTML;
+    var name = document.getElementById('name-Td' + id).innerHTML;
+    var address = document.getElementById('address-Td' + id).innerHTML;
+    var publisher = document.getElementById('publisher-Td' + id).innerHTML;
+    var price = document.getElementById('price-Td' + id).innerHTML;
     var request = {
             "id": id,
             "code": code,

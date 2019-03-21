@@ -105,7 +105,13 @@ public class Product {
     @Override
     public String toString() {
         return "Product{" +
-                "code='" + code + '\'' +
+                "id=" + id +
+                ", code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", price=" + price +
+                ", status=" + status +
                 '}';
     }
 }
