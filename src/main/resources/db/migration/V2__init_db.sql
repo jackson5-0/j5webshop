@@ -4,6 +4,7 @@ firstname VARCHAR(255),
 lastname VARCHAR(255),
 username VARCHAR(255) UNIQUE,
 password VARCHAR(255),
+enabled tinyint,
 role VARCHAR(255)
 )
 engine=InnoDb character set = UTF8 collate = utf8_hungarian_ci;
