@@ -17,7 +17,7 @@ public class BasketController {
         basketService.createBasket(userId);
     }
 
-    @PutMapping("/addtobasket/{basketId}")
+    @PostMapping("/addtobasket/{basketId}")
     public void addToBasket(@PathVariable long basketId,@RequestBody Product product) {
         basketService.addToBasket(basketId, product);
     }

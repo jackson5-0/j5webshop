@@ -45,28 +45,21 @@ function showProducts(jsonData) {
     var address = document.createElement('span');
     var publisher = document.createElement('span');
     var price = document.createElement('span');
-    var addToBasket = document.createElement('button');
+
 
     code.innerHTML = jsonData[i].code;
     name.innerHTML = jsonData[i].name;
     address.innerHTML = jsonData[i].address;
     publisher.innerHTML = jsonData[i].publisher;
     price.innerHTML = jsonData[i].price;
-    addToBasket.innerHTML = 'Kosárba';
-    addToBasket.onclick = addBasket;
-    addtoBasket["raw-data"] = jsonData[i];
 
     product.appendChild(code);
     product.appendChild(name);
     product.appendChild(address);
     product.appendChild(publisher);
     product.appendChild(price);
-    product.appendChild(addToBasket);
+
 
     allProducts.appendChild(product);
   }
 }
-funciton addBasket(){
-   id = this["raw-data"].id;
-   fetch (`/addtobasket/&{id}`)
-    }

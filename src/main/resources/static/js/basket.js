@@ -4,6 +4,7 @@ flush.onclick=flushBasket;
 
 function fetchList(){
     var id = (new URL(document.location)).searchParams.get('id');
+    console.log(id);
     fetch(`/productofbasket/${id}`)
         .then(function (response){
             return response.json();
