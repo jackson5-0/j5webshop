@@ -22,7 +22,6 @@ public class ProductService {
         while(true) {
             product.setCodeAndAddress();
             if (codeUnreserved(product)) {
-                productDao.createProduct(product);
                 id = productDao.createProduct(product);
                 break;
             } else {
