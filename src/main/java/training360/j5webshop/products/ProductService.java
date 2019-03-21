@@ -51,4 +51,13 @@ public class ProductService {
     public int getLengthOfProductList() {
         return productDao.getLengthOfProductList();
     }
+
+    public void deleteProductById(long id){
+        productDao.deleteProductById(id);
+    }
+
+    public void updateProduct(long id, Product product){
+        productDao.updateProduct(id, product);
+    }
+
 }
