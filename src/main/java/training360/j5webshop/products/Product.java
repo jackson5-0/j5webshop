@@ -9,15 +9,19 @@ public class Product {
    private String publisher;
    private int price;
    private String postfix = "01";
+   private ProductStatus status = ProductStatus.ACTIVE;
 
     public Product() {
 
     }
 
-    public Product(String code, String name, String address, String publisher, int price) {
+
+
+    public Product(String code, String name, String address, String publisher, int price, String status) {
         this(name,publisher,price);
         this.code = code;
         this.address = address;
+        this.status = ProductStatus.valueOf(status);
     }
 
     public Product(String name, String publisher, int price) {
@@ -27,21 +31,17 @@ public class Product {
     }
 
     public void setCodeAndAddress(){
-        String validName = Normalizer.normalize(this.name,Normalizer.Form.NFKD);
-        validName = validName.replaceAll("\\p{M}", "");
-        String validPublisher = Normalizer.normalize(this.publisher,Normalizer.Form.NFKD);
-        validPublisher = validPublisher.replaceAll("\\p{M}", "");
+        String validName = Normalizer.normalize(this.name,Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
+        String validPublisher = Normalizer.normalize(this.publisher,Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
         String code = validName.substring(0,3).toUpperCase() + validPublisher.substring(0,3).toUpperCase() + postfix;
-        String address = validName.toLowerCase().replace(' ','-') + postfix;
+        String address = validName.trim().toLowerCase().replace(' ','-') + postfix;
 
         setCode(code);
         setAddress(address);
     }
     public void incrementPostFix(){
         postfix = String.format("%02d",(Integer.parseInt(postfix)+1));
-        setCode(code.substring(0,6) + postfix);
-        setAddress(address+postfix);
     }
 
     public String getCode() {
@@ -82,6 +82,14 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public ProductStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ProductStatus status) {
+        this.status = status;
     }
 
     @Override

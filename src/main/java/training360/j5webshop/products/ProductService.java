@@ -18,19 +18,21 @@ public class ProductService {
     }
 
     public long createProduct(Product product) {
+        long id;
         while(true) {
-            if (productCodeReserved(product)) {
-                return productDao.createProduct(product);
+            product.setCodeAndAddress();
+            if (codeUnreserved(product)) {
+                id = productDao.createProduct(product);
+                break;
             } else {
                 product.incrementPostFix();
             }
         }
+        return id;
     }
 
-    public boolean productCodeReserved(Product product) {
-        product.setCodeAndAddress();
+    public boolean codeUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            p.setCodeAndAddress();
             if (p.getCode().equals(product.getCode())) {
                 return false;
             }
