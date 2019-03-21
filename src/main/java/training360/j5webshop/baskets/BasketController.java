@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.Product;
 
-import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class BasketController {
@@ -28,7 +28,7 @@ public class BasketController {
     }
 
     @GetMapping("/productofbasket/{basketId}")
-    public Map<Product, Integer> listProductsOfBasket(@PathVariable long basketId) {
-        return basketService.listProductsOfBasket(basketId);
+    public Set<Product> listProductsOfBasket(@PathVariable long basketId) {
+        return basketService.listProductsOfBasket(basketId).keySet();
     }
 }
