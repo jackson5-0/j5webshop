@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Termékadminisztrációs oldal</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<header></header>
+<main>
+    <div id ="product-registration">
+        <h1>Termék-regisztráció</h1>
+        <br>
+        <form id="product-registration-form">
+            <label>Megnevezés: <input name="name-input" id="name-input"></label><br>
+            <label>Gyártó: <input name="publisher-input" id="publisher-input"></label><br>
+            <label>Ár: <input name="price-input" id="price-input"></label><br>
+            <input type="submit" value="Mentés">
+        </form>
+        <div id="message-div"></div>
+    </div>
+    <div>
+        <h1>Termékeink:</h1>
+        <table class="table table-hover" id="products-table">
+            <thead>
+                <tr>
+                    <th>Termékkód</th>
+                    <th>Megnevezés</th>
+                    <th>URL-cím</th>
+                    <th>Gyártó</th>
+                    <th>Ár</th>
+                    <th>Állapot</th>
+                    <th>Törlés</th>
+                </tr>
+            </thead>
+            <tbody id="products-tablebody">
+
+            </tbody>
+        </table>
+    </div>
+    <div id="page-number"></div>
+</main>
+<footer></footer>
+<script src="/js/adminproducts.js"></script>
+</body>
+</html>
