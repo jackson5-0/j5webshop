@@ -115,7 +115,7 @@ function handleCreateForm() {
          } else {
             document.getElementById("message-div").setAttribute("class", "alert alert-danger");
          }
-           document.getElementById("message-div").innerHTML = jsonData.message;
+           document.getElementById("message-div").innerHTML = jsonData.messages[0];
       });
     return false;
 }
