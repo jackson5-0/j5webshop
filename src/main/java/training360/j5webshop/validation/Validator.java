@@ -1,4 +1,4 @@
-package training360.j5webshop.products.validation;
+package training360.j5webshop.validation;
 
 import training360.j5webshop.products.Product;
 

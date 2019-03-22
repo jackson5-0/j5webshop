@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.Product;
-import training360.j5webshop.baskets.validation.ValidationStatus;
-import training360.j5webshop.baskets.validation.ResponseStatus;
+import training360.j5webshop.validation.ValidationStatus;
+import training360.j5webshop.validation.ResponseStatus;
 
 import java.util.Map;
 import java.util.Set;

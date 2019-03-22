@@ -1,4 +1,4 @@
-package training360.j5webshop.products.validation;
+package training360.j5webshop.validation;
 
 import java.util.ArrayList;
 import java.util.List;
