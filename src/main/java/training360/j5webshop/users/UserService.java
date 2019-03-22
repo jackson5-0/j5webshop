@@ -22,6 +22,8 @@ public class UserService {
 
     public long addUser(User user){
         String savedPassword = passwordEncoder.encode(user.getPassword());
-        return userDao.addUser(new User(user.getFirstName(), user.getLastName(), user.getUserName(), savedPassword));
+        long id =userDao.addUser(new User(user.getFirstName(), user.getLastName(), user.getUserName(), savedPassword));
+        basketDao.createBasket(id);
+        return id;
     }
 }
