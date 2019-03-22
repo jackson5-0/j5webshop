@@ -6,9 +6,12 @@ public class User {
     private String lastName;
     private String userName;
     private String password;
-    private Role role = Role.USER;
+    private Role role = Role.ROLE_USER;
 
-    public User(long id, String lastName, String firstName, String userName, String password) {
+    public User() {
+    }
+
+    public User(long id, String firstName, String lastName, String userName, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -16,7 +19,7 @@ public class User {
         this.password = password;
     }
 
-    public User(String lastName, String firstName, String userName, String password) {
+    public User(String firstName, String lastName, String userName, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = userName;
