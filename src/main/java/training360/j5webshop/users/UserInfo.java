@@ -6,6 +6,7 @@ public class UserInfo {
 
     private String userName;
     private UserRole userRole;
+    private long basketId;
 
     public UserInfo() {
     }
@@ -24,5 +25,13 @@ public class UserInfo {
 
     public UserRole getUserRole() {
         return userRole;
+    }
+
+    public long getBasketId() {
+        return basketId;
+    }
+
+    public void setBasketId(long basketId) {
+        this.basketId = basketId;
     }
 }

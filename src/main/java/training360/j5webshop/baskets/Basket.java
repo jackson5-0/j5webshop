@@ -2,19 +2,25 @@ package training360.j5webshop.baskets;
 
 import training360.j5webshop.products.Product;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Basket {
 
     private long id;
     private long userId;
-    private Map<Product, Integer> products;
+    private Map<Product, Integer> products = new HashMap<>();
 
     public Basket() {
     }
 
     public Basket(Map<Product, Integer> products) {
         this.products = products;
+    }
+
+    public Basket(long id, long userId) {
+        this.id = id;
+        this.userId = userId;
     }
 
     public void addProduct(Product product, Integer numOfProduct) {
