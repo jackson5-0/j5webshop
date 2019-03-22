@@ -1,5 +1,6 @@
 window.onload = function () {
     fetchProduct();
+    fetchUser();
 };
 
 function fetchProduct() {
@@ -22,6 +23,7 @@ function fetchProduct() {
         });
 }
 function addBasket(){
+    console.log(user);      //!!!!!!
    id = this["raw-data"];
    var basketId = 1; //Honnan kéne jönnie?
    var request = {
