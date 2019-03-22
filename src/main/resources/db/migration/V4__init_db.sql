@@ -6,3 +6,7 @@ values ('John', 'Doe', 'user', '$2a$10$JOjWsrAQH5/FmHQE6IXGx.lDMgET6lKXe9Icnnl06
 
 insert into users(firstname, lastname, username, password, enabled, role)
 values ('Jack', 'Doe', 'user1', '$2a$10$JOjWsrAQH5/FmHQE6IXGx.lDMgET6lKXe9Icnnl06Fy3Zo8xOgNAW', 1, 'ROLE_USER');
+
+insert into basket(id, users_id) values (1,1);
+insert into basket(id, users_id) values (2,2);
+insert into basket(id, users_id) values (3,3);
