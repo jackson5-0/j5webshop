@@ -28,7 +28,7 @@ public class BasketController {
             return rs.addMessage("A termék bekerült a kosárba!");
         } else {
             rs.setStatus(ValidationStatus.FAIL);
-            return rs.addMessage("A termék csak egyszer kerülhet a kosárba!");
+            return rs.addMessage("A termék már a kosárban van!");
         }
     }
 

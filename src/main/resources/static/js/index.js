@@ -1,5 +1,4 @@
 fetchProducts();
-
 function fetchProducts() {
   fetchPageNavigators();
   var pageNum = (new URL(document.location)).searchParams.get('page');

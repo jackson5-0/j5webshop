@@ -19,9 +19,13 @@ function flushBasket(){
         fetch(`/flushbasket/${id}`,{
             method: "DELETE"
             })
-//            .then(function (response){
-//                return response.json();
-//              })
+            .then(function (response){
+                return response.json();
+             })
+             .then(function (jsonData) {
+                document.getElementById("message-div").setAttribute("class", "alert alert-success");
+                document.getElementById("message-div").innerHTML = jsonData.messages;
+             })
              .then(function(jsonData){
                 showList(jsonData);
              });

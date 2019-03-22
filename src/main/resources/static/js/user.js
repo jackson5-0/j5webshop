@@ -9,5 +9,3 @@ function fetchUser() {
             user = jsonData;
         });
 }
-
-

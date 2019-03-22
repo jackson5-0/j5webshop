@@ -1,6 +1,6 @@
 window.onload = function () {
     fetchProduct();
-    fetchUser();
+    var user = fetchUser();
 };
 
 function fetchProduct() {
@@ -23,19 +23,28 @@ function fetchProduct() {
         });
 }
 function addBasket(){
-    console.log(user);      //!!!!!!
-   id = this["raw-data"];
-   var basketId = 1; //Honnan kéne jönnie?
    var request = {
-           "basket_id" : basketId,
-           "id":id
+           "basket_id" : user.basketId,
+           "id": this["raw-data"]
            }
-   fetch(`/addtobasket/${basketId}`, {
-            method: "POST",
+   fetch(`/addtobasket/${user.basketId}`, {
+            method: "PUT",
             body: JSON.stringify(request),
             headers: {
                  "Content-type" : "application/json"
                  }
-             });
-    console.log(id);
+             })
+             .then(function(response) {
+                         return response.json();
+              })
+             .then(function (jsonData) {
+                   if (jsonData.status=='SUCCESS') {
+                     document.getElementById("message-div").setAttribute("class", "alert alert-success");
+                     document.getElementById("message-div").innerHTML = jsonData.messages;
+                   } else {
+                     document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+                     document.getElementById("message-div").innerHTML = jsonData.messages;
+                     }
+                 });
+               return false;
 }
