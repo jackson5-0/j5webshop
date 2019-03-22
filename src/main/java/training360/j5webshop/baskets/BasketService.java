@@ -19,9 +19,13 @@ public class BasketService {
         basketDao.createBasket(userId);
     }
 
-    public void addToBasket(long basketId, Product product) {
-
-        basketDao.addToBasket(basketId, product);
+    public boolean addToBasket(long basketId, Product product) {
+        if (productAlreadyAdded(basketId, product)) {
+            return false;
+        } else {
+            basketDao.addToBasket(basketId, product);
+            return true;
+        }
     }
 
     public void flushBasket(long basketId) {
@@ -30,5 +34,14 @@ public class BasketService {
 
     public Map<Product, Integer> listProductsOfBasket(long basketId) {
         return basketDao.listProductsOfBasket(basketId);
+    }
+
+    private boolean productAlreadyAdded(long basketId, Product product) {
+        for (Long l : basketDao.listProductIdsOfBasket(basketId)) {
+            if (product.getId() == l) {
+                return true;
+            }
+        }
+        return false;
     }
 }
