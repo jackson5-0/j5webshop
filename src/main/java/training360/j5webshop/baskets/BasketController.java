@@ -8,6 +8,7 @@ import training360.j5webshop.baskets.validation.ValidationStatus;
 import training360.j5webshop.baskets.validation.ResponseStatus;
 
 import java.util.Map;
+import java.util.Set;
 
 @RestController
 public class BasketController {
@@ -38,7 +39,7 @@ public class BasketController {
         }
 
     @GetMapping("/productofbasket/{basketId}")
-    public Map<Product, Integer> listProductsOfBasket(@PathVariable long basketId) {
-        return basketService.listProductsOfBasket(basketId);
+    public Set<Product> listProductsOfBasket(@PathVariable long basketId) {
+        return basketService.listProductsOfBasket(basketId).keySet();
     }
 }

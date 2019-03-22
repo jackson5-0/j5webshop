@@ -46,6 +46,7 @@ function showProducts(jsonData) {
     var publisher = document.createElement('span');
     var price = document.createElement('span');
 
+
     code.innerHTML = jsonData[i].code;
     name.innerHTML = jsonData[i].name;
     address.innerHTML = jsonData[i].address;
@@ -57,6 +58,7 @@ function showProducts(jsonData) {
     product.appendChild(address);
     product.appendChild(publisher);
     product.appendChild(price);
+
 
     allProducts.appendChild(product);
   }
