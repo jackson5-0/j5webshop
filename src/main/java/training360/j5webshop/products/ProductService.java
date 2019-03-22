@@ -24,8 +24,10 @@ public class ProductService {
             if (codeUnreserved(product) && addressUnreserved(product)) {
                 id = productDao.createProduct(product);
                 break;
-            } else {
-                product.incrementPostFix();
+            } else if(!codeUnreserved(product)){
+                product.incrementCodePostFix();
+            } else if (!addressUnreserved(product)){
+                product.incrementAddressPostFix();
             }
         }
         return id;

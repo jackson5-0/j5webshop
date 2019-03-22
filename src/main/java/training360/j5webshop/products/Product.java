@@ -10,6 +10,7 @@ public class Product {
     private String publisher;
     private int price;
     private String postfix = "01";
+    private String urlPostFix = "01";
     private ProductStatus status = ProductStatus.ACTIVE;
 
     public Product() {
@@ -41,16 +42,20 @@ public class Product {
         String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
-        String code = validName.substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
-        String address = validName.trim().toLowerCase().replace(' ', '-')+postfix;
+        String code = validName.replaceAll(" ","").substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
+        String address = validName.replaceAll(" ","").toLowerCase().replace(' ', '-');
+        if (Integer.parseInt(urlPostFix)!=1){
+            address+=urlPostFix;
+        }
 
         setCode(code);
         setAddress(address);
     }
 
-    public void incrementPostFix() {
+    public void incrementCodePostFix() {
         postfix = String.format("%02d", (Integer.parseInt(postfix) + 1));
     }
+    public void incrementAddressPostFix(){ urlPostFix = String.format("%02d", (Integer.parseInt(urlPostFix) + 1));}
 
     public String getCode() {
         return code;
