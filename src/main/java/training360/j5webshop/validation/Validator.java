@@ -1,10 +1,23 @@
 package training360.j5webshop.validation;
 
 import training360.j5webshop.products.Product;
+import training360.j5webshop.users.User;
+
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class Validator {
 
     private ResponseStatus responseStatus;
+
+    public Validator(User user, List<User> userList) {
+        responseStatus = new ResponseStatus();
+        checkUsername(user.getUserName(), userList);
+        checkPassword(user.getPassword());
+        if (responseStatus.getMessages().size() > 0) {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
 
     public Validator(Product product) {
         responseStatus = new ResponseStatus();
@@ -37,6 +50,26 @@ public class Validator {
             responseStatus.addMessage("Az ár nem lehet nulla, vagy negatív szám!");
         } else if (price > 2_000_000) {
             responseStatus.addMessage("Az ár nem lehet nagyobb 2.000.000 Ft-nál!");
+        }
+    }
+
+    private void checkUsername(String userName, List<User> userList){
+        for (User user : userList){
+            if (user.getUserName().equals(userName)){
+                responseStatus.addMessage("A kért felhasználónév foglalt!");
+            }
+        }
+        String pattern = "^[a-zA-Z0-9._-]{3,}$";
+        if (!userName.matches(pattern)){
+            responseStatus.addMessage("A felhasználói név legalább 3 karakter hosszú legyen, csak számot, kis- és nagybetűt, pontot, alulvonást és kötőjelet tartalmazhat!");
+        }
+
+    }
+
+    private void checkPassword(String password){
+        String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
+        if (password.length() < 8 || !password.matches(pattern)){
+            responseStatus.addMessage("A jelszó minimum 8 karakter hosszú legyen, tartalmazzon kis-és nagybetűt, számot és speciális karaktert!");
         }
     }
 

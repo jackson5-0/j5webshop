@@ -1,7 +1,8 @@
 document.forms["user-registration-form"].onsubmit = handleCreateForm;
 
 function handleCreateForm() {
-    var name = document.getElementById("name-input").value;
+    var lastName = document.getElementById("lastname-input").value;
+    var firstName = document.getElementById("firstname-input").value;
     var username = document.getElementById("username-input").value;
     var password1 = document.getElementById("password-input").value;
     var password2 = document.getElementById("password-again-input").value;
@@ -10,7 +11,8 @@ function handleCreateForm() {
         document.getElementById("message-div").innerHTML = "A két jelszó nem egyezik!";
     } else {
         var request = {
-            "name" : name,
+            "firstName" : firstName,
+            "lastName" : lastName,
             "userName" : username,
             "password" : password1,
         };
@@ -25,7 +27,8 @@ function handleCreateForm() {
         })
         .then(function(jsonData) {
             if (jsonData.status == 'SUCCESS') {
-                document.getElementById("name-input").value = "";
+                document.getElementById("firstname-input").value = "";
+                document.getElementById("lastname-input").value = "";
                 document.getElementById("username-input").value = "";
                 document.getElementById("password-input").value = "";
                 document.getElementById("password-again-input").value = "";

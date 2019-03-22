@@ -2,15 +2,14 @@ package training360.j5webshop.users;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -46,5 +45,15 @@ public class UserDao {
     public long getUserId(String userName){
         return jdbcTemplate.queryForObject("select id from users where username = ?",
                 (rs, rowNum) -> rs.getLong("id"), userName);
+    }
+
+    public List<User> listUsers() {
+        return jdbcTemplate.query("select id, firstname, lastname, username, password from users", new RowMapper<User>() {
+            @Override
+            public User mapRow(ResultSet resultSet, int i) throws SQLException {
+                return new User(resultSet.getLong("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
+                        resultSet.getString("username"), resultSet.getString("password"));
+            }
+        });
     }
 }
