@@ -20,20 +20,24 @@ public class Order {
     }
 
     public Order(Basket basket) {
+        this.id = id;
         this.purchaseDate = LocalDate.now();
         this.orderStatus = OrderStatus.ACTIVE;
         this.userId = basket.getUserId();
         this.basketId = basket.getId();
-        for(Product p: basket.getProducts().keySet()){
-            int price = p.getPrice();
-            int quantity = basket.getProducts().get(p);
-            orderedProduct.add(new OrderedProduct(p, quantity, price));
-        }
+//        for(Product p: basket.getProducts().keySet()){
+//            int price = p.getPrice();
+//            int quantity = basket.getProducts().get(p);
+//            orderedProduct.add(new OrderedProduct(p, quantity, price));
+//        }
     }
 
-    public Order(long id, LocalDate purchaseDate, OrderStatus orderStatus) {
+    public Order(long id, long basketId, long userId, LocalDate purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
         this.id = id;
+        this.basketId = basketId;
+        this.userId = userId;
         this.purchaseDate = purchaseDate;
+        this.orderedProduct = orderedProduct;
         this.orderStatus = orderStatus;
     }
 

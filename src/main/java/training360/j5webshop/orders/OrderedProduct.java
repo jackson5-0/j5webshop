@@ -4,7 +4,7 @@ import training360.j5webshop.products.Product;
 
 public class OrderedProduct {
 
-    private Product product;
+    private String name;
     private int quantity;
     private int priceAtPurchase;
 
@@ -12,17 +12,17 @@ public class OrderedProduct {
     }
 
     public OrderedProduct(Product product, int quantity, int priceAtPurchase) {
-        this.product = product;
+        this.name = product.getName();
         this.quantity = quantity;
-        this.priceAtPurchase = product.getPrice();
+        this.priceAtPurchase = priceAtPurchase;
     }
 
-    public Product getProduct() {
-        return product;
+    public String getName() {
+        return name;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getQuantity() {
@@ -44,7 +44,7 @@ public class OrderedProduct {
     @Override
     public String toString() {
         return "OrderedProduct{" +
-                "product=" + product +
+                "name=" + name +
                 ", quantity=" + quantity +
                 ", priceAtPurchase=" + priceAtPurchase +
                 '}';

@@ -1,5 +1,7 @@
 package training360.j5webshop.validation;
 
+import training360.j5webshop.baskets.Basket;
+import training360.j5webshop.orders.Order;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.users.User;
 
@@ -28,6 +30,16 @@ public class Validator {
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
     }
+
+    public Validator(Basket basket){
+        responseStatus = new ResponseStatus();
+        checkBasket(basket);
+        if(responseStatus.getMessages().size()>0){
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+
+    }
+
 
     private void checkName(String name) {
         if (name == null || name.trim().equals("")) {
@@ -70,6 +82,12 @@ public class Validator {
         String pattern = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
         if (password.length() < 8 || !password.matches(pattern)){
             responseStatus.addMessage("A jelszó minimum 8 karakter hosszú legyen, tartalmazzon kis-és nagybetűt, számot és speciális karaktert!");
+        }
+    }
+
+    private void checkBasket(Basket basket){
+        if(basket.getProducts().size()==0){
+            responseStatus.addMessage("Csak terméket tartalmazó kosarat lehet megrendelni");
         }
     }
 
