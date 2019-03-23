@@ -3,48 +3,56 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Webshop</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Termékismertetés</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 <header>
-    <div class="nav" style="text-align: center">
-        <a href="index.html">Főoldal</a>;
-        <a href="register.html">Regisztráció</a>;
-        <a href="/login">Bejelentkezés</a>;
-        <a href="/logout">Kijelentkezés</a>;
+    <div class="nav">
     </div>
 </header>
 <main>
     <div id="message-div"></div>
-    <table id="product_table">
-        <tr>
-            <td>Code:</td>
-            <td id="code"></td>
-        </tr>
-        <tr>
-            <td>Name:</td>
-            <td id="name"></td>
-        </tr>
-        <tr>
-            <td>Address:</td>
-            <td id="address"></td>
-        </tr>
-        <tr>
-            <td>Publisher:</td>
-            <td id="publisher"></td>
-        </tr>
-        <tr>
-            <td>Price:</td>
-            <td id="price"></td>
-        </tr>
-        <tr>
-            <td id="add-to-basket">
-            </td>
-        </tr>
-    </table>
+    <div class="product-div">
+        <div class="product-info-div">
+            <table id="product_table">
+                <tr>
+                    <td>Termékkód:</td>
+                    <td id="code"></td>
+                </tr>
+                <tr>
+                    <td>Játék neve:</td>
+                    <td id="name"></td>
+                </tr>
+                <tr>
+                    <td>URL-címe:</td>
+                    <td id="address"></td>
+                </tr>
+                <tr>
+                    <td>Gyártó:</td>
+                    <td id="publisher"></td>
+                </tr>
+                <tr>
+                    <td>Ár:</td>
+                    <td id="price"></td>
+                </tr>
+                <tr>
+                    <td id="add-to-basket">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="product-image-div" id="product-image-div">
+
+        </div>
+    </div>
 </main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
 <script src="/js/user.js"></script>
 <script src="/js/products.js"></script>
 </body>

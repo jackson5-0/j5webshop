@@ -56,7 +56,7 @@ function createDefaultHeader(user) {
   </div>
   <div class="navigation">
     <ul>
-      <li><a href="">Menu1</a></li>
+      <li><a href="index.html">főoldal</a></li>
       <li><a href="">Menu2</a></li>
       <li><a href="">Menu3</a></li>
     </ul>
@@ -74,7 +74,7 @@ function createUserHeader(user) {
   </div>
   <div class="navigation">
     <ul>
-      <li><a href="">Menu1</a></li>
+      <li><a href="index.html">főoldal</a></li>
       <li><a href="">Menu2</a></li>
       <li><a href="">Menu3</a></li>
     </ul>
