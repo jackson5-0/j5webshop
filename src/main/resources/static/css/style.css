@@ -1,3 +1,11 @@
+.alert-success {
+    color: green;
+}
+
+.alert-danger {
+    color: red;
+}
+
 .button {
     background-color: #e7e7e7;
     opacity: 0.6;
@@ -87,7 +95,6 @@ footer {
 }
 
 #message-div {
-    color: #ccc;
     font-family: "Existence";
     font-size: auto;
     font-weight: bold;
