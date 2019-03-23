@@ -1,7 +1,5 @@
-window.onload = function () {
-    fetchProduct();
-    var user = fetchUser();
-};
+var user = fetchUser();
+fetchProduct();
 
 function fetchProduct() {
     var address = (new URL(document.location)).searchParams.get('address');
@@ -15,11 +13,14 @@ function fetchProduct() {
             document.getElementById("address").innerHTML = jsonData.address;
             document.getElementById("publisher").innerHTML = jsonData.publisher;
             document.getElementById("price").innerHTML = jsonData.price;
-
-            var addToBasket = document.getElementById('addBasket');
-            addToBasket.innerHTML = 'Kosárba';
-            addToBasket.onclick = addBasket;
-            addToBasket["raw-data"] = jsonData.id;
+            if (user.userRole == "ROLE_USER") {
+                var addBasketTd = document.getElementById('add-to-basket');
+                var addBasketButton = document.createElement('button');
+                addBasketButton.innerHTML = 'Kosárba';
+                addBasketButton.onclick = addBasket;
+                addBasketButton["raw-data"] = jsonData.id;
+                addBasketTd.appendChild(addBasketButton);
+            }
         });
 }
 function addBasket(){
