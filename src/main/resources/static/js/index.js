@@ -31,22 +31,6 @@ function showPageNavigator(jsonData) {
   }
 }
 
-//function getPortraits(arrayOfCharacters) {
-//  var tableRow = '';
-//  for (var i = 0; i < arrayOfCharacters.length; i++) {
-//    if (arrayOfCharacters.hasOwnProperty(i) && !arrayOfCharacters[i].dead) {
-//      tableRow += `
-//            <div class="portraits">
-//              <img class="pics" id="${i}" src="/${
-//  arrayOfCharacters[i].portrait
-//}" alt=""><br>
-//            <label for="${i}" class="names">${arrayOfCharacters[i].name}</label>
-//              </div>
-//  `;
-//    }
-//  }
-//  document.querySelector('#pics').innerHTML = tableRow;
-//}
 function showProducts(jsonData) {
   var allProducts = document.getElementById('products');
   allProducts.innerHTML = '';
