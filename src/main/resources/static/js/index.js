@@ -31,33 +31,45 @@ function showPageNavigator(jsonData) {
   }
 }
 
+//function getPortraits(arrayOfCharacters) {
+//  var tableRow = '';
+//  for (var i = 0; i < arrayOfCharacters.length; i++) {
+//    if (arrayOfCharacters.hasOwnProperty(i) && !arrayOfCharacters[i].dead) {
+//      tableRow += `
+//            <div class="portraits">
+//              <img class="pics" id="${i}" src="/${
+//  arrayOfCharacters[i].portrait
+//}" alt=""><br>
+//            <label for="${i}" class="names">${arrayOfCharacters[i].name}</label>
+//              </div>
+//  `;
+//    }
+//  }
+//  document.querySelector('#pics').innerHTML = tableRow;
+//}
 function showProducts(jsonData) {
   var allProducts = document.getElementById('products');
   allProducts.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
     var product = document.createElement('div');
-
+    product.setAttribute('class', 'product');
     product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[i].address}"`);
 
-    var code = document.createElement('span');
+    var img = document.createElement('img');
+    img.setAttribute('class', 'picture');
+    img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+    img.setAttribute('alt', 'picture of the game');
     var name = document.createElement('span');
-    var address = document.createElement('span');
-    var publisher = document.createElement('span');
+    name.setAttribute('class', 'name');
     var price = document.createElement('span');
+    price.setAttribute('class', 'price');
 
-
-    code.innerHTML = jsonData[i].code;
     name.innerHTML = jsonData[i].name;
-    address.innerHTML = jsonData[i].address;
-    publisher.innerHTML = jsonData[i].publisher;
-    price.innerHTML = jsonData[i].price;
+    price.innerHTML = jsonData[i].price + ' Ft';
 
-    product.appendChild(code);
+    product.appendChild(img);
     product.appendChild(name);
-    product.appendChild(address);
-    product.appendChild(publisher);
     product.appendChild(price);
-
 
     allProducts.appendChild(product);
   }

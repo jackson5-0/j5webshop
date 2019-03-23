@@ -1,0 +1,171 @@
+body {
+    background-color: ivory;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.cart-img {
+    width: 30px;
+    height: 30px;
+}
+
+@font-face {
+    font-family: "Existence";
+    src: url("/fonts/Existence-Light.ttf");
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  background-color: grey;
+  color: white;
+  font-family: "Existence";
+  font-size: 1vw;
+  opacity: 0.5;
+  text-align: center;
+}
+
+#header-top {
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+    float: right;
+    max-height: 80px;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 30px 0;
+    text-align: center;
+}
+
+#header-top a {
+    display: inline-block;
+    padding: 5px 5px;
+    font-family: "Existence";
+    color: rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255);
+    font-size: auto;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    font-weight: bold;
+    text-decoration: none;
+    display: block;
+}
+
+#header-top span {
+    font-family: "Existence";
+    font-size: auto;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    font-weight: bold;
+}
+
+.name {
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    font-weight: bold;
+    margin: 1vw;
+}
+
+.navigation {
+  max-width: 900px;
+  mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.navigation ul {
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
+  width: 100%;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.navigation ul li {
+  display: inline-block;
+}
+
+.navigation ul li a {
+  padding: 20px;
+  font-family: "Existence";
+  color: rgba(0, 0, 0, 0.5);
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
+  font-size: auto;
+  max-font-size: 5vw;
+  min-font-size: 3vw;
+  font-weight: bold;
+  text-decoration: none;
+  display: block;
+}
+
+.navigation ul li a:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.page-number a {
+    color: black;
+    text-decoration: none;
+    font-family: "Existence";
+    font-size: auto;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    position: relative;
+}
+
+.page-number {
+    bottom: 30px;
+    position: fixed;
+    left: 50vw;
+}
+
+.page-number a.active {
+    transition: background-color .3s;
+}
+
+.page-number a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+.picture {
+    height: 400;
+    width: 600;
+    max-width: 100%;
+}
+
+.price {
+    float: right;
+    font-family: "Existence";
+    font-size: auto;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    font-weight: bold;
+    margin: 1vw;
+}
+
+#products {
+    float: center;
+    padding: 20px, 0, 50px, 0;
+    position: relative;
+    width: 100%;
+}
+
+.product {
+    border: 1px solid #ccc;
+    float: left;
+    padding: 20px 0 0 15px;
+    text-align: center;
+    width: 30%;
+    margin: 5px;
+}
+
+.product:hover {
+    border: 1px solid #777;
+}
+
