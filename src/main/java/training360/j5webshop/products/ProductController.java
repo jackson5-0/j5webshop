@@ -1,6 +1,7 @@
 package training360.j5webshop.products;
 
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.validation.ValidationStatus;
@@ -48,7 +49,7 @@ public class ProductController {
         }
     }
 
-    @ExceptionHandler(JsonParseException.class)
+    @ExceptionHandler({InvalidFormatException.class})
     public ResponseStatus handleParseException(Exception exception) {
         ResponseStatus status = new ResponseStatus().addMessage("Hibás formátum!");
         status.setStatus(ValidationStatus.FAIL);
