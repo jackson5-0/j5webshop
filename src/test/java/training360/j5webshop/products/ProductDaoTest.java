@@ -112,7 +112,7 @@ public class ProductDaoTest {
         //Then
         assertThat(sizeBeforeDelete, equalTo(3));
         assertThat(sizeAfterDelete, equalTo(2));
-        assertThat(productDao.listAllProducts().get(0).getCode(), equalTo("GEMDIX01"));
-        assertThat(productDao.listAllProducts().get(1).getCode(), equalTo("DELTRO01"));
+        assertThat(productDao.listProductsWithLimit(0,3).get(0).getCode(), equalTo("GEMDIX01"));
+        assertThat(productDao.listProductsWithLimit(0, 3).get(1).getCode(), equalTo("DELTRO01"));
     }
 }
