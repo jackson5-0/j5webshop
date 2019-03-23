@@ -32,8 +32,12 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 					.hasRole("ADMIN")
 				.and()
 				.formLogin()
+					.loginPage("/login.html")
+					.loginProcessingUrl("/login")
+					.failureUrl("/login.html?error=true")
 				.and()
-				.logout();
+				.logout()
+					.logoutSuccessUrl("/index.html");
 	}
 
 	@Bean
