@@ -38,6 +38,10 @@ public class Product {
         this.price = price;
     }
 
+    public Product(String name) {
+        this.name = name;
+    }
+
     public void setCodeAndAddress() {
         String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
