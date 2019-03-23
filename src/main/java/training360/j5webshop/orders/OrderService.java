@@ -18,8 +18,8 @@ public class OrderService {
 
     public long createOrder(Basket basket){
         long id = orderDao.createOrder(basket);
-//        orderDao.createOrderedProduct(basket);
-//        basketDao.flushBasket(basket.getId());
+        orderDao.createOrderedProduct(basket);
+        basketDao.flushBasket(basket.getId());
         return id;
     }
 

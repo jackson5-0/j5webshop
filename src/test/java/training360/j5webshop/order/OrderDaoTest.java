@@ -4,9 +4,14 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 import org.flywaydb.core.Flyway;
 import org.junit.Before;
 import org.junit.Test;
+import training360.j5webshop.baskets.Basket;
+import training360.j5webshop.baskets.BasketDao;
 import training360.j5webshop.orders.Order;
 import training360.j5webshop.orders.OrderDao;
+import training360.j5webshop.orders.OrderedProduct;
 import training360.j5webshop.products.Product;
+import training360.j5webshop.users.User;
+import training360.j5webshop.users.UserDao;
 
 import java.util.List;
 
@@ -16,6 +21,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class OrderDaoTest {
 
     private OrderDao orderDao;
+    private UserDao userDao;
+    private BasketDao basketDao;
 
     @Before
     public void init() {
@@ -29,6 +36,25 @@ public class OrderDaoTest {
         flyway.migrate();
 
         orderDao = new OrderDao(dataSource);
+        userDao = new UserDao(dataSource);
+        basketDao = new BasketDao(dataSource);
+    }
+
+    @Test
+    public void createOrderTest(){
+        //Given
+        userDao.addUser(new User("John", "Doe", "JODO", "xyk"));
+        userDao.addUser(new User("Jane", "Doe", "JADO", "ztf"));
+        basketDao.createBasket(userDao.getUserId("JODO"));
+        basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")), new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
+        basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")), new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
+
+
+        List<OrderedProduct> list = orderDao.findOrderedProductByOrderId(orderDao.createOrder(new Basket(basketDao.findBasketId(12), 12L, basketDao.listProductsOfBasket(basketDao.findBasketId(12)))));
+
+        assertThat(list.size(), equalTo(2));
+        assertThat(list.get(0).getName(), equalTo("Hacker játszma"));
+        assertThat(list.get(1).getName(), equalTo("Dixit"));
     }
 
 

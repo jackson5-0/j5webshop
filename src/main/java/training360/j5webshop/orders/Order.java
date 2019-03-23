@@ -25,11 +25,10 @@ public class Order {
         this.orderStatus = OrderStatus.ACTIVE;
         this.userId = basket.getUserId();
         this.basketId = basket.getId();
-//        for(Product p: basket.getProducts().keySet()){
-//            int price = p.getPrice();
-//            int quantity = basket.getProducts().get(p);
-//            orderedProduct.add(new OrderedProduct(p, quantity, price));
-//        }
+        for(Product p: basket.getProducts().keySet()){
+            int quantity = basket.getProducts().get(p);
+            orderedProduct.add(new OrderedProduct(p, quantity));
+        }
     }
 
     public Order(long id, long basketId, long userId, LocalDate purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
