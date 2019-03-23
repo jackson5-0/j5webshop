@@ -12,15 +12,22 @@ function fetchProduct() {
             document.getElementById("name").innerHTML = jsonData.name;
             document.getElementById("address").innerHTML = jsonData.address;
             document.getElementById("publisher").innerHTML = jsonData.publisher;
-            document.getElementById("price").innerHTML = jsonData.price;
+            document.getElementById("price").innerHTML = jsonData.price + " Ft";
             if (user.userRole == "ROLE_USER") {
                 var addBasketTd = document.getElementById('add-to-basket');
                 var addBasketButton = document.createElement('button');
+                addBasketButton.setAttribute('class', 'button');
                 addBasketButton.innerHTML = 'Kosárba';
                 addBasketButton.onclick = addBasket;
                 addBasketButton["raw-data"] = jsonData.id;
                 addBasketTd.appendChild(addBasketButton);
             }
+            var imgDiv = document.getElementById("product-image-div");
+            var img = document.createElement('img');
+            img.setAttribute('class', 'product-image');
+            img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+            img.setAttribute('alt', 'picture of the game');
+            imgDiv.appendChild(img);
         });
 }
 function addBasket(){

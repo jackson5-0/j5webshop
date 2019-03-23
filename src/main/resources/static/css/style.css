@@ -1,3 +1,27 @@
+.button {
+    background-color: #e7e7e7;
+    opacity: 0.6;
+    border: none;
+    color: black;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: "Existence";
+    font-size: 2vw;
+    font-weight: bold;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: black;
+}
+
 body {
     background-color: ivory;
     bottom: 0;
@@ -60,6 +84,16 @@ footer {
     max-font-size: 3vw;
     min-font-size: 2vw;
     font-weight: bold;
+}
+
+#message-div {
+    color: #ccc;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-font-size: 2vw;
+    min-font-size: 1.5vw;
+    padding: 0 0 2vw 12vw;
 }
 
 .name {
@@ -136,9 +170,36 @@ footer {
 }
 
 .picture {
-    height: 400;
-    width: 600;
     max-width: 100%;
+}
+
+.product-image {
+    height: auto;
+    width: auto;
+    max-width: 100%;
+}
+
+.product-div {
+    width: 100%;
+    margin: auto;
+    padding: 10px 10px;
+}
+
+.product-image-div {
+    margin-left: 52%;
+    width: 45%;
+}
+
+.product-info-div {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    padding: 0 0 0 10vw;
+    width: 45%;
 }
 
 .price {
@@ -169,5 +230,9 @@ footer {
 
 .product:hover {
     border: 1px solid #777;
+}
+
+#product_table {
+    width: 100%;
 }
 
