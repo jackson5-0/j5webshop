@@ -18,24 +18,21 @@ public class ProductService {
     }
 
     public long createProduct(Product product) {
-        long id;
         while (true) {
             product.setCodeAndAddress();
             if (codeUnreserved(product) && addressUnreserved(product)) {
-                id = productDao.createProduct(product);
-                break;
+                return productDao.createProduct(product);
             } else if(!codeUnreserved(product)){
                 product.incrementCodePostFix();
             } else if (!addressUnreserved(product)){
                 product.incrementAddressPostFix();
             }
         }
-        return id;
     }
 
     private boolean addressUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            if (p.getAddress().equals(product.getAddress())&& product.getId()!=p.getId()) {
+            if (p.getAddress().equals(product.getAddress()) && product.getId() != p.getId()) {
                 return false;
             }
         }
@@ -44,7 +41,7 @@ public class ProductService {
 
     private boolean codeUnreserved(Product product) {
         for (Product p : productDao.listAllProducts()) {
-            if (p.getCode().equals(product.getCode()) && product.getId()!=p.getId()) {
+            if (p.getCode().equals(product.getCode()) && product.getId() != p.getId()) {
                 return false;
             }
         }
@@ -75,4 +72,5 @@ public class ProductService {
             return false;
         }
     }
+
 }

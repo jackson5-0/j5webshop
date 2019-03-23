@@ -103,7 +103,7 @@ function handleCreateForm() {
     "publisher": publisher,
     "price": price
   };
-  fetch('/api/products', {
+  fetch('/admin/products', {
       method: "POST",
       body: JSON.stringify(request),
       headers: {
@@ -139,8 +139,8 @@ function deleteProduct() {
   if (!confirm("Biztosan törölni szeretnéd ezt a terméket?")) {
     return;
   }
-  fetch(`/admin/deleteproduct/${id}`, {
-      method: "PUT" //vagy mégis DELETE? Akkor nem kell a köv 4 sor!
+  fetch(`/admin/products?id=${id}`, {
+      method: "DELETE" //vagy mégis DELETE? Akkor nem kell a köv 4 sor!
     })
     .then(function (response) {
       return response.json();
@@ -169,8 +169,8 @@ function updateProduct() {
     "price": price,
   };
   console.log(request);
-  fetch('/admin/updateproduct/' + id, {
-      method: "POST",
+  fetch(`/admin/products?id=${id}`, {
+      method: "PUT",
       body: JSON.stringify(request),
       headers: {
         "Content-type": "application/json"

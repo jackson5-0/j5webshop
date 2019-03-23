@@ -50,9 +50,6 @@ public class ProductDao {
         });
     }
 
-    //    public void createProduct(Product product){
-//        jdbcTemplate.update("insert into product (code, name, address, publisher, price) values(?, ?, ?, ?, ?)",
-//                product.getCode(), product.getName(), product.getAddress(), product.getPublisher(), product.getPrice());
     public long createProduct(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
@@ -94,11 +91,12 @@ public class ProductDao {
         int price = product.getPrice() == 0 ? findProductById(id).getPrice() : product.getPrice();
         String status = product.getStatus() == null ? findProductById(id).getStatus().name() : product.getStatus().name();
 
-        jdbcTemplate.update("update product set code = ?, name = ?, address = ?, publisher=?, price=? , status = ? where id = ?",
+        jdbcTemplate.update("update product set code = ?, name = ?, address = ?, publisher = ?, price = ? , status = ? where id = ?",
                code, name, address, publisher, price, status, id);
     }
 
     public void deleteProductById(long id) {
-        jdbcTemplate.update("update product set status = 'DELETED' where id=?", id);
+        jdbcTemplate.update("update product set status = 'DELETED' where id = ?", id);
     }
+
 }

@@ -28,7 +28,7 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/", "/products/**", "/api/products", "/products/count", "/products")
 					.permitAll()
-				.antMatchers("/adminproducts.html", "/admin/deleteproduct/**", "/admin/updateproduct/**")
+				.antMatchers("/adminproducts.html", "/admin/**")
 					.hasRole("ADMIN")
 				.and()
 				.formLogin()

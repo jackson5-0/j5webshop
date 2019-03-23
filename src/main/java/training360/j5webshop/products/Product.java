@@ -13,10 +13,7 @@ public class Product {
     private String urlPostFix = "01";
     private ProductStatus status = ProductStatus.ACTIVE;
 
-    public Product() {
-
-    }
-
+    public Product() {}
 
     public Product(long id, String code, String name, String address, String publisher, int price, String status) {
         this(name, publisher, price);
@@ -47,7 +44,7 @@ public class Product {
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
         String code = validName.replaceAll(" ","").substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
-        String address = validName.replaceAll(" ","").toLowerCase().replace(' ', '-');
+        String address = validName.replaceAll(" ","-").toLowerCase();
         if (Integer.parseInt(urlPostFix)!=1){
             address+=urlPostFix;
         }
@@ -59,6 +56,7 @@ public class Product {
     public void incrementCodePostFix() {
         postfix = String.format("%02d", (Integer.parseInt(postfix) + 1));
     }
+
     public void incrementAddressPostFix(){ urlPostFix = String.format("%02d", (Integer.parseInt(urlPostFix) + 1));}
 
     public String getCode() {
@@ -129,4 +127,5 @@ public class Product {
                 ", status=" + status +
                 '}';
     }
+
 }
