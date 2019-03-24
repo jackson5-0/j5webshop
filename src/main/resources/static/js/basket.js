@@ -67,3 +67,18 @@ function showList(jsonData) {
   tbody.appendChild(document.createElement('br'));
   tbody.appendChild(tr2);
 }
+function orderBasket() {
+  fetch(`/myorders`, {
+      method: "POST"
+    })
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      document.getElementById("message-div").setAttribute("class", "alert alert-success");
+      document.getElementById("message-div").innerHTML = jsonData.messages;
+    })
+    .then(function (jsonData) {
+      showList(jsonData);
+    });
+}
