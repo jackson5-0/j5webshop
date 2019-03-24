@@ -58,7 +58,7 @@ public class OrderDaoTest {
         basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")),productDao.findProductById(2));
 
 
-        Long orderId = orderService.createOrder(new Basket(4L, 4L))
+        Long orderId = orderService.createOrder(new Basket(4L, 4L));
 
 
 

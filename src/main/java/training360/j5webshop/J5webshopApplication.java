@@ -26,10 +26,12 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/", "/products/**", "/api/products", "/products/count", "/products")
+				.antMatchers("/", "/products/**", "/products/count", "/products")
 					.permitAll()
 				.antMatchers("/adminproducts.html", "/admin/**")
 					.hasRole("ADMIN")
+				.antMatchers("/basket", "/basket.html")
+					.hasRole("USER")
 				.and()
 				.formLogin()
 					.loginPage("/login.html")

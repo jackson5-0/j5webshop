@@ -1,6 +1,5 @@
 package training360.j5webshop.baskets;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.Product;
@@ -16,13 +15,8 @@ public class BasketController {
     @Autowired
     private BasketService basketService;
 
-    @PutMapping("/createbasket")
-    public void createBasket(@RequestBody long userId) {
-        basketService.createBasket(userId);
-    }
-
-    @PutMapping("/addtobasket/{basketId}")
-    public ResponseStatus addToBasket(@PathVariable long basketId,@RequestBody Product product) {
+    @PostMapping("/basket")
+    public ResponseStatus addToBasket(@RequestParam long basketId, @RequestBody Product product) {
         ResponseStatus rs = new ResponseStatus();
         if (basketService.addToBasket(basketId, product)) {
             return rs.addMessage("A termék bekerült a kosárba!");
@@ -32,14 +26,14 @@ public class BasketController {
         }
     }
 
-    @DeleteMapping("/flushbasket/{basketId}")
-    public ResponseStatus flushBasket(@PathVariable long basketId) {
+    @DeleteMapping("/basket")
+    public ResponseStatus flushBasket(@RequestParam long basketId) {
             basketService.flushBasket(basketId);
             return new ResponseStatus().addMessage("A kosár újra üres!");
         }
 
-    @GetMapping("/productofbasket/{basketId}")
-    public Set<Product> listProductsOfBasket(@PathVariable long basketId) {
+    @GetMapping("/basket")
+    public Set<Product> listProductsOfBasket(@RequestParam long basketId) {
         return basketService.listProductsOfBasket(basketId).keySet();
     }
 }
