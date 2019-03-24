@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "Existence";
+    src: url("/fonts/Existence-Light.ttf");
+}
+
 .alert-success {
     color: green;
 }
@@ -8,20 +13,20 @@
 
 .button {
     background-color: #e7e7e7;
-    opacity: 0.6;
     border: none;
     color: black;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
+    cursor: pointer;
     display: inline-block;
     font-family: "Existence";
     font-size: 2vw;
     font-weight: bold;
     margin: 4px 2px;
+    opacity: 0.6;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
-    cursor: pointer;
 }
 
 .button:hover {
@@ -30,50 +35,43 @@
     color: black;
 }
 
-body {
-    background-color: ivory;
-    bottom: 0;
-    left: 0;
-    margin: 0;
-    padding: 0;
-}
-
 .cart-img {
-    width: 30px;
     height: 30px;
-}
-
-@font-face {
-    font-family: "Existence";
-    src: url("/fonts/Existence-Light.ttf");
+    width: 30px;
 }
 
 footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 30px;
   background-color: grey;
+  bottom: 0;
   color: white;
   font-family: "Existence";
   font-size: 1vw;
+  height: 30px;
+  left: 0;
   opacity: 0.5;
+  position: fixed;
   text-align: center;
+  width: 100%;
 }
 
 .input-form {
-	max-width: 500px;
-	padding: 10px 10px 0px 10px;
-	background: #f4f7f8;
-	margin: auto;
-	border-radius: 8px;
-	font-family: "Existence";
+    background-color: #f4f7f8;
+    border-radius: 8px;
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
     font-weight: bold;
+    left: 30vw;
+	max-width: 500px;
+	margin: auto;
+	padding: 10px 10px 0px 10px;
+	position: relative;
 }
+
 .input-form form {
 	border: none;
 }
+
 .input-form h1 {
 	font-size: 2.5vw;
 	margin-bottom: 10px;
@@ -81,25 +79,26 @@ footer {
 }
 
 .input-form input {
-	font-family: "Existence";
-    font-weight: bold;
 	background: rgba(255,255,255,.1);
 	border: none;
 	border-radius: 4px;
+	box-sizing: border-box;
+	color:#8a97a0;
+	font-family: "Existence";
+    font-weight: bold;
 	font-size: 1.5vw;
 	margin: 0;
 	outline: 0;
 	padding: 10px;
 	width: 100%;
-	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	background-color: #e8eeef;
-	color:#8a97a0;
 	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
 	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
 	margin-bottom: 10px;
 }
+
 .input-form input:focus {
 	background: #d2d9dd;
 }
@@ -119,6 +118,7 @@ footer {
 	border-width: 1px 1px 3px;
 	margin-bottom: 10px;
 }
+
 .input-form input[type="submit"]:hover {
 	background: #109177;
 }
@@ -169,15 +169,6 @@ footer {
   padding: 5px;
 }
 
-#message-div {
-    font-family: "Existence";
-    font-size: auto;
-    font-weight: bold;
-    height: 1.5vw;
-    min-font-size: 1.5vw;
-    padding: 0 0 1vw 12vw;
-}
-
 .name {
     float: left;
     font-family: "Existence";
@@ -191,6 +182,7 @@ footer {
 .navigation {
   display: block;
   box-sizing: border-box;
+  float: left;
   max-width: 900px;
   mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
   margin: 0 auto;
@@ -201,6 +193,7 @@ footer {
   box-sizing: border-box;
   display: inline-block;
   margin-left: 10vw;
+  width: 600px;
 }
 
 .navigation ul {
@@ -269,7 +262,18 @@ footer {
     max-width: 100%;
 }
 
+.product-to-basket-message {
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    height: 1.5vw;
+    min-font-size: 1.5vw;
+    padding: 0 0 1vw 12vw;
+}
+
 .product-div {
+    display: block;
     width: 100%;
     margin: auto;
     padding: 10px 10px;

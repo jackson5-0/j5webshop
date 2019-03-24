@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Login</title>
+    <title>Bejelentkezés</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
@@ -13,8 +13,9 @@
     </header>
 
     <main>
+        <div id="user-login" class ="input-form">
         <h1>Bejelentkezés</h1>
-        <form name='f' action="/login" method='POST'>
+        <form name='f' action="/login" method='POST' id="user-login-form">
             <table>
                 <tr>
                     <td>Felhasználónév:</td>
@@ -29,6 +30,7 @@
                 </tr>
             </table>
         </form>
+        </div>
     </main>
     <footer>
         <p>Copyright © 2019 by Jackson5.0</p>
