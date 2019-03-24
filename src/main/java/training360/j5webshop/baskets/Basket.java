@@ -23,6 +23,12 @@ public class Basket {
         this.userId = userId;
     }
 
+    public Basket(long id, long userId, Map<Product, Integer> products) {
+        this.id = id;
+        this.userId = userId;
+        this.products = products;
+    }
+
     public void addProduct(Product product, Integer numOfProduct) {
         if (products.containsKey(product)) {
             products.put(product, products.get(product) + numOfProduct);

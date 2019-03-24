@@ -76,8 +76,8 @@ public class OrderDao {
     public List<OrderedProduct> findOrderedProductByOrderId(long id){ // az id a kapcsolódó order id-ja lesz
 
         List<OrderedProduct> foundByOrderId = jdbcTemplate.query
-                ("SELECT COUNT(product_id), product.name, order_item.price from product join order_item on product.id = order_item.product_id WHERE order_item.orders_id = ? GROUP BY product_id, price",
-                        (rs, rowNum) -> new OrderedProduct(new Product(rs.getString("product.name")), rs.getInt("COUNT(product_id)"), rs.getInt("order_item.price"))
+                ("SELECT COUNT(product_id), product.name, product.publisher, order_item.price from product join order_item on product.id = order_item.product_id WHERE order_item.orders_id = ? GROUP BY product_id, price",
+                        (rs, rowNum) -> new OrderedProduct(new Product(rs.getString("product.name"), rs.getString("product.publisher"), rs.getInt("order_item.price")), rs.getInt("COUNT(product_id)") /*, rs.getInt("order_item.price")*/)
                         ,id);
         return foundByOrderId;
     }
