@@ -8,8 +8,10 @@ import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.baskets.BasketDao;
 import training360.j5webshop.orders.Order;
 import training360.j5webshop.orders.OrderDao;
+import training360.j5webshop.orders.OrderService;
 import training360.j5webshop.orders.OrderedProduct;
 import training360.j5webshop.products.Product;
+import training360.j5webshop.products.ProductDao;
 import training360.j5webshop.users.User;
 import training360.j5webshop.users.UserDao;
 
@@ -23,6 +25,8 @@ public class OrderDaoTest {
     private OrderDao orderDao;
     private UserDao userDao;
     private BasketDao basketDao;
+    private ProductDao productDao;
+    private OrderService orderService;
 
     @Before
     public void init() {
@@ -38,6 +42,8 @@ public class OrderDaoTest {
         orderDao = new OrderDao(dataSource);
         userDao = new UserDao(dataSource);
         basketDao = new BasketDao(dataSource);
+        productDao = new ProductDao(dataSource);
+        orderService = new OrderService(orderDao);
     }
 
     @Test
@@ -46,11 +52,17 @@ public class OrderDaoTest {
         userDao.addUser(new User("John", "Doe", "JODO", "xyk"));
         userDao.addUser(new User("Jane", "Doe", "JADO", "ztf"));
         basketDao.createBasket(userDao.getUserId("JODO"));
-        basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")), new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")), new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
+        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
+        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
+        basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")), productDao.findProductById(1));
+        basketDao.addToBasket(basketDao.findBasketId(userDao.getUserId("JODO")),productDao.findProductById(2));
 
 
-        List<OrderedProduct> list = orderDao.findOrderedProductByOrderId(orderDao.createOrder(new Basket(basketDao.findBasketId(12), 12L, basketDao.listProductsOfBasket(basketDao.findBasketId(12)))));
+        Long orderId = orderService.createOrder(new Basket(4L, 4L))
+
+
+
+        List<OrderedProduct> list = orderDao.findOrderedProductByOrderId(orderId);
 
         assertThat(list.size(), equalTo(2));
         assertThat(list.get(0).getName(), equalTo("Hacker játszma"));
