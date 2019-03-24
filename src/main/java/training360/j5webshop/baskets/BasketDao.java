@@ -46,4 +46,9 @@ public class BasketDao {
         return jdbcTemplate.queryForObject("select id from basket where users_id = ?",
                 (rs, rowNum) -> rs.getLong("id"), userId);
     }
+
+    public long findUserByBasketId(long basketId) {
+        return jdbcTemplate.queryForObject("select users_id from basket where id = ?",
+                (rs, rowNum) -> rs.getLong("users_id"), basketId);
+    }
 }

@@ -4,6 +4,7 @@ import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.products.Product;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class Order {
     private long id;
     private long basketId;
     private long userId;
-    private LocalDate purchaseDate;
+    private LocalDateTime purchaseDate;
     private List<OrderedProduct> orderedProduct = new ArrayList<>();
     private OrderStatus orderStatus;
 
@@ -21,7 +22,7 @@ public class Order {
 
     public Order(Basket basket) {
         this.id = id;
-        this.purchaseDate = LocalDate.now();
+        this.purchaseDate = LocalDateTime.now();
         this.orderStatus = OrderStatus.ACTIVE;
         this.userId = basket.getUserId();
         this.basketId = basket.getId();
@@ -31,7 +32,7 @@ public class Order {
         }
     }
 
-    public Order(long id, long basketId, long userId, LocalDate purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
+    public Order(long id, long userId, LocalDateTime purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
         this.id = id;
         this.basketId = basketId;
         this.userId = userId;
@@ -48,11 +49,11 @@ public class Order {
         this.basketId = basketId;
     }
 
-    public LocalDate getPurchaseDate() {
+    public LocalDateTime getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(LocalDate purchaseDate) {
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
