@@ -13,6 +13,7 @@ import training360.j5webshop.products.Product;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -25,25 +26,32 @@ public class OrderDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public long createOrderedProduct(Basket basket){
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        for(Product p :basket.getProducts().keySet()) {
-            jdbcTemplate.update(new PreparedStatementCreator() {
-                                    @Override
-                                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                                        PreparedStatement ps = connection.prepareStatement
-                                                ("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                                        ps.setLong(1, createOrder(basket));
-
-                                        ps.setLong(2, p.getId());
-                                        ps.setInt(3, p.getPrice());
-                                        return ps;
-                                    }
-                                }, keyHolder
-            );
+    public void addOrderdProduct(Long orderId, Basket basket) {
+        for (Product p : basket.getProducts().keySet()) {
+            jdbcTemplate.update("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", orderId, p.getId(), p.getPrice());
         }
-        return keyHolder.getKey().longValue();
     }
+
+//    public long createOrderedProduct(Basket basket){
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        System.out.println(basket.getProducts().keySet());
+//        for(Product p :basket.getProducts().keySet()) {
+//            jdbcTemplate.update(new PreparedStatementCreator() {
+//                                    @Override
+//                                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//                                        PreparedStatement ps = connection.prepareStatement
+//                                                ("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+//                                        ps.setLong(1, createOrder(basket));
+//
+//                                        ps.setLong(2, p.getId());
+//                                        ps.setInt(3, p.getPrice());
+//                                        return ps;
+//                                    }
+//                                }, keyHolder
+//            );
+//        }
+//        return keyHolder.getKey().longValue();
+//    }
 
     public long createOrder(Basket basket) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
