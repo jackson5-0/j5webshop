@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <header class="nav">
+    </header>
+
+    <main>
+        <h1>Bejelentkezés</h1>
+        <form name='f' action="/login" method='POST'>
+            <table>
+                <tr>
+                    <td>Felhasználónév:</td>
+                    <td><input type='text' name='username'></td>
+                </tr>
+                <tr>
+                    <td>Jelszó:</td>
+                    <td><input type='password' name='password'/></td>
+                </tr>
+                <tr>
+                    <td><input name="submit" type="submit" value="Bejelentkezés"/></td>
+                </tr>
+            </table>
+        </form>
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+<script src="/js/user.js"></script>
+</body>
+</html>

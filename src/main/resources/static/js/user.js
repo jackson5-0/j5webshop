@@ -53,7 +53,7 @@ function createDefaultHeader(user) {
   nav.innerHTML =
     `<div id="header-top">
     <a href="register.html">regisztráció</a>
-    <a href="/login">bejelentkezés</a>
+    <a href="/login.html">bejelentkezés</a>
   </div>
   <div class="navigation">
     <ul>

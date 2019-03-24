@@ -35,8 +35,8 @@ function addBasket(){
            "basket_id" : user.basketId,
            "id": this["raw-data"]
            }
-   fetch(`/addtobasket/${user.basketId}`, {
-            method: "PUT",
+   fetch(`/basket?basketId=${user.basketId}`, {
+            method: "POST",
             body: JSON.stringify(request),
             headers: {
                  "Content-type" : "application/json"

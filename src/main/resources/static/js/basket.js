@@ -4,7 +4,7 @@ flush.onclick = flushBasket;
 
 function fetchList() {
   var basketId = (new URL(document.location)).searchParams.get('basket');
-  fetch(`/productofbasket/${basketId}`)
+  fetch(`/basket?basketId=${basketId}`)
     .then(function (response) {
       return response.json();
     })
@@ -15,7 +15,7 @@ function fetchList() {
 
 function flushBasket() {
   var basketId = (new URL(document.location)).searchParams.get('basket');
-  fetch(`/flushbasket/${basketId}`, {
+  fetch(`/basket?basketId=${basketId}`, {
       method: "DELETE"
     })
     .then(function (response) {
