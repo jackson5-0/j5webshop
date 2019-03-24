@@ -19,7 +19,7 @@
     font-size: 2vw;
     font-weight: bold;
     margin: 4px 2px;
-    -webkit-transition-duration: 0.4s; /* Safari */
+    -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
     cursor: pointer;
 }
@@ -98,9 +98,9 @@ footer {
     font-family: "Existence";
     font-size: auto;
     font-weight: bold;
-    max-font-size: 2vw;
+    height: 1.5vw;
     min-font-size: 1.5vw;
-    padding: 0 0 2vw 12vw;
+    padding: 0 0 1vw 12vw;
 }
 
 .name {
