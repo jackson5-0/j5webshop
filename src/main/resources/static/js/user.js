@@ -40,6 +40,7 @@ function createAdminHeader(admin) {
   </div>
   <div class="navigation">
     <ul>
+      <li><a href="index.html">főoldal</a></li>
       <li><a href="adminproducts.html">termékek</a></li>
       <li><a href="manageusers.html">felhasználók</a></li>
     </ul>
