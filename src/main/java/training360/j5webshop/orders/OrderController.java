@@ -15,16 +15,21 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+//    @PostMapping("/myorders")
+//    public ResponseStatus createOrder(@RequestBody Basket basket){
+//        Validator validator = new Validator(basket);
+//        long id;
+//        if(validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS){
+//            id = orderService.createOrder(basket);
+//            validator.getResponseStatus().addMessage("A " + id +" számú rendelését sikeresen feladta.");
+//            return validator.getResponseStatus();
+//        }
+//        return validator.getResponseStatus();
+//    }
+
     @PostMapping("/myorders")
-    public ResponseStatus createOrder(@RequestBody Basket basket){
-        Validator validator = new Validator(basket);
-        long id;
-        if(validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS){
-            id = orderService.createOrder(basket);
-            validator.getResponseStatus().addMessage("A " + id +" számú rendelését sikeresen feladta.");
-            return validator.getResponseStatus();
-        }
-        return validator.getResponseStatus();
+    public ResponseStatus createOrder(@RequestParam long basketId) {
+        return orderService.createOrder(basketId);
     }
 
     @GetMapping("/myorders")

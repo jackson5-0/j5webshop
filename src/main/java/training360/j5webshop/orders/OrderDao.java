@@ -13,6 +13,8 @@ import training360.j5webshop.products.Product;
 import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +23,8 @@ public class OrderDao {
 
 
     private JdbcTemplate jdbcTemplate;
+
+    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public OrderDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
@@ -53,17 +57,34 @@ public class OrderDao {
 //        return keyHolder.getKey().longValue();
 //    }
 
-    public long createOrder(Basket basket) {
+//    public long createOrder(Basket basket) {
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        jdbcTemplate.update(new PreparedStatementCreator() {
+//                                @Override
+//                                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//                                    PreparedStatement ps = connection.prepareStatement
+//                                            ("insert into orders (user_id, basket_id, status, purchase_date) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+//                                    ps.setLong(1, basket.getUserId());
+//                                    ps.setLong(2, basket.getId());
+//                                    ps.setString(3, OrderStatus.ACTIVE.toString());
+//                                    ps.setDate(4, Date.valueOf(LocalDate.now()));
+//                                    return ps;
+//                                }
+//                            }, keyHolder
+//        );
+//        return keyHolder.getKey().longValue();
+//    }
+
+    public long createOrder(long userId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
                                 @Override
                                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                                     PreparedStatement ps = connection.prepareStatement
-                                            ("insert into orders (user_id, basket_id, status, purchase_date) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-                                    ps.setLong(1, basket.getUserId());
-                                    ps.setLong(2, basket.getId());
-                                    ps.setString(3, OrderStatus.ACTIVE.toString());
-                                    ps.setDate(4, Date.valueOf(LocalDate.now()));
+                                            ("insert into orders (user_id, status, purchase_date) values (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                                    ps.setLong(1, userId);
+                                    ps.setString(2, OrderStatus.ACTIVE.toString());
+                                    ps.setString(3, LocalDateTime.now().format(DATE_FORMATTER));
                                     return ps;
                                 }
                             }, keyHolder
@@ -74,8 +95,12 @@ public class OrderDao {
 
 
     public List<Order> listAllOrder() {
-        List<Order> allOrder = jdbcTemplate.query("SELECT id, basket_id, user_id, purchase_date, status FROM `orders` order by purchase_date DESC",
-                (rs, rowNum) -> new Order(rs.getLong("id"), rs.getLong("basket_id"), rs.getLong("user_id"), rs.getDate("purchase_date").toLocalDate(), findOrderedProductByOrderId(rs.getLong("id")),
+        List<Order> allOrder = jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` order by purchase_date DESC",
+                (rs, rowNum) -> new Order(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+                        findOrderedProductByOrderId(rs.getLong("id")),
                 OrderStatus.valueOf(rs.getString("status"))));
         return allOrder;
     }
