@@ -47,4 +47,8 @@ public class BasketService {
         }
         return false;
     }
+
+    public void deleteItemFromBasket(long basketId, long productId) {
+        basketDao.deleteItemFromBasket(basketId, productId);
+    }
 }

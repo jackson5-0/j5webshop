@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
+import training360.j5webshop.baskets.BasketController;
+import training360.j5webshop.baskets.BasketDao;
 import training360.j5webshop.orders.OrderController;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductController;
@@ -24,6 +26,9 @@ public class J5webshopApplicationTests {
 
 	@Autowired
 	OrderController orderController = new OrderController();
+
+	@Autowired
+	BasketController basketController = new BasketController();
 
 	@Test
 	public void contextLoads() {
@@ -72,5 +77,19 @@ public class J5webshopApplicationTests {
 		assertEquals("Gémer Kft.", products.get(0).getPublisher());
 	}
 
-
+//	@Test
+//	public void testDeleteItemFromBasket() {
+//		// Given
+//		productController.createProduct(new Product("Lord of Hellas","Avaken Realms", 35990));
+//		productController.createProduct(new Product("Trónok harca", "Delta Vision", 17990));
+//		productController.createProduct(new Product("Hacker játszma", "Gém Klub Kft.", 3190));
+//
+//		// When
+//		long id1 = productController.listProducts(0,0).get(0).getId();
+//		long id2 = productController.listProducts(0,0).get(1).getId();
+//		long id3 = productController.listProducts(0,0).get(2).getId();
+//
+//		// Then
+//
+//	}
 }

@@ -51,4 +51,8 @@ public class BasketDao {
         return jdbcTemplate.queryForObject("select users_id from basket where id = ?",
                 (rs, rowNum) -> rs.getLong("users_id"), basketId);
     }
+
+    public void deleteItemFromBasket(long basketId, long productId) {
+        jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
+    }
 }
