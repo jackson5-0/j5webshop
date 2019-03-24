@@ -3,29 +3,19 @@ package training360.j5webshop.baskets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
 
 import javax.sql.DataSource;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class BasketDao {
 
     private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private ProductDao productDao;
 
     public BasketDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
@@ -50,14 +40,6 @@ public class BasketDao {
                 return resultSet.getLong("product_id");
             }
         }, basketId);
-    }
-
-    public Map<Product, Integer> listProductsOfBasket(long basketId) {
-        Map<Product, Integer> productMap = new HashMap<>();
-        for (Long id : listProductIdsOfBasket(basketId)) {
-            productMap.put(productDao.findProductById(id), 1);
-        }
-        return productMap;
     }
 
     public Long findBasketId(long userId) {
