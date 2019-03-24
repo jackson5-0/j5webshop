@@ -28,11 +28,13 @@ function createAdminHeader(admin) {
   </div>
   <div class="navigation">
      <div class="logo-div"><a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a></div>
+     <div class="nav-div">
      <ul>
          <li><a href="index.html">főoldal</a></li>
          <li><a href="adminproducts.html">termékek</a></li>
          <li><a href="manageusers.html">felhasználók</a></li>
      </ul>
+     </div>
   </div>
   `;
 }
@@ -46,11 +48,13 @@ function createDefaultHeader(user) {
   </div>
   <div class="navigation">
       <div class="logo-div"><a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a></div>
+      <div class="nav-div">
       <ul>
           <li><a href="index.html">főoldal</a></li>
           <li><a href="">Menu2</a></li>
           <li><a href="">Menu3</a></li>
       </ul>
+      </div>
   </div>`;
 }
 
@@ -65,10 +69,12 @@ function createUserHeader(user) {
   </div>
   <div class="navigation">
       <div class="logo-div"><a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a></div>
+      <div class="nav-div">
       <ul>
           <li><a href="index.html">főoldal</a></li>
           <li><a href="">Menu2</a></li>
           <li><a href="">Menu3</a></li>
       </ul>
+      </div>
   </div>`;
 }
