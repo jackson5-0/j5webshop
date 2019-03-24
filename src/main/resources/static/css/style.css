@@ -16,6 +16,10 @@
     position: relative;
 }
 
+.administration-table h1 {
+    font-size: 2vw;
+}
+
 .administration-table tr td {
     padding: 10px 10px 10px 10px;
     text-align: center;
@@ -122,7 +126,7 @@ footer {
 }
 
 .input-form h1 {
-	font-size: 2.5vw;
+	font-size: 2vw;
 	margin-bottom: 10px;
 	text-align: center;
 }
