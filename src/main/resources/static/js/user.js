@@ -1,15 +1,3 @@
-//var user;
-//
-//function fetchUser() {
-//    fetch('/user')
-//        .then(function (response) {
-//            return response.json();
-//        })
-//        .then(function (jsonData) {
-//            user = jsonData;
-//
-//        });
-//}
 var user;
 fetchUser();
 
@@ -39,11 +27,12 @@ function createAdminHeader(admin) {
     <a href="/logout">kijelentkezés</a>
   </div>
   <div class="navigation">
-    <ul>
-      <li><a href="index.html">főoldal</a></li>
-      <li><a href="adminproducts.html">termékek</a></li>
-      <li><a href="manageusers.html">felhasználók</a></li>
-    </ul>
+     <div class="logo-div"><a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a></div>
+     <ul>
+         <li><a href="index.html">főoldal</a></li>
+         <li><a href="adminproducts.html">termékek</a></li>
+         <li><a href="manageusers.html">felhasználók</a></li>
+     </ul>
   </div>
   `;
 }
@@ -56,11 +45,12 @@ function createDefaultHeader(user) {
     <a href="/login">bejelentkezés</a>
   </div>
   <div class="navigation">
-    <ul>
-      <li><a href="index.html">főoldal</a></li>
-      <li><a href="">Menu2</a></li>
-      <li><a href="">Menu3</a></li>
-    </ul>
+      <div class="logo-div"><a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a></div>
+      <ul>
+          <li><a href="index.html">főoldal</a></li>
+          <li><a href="">Menu2</a></li>
+          <li><a href="">Menu3</a></li>
+      </ul>
   </div>`;
 }
 
@@ -74,10 +64,11 @@ function createUserHeader(user) {
     <a href="/basket.html?basket=${user.basketId}"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
   </div>
   <div class="navigation">
-    <ul>
-      <li><a href="index.html">főoldal</a></li>
-      <li><a href="">Menu2</a></li>
-      <li><a href="">Menu3</a></li>
-    </ul>
+      <div class="logo-div"><a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a></div>
+      <ul>
+          <li><a href="index.html">főoldal</a></li>
+          <li><a href="">Menu2</a></li>
+          <li><a href="">Menu3</a></li>
+      </ul>
   </div>`;
 }
