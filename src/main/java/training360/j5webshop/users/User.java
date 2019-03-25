@@ -81,4 +81,13 @@ public class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj.getClass() != this.getClass()) return false;
+        User otherUser = (User) obj;
+        return otherUser.getFirstName().equals(firstName) && otherUser.getLastName().equals(lastName)
+                && otherUser.getUserName().equals(userName) && otherUser.getPassword().equals(password);
+    }
 }
