@@ -55,9 +55,9 @@ public class ValidatorTest {
     @Test
     public void checkUserValidatorWhenUsernameIsAlreadyTaken() {
         //Given
-        User user = new User("Gizi", "Nagy", "nagyGizi", "nagyGizi2");
-        User userlistItem1 = new User("Pista", "Kiss", "kiss", "kissPista2");
-        User userlistItem2 = new User("Gizi", "Németh", "nagyGizi", "némethGizi2");
+        User user = new User(3, "Gizi", "Nagy", "nagyGizi", "nagyGizi2");
+        User userlistItem1 = new User(1, "Pista", "Kiss", "kiss", "kissPista2");
+        User userlistItem2 = new User(2, "Gizi", "Németh", "nagyGizi", "némethGizi2");
         //When
         Validator validator = new Validator(user, Arrays.asList(userlistItem1, userlistItem2));
         //Then

@@ -34,4 +34,16 @@ public class UserService {
         return userDao.listUsers();
     }
 
+    public void deleteUserById(long id) {
+        userDao.deleteUserById(id);
+    }
+
+    public void updateUser(long id, User user) {
+        userDao.updateUser(id, user);
+    }
+
+    public User findUserById(long id){
+        return userDao.findUserById(id);
+    }
+
 }

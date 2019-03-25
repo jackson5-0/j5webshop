@@ -179,7 +179,6 @@ footer {
 #header-top {
     display: block;
     width: 100%;
-
 }
 
 .login-out-div {
@@ -235,6 +234,15 @@ main {
     width: 100%;
     position: relative;
     float: left;
+}
+
+.user-mod-message {
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    height: 1.5vw;
+    min-font-size: 1.5vw;
 }
 
 .navigation {

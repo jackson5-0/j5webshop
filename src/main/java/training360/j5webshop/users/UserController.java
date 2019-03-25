@@ -3,10 +3,7 @@ package training360.j5webshop.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.authentication.UserRole;
 import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
@@ -45,8 +42,27 @@ public class UserController {
         return validator.getResponseStatus();
     }
 
-
+    @GetMapping("/admin/users")
     public List<User> listUsers() {
         return userService.listUsers();
+    }
+
+    @DeleteMapping("/admin/users")
+    public ResponseStatus deleteUserById(@RequestParam long id) {
+        ResponseStatus status = new ResponseStatus().addMessage("A felhasználó törlése sikeres volt!");
+        userService.deleteUserById(id);
+        return status;
+    }
+
+    @PutMapping("/admin/users")
+    public ResponseStatus updateUser(@RequestParam long id, @RequestBody User user) {
+        Validator validator = new Validator(user, userService.listUsers());
+        if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
+            userService.updateUser(id, user);
+            return new ResponseStatus().addMessage("Sikeres módosítás!");
+        } else {
+            ResponseStatus status = new ResponseStatus().setStatus(ValidationStatus.FAIL);
+            return validator.getResponseStatus();
+        }
     }
 }

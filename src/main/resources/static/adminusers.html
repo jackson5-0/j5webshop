@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Felhasználók adminisztrációja</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+    <div class="nav">
+    </div>
+</header>
+<main>
+    <div id="message-div" class="user-mod-message"></div>
+    <div id="user-administration" class="administration-table">
+        <h1>Felhasználóink:</h1>
+        <table class="table" id="users-table">
+            <thead>
+            <tr>
+                <th>KERESZTNÉV</th>
+                <th>VEZETÉKNÉV</th>
+                <th>FELHASZNÁLÓI NÉV</th>
+                <th>JELSZÓ</th>
+                <th class="wider-th">TÖRLÉS/MÓDOSÍTÁS MENTÉSE</th>
+            </tr>
+            </thead>
+            <tbody id="users-tablebody">
+
+            </tbody>
+        </table>
+        <br>
+        <div id="page-number" class="page-number"></div>
+        <br>
+        <br>
+    </div>
+</main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
+<script src="/js/user.js"></script>
+<script src="/js/adminusers.js"></script>
+</body>
+</html>

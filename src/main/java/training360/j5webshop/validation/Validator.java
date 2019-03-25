@@ -12,7 +12,7 @@ public class Validator {
 
     public Validator(User user, List<User> userList) {
         responseStatus = new ResponseStatus();
-        checkUsername(user.getUserName(), userList);
+        checkUsername(user, userList);
         checkPassword(user.getPassword());
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
@@ -61,14 +61,14 @@ public class Validator {
         }
     }
 
-    private void checkUsername(String userName, List<User> userList){
-        for (User user : userList){
-            if (user.getUserName().equals(userName)){
+    private void checkUsername(User user, List<User> userList){
+        for (User userItem : userList){
+            if (userItem.getUserName().equals(user.getUserName()) && user.getId() != userItem.getId()){
                 responseStatus.addMessage("A kért felhasználónév foglalt!");
             }
         }
         String pattern = "^[a-zA-Z0-9._-]{3,}$";
-        if (!userName.matches(pattern)){
+        if (!user.getUserName().matches(pattern)){
             responseStatus.addMessage("A felhasználói név legalább 3 karakter hosszú legyen, csak számot, kis- és nagybetűt, pontot, alulvonást és kötőjelet tartalmazhat!");
         }
 
