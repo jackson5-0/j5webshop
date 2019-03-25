@@ -3,6 +3,7 @@ package training360.j5webshop.orders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.baskets.Basket;
+import training360.j5webshop.products.Product;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 import training360.j5webshop.validation.ResponseStatus;
@@ -54,4 +55,8 @@ public class OrderController {
         orderService.deleteOrders(id);
     }
 
+    @GetMapping("/order/{order}")
+    public List<Product> listOrder(@PathVariable long orderId) {
+        return orderService.listOrder(orderId);
+    }
 }

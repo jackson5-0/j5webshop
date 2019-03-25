@@ -29,6 +29,7 @@ function fetchActive() {
 }
 
 function showList(jsonData) {
+  console.log(jsonData);
   var tbody = document.getElementById('orders-tablebody');
   tbody.innerHTML = '';
   var sum = 0;
@@ -37,19 +38,19 @@ function showList(jsonData) {
 
     var userNameTd = document.createElement('td');
     userNameTd.innerHTML = jsonData[i].userName;
-    userNameTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+    userNameTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var purchaseDateTd = document.createElement('td');
     purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
-    purchaseDateTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+    purchaseDateTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var orderStatusTd = document.createElement('td');
     orderStatusTd.innerHTML = jsonData[i].orderStatus;
-    orderStatusTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+    orderStatusTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var totalPriceTd = document.createElement('td');
     totalPriceTd.innerHTML = jsonData[i].totalPrice;
-    totalPriceTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+    totalPriceTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var delTd = document.createElement('td');
 
