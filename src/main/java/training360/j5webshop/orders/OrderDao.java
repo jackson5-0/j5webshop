@@ -127,7 +127,7 @@ public class OrderDao {
                         totalPrice(rs.getLong("id"))));
     }
     public void deleteFromOrder(long orderId, String productAddress){
-        long productId = productDao.findProductByAddress(productAddress).getId();
+        long productId = productDao.findProductByAddress(productAddress).getProduct().getId();
         jdbcTemplate.update("delete from order_item where order_id=? and product_id=?", orderId, productId);
     }
     public void deleteWholeOrder(long orderId){
