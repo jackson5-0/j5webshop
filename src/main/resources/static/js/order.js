@@ -41,6 +41,7 @@ function showList(jsonData) {
     tr.appendChild(delTd);
 
     tbody.appendChild(tr);
+  }
 }
 
 function deleteOrderItem() {
