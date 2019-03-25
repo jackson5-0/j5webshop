@@ -11,7 +11,6 @@ import java.util.List;
 public class Order {
 
     private long id;
-    private long basketId;
     private long userId;
     private LocalDateTime purchaseDate;
     private List<OrderedProduct> orderedProduct = new ArrayList<>();
@@ -25,7 +24,6 @@ public class Order {
         this.purchaseDate = LocalDateTime.now();
         this.orderStatus = OrderStatus.ACTIVE;
         this.userId = basket.getUserId();
-        this.basketId = basket.getId();
         for(Product p: basket.getProducts().keySet()){
             int quantity = basket.getProducts().get(p);
             orderedProduct.add(new OrderedProduct(p, quantity));
@@ -34,19 +32,10 @@ public class Order {
 
     public Order(long id, long userId, LocalDateTime purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
         this.id = id;
-        this.basketId = basketId;
         this.userId = userId;
         this.purchaseDate = purchaseDate;
         this.orderedProduct = orderedProduct;
         this.orderStatus = orderStatus;
-    }
-
-    public long getBasketId() {
-        return basketId;
-    }
-
-    public void setBasketId(long basketId) {
-        this.basketId = basketId;
     }
 
     public LocalDateTime getPurchaseDate() {
