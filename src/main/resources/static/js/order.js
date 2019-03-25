@@ -12,15 +12,27 @@ function fetchList() {
 
 function showList(jsonData) {
   var tbody = document.querySelector('#orderlist');
+  var thead = `<th class="tablehead" class="orderlist">
+                    <td class="orderlist__table__th">Rendelés száma</td>
+                    <td class="orderlist__table__th">Rendelés dátuma</td>
+                    <td class="orderlist__table__th">Rendelés státusza</td>
+                    </th>`
+  var orderedProductHead = `<th class="tablehead" class="orderlist">
+                                           <td class="orderlist__table__th">Termék neve</td>
+                                           <td class="orderlist__table__th">Darabszám</td>
+                                           <td class="orderlist__table__th">Termék ára</td>
+                                           </th>`
   var tableRow = '';
-  console.log(jsonData[0].orderedProduct);
+
+
+
   for (var i = 0; i < jsonData.length; i++) {
-    tableRow += `<tr class="tableLine${i}" class="orderlist" tr>
-                      <td class="orderlist__table__td">${jsonData[i].userId}</td>
+    tableRow += `<tr class="tableLine${i}" class="orderlist">
+                      <td class="orderlist__table__td">#${jsonData[i].id}</td>
                       <td class="orderlist__table__td">${jsonData[i].purchaseDate}</td>
                       <td class="orderlist__table__td">${jsonData[i].orderStatus}</td>
                     </tr>
-                    `;
+                    ` + orderedProductHead;
 
     for(var j = 0; j < jsonData[i].orderedProduct.length; j++){
         tableRow += `<tr class="orderedItemList">
@@ -31,5 +43,5 @@ function showList(jsonData) {
                                          `;
     }
 
-  } tbody.innerHTML = tableRow;
+  } tbody.innerHTML = thead+tableRow;
 }
