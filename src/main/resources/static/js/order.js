@@ -45,6 +45,7 @@ function showList(jsonData) {
 }
 
 function deleteOrderItem() {
+console.log(this["raw-data"]);
   var address = this["raw-data"].address;
   var orderId = (new URL(document.location)).searchParams.get('order')
   if (!confirm("Biztosan törölni szeretné a tételt?")) {
