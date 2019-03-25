@@ -26,7 +26,7 @@ function flushBasket() {
       document.getElementById("message-div").innerHTML = jsonData.messages;
     })
     .then(function (jsonData) {
-      showList(jsonData);
+      showList(jsonData); // hibát ír a consolra (jsonData is not defined)
     });
 }
 
@@ -93,51 +93,14 @@ function orderBasket() {
     });
 }
 
-//function deleteBasketItem() {
-//    console.log(this["raw-data"]);
-//    var productId = this["raw-data"].id;
-//    var basketId = (new URL(document.location)).searchParams.get('basket');
-//    if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
-//            return;
-//        }
-//     fetch(`/basket?basketId=${basketId}`, {
-//           method: "PUT",
-//           body: productId,
-//           headers: {
-//                "Content-type" : "application/json"
-//           }
-//         })
-//         .then(function (response) {
-//           return response.json();
-//         })
-//         .then(function (jsonData) {
-//           document.getElementById("message-div").setAttribute("class", "alert alert-success");
-//           document.getElementById("message-div").innerHTML = jsonData.messages;
-//         })
-//         .then(function (jsonData) {
-//           fetchList();
-//         });
-
 function deleteBasketItem() {
-
-    var request = { "id": this["raw-data"].id,
-                    "code": this["raw-data"].code,
-                    "name": this["raw-data"].name,
-                    "address": this["raw-data"].address,
-                    "publisher": this["raw-data"].publisher,
-                    "price": 0,
-                    "status": null };
-
+    var productId = this["raw-data"].id;
     var basketId = (new URL(document.location)).searchParams.get('basket');
     if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
             return;
         }
-     fetch(`/basket?basketId=${basketId}`, {
-           method: "PUT",
-           body: JSON.stringify(request),
-           headers: {
-                "Content-type" : "application/json"
-           }
+     fetch(`/basket/${basketId}?productId=${productId}`, {
+           method: "DELETE"
          })
          .then(function (response) {
            return response.json();
@@ -149,4 +112,5 @@ function deleteBasketItem() {
          .then(function (jsonData) {
            fetchList();
          });
+
 }
