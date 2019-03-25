@@ -50,7 +50,7 @@ public class UserDao {
         return jdbcTemplate.query("select id, firstname, lastname, username, password from users where enabled != 0 order by firstname, lastname", new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new User(resultSet.getLong("id"), resultSet.getString("lastname"), resultSet.getString("firstname"),
+                return new User(resultSet.getLong("id"), resultSet.getString("firstname"), resultSet.getString("lastname"),
                         resultSet.getString("username"), resultSet.getString("password"));
             }
         });

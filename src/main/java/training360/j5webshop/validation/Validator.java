@@ -76,7 +76,8 @@ public class Validator {
 
     private void checkPassword(String password){
         String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
-        if (password.length() < 8 || !password.matches(pattern)){
+        String patternForHashedPassword = "^\\$2[aby]?\\$[\\d]+\\$[./A-Za-z0-9]{53}$";
+        if (password.length() < 8 || !(password.matches(pattern) || password.matches(patternForHashedPassword))){
             responseStatus.addMessage("A jelszó minimum 8 karakter hosszú legyen, tartalmazzon kis- és nagybetűt, illetve számot!");
         }
     }
