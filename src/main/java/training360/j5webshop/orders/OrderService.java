@@ -59,4 +59,13 @@ public class OrderService {
     public List<OrderedProduct> findOrderedProductByOrderId(long id){
         return orderDao.findOrderedProductByOrderId(id);
     }
+    public List<OrderInfo> listActiveAdminOrders(){
+        return orderDao.listActiveAdminOrders();
+    }
+    public List<OrderInfo> listAdminOrders(){
+        return orderDao.listAdminOrders();
+    }
+    public void deleteOrders(long id){
+        orderDao.deleteWholeOrder(id);
+    }
 }
