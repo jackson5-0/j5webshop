@@ -62,6 +62,18 @@ public class BasketIntegrationTest {
     }
 
     @Test
+    public void testAddToBasketWithNotValidBasketId() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        long id = productDao.createProduct(product);
+        // When
+        ResponseStatus rs = basketController.addToBasket(100, id);
+        // Then
+        assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
+        assertThat(rs.getMessages().get(0), equalTo("Nem letező kosár vagy termék"));
+    }
+
+    @Test
     public void testFlushBasket() {
         // Given
         Product product = new Product("name", "publisher", 10_000);

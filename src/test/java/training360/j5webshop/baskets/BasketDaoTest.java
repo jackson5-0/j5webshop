@@ -1,63 +1,112 @@
-//package training360.j5webshop.baskets;
-//
-//import com.mysql.cj.jdbc.MysqlDataSource;
-//import org.flywaydb.core.Flyway;
-//import org.junit.Before;
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.jdbc.core.RowMapper;
-//import org.springframework.test.context.jdbc.Sql;
-//import org.springframework.test.context.junit4.SpringRunner;
-//import training360.j5webshop.products.Product;
-//import training360.j5webshop.users.User;
-//import training360.j5webshop.users.UserDao;
-//
-//import static org.hamcrest.CoreMatchers.equalTo;
-//import static org.hamcrest.MatcherAssert.assertThat;
-//
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-//@Sql({"basket_init.sql", "/product_init.sql"})
-//public class BasketDaoTest {
-//
-//    @Autowired
-//    BasketDao basketDao;
-//
-//    @Test
-//    public void testAddToBasket() {
-//        long basketId = basketDao.findBasketId(2);
-//        Product product = new Product("Test", "Test", 10_000);
-//        basketDao.addToBasket(basketId, product);
-//        assertThat(basketDao.listProductIdsOfBasket(2), equalTo(basketDao.));
-//    }
-//
-//    public void flushBasket(long basketId) {
-//        jdbcTemplate.update("delete from basket_item where basket_id = ?", basketId);
-//    }
-//
-//    public List<Long> listProductIdsOfBasket(long basketId) {
-//        return jdbcTemplate.query("select product_id from basket_item where basket_id = ?", new RowMapper<Long>() {
-//            @Override
-//            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
-//                return resultSet.getLong("product_id");
-//            }
-//        }, basketId);
-//    }
-//
-//    public Long findBasketId(long userId) {
-//        return jdbcTemplate.queryForObject("select id from basket where users_id = ?",
-//                (rs, rowNum) -> rs.getLong("id"), userId);
-//    }
-//
-//    public long findUserByBasketId(long basketId) {
-//        return jdbcTemplate.queryForObject("select users_id from basket where id = ?",
-//                (rs, rowNum) -> rs.getLong("users_id"), basketId);
-//    }
-//
-//    public void deleteItemFromBasket(long basketId, long productId) {
-//        jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
-//    }
-//
-//}
+package training360.j5webshop.baskets;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringRunner;
+import training360.j5webshop.products.Product;
+import training360.j5webshop.products.ProductDao;
+
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Sql({"/basket_init.sql", "/product_init.sql"})
+public class BasketDaoTest {
+
+    @Autowired
+    BasketDao basketDao;
+    @Autowired
+    ProductDao productDao;
+
+    @Test
+    public void testAddToBasket() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        long id = productDao.createProduct(product);
+        // When
+        basketDao.addToBasket(2, id);
+        // Then
+        assertThat(basketDao.listProductIdsOfBasket(2).size(), equalTo(1));
+        assertThat(basketDao.listProductIdsOfBasket(2).get(0), equalTo(id));
+    }
+
+    @Test
+    public void testFlushBasket() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        Product product2 = new Product("name2", "publisher2", 10_000);
+        long id = productDao.createProduct(product);
+        long id2 = productDao.createProduct(product2);
+        // When
+        basketDao.addToBasket(2, id);
+        basketDao.addToBasket(2, id2);
+        basketDao.flushBasket(2);
+        // Then
+        assertThat(basketDao.listProductIdsOfBasket(2).size(), equalTo(0));
+    }
+
+    @Test
+    public void testListProductIdsOfBasket() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        Product product2 = new Product("name", "publisher", 10_000);
+        long id = productDao.createProduct(product);
+        long id2 = productDao.createProduct(product2);
+        // When
+        basketDao.addToBasket(2, id);
+        basketDao.addToBasket(2, id2);
+        List<Long> ids = basketDao.listProductIdsOfBasket(2);
+        // Then
+        assertThat(ids.size(), equalTo(2));
+        assertThat(ids.get(0), equalTo(id));
+        assertThat(ids.get(1), equalTo(id2));
+    }
+
+    public void testFindBasketId(long userId) {
+        // When
+        long id = basketDao.findBasketId(2);
+        // Then
+        assertThat(id, equalTo(2));
+    }
+
+    public void testFindBasketIdIfDoesntExist(long userId) {
+        // When
+        long id = basketDao.findBasketId(2);
+        // Then
+        assertThat(id, equalTo(0));
+    }
+
+
+    public void testFindUserByBasketId() {
+        // When
+        long id = basketDao.findUserByBasketId(2);
+        // Then
+        assertThat(id, equalTo(2));
+    }
+
+    public void testFindUserByBasketIdIfDoesntExist() {
+        // When
+        long id = basketDao.findUserByBasketId(100);
+        // Then
+        assertThat(id, equalTo(0));
+    }
+
+    public void testDeleteItemFromBasket() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        long id = productDao.createProduct(product);
+        // When
+        basketDao.addToBasket(2, id);
+        basketDao.deleteItemFromBasket(2, id);
+        // Then
+        assertThat(basketDao.listProductIdsOfBasket(2).size(), equalTo(0));
+    }
+
+}
