@@ -31,6 +31,7 @@ function createAdminHeader(admin) {
           <a href="/logout">kijelentkezés</a>
       </div>
   </div>
+  <br>
   <div class="navigation">
       <div class="nav-div">
          <ul>
@@ -55,6 +56,7 @@ function createDefaultHeader(user) {
             <a href="/login.html">bejelentkezés</a>
         </div>
     </div>
+    <br>
     <div class="navigation">
         <div class="nav-div">
             <ul>
@@ -80,7 +82,8 @@ function createUserHeader(user) {
             <a href="/basket.html?basket=${user.basketId}"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
         </div>
     </div>
-  <div class="navigation">
+    <br>
+    <div class="navigation">
       <div class="nav-div">
          <ul>
             <li><a href="index.html">főoldal</a></li>

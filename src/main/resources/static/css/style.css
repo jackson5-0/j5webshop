@@ -177,50 +177,47 @@ footer {
 }
 
 #header-top {
-    display: inline-block;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-    float: right;
-    height: 60px;
-    max-width: 300px;
-    margin: 0 auto;
-    padding: 30px 0;
-    text-align: center;
+    display: block;
+    width: 100%;
+
 }
 
-#header-top a {
+.login-out-div {
+    box-sizing: border-box;
     display: inline-block;
-    padding: 5px 5px;
+    float: right;
+    text-align: right;
+    width: auto;
+    max-width: 30%;
+    margin: 0 auto;
+    padding: 8px 20px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.login-out-div a {
+    padding: 20px;
     font-family: "Existence";
     color: rgba(0, 0, 0, 0.5);
-    text-shadow: 1px 1px 1px rgba(255, 255, 255);
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
     font-size: auto;
-    max-font-size: 3vw;
-    min-font-size: 2vw;
+    max-font-size: 5vw;
+    min-font-size: 3vw;
     font-weight: bold;
     text-decoration: none;
-    display: block;
-}
-
-#header-top span {
-    font-family: "Existence";
-    font-size: auto;
-    max-font-size: 3vw;
-    min-font-size: 2vw;
-    font-weight: bold;
-}
-
-.logo {
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-    height: 100%;
-    weight: 100%;
+    display: inline-block;
 }
 
 .logo-div {
-  display: inline-block;
-  float: left;
-  width: 10vw;
-  height: 6vw;
-  padding: 5px;
+    box-sizing: border-box;
+    display: inline-block;
+    float: left;
+    max-width: 40%;
+}
+
+.logo {
+    height:80px;
+    width: 120px;
 }
 
 .name {
@@ -233,13 +230,6 @@ footer {
     margin: 1vw;
 }
 
-.nav {
-    display: block;
-    width: 100%;
-    position: relative;
-    float: left;
-}
-
 main {
     display: block;
     width: 100%;
@@ -250,18 +240,12 @@ main {
 .navigation {
   display: block;
   box-sizing: border-box;
-  float: left;
-  max-width: 900px;
+  float: center;
+  min-width: 600px;
+  max-width: 800px;
   mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
   margin: 0 auto;
   padding: 20px 0;
-}
-
-.nav-div {
-  box-sizing: border-box;
-  display: inline-block;
-  margin-left: 10vw;
-  width: 600px;
 }
 
 .navigation ul {

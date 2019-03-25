@@ -1,6 +1,7 @@
 package training360.j5webshop.orders;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -102,7 +103,8 @@ public class OrderDao {
                 (rs, rowNum) -> new Order(
                         rs.getLong("id"),
                         rs.getLong("user_id"),
-                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+//                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+                        LocalDate.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
                         findOrderedProductByOrderId(rs.getLong("id")),
                 OrderStatus.valueOf(rs.getString("status"))));
     }
