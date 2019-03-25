@@ -68,7 +68,8 @@ function showList(jsonData) {
   tbody.appendChild(tr2);
 }
 function orderBasket() {
-  fetch(`/myorders`, {
+  var basketId = (new URL(document.location)).searchParams.get('basket');
+  fetch(`/myorders?basketId=${basketId}`, {
       method: "POST"
     })
     .then(function (response) {
