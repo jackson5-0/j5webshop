@@ -34,6 +34,9 @@ function showList(jsonData) {
   tbody.innerHTML = '';
   var sum = 0;
   for (var i = 0; i < jsonData.length; i++) {
+//  if (jsonData.totalPrice===0){
+//   ?
+//  }
     var tr = document.createElement('tr');
 
     var userNameTd = document.createElement('td');

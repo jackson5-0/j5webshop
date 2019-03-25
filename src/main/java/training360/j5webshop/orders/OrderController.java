@@ -54,9 +54,8 @@ public class OrderController {
     public void deleteOrders(@PathVariable long id){
         orderService.deleteOrders(id);
     }
-
-    @GetMapping("/order/{order}")
-    public List<Product> listOrder(@PathVariable long orderId) {
-        return orderService.listOrder(orderId);
+    @DeleteMapping("/order/{id}/{address}")
+    public void deleteItem(@PathVariable long id, @PathVariable String address){
+        orderService.deleteItem(id,address);
     }
 }

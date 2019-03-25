@@ -5,6 +5,7 @@ import training360.j5webshop.products.Product;
 public class OrderedProduct {
 
     private String name;
+    private String address;
     private int quantity;
     private int priceAtPurchase;
 
@@ -13,9 +14,19 @@ public class OrderedProduct {
 
     public OrderedProduct(Product product, int quantity /*int priceAtPurchase*/) {
         this.name = product.getName();
+        product.setCodeAndAddress();
+        this.address=product.getAddress();
         this.quantity = quantity;
 //        this.priceAtPurchase = priceAtPurchase;
         this.priceAtPurchase = product.getPrice();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getName() {

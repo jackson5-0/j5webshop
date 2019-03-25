@@ -23,7 +23,7 @@ function fetchProduct() {
                 addBasketButton.setAttribute('class', 'button');
                 addBasketButton.innerHTML = 'Kosárba';
                 addBasketButton.onclick = addBasket;
-                addBasketButton["raw-data"] = jsonData.id;
+                addBasketButton["raw-data"] = jsonData.product.id;
                 addBasketTd.appendChild(addBasketButton);
             }
             var imgDiv = document.getElementById("product-image-div");

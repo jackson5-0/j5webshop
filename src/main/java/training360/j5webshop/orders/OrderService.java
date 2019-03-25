@@ -22,6 +22,7 @@ public class OrderService {
     @Autowired
     private ProductDao productDao;
 
+
 //    public long createOrder(Basket basket){
 //        long id = orderDao.createOrder(basket);
 //        orderDao.addOrderdProduct(id, basket);
@@ -69,8 +70,8 @@ public class OrderService {
     public void deleteOrders(long id){
         orderDao.deleteWholeOrder(id);
     }
-
-    public List<Product> listOrder(long orderId) {
-        return orderDao.listOrder(orderId);
+    public void deleteItem(long id, String address){
+        orderDao.deleteItem(id,address);
     }
+
 }

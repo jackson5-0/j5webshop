@@ -126,12 +126,16 @@ public class OrderDao {
                         OrderStatus.valueOf(rs.getString("status")),
                         totalPrice(rs.getLong("id"))));
     }
-    public void deleteFromOrder(long orderId, String productAddress){
+    public void deleteItem(long orderId, String productAddress){
+        System.out.println(productAddress);
         long productId = productDao.findProductByAddress(productAddress).getProduct().getId();
-        jdbcTemplate.update("delete from order_item where order_id=? and product_id=?", orderId, productId);
+        System.out.println(productId);
+        System.out.println(orderId);
+        jdbcTemplate.update("delete from order_item where orders_id=? and product_id=?", orderId, productId);
     }
     public void deleteWholeOrder(long orderId){
         jdbcTemplate.update("update orders set status='DELETED' where id=?", orderId);
+        jdbcTemplate.update("delete from order_item where orders_id=?",orderId);
     }
 
     public int totalPrice(long id){
@@ -143,15 +147,9 @@ public class OrderDao {
     }
 
     public List<OrderedProduct> findOrderedProductByOrderId(long id){ // az id a kapcsolódó order id-ja lesz
-
-        List<OrderedProduct> foundByOrderId = jdbcTemplate.query
-                ("SELECT COUNT(product_id), product.name, product.publisher, order_item.price from product join order_item on product.id = order_item.product_id WHERE order_item.orders_id = ? GROUP BY product_id, price",
+        return jdbcTemplate.query
+                ("SELECT COUNT(product_id), product.name, product.publisher,product.address, order_item.price from product join order_item on product.id = order_item.product_id WHERE order_item.orders_id = ? GROUP BY product_id, price",
                         (rs, rowNum) -> new OrderedProduct(new Product(rs.getString("product.name"), rs.getString("product.publisher"), rs.getInt("order_item.price")), rs.getInt("COUNT(product_id)") /*, rs.getInt("order_item.price")*/)
                         ,id);
-        return foundByOrderId;
-    }
-
-    public List<Product> listOrder(long orderId) {
-        return null;
     }
 }
