@@ -54,7 +54,7 @@ public class ProductService {
         return productDao.listAllProducts();
     }
 
-    public int getLengthOfProductList() {
+    public Integer getLengthOfProductList() {
         return productDao.getLengthOfProductList();
     }
 

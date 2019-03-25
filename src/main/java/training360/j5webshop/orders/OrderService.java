@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.baskets.BasketDao;
+import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
 import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
@@ -20,6 +21,7 @@ public class OrderService {
     private BasketDao basketDao;
     @Autowired
     private ProductDao productDao;
+
 
 //    public long createOrder(Basket basket){
 //        long id = orderDao.createOrder(basket);
@@ -56,6 +58,14 @@ public class OrderService {
         return orderDao.listAllOrder();
     }
 
+    public List<Order> listActiveOrder(){
+        return orderDao.listActiveOrder();
+    }
+
+    public List<Order> listAllOrderWithDeleted(){
+        return orderDao.listAllOrderWithDeleted();
+    }
+
     public List<OrderedProduct> findOrderedProductByOrderId(long id){
         return orderDao.findOrderedProductByOrderId(id);
     }
@@ -68,4 +78,12 @@ public class OrderService {
     public void deleteOrders(long id){
         orderDao.deleteWholeOrder(id);
     }
+    public void deleteItem(long id, String address){
+        orderDao.deleteItem(id,address);
+    }
+
+    public void changeStatusById(long orderId){
+        orderDao.changeStatusById(orderId);
+    }
+
 }

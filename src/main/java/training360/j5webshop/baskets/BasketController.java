@@ -16,9 +16,9 @@ public class BasketController {
     private BasketService basketService;
 
     @PostMapping("/basket")
-    public ResponseStatus addToBasket(@RequestParam long basketId, @RequestBody Product product) {
+    public ResponseStatus addToBasket(@RequestParam long basketId, @RequestParam long productId) {
         ResponseStatus rs = new ResponseStatus();
-        if (basketService.addToBasket(basketId, product)) {
+        if (basketService.addToBasket(basketId, productId)) {
             return rs.addMessage("A termék bekerült a kosárba!");
         } else {
             rs.setStatus(ValidationStatus.FAIL);
@@ -28,8 +28,11 @@ public class BasketController {
 
     @DeleteMapping("/basket")
     public ResponseStatus flushBasket(@RequestParam long basketId) {
-            basketService.flushBasket(basketId);
-            return new ResponseStatus().addMessage("A kosár újra üres!");
+            if(basketService.flushBasket(basketId) != 0){
+                return new ResponseStatus().addMessage("A kosár újra üres!");
+            } else {
+                return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem letező kosár");
+            }
         }
 
     @GetMapping("/basket")
@@ -39,7 +42,10 @@ public class BasketController {
 
     @DeleteMapping("/basket/{basket}")
     public ResponseStatus deleteItemFromBasket(@PathVariable long basket, @RequestParam long productId) {
-        basketService.deleteItemFromBasket(basket, productId);
+        int rows = basketService.deleteItemFromBasket(basket, productId);
+        if (rows == 0) {
+           return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem letező kosár");
+        }
         return new ResponseStatus().addMessage("A terméket sikeresen eltávolítottuk a kosárból.");
     }
 }
