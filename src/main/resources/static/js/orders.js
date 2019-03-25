@@ -1,8 +1,6 @@
 window.onload = fetchList;
 
 function fetchList(){
-//  var radio = document.getElementsByName('status').checked;
-//  console.log(radio);
   if (document.getElementById('all').checked) {
     fetchAll();
   } else {
@@ -55,16 +53,19 @@ function showList(jsonData) {
 
     var delTd = document.createElement('td');
 
-    var delBut = document.createElement('button');
-    delBut.innerHTML = "Törlés";
-    delBut.onclick = deleteOrderItem;
-    delBut["raw-data"] = jsonData[i];
-
     tr.appendChild(userNameTd);
     tr.appendChild(purchaseDateTd);
     tr.appendChild(orderStatusTd);
     tr.appendChild(totalPriceTd);
-    delTd.appendChild(delBut);
+
+    if (jsonData[i].orderStatus == "ACTIVE") {
+        var delBut = document.createElement('button');
+        delBut.innerHTML = "Törlés";
+        delBut.onclick = deleteOrderItem;
+        delBut["raw-data"] = jsonData[i];
+        delTd.appendChild(delBut);
+    }
+
     tr.appendChild(delTd);
 
     tbody.appendChild(tr);
@@ -73,22 +74,14 @@ function showList(jsonData) {
 
 function deleteOrderItem() {
     var id = this["raw-data"].id;
-    console.log(id);
     if (!confirm("Biztosan törölni szeretné a rendelést?")) {
             return;
         }
      fetch(`/orders/delete/${id}`, {
            method: "DELETE"
-         })
-         .then(function (response) {
-           return response.json();
-         })
-         .then(function (jsonData) {
-           document.getElementById("message-div").setAttribute("class", "alert alert-success");
-           document.getElementById("message-div").innerHTML = "A terméket sikeresen töröltük a listából";
-         })
-         .then(function (jsonData) {
-           fetchAll();
-//           fetchList();
+         }).then( function() {
+            fetchList();
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = "A terméket sikeresen töröltük a listából";
          });
 }
