@@ -58,6 +58,14 @@ public class OrderService {
         return orderDao.listAllOrder();
     }
 
+    public List<Order> listActiveOrder(){
+        return orderDao.listActiveOrder();
+    }
+
+    public List<Order> listAllOrderWithDeleted(){
+        return orderDao.listAllOrderWithDeleted();
+    }
+
     public List<OrderedProduct> findOrderedProductByOrderId(long id){
         return orderDao.findOrderedProductByOrderId(id);
     }
@@ -72,6 +80,10 @@ public class OrderService {
     }
     public void deleteItem(long id, String address){
         orderDao.deleteItem(id,address);
+    }
+
+    public void changeStatusById(long orderId){
+        orderDao.changeStatusById(orderId);
     }
 
 }

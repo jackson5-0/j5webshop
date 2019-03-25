@@ -99,7 +99,7 @@ public class OrderDao {
 
 
     public List<Order> listAllOrder() {
-        return jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` where status ='active' order by purchase_date DESC",
+        return jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` where status !='deleted' order by purchase_date DESC",
                 (rs, rowNum) -> new Order(
                         rs.getLong("id"),
                         rs.getLong("user_id"),
@@ -108,6 +108,29 @@ public class OrderDao {
                         findOrderedProductByOrderId(rs.getLong("id")),
                 OrderStatus.valueOf(rs.getString("status"))));
     }
+
+    public List<Order> listActiveOrder() {
+        return jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` where status ='active' order by purchase_date DESC",
+                (rs, rowNum) -> new Order(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+//                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+                        LocalDate.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+                        findOrderedProductByOrderId(rs.getLong("id")),
+                        OrderStatus.valueOf(rs.getString("status"))));
+    }
+
+    public List<Order> listAllOrderWithDeleted() {
+        return jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` order by purchase_date DESC",
+                (rs, rowNum) -> new Order(
+                        rs.getLong("id"),
+                        rs.getLong("user_id"),
+//                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+                        LocalDate.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
+                        findOrderedProductByOrderId(rs.getLong("id")),
+                        OrderStatus.valueOf(rs.getString("status"))));
+    }
+
     public List<OrderInfo> listAdminOrders(){
         return jdbcTemplate.query("SELECT orders.id, users.username, purchase_date, status FROM `orders` JOIN `users` on orders.user_id=users.id order by purchase_date DESC",
                 (rs, rowNum) -> new OrderInfo(
@@ -126,6 +149,8 @@ public class OrderDao {
                         OrderStatus.valueOf(rs.getString("status")),
                         totalPrice(rs.getLong("id"))));
     }
+
+
     public void deleteItem(long orderId, String productAddress){
         long productId = productDao.findProductByAddress(productAddress).getProduct().getId();
         jdbcTemplate.update("delete from order_item where orders_id=? and product_id=?", orderId, productId);
@@ -148,5 +173,9 @@ public class OrderDao {
                 ("SELECT COUNT(product_id), product.name, product.publisher,product.address, order_item.price from product join order_item on product.id = order_item.product_id WHERE order_item.orders_id = ? GROUP BY product_id, price",
                         (rs, rowNum) -> new OrderedProduct(new Product(rs.getString("product.name"), rs.getString("product.address"),rs.getString("product.publisher"), rs.getInt("order_item.price")), rs.getInt("COUNT(product_id)") /*, rs.getInt("order_item.price")*/)
                         ,id);
+    }
+
+    public void changeStatusById(long orderId){
+        jdbcTemplate.update("update orders set status='DELIVERED' where id=?", orderId);
     }
 }

@@ -47,5 +47,24 @@ function showList(jsonData) {
 
 }
 
+function showActiveOrders(){
+    fetch(`/myorders/active`)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (jsonData) {
+          showList(jsonData);
+        });
+}
+function showAllOrders(){
+    fetch(`/myorders/all`)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (jsonData) {
+          showList(jsonData);
+        });
+}
+
 function openIndexHtml(){
     window.open("/index.html", "_self")}

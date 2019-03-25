@@ -38,6 +38,16 @@ public class OrderController {
         return orderService.listAllOrder();
     }
 
+    @GetMapping("/myorders/active")
+    public List<Order> listActiveOrder(){
+        return orderService.listActiveOrder();
+    }
+
+    @GetMapping("myorders/all")
+    public List<Order> listAllOrderWithDeleted(){
+        return orderService.listAllOrderWithDeleted();
+    }
+
     @GetMapping("/myorders/{id}")
     public List<OrderedProduct> findOrderedProductByOrderId(@PathVariable long id){
         return orderService.findOrderedProductByOrderId(id);
@@ -46,16 +56,24 @@ public class OrderController {
     public List<OrderInfo> listAdminOrders(){
         return orderService.listAdminOrders();
     }
+
     @GetMapping("/activeorders")
     public List<OrderInfo> listActiveOrders(){
         return orderService.listActiveAdminOrders();
     }
+
     @DeleteMapping("/orders/delete/{id}")
     public void deleteOrders(@PathVariable long id){
         orderService.deleteOrders(id);
     }
+
     @DeleteMapping("/order/{id}/{address}")
     public void deleteItem(@PathVariable long id, @PathVariable String address){
         orderService.deleteItem(id,address);
+    }
+
+    @PostMapping("/orders/{orderId}")
+    public void changeStatusById(@PathVariable long orderId){
+        orderService.changeStatusById(orderId);
     }
 }

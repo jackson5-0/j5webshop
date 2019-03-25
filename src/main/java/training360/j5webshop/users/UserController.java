@@ -65,4 +65,12 @@ public class UserController {
             return validator.getResponseStatus();
         }
     }
+
+    public User findUserById(long id) {
+        return userService.findUserById(id);
+    }
+
+    public long getUserId(String userName) {
+        return userService.getUserId(userName);
+    }
 }

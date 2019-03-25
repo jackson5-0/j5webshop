@@ -46,4 +46,7 @@ public class UserService {
         return userDao.findUserById(id);
     }
 
+    public long getUserId(String userName) {
+        return userDao.getUserId(userName);
+    }
 }

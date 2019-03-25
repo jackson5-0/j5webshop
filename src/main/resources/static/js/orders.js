@@ -62,12 +62,17 @@ function showList(jsonData) {
     tr.appendChild(orderStatusTd);
     tr.appendChild(totalPriceTd);
 
-    if (jsonData[i].orderStatus == "ACTIVE") {
+    if (jsonData[i].orderStatus == "ACTIVE" || jsonData[i].orderStatus == "DELIVERED") {
         var delBut = document.createElement('button');
         delBut.innerHTML = "Törlés";
         delBut.onclick = deleteOrderItem;
         delBut["raw-data"] = jsonData[i];
         delTd.appendChild(delBut);
+        var changeStatusButton = document.createElement('button');
+        changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
+        changeStatusButton.onclick = changeStatusToDelivered;
+        changeStatusButton["raw-data"] = jsonData[i];
+        delTd.appendChild(changeStatusButton)
     }
 
     tr.appendChild(delTd);
@@ -88,4 +93,15 @@ function deleteOrderItem() {
             document.getElementById("message-div").setAttribute("class", "alert alert-success");
             document.getElementById("message-div").innerHTML = "A terméket sikeresen töröltük a listából";
          });
+}
+
+function changeStatusToDelivered(){
+    var orderId = this["raw-data"].id;
+    fetch(`/orders/${orderId}`, {
+            method: "POST"
+       }).then( function() {
+                      fetchList();
+                      document.getElementById("message-div").setAttribute("class", "alert alert-success");
+                      document.getElementById("message-div").innerHTML = "A termék státuszát sikeresen kiszállítva(delivered) értékre állította!";
+                   });
 }
