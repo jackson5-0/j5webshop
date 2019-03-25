@@ -1,12 +1,10 @@
 package training360.j5webshop.validation;
 
 import training360.j5webshop.baskets.Basket;
-import training360.j5webshop.orders.Order;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.users.User;
 
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class Validator {
 
@@ -37,9 +35,7 @@ public class Validator {
         if(responseStatus.getMessages().size()>0){
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
-
     }
-
 
     private void checkName(String name) {
         if (name == null || name.trim().equals("")) {
@@ -94,5 +90,4 @@ public class Validator {
     public ResponseStatus getResponseStatus() {
         return responseStatus;
     }
-
 }

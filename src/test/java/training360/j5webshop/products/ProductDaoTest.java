@@ -1,118 +1,108 @@
 package training360.j5webshop.products;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
-import org.flywaydb.core.Flyway;
-import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.sql.DataSource;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertNull;
 
-
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Sql(scripts = "/product_init.sql")
 public class ProductDaoTest {
 
+    @Autowired
     private ProductDao productDao;
 
-    @Before
-    public void init() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/j5webshoptest?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        dataSource.setUser("j5webshop");
-        dataSource.setPassword("jacksonfive");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.clean();
-        flyway.migrate();
-
-        productDao = new ProductDao(dataSource);
-    }
-
     @Test
-    public void testFindByAddress() {
-        //Given
-        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        //When
-        Product product = productDao.findProductByAddress("hacker-jatszma");
-        //Then
-        assertThat(product.getName(), equalTo("Hacker játszma"));
-        assertThat(product.getCode(), equalTo("GEMHAC01"));
-        assertThat(product.getPrice(), equalTo(3190));
+    public void testListProductsWithLimit() {
+        // When
+        List<Product> list = productDao.listProductsWithLimit(1, 2);
+        // Then
+        assertThat(list.size(), equalTo(2));
+        assertThat(list.get(0), equalTo(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190)));
+        assertThat(list.get(1), equalTo(new Product("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990)));
     }
 
     @Test
     public void testListAllProducts() {
-        //Given
-        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
         //When
         List<Product> list = productDao.listAllProducts();
         //Then
-        assertThat(list.size(), equalTo(2));
-        assertThat(list.get(0).getName(), equalTo("Dixit"));
-        assertThat(list.get(1).getAddress(), equalTo("hacker-jatszma"));
+        assertThat(list.size(), equalTo(4));
+        assertThat(list.get(0), equalTo(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990)));
+        assertThat(list.get(3), equalTo(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990)));
     }
 
     @Test
     public void testGetLengthOfProductList() {
-        //Given
-        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
         //When
         int num = productDao.getLengthOfProductList();
         //Then
-        assertThat(num, equalTo(2));
+        assertThat(num, equalTo(4));
     }
 
     @Test
-    public void testListProductsWithLimit() {
-        //Given
-        productDao.createProduct(new Product("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990));
-        productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
-        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
+    public void testCreateProduct() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        // When
+        long id = productDao.createProduct(product);
+        // Then
+        assertThat(productDao.getLengthOfProductList(), equalTo(5));
+        assertThat(productDao.findProductById(id), equalTo(product));
+    }
+
+    @Test
+    public void testFindProductByAddress() {
         //When
-        List<Product> list = productDao.listProductsWithLimit(0,2);
+        Product product = productDao.findProductByAddress("hacker-jatszma");
+        Product product2 = productDao.findProductByAddress("hacker-jatszma");
         //Then
-        assertThat(list.size(), equalTo(2));
-        assertThat(list.get(0).getName(), equalTo("Dixit"));
-        assertThat(list.get(1).getName(), equalTo("Hacker játszma"));
+        assertThat(product, equalTo(new Product("Hacker játszma", "Gém Klub Kft.", 3190)));
+        assertThat(product.getStatus(), equalTo(ProductStatus.ACTIVE));
+    }
+
+    @Test
+    public void testFindProductById() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        // When
+        long id = productDao.createProduct(product);
+        // Then
+        assertThat(productDao.findProductById(id), equalTo(product));
     }
 
     @Test
     public void testUpdateProduct() {
-        //Given
-        productDao.createProduct(new Product("AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990));
-        long id = productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
-        productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        //When
-        Product modifiedProduct = new Product("Trónok harca II.", "Hasbro", 25900);
-        productDao.updateProduct(id, modifiedProduct);
-        //Then
-        assertThat(productDao.findProductById(id).getName(), equalTo("Trónok harca II."));
-        assertThat(productDao.findProductById(id).getPublisher(), equalTo("Hasbro"));
-        assertThat(productDao.findProductById(id).getPrice(), equalTo(25900));
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        Product updated = new Product("nameUpdated", "publisherUpdated", 20_000);
+        long id = productDao.createProduct(product);
+        // When
+        productDao.updateProduct(id, updated);
+        // Then
+        assertThat(productDao.findProductById(id), equalTo(updated));
     }
 
     @Test
-    public void testDeleteProduct() {
-        //Given
-        productDao.createProduct(new Product("DELTRO01", "Trónok harca", "tronok-harca", "Delta Vision", 17990));
-        long id = productDao.createProduct(new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190));
-        productDao.createProduct(new Product("GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990));
-        //When
-        int sizeBeforeDelete = productDao.getLengthOfProductList();
+    public void testDeleteProductById() {
+        // Given
+        Product product = new Product("name", "publisher", 10_000);
+        long id = productDao.createProduct(product);
+        // When
         productDao.deleteProductById(id);
-        int sizeAfterDelete = productDao.getLengthOfProductList();
-        //Then
-        assertThat(sizeBeforeDelete, equalTo(3));
-        assertThat(sizeAfterDelete, equalTo(2));
-        assertThat(productDao.listProductsWithLimit(0,3).get(0).getCode(), equalTo("GEMDIX01"));
-        assertThat(productDao.listProductsWithLimit(0, 3).get(1).getCode(), equalTo("DELTRO01"));
+        // Then
+        assertThat(productDao.findProductById(id).getStatus(), equalTo(ProductStatus.DELETED));
+        assertThat(productDao.listAllProducts().size(), equalTo(5));
     }
+
+
 }

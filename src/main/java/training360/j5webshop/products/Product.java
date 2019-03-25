@@ -1,6 +1,7 @@
 package training360.j5webshop.products;
 
 import java.text.Normalizer;
+import java.util.Objects;
 
 public class Product {
     private long id;
@@ -113,6 +114,22 @@ public class Product {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return price == product.price &&
+                Objects.equals(name, product.name) &&
+                Objects.equals(publisher, product.publisher) &&
+                status == product.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, publisher, price, status);
+    }
+
+    @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
@@ -124,4 +141,5 @@ public class Product {
                 ", status=" + status +
                 '}';
     }
+
 }
