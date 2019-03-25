@@ -41,6 +41,17 @@ public class OrderController {
     public List<OrderedProduct> findOrderedProductByOrderId(@PathVariable long id){
         return orderService.findOrderedProductByOrderId(id);
     }
-
+    @GetMapping("/orders")
+    public List<OrderInfo> listAdminOrders(){
+        return orderService.listAdminOrders();
+    }
+    @GetMapping("/activeorders")
+    public List<OrderInfo> listActiveOrders(){
+        return orderService.listActiveAdminOrders();
+    }
+    @DeleteMapping("/orders/delete/{id}")
+    public void deleteOrders(@PathVariable long id){
+        orderService.deleteOrders(id);
+    }
 
 }

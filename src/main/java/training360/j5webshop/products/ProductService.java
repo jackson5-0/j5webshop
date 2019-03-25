@@ -11,7 +11,7 @@ public class ProductService {
     @Autowired
     private ProductDao productDao;
 
-    public Product findProductByAddress(String address) {
+    public ProductContainer findProductByAddress(String address) {
         return productDao.findProductByAddress(address);
     }
 

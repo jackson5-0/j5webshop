@@ -8,11 +8,15 @@ function fetchProduct() {
             return response.json();
         })
         .then(function (jsonData) {
-            document.getElementById("code").innerHTML = jsonData.code;
-            document.getElementById("name").innerHTML = jsonData.name;
-            document.getElementById("address").innerHTML = jsonData.address;
-            document.getElementById("publisher").innerHTML = jsonData.publisher;
-            document.getElementById("price").innerHTML = jsonData.price + " Ft";
+            if (jsonData.product) {
+                document.getElementById("code").innerHTML = jsonData.product.code;
+                document.getElementById("name").innerHTML = jsonData.product.name;
+                document.getElementById("address").innerHTML = jsonData.product.address;
+                document.getElementById("publisher").innerHTML = jsonData.product.publisher;
+                document.getElementById("price").innerHTML = jsonData.product.price + " Ft";
+            } else {
+                document.querySelector(".product-info-div").innerHTML = jsonData.message;
+            }
             if (user.userRole == "ROLE_USER") {
                 var addBasketTd = document.getElementById('add-to-basket');
                 var addBasketButton = document.createElement('button');

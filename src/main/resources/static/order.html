@@ -2,16 +2,27 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Order</title>
+    <title>Rendelés</title>
 </head>
 <body>
 <main>
+    <div id="message-div"></div>
     <div>
-        <h1>Rendeléseim</h1>
-            <table class="table" id ="character">
-            </table>
+        <h1>Rendelés részletei:</h1>
+        <table class="table table-hover" id="order-table">
+            <thead>
+            <tr>
+                <th>Megnevezés</th>
+                <th>Ár</th>
+                <th>Mennyiség</th>
+                <th>Törlés</th>
+            </tr>
+            </thead>
+            <tbody id="order-tablebody">
+            </tbody>
+        </table>
     </div>
 </main>
-<script src="js/basket.js"></script>
 <script src="js/order.js"></script>
 </body>
+</html>
