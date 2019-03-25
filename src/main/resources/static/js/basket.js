@@ -87,8 +87,14 @@ function orderBasket() {
     .then(function (jsonData) {
       document.getElementById("message-div").setAttribute("class", "alert alert-success");
       document.getElementById("message-div").innerHTML = jsonData.messages;
-    .then(function)
-    });
+      return jsonData;
+      })
+    .then(function (jsonData) {
+          showList(jsonData);
+    })
+    .then(function(){
+        window.open("/myorders.html","_self");})
+    ;
 }
 
 function deleteBasketItem() {

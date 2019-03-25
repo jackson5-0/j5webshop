@@ -44,4 +44,8 @@ function showList(jsonData) {
     }
 
   } tbody.innerHTML = thead+tableRow;
+
 }
+
+function openIndexHtml(){
+    window.open("/index.html", "_self")}
