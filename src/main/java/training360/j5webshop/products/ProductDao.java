@@ -42,7 +42,7 @@ public class ProductDao {
         });
     }
 
-    public int getLengthOfProductList() {
+    public Integer getLengthOfProductList() {
         return jdbcTemplate.queryForObject("select count(id) from product where status != 'DELETED'", new RowMapper<Integer>() {
             @Override
             public Integer mapRow(ResultSet resultSet, int i) throws SQLException {

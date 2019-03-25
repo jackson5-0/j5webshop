@@ -35,17 +35,8 @@ function fetchProduct() {
         });
 }
 function addBasket(){
-   var request = {
-           "basket_id" : user.basketId,
-           "id": this["raw-data"]
-           }
-   fetch(`/basket?basketId=${user.basketId}`, {
-            method: "POST",
-            body: JSON.stringify(request),
-            headers: {
-                 "Content-type" : "application/json"
-                 }
-             })
+    fetch(`/basket?basketId=${user.basketId}&productId=${this["raw-data"]}`,
+        {method: "POST"})
              .then(function(response) {
                          return response.json();
               })
