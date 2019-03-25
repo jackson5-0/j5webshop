@@ -1,5 +1,6 @@
 package training360.j5webshop.products;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -70,11 +71,16 @@ public class ProductDao {
         return keyHolder.getKey().longValue();
     }
 
-    public Product findProductByAddress(String address) {
-        return jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status from product where address = ?",
+    public ProductContainer findProductByAddress(String address) {
+        try {
+            Product product = jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status from product where address = ?",
                 (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),
                         rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status")),
                 address);
+            return new ProductContainer(product);
+        } catch (EmptyResultDataAccessException ere) {
+            return new ProductContainer("A keresett termék nem található!");
+        }
     }
 
     public Product findProductById(long id) {

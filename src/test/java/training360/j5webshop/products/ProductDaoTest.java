@@ -63,11 +63,19 @@ public class ProductDaoTest {
     @Test
     public void testFindProductByAddress() {
         //When
-        Product product = productDao.findProductByAddress("hacker-jatszma");
-        Product product2 = productDao.findProductByAddress("hacker-jatszma");
+        Product product = productDao.findProductByAddress("hacker-jatszma").getProduct();
         //Then
         assertThat(product, equalTo(new Product("Hacker játszma", "Gém Klub Kft.", 3190)));
         assertThat(product.getStatus(), equalTo(ProductStatus.ACTIVE));
+    }
+
+    @Test
+    public void testFindProductByAddressNotFound() {
+        //When
+        ProductContainer product = productDao.findProductByAddress("not valid");
+        //Then
+        assertNull(product.getProduct());
+        assertThat(product.getMessage(), equalTo("A keresett termék nem található!"));
     }
 
     @Test

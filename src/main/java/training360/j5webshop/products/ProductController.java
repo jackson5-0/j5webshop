@@ -25,7 +25,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{address}")
-    public Product findProductByAddress(@PathVariable String address) {
+    public ProductContainer findProductByAddress(@PathVariable String address) {
         return productService.findProductByAddress(address);
 
     }
