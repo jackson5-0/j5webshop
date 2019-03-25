@@ -30,7 +30,7 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 					.permitAll()
 				.antMatchers("/adminproducts.html", "/admin/**")
 					.hasRole("ADMIN")
-				.antMatchers("/basket", "/basket.html")
+				.antMatchers("/basket", "/basket.html", "/basket/**")
 					.hasRole("USER")
 				.and()
 				.formLogin()

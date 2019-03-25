@@ -36,4 +36,16 @@ public class BasketController {
     public Set<Product> listProductsOfBasket(@RequestParam long basketId) {
         return basketService.listProductsOfBasket(basketId).keySet();
     }
+
+//    @DeleteMapping("/basket/{basket}")
+//    public ResponseStatus deleteItemFromBasket(@PathVariable long basket, @RequestBody long productId) {
+//        basketService.deleteItemFromBasket(basket, productId);
+//        return new ResponseStatus().addMessage("A terméket sikeresen eltávolítottuk a kosárból.");
+//    }
+
+    @PutMapping("/basket")
+    public ResponseStatus deleteItemFromBasket(@RequestParam long basketId, @RequestBody Product product) {
+        basketService.deleteItemFromBasket(basketId, product.getId());
+        return new ResponseStatus().addMessage("A terméket sikeresen eltávolítottuk a kosárból.");
+    }
 }

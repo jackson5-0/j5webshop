@@ -47,9 +47,18 @@ function showList(jsonData) {
     var qtyTd = document.createElement('td');
     qtyTd.innerHTML = 1;
 
+    var delTd = document.createElement('td');
+
+    var delBut = document.createElement('button')
+    delBut.innerHTML = "Törlés";
+    delBut.onclick = deleteBasketItem;
+    delBut["raw-data"] = jsonData[i];
+
     tr.appendChild(nameTd);
     tr.appendChild(priceTd);
     tr.appendChild(qtyTd);
+    delTd.appendChild(delBut);
+    tr.appendChild(delTd);
 
     tbody.appendChild(tr);
   }
@@ -82,4 +91,62 @@ function orderBasket() {
     .then(function (jsonData) {
       showList(jsonData);
     });
+}
+
+//function deleteBasketItem() {
+//    console.log(this["raw-data"]);
+//    var productId = this["raw-data"].id;
+//    var basketId = (new URL(document.location)).searchParams.get('basket');
+//    if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
+//            return;
+//        }
+//     fetch(`/basket?basketId=${basketId}`, {
+//           method: "PUT",
+//           body: productId,
+//           headers: {
+//                "Content-type" : "application/json"
+//           }
+//         })
+//         .then(function (response) {
+//           return response.json();
+//         })
+//         .then(function (jsonData) {
+//           document.getElementById("message-div").setAttribute("class", "alert alert-success");
+//           document.getElementById("message-div").innerHTML = jsonData.messages;
+//         })
+//         .then(function (jsonData) {
+//           fetchList();
+//         });
+
+function deleteBasketItem() {
+
+    var request = { "id": this["raw-data"].id,
+                    "code": this["raw-data"].code,
+                    "name": this["raw-data"].name,
+                    "address": this["raw-data"].address,
+                    "publisher": this["raw-data"].publisher,
+                    "price": 0,
+                    "status": null };
+
+    var basketId = (new URL(document.location)).searchParams.get('basket');
+    if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
+            return;
+        }
+     fetch(`/basket?basketId=${basketId}`, {
+           method: "PUT",
+           body: JSON.stringify(request),
+           headers: {
+                "Content-type" : "application/json"
+           }
+         })
+         .then(function (response) {
+           return response.json();
+         })
+         .then(function (jsonData) {
+           document.getElementById("message-div").setAttribute("class", "alert alert-success");
+           document.getElementById("message-div").innerHTML = jsonData.messages;
+         })
+         .then(function (jsonData) {
+           fetchList();
+         });
 }
