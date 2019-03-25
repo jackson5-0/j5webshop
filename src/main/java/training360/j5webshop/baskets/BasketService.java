@@ -17,17 +17,17 @@ public class BasketService {
     @Autowired
     private ProductDao productDao;
 
-    public boolean addToBasket(long basketId, Product product) {
-        if (productAlreadyAdded(basketId, product)) {
+    public boolean addToBasket(long basketId, long productId) {
+        if (productAlreadyAdded(basketId, productId)) {
             return false;
         } else {
-            basketDao.addToBasket(basketId, product);
+            basketDao.addToBasket(basketId, productId);
             return true;
         }
     }
 
-    public void flushBasket(long basketId) {
-        basketDao.flushBasket(basketId);
+    public int flushBasket(long basketId) {
+        return basketDao.flushBasket(basketId);
     }
 
     public Map<Product, Integer> listProductsOfBasket(long basketId) {
@@ -39,16 +39,16 @@ public class BasketService {
         return productMap;
     }
 
-    private boolean productAlreadyAdded(long basketId, Product product) {
+    private boolean productAlreadyAdded(long basketId, long productId) {
         for (Long l : basketDao.listProductIdsOfBasket(basketId)) {
-            if (product.getId() == l) {
+            if (productId == l) {
                 return true;
             }
         }
         return false;
     }
 
-    public void deleteItemFromBasket(long basketId, long productId) {
-        basketDao.deleteItemFromBasket(basketId, productId);
+    public int deleteItemFromBasket(long basketId, long productId) {
+        return basketDao.deleteItemFromBasket(basketId, productId);
     }
 }

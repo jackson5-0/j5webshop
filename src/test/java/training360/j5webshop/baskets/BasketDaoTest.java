@@ -1,108 +1,63 @@
-package training360.j5webshop.baskets;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
-import org.flywaydb.core.Flyway;
-import org.junit.Before;
-import org.junit.Test;
-import training360.j5webshop.products.Product;
-import training360.j5webshop.users.User;
-import training360.j5webshop.users.UserDao;
-
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
-
-public class BasketDaoTest {
-
-    private BasketDao basketDao;
-    private UserDao userDao;
-
-    @Before
-    public void init() {
-        MysqlDataSource dataSource = new MysqlDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/j5webshoptest?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC");
-        dataSource.setUser("j5webshop");
-        dataSource.setPassword("jacksonfive");
-
-        Flyway flyway = Flyway.configure().dataSource(dataSource).load();
-        flyway.clean();
-        flyway.migrate();
-        basketDao = new BasketDao(dataSource);
-        userDao = new UserDao(dataSource);
-
-    }
-    @Test
-    public void createBasketTest() {
-        //Given
-       // userDao.addUser(new User("Gipsz","Jakab","GiJa","isler"));
-        User jakab = new User("Gipsz","Jakab","GiJa","isler");
-        userDao.addUser(jakab);
-        basketDao.createBasket(jakab.getId());
-
-        //When
-        long basketId = basketDao.findBasketId(jakab.getId());
-        //Then
-        assertThat(basketId,equalTo(4));
-    }
-
-    @Test
-    public void addToBasketTest(){
-        //Given
-        User jakab = new User("Gipsz","Jakab","GiJa","isler");
-        userDao.addUser(jakab);
-        basketDao.createBasket(jakab.getId());
-        basketDao.addToBasket(4, new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.",1500));
-        //When
-        int size =basketDao.listProductIdsOfBasket(4).size();
-        //Then
-        assertThat(size,equalTo(1));
-    }
-    @Test
-    public void flushBasketTest(){
-        //Given
-        User jakab = new User("Gipsz","Jakab","GiJa","isler");
-        userDao.addUser(jakab);
-        basketDao.createBasket(jakab.getId());
-        basketDao.addToBasket(4, new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.",1500));
-        //When
-        basketDao.flushBasket(4);
-        //Then
-        assertThat(basketDao.listProductIdsOfBasket(4).size(),equalTo(0));
-    }
-    @Test
-    public void listProductIdsOfBasketTest(){
-        //Given
-        User jakab = new User("Gipsz","Jakab","GiJa","isler");
-        userDao.addUser(jakab);
-        basketDao.createBasket(jakab.getId());
-        basketDao.addToBasket(4, new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.",1500));
-        //When
-        long productId = basketDao.listProductIdsOfBasket(4).get(0);
-        //Then
-        assertThat(productId, equalTo(1));
-    }
-    @Test
-    public void findBasketIdTest() {
-      //Given
-        User jakab = new User("Gipsz","Jakab","GiJa","isler");
-        userDao.addUser(jakab);
-     //   basketDao.createBasket(jakab.getId());
-        basketDao.addToBasket(4, new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.",1500));
-        //When
-        long basketId = basketDao.findBasketId(4);
-        //Then
-        assertThat(basketId,equalTo(4));
-    }
-    @Test
-    public void findUserByBasketIdTest(){
-        //Given
-        User jakab = new User("Gipsz","Jakab","GiJa","isler");
-        userDao.addUser(jakab);
-        basketDao.createBasket(jakab.getId());
-        basketDao.addToBasket(4, new Product("GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.",1500));
-        //When
-        long userId = basketDao.findUserByBasketId(4);
-        //Then
-        assertThat(userId,equalTo(4));
-
-    }
-}
+//package training360.j5webshop.baskets;
+//
+//import com.mysql.cj.jdbc.MysqlDataSource;
+//import org.flywaydb.core.Flyway;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.junit.runner.RunWith;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.test.context.SpringBootTest;
+//import org.springframework.jdbc.core.RowMapper;
+//import org.springframework.test.context.jdbc.Sql;
+//import org.springframework.test.context.junit4.SpringRunner;
+//import training360.j5webshop.products.Product;
+//import training360.j5webshop.users.User;
+//import training360.j5webshop.users.UserDao;
+//
+//import static org.hamcrest.CoreMatchers.equalTo;
+//import static org.hamcrest.MatcherAssert.assertThat;
+//
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//@Sql({"basket_init.sql", "/product_init.sql"})
+//public class BasketDaoTest {
+//
+//    @Autowired
+//    BasketDao basketDao;
+//
+//    @Test
+//    public void testAddToBasket() {
+//        long basketId = basketDao.findBasketId(2);
+//        Product product = new Product("Test", "Test", 10_000);
+//        basketDao.addToBasket(basketId, product);
+//        assertThat(basketDao.listProductIdsOfBasket(2), equalTo(basketDao.));
+//    }
+//
+//    public void flushBasket(long basketId) {
+//        jdbcTemplate.update("delete from basket_item where basket_id = ?", basketId);
+//    }
+//
+//    public List<Long> listProductIdsOfBasket(long basketId) {
+//        return jdbcTemplate.query("select product_id from basket_item where basket_id = ?", new RowMapper<Long>() {
+//            @Override
+//            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+//                return resultSet.getLong("product_id");
+//            }
+//        }, basketId);
+//    }
+//
+//    public Long findBasketId(long userId) {
+//        return jdbcTemplate.queryForObject("select id from basket where users_id = ?",
+//                (rs, rowNum) -> rs.getLong("id"), userId);
+//    }
+//
+//    public long findUserByBasketId(long basketId) {
+//        return jdbcTemplate.queryForObject("select users_id from basket where id = ?",
+//                (rs, rowNum) -> rs.getLong("users_id"), basketId);
+//    }
+//
+//    public void deleteItemFromBasket(long basketId, long productId) {
+//        jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
+//    }
+//
+//}

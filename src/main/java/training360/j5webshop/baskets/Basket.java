@@ -32,8 +32,9 @@ public class Basket {
     public void addProduct(Product product, Integer numOfProduct) {
         if (products.containsKey(product)) {
             products.put(product, products.get(product) + numOfProduct);
+        } else {
+            products.put(product, numOfProduct);
         }
-        products.put(product, numOfProduct);
     }
 
     public Map<Product, Integer> getProducts() {

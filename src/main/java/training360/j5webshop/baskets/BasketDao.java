@@ -1,6 +1,7 @@
 package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -25,12 +26,12 @@ public class BasketDao {
         jdbcTemplate.update("insert into basket (users_id) values(?)", userId);
     }
 
-    public void addToBasket(long basketId, Product product) {
-        jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, product.getId());
+    public void addToBasket(long basketId, long productId) {
+        jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
     }
 
-    public void flushBasket(long basketId) {
-        jdbcTemplate.update("delete from basket_item where basket_id = ?", basketId);
+    public int flushBasket(long basketId) {
+            return jdbcTemplate.update("delete from basket_item where basket_id = ?", basketId);
     }
 
     public List<Long> listProductIdsOfBasket(long basketId) {
@@ -47,12 +48,12 @@ public class BasketDao {
                 (rs, rowNum) -> rs.getLong("id"), userId);
     }
 
-    public long findUserByBasketId(long basketId) {
+    public Long findUserByBasketId(long basketId) {
         return jdbcTemplate.queryForObject("select users_id from basket where id = ?",
                 (rs, rowNum) -> rs.getLong("users_id"), basketId);
     }
 
-    public void deleteItemFromBasket(long basketId, long productId) {
-        jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
+    public int deleteItemFromBasket(long basketId, long productId) {
+        return jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
     }
 }
