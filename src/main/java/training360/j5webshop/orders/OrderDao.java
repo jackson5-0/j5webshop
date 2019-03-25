@@ -24,6 +24,7 @@ public class OrderDao {
 
 
     private JdbcTemplate jdbcTemplate;
+    @Autowired
     private ProductDao productDao;
 
     private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
