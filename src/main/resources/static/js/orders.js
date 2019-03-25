@@ -1,0 +1,94 @@
+window.onload = fetchList;
+
+function fetchList(){
+//  var radio = document.getElementsByName('status').checked;
+//  console.log(radio);
+  if (document.getElementById('all').checked) {
+    fetchAll();
+  } else {
+    fetchActive();
+  }
+}
+
+function fetchAll() {
+  fetch(`/orders`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      showList(jsonData);
+    });
+}
+
+function fetchActive() {
+  fetch(`/activeorders`)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (jsonData) {
+      showList(jsonData);
+    });
+}
+
+function showList(jsonData) {
+  var tbody = document.getElementById('orders-tablebody');
+  tbody.innerHTML = '';
+  var sum = 0;
+  for (var i = 0; i < jsonData.length; i++) {
+    var tr = document.createElement('tr');
+
+    var userNameTd = document.createElement('td');
+    userNameTd.innerHTML = jsonData[i].userName;
+    userNameTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+
+    var purchaseDateTd = document.createElement('td');
+    purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
+    purchaseDateTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+
+    var orderStatusTd = document.createElement('td');
+    orderStatusTd.innerHTML = jsonData[i].orderStatus;
+    orderStatusTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+
+    var totalPriceTd = document.createElement('td');
+    totalPriceTd.innerHTML = jsonData[i].totalPrice;
+    totalPriceTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
+
+    var delTd = document.createElement('td');
+
+    var delBut = document.createElement('button');
+    delBut.innerHTML = "Törlés";
+    delBut.onclick = deleteOrderItem;
+    delBut["raw-data"] = jsonData[i];
+
+    tr.appendChild(userNameTd);
+    tr.appendChild(purchaseDateTd);
+    tr.appendChild(orderStatusTd);
+    tr.appendChild(totalPriceTd);
+    delTd.appendChild(delBut);
+    tr.appendChild(delTd);
+
+    tbody.appendChild(tr);
+  }
+}
+
+function deleteOrderItem() {
+    var id = this["raw-data"].id;
+    console.log(id);
+    if (!confirm("Biztosan törölni szeretné a rendelést?")) {
+            return;
+        }
+     fetch(`/orders/delete/${id}`, {
+           method: "DELETE"
+         })
+         .then(function (response) {
+           return response.json();
+         })
+         .then(function (jsonData) {
+           document.getElementById("message-div").setAttribute("class", "alert alert-success");
+           document.getElementById("message-div").innerHTML = "A terméket sikeresen töröltük a listából";
+         })
+         .then(function (jsonData) {
+           fetchAll();
+//           fetchList();
+         });
+}
