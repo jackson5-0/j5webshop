@@ -9,8 +9,10 @@
     <div id="message-div"></div>
     <div>
         <h1>Rendelések:</h1>
-        <input type="radio" name="status" value="all" onclick="fetchList()" checked>Összes<br>
-        <input type="radio" name="status" value="active" onclick="fetchList()">Aktív<br>
+        <div onclick="fetchList()">
+        <input type="radio" name="status" id="all" value="all" checked>Összes<br>
+        <input type="radio" name="status" value="active">Aktív<br>
+        </div>
         <table class="table table-hover" id="orders-table">
             <thead>
             <tr>

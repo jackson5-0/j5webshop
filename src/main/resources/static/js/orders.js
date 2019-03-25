@@ -1,8 +1,9 @@
-window.onload = fetchAll;
+window.onload = fetchList;
 
 function fetchList(){
-  var radio = document.getElementsByName('status');
-  if (radio.value == 'all') {
+//  var radio = document.getElementsByName('status').checked;
+//  console.log(radio);
+  if (document.getElementById('all').checked) {
     fetchAll();
   } else {
     fetchActive();
@@ -35,19 +36,22 @@ function showList(jsonData) {
   var sum = 0;
   for (var i = 0; i < jsonData.length; i++) {
     var tr = document.createElement('tr');
-    tr.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
 
     var userNameTd = document.createElement('td');
     userNameTd.innerHTML = jsonData[i].userName;
+    userNameTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
 
     var purchaseDateTd = document.createElement('td');
     purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
+    purchaseDateTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
 
     var orderStatusTd = document.createElement('td');
     orderStatusTd.innerHTML = jsonData[i].orderStatus;
+    orderStatusTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
 
     var totalPriceTd = document.createElement('td');
     totalPriceTd.innerHTML = jsonData[i].totalPrice;
+    totalPriceTd.setAttribute('onclick', `window.location="/orders.html?order=${jsonData[i].orderId}"`);
 
     var delTd = document.createElement('td');
 
@@ -73,7 +77,7 @@ function deleteOrderItem() {
     if (!confirm("Biztosan törölni szeretné a rendelést?")) {
             return;
         }
-     fetch(`/orders/delete/{id}`, {
+     fetch(`/orders/delete/${id}`, {
            method: "DELETE"
          })
          .then(function (response) {
@@ -84,6 +88,7 @@ function deleteOrderItem() {
            document.getElementById("message-div").innerHTML = "A terméket sikeresen töröltük a listából";
          })
          .then(function (jsonData) {
-           fetchList();
+           fetchAll();
+//           fetchList();
          });
 }
