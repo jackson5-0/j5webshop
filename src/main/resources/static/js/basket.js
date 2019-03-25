@@ -87,9 +87,7 @@ function orderBasket() {
     .then(function (jsonData) {
       document.getElementById("message-div").setAttribute("class", "alert alert-success");
       document.getElementById("message-div").innerHTML = jsonData.messages;
-    })
-    .then(function (jsonData) {
-      showList(jsonData);
+    .then(function)
     });
 }
 
