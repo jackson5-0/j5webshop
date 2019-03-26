@@ -56,8 +56,8 @@ public class OrderService {
 
 
 
-    public List<Order> listAllOrder(){
-        return orderDao.listAllOrder();
+    public List<Order> listAllOrder(String userName){
+        return orderDao.listAllOrder(userName);
     }
 
     public List<Order> listActiveOrder(){
