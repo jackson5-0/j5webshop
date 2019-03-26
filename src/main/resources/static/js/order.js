@@ -22,10 +22,10 @@ function showList(jsonData) {
     nameTd.innerHTML = jsonData[i].name;
 
     var priceTd = document.createElement('td');
-    priceTd.innerHTML = jsonData[i].priceAtPurchase;
+    priceTd.innerHTML = jsonData[i].priceAtPurchase + " Ft";
 
     var quantityTd = document.createElement('td');
-    quantityTd.innerHTML = 1; //quantity
+    quantityTd.innerHTML = 1 + " db"; //quantity
 
     var delTd = document.createElement('td');
 

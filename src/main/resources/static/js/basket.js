@@ -14,6 +14,9 @@ function fetchList() {
 
 function flushBasket() {
   var basketId = user.basketId;
+  if (!confirm("Biztosan ki szeretné üríteni a kosarát?")) {
+         return;
+  }
   fetch(`/basket?basketId=${basketId}`, {
       method: "DELETE"
     })
@@ -47,7 +50,7 @@ function showList(jsonData) {
     nameTd.innerHTML = jsonData[i].name;
 
     var priceTd = document.createElement('td');
-    priceTd.innerHTML = jsonData[i].price;
+    priceTd.innerHTML = jsonData[i].price + " Ft";
     sum += jsonData[i].price;
 
     var qtyTd = document.createElement('td');
@@ -73,7 +76,7 @@ function showList(jsonData) {
   var sumTd = document.createElement('td');
 
   sumTd.innerHTML = "TELJES ÖSSZEG";
-  totalTd.innerHTML = sum;
+  totalTd.innerHTML = sum + " Ft";
 
   tr2.appendChild(sumTd);
   tr2.appendChild(document.createElement('td')); //üres cella

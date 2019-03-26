@@ -62,7 +62,7 @@ function showProducts(jsonData) {
 
     var priceTd = document.createElement('td');
     priceTd.contentEditable = "true";
-    priceTd.innerHTML = jsonData[i].price;
+    priceTd.innerHTML = jsonData[i].price + " Ft";
     priceTd.setAttribute('id', 'price-Td' + jsonData[i].id)
 
     var statusTd = document.createElement('td');

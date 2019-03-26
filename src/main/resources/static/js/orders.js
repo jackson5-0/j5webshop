@@ -65,7 +65,7 @@ function showList(jsonData) {
     }
 
     var totalPriceTd = document.createElement('td');
-    totalPriceTd.innerHTML = jsonData[i].totalPrice;
+    totalPriceTd.innerHTML = jsonData[i].totalPrice + " Ft";
 
     var delTd = document.createElement('td');
 
