@@ -63,16 +63,4 @@ insert into orders (id, user_id, status, purchase_date) values
 
 
 
-insert into orders (id, user_id, status, purchase_date) values
-(3, 2, "DELIVERED", "2019-03-26");
-insert into orders (id, user_id, status, purchase_date) values
-(3, 4, "ACTIVE", "2019-03-24");
-insert into orders (id, user_id, status, purchase_date) values
-(4, 4, "ACTIVE", "2019-03-26");
-insert into orders (id, user_id, status, purchase_date) values
-(5, 4, "DELIVERED", "2019-03-25");
-insert into orders (id, user_id, status, purchase_date) values
-(6, 4, "DELETED", "2019-03-23");
-
-
 
