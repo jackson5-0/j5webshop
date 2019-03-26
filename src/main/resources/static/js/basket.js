@@ -1,5 +1,6 @@
 window.onload = fetchList;
-
+var flush = document.getElementById('flush');
+flush.onclick = flushBasket;
 
 function fetchList() {
   fetch(`/basket`)
@@ -20,8 +21,15 @@ function flushBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.getElementById("message-div").innerHTML = jsonData.messages;
+       if(jsonData.status == 'SUCCESS') {
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+       } else {
+            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+       }
     })
     .then(function (jsonData) {
       showList(jsonData); // hibát ír a consolra (jsonData is not defined)
@@ -60,25 +68,11 @@ function showList(jsonData) {
 
     tbody.appendChild(tr);
   }
-  var emptyBasketButton = document.createElement('button');
-  emptyBasketButton.id = 'flush';
-  emptyBasketButton.onclick = flushBasket;
-  emptyBasketButton.innerHTML = "Kosár ürítése";
-  var placeOrderButton = document.createElement('button');
-  placeOrderButton.id='orderit'
-  placeOrderButton.onclick = orderBasket;
-  placeOrderButton.innerHTML = "Leadom a rendelést"
-  if (sum!==0){
-    document.getElementById('buttons').appendChild(emptyBasketButton);
-    document.getElementById('buttons').appendChild(placeOrderButton);
-  }
-
-
   var tr2 = document.createElement('tr');
   var totalTd = document.createElement('td');
   var sumTd = document.createElement('td');
 
-  sumTd.innerHTML = "Teljes összeg";
+  sumTd.innerHTML = "TELJES ÖSSZEG";
   totalTd.innerHTML = sum;
 
   tr2.appendChild(sumTd);
@@ -97,16 +91,19 @@ function orderBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.getElementById("message-div").innerHTML = jsonData.messages;
-      return jsonData;
-      })
+        if(jsonData.status == 'SUCCESS') {
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+        } else {
+            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+        }
+    })
     .then(function (jsonData) {
           showList(jsonData);
-    })
-//    .then(function(){
-//        window.open("/myorders.html","_self");})
-    ;
+    });
 }
 
 function deleteBasketItem() {
