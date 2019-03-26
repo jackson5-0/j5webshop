@@ -40,45 +40,6 @@ public class OrderDao {
         }
     }
 
-//    public long createOrderedProduct(Basket basket){
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        System.out.println(basket.getProducts().keySet());
-//        for(Product p :basket.getProducts().keySet()) {
-//            jdbcTemplate.update(new PreparedStatementCreator() {
-//                                    @Override
-//                                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//                                        PreparedStatement ps = connection.prepareStatement
-//                                                ("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-//                                        ps.setLong(1, createOrder(basket));
-//
-//                                        ps.setLong(2, p.getId());
-//                                        ps.setInt(3, p.getPrice());
-//                                        return ps;
-//                                    }
-//                                }, keyHolder
-//            );
-//        }
-//        return keyHolder.getKey().longValue();
-//    }
-
-//    public long createOrder(Basket basket) {
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(new PreparedStatementCreator() {
-//                                @Override
-//                                public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-//                                    PreparedStatement ps = connection.prepareStatement
-//                                            ("insert into orders (user_id, basket_id, status, purchase_date) values(?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-//                                    ps.setLong(1, basket.getUserId());
-//                                    ps.setLong(2, basket.getId());
-//                                    ps.setString(3, OrderStatus.ACTIVE.toString());
-//                                    ps.setDate(4, Date.valueOf(LocalDate.now()));
-//                                    return ps;
-//                                }
-//                            }, keyHolder
-//        );
-//        return keyHolder.getKey().longValue();
-//    }
-
     public long createOrder(long userId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {

@@ -68,7 +68,6 @@ function createDefaultHeader(user) {
 }
 
 function createUserHeader(user) {
-  console.log(user);
   var nav = document.querySelector(".nav");
   nav.innerHTML =
     `<div id="header-top">
