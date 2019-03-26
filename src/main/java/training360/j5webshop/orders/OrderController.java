@@ -40,13 +40,13 @@ public class OrderController {
     }
 
     @GetMapping("/myorders/active")
-    public List<Order> listActiveOrder(){
-        return orderService.listActiveOrder();
+    public List<Order> listActiveOrder(Authentication auth){
+        return orderService.listActiveOrder(auth.getName());
     }
 
     @GetMapping("myorders/all")
-    public List<Order> listAllOrderWithDeleted(){
-        return orderService.listAllOrderWithDeleted();
+    public List<Order> listAllOrderWithDeleted(Authentication auth){
+        return orderService.listAllOrderWithDeleted(auth.getName());
     }
 
     @GetMapping("/myorders/{orderId}")

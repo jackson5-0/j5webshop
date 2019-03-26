@@ -109,26 +109,26 @@ public class OrderDao {
                 OrderStatus.valueOf(rs.getString("status"))), userName);
     }
 
-    public List<Order> listActiveOrder() {
-        return jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` where status ='active' order by purchase_date DESC",
+    public List<Order> listActiveOrder(String userName) {
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status FROM `orders` JOIN users on orders.user_id = users.id where orders.status ='active' and users.username =? order by purchase_date DESC",
                 (rs, rowNum) -> new Order(
                         rs.getLong("id"),
                         rs.getLong("user_id"),
 //                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
                         LocalDate.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
                         findOrderedProductByOrderId(rs.getLong("id")),
-                        OrderStatus.valueOf(rs.getString("status"))));
+                        OrderStatus.valueOf(rs.getString("status"))), userName);
     }
 
-    public List<Order> listAllOrderWithDeleted() {
-        return jdbcTemplate.query("SELECT id, user_id, purchase_date, status FROM `orders` order by purchase_date DESC",
+    public List<Order> listAllOrderWithDeleted(String userName) {
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status FROM `orders` JOIN users on orders.user_id = users.id where users.username =? order by purchase_date DESC",
                 (rs, rowNum) -> new Order(
                         rs.getLong("id"),
                         rs.getLong("user_id"),
 //                        LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
                         LocalDate.parse(rs.getString("purchase_date"), DATE_FORMATTER) ,
                         findOrderedProductByOrderId(rs.getLong("id")),
-                        OrderStatus.valueOf(rs.getString("status"))));
+                        OrderStatus.valueOf(rs.getString("status"))), userName);
     }
 
     public List<OrderInfo> listAdminOrders(){
