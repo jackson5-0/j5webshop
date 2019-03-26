@@ -31,7 +31,7 @@ public class BasketController {
                 return rs.addMessage("A termék már a kosárban van!");
             }
         } catch (DataIntegrityViolationException de) {
-            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem letező kosár vagy termék");
+            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár vagy termék");
         }
     }
 
@@ -40,7 +40,7 @@ public class BasketController {
             if(basketService.flushBasket(basketId) != 0){
                 return new ResponseStatus().addMessage("A kosár újra üres!");
             } else {
-                return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem letező kosár");
+                return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár");
             }
         }
 
@@ -55,7 +55,7 @@ public class BasketController {
     public ResponseStatus deleteItemFromBasket(@PathVariable long basket, @RequestParam long productId) {
         int rows = basketService.deleteItemFromBasket(basket, productId);
         if (rows == 0) {
-           return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem letező kosár");
+           return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár");
         }
         return new ResponseStatus().addMessage("A terméket sikeresen eltávolítottuk a kosárból.");
     }

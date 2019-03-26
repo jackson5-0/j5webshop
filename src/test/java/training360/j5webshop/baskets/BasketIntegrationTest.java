@@ -70,7 +70,7 @@ public class BasketIntegrationTest {
         ResponseStatus rs = basketController.addToBasket(100, id);
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
-        assertThat(rs.getMessages().get(0), equalTo("Nem letező kosár vagy termék"));
+        assertThat(rs.getMessages().get(0), equalTo("Nem létező kosár vagy termék"));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class BasketIntegrationTest {
         ResponseStatus rs = basketController.flushBasket(100);
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
-        assertThat(rs.getMessages().get(0), equalTo("Nem letező kosár"));
+        assertThat(rs.getMessages().get(0), equalTo("Nem létező kosár"));
     }
 
 //    @Test
@@ -127,7 +127,7 @@ public class BasketIntegrationTest {
         ResponseStatus rs = basketController.deleteItemFromBasket(100, 100);
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
-        assertThat(rs.getMessages().get(0), equalTo("Nem letező kosár"));
+        assertThat(rs.getMessages().get(0), equalTo("Nem létező kosár"));
     }
 
 }
