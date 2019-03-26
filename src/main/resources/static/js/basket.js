@@ -21,8 +21,13 @@ function flushBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.getElementById("message-div").innerHTML = jsonData.messages;
+       if(jsonData.status == 'SUCCESS') {
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+       } else {
+            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+             document.getElementById("message-div").innerHTML = jsonData.messages;
+       }
     })
     .then(function (jsonData) {
       showList(jsonData); // hibát ír a consolra (jsonData is not defined)
