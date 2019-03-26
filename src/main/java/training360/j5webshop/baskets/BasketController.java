@@ -2,8 +2,10 @@ package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.Product;
+import training360.j5webshop.users.UserService;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.ResponseStatus;
 
@@ -15,6 +17,8 @@ public class BasketController {
 
     @Autowired
     private BasketService basketService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping("/basket")
     public ResponseStatus addToBasket(@RequestParam long basketId, @RequestParam long productId) {
@@ -41,8 +45,10 @@ public class BasketController {
         }
 
     @GetMapping("/basket")
-    public Set<Product> listProductsOfBasket(@RequestParam long basketId) {
-        return basketService.listProductsOfBasket(basketId).keySet();
+    public Set<Product> listProductsOfBasket(Authentication auth) {
+        String userName = auth.getName();
+        Long id = userService.findBasketId(userName);
+        return basketService.listProductsOfBasket(id).keySet();
     }
 
     @DeleteMapping("/basket/{basket}")

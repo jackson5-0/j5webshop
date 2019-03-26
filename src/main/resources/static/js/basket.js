@@ -3,8 +3,7 @@ var flush = document.getElementById('flush');
 flush.onclick = flushBasket;
 
 function fetchList() {
-  var basketId = (new URL(document.location)).searchParams.get('basket');
-  fetch(`/basket?basketId=${basketId}`)
+  fetch(`/basket`)
     .then(function (response) {
       return response.json();
     })
@@ -14,7 +13,7 @@ function fetchList() {
 }
 
 function flushBasket() {
-  var basketId = (new URL(document.location)).searchParams.get('basket');
+  var basketId = user.basketId;
   fetch(`/basket?basketId=${basketId}`, {
       method: "DELETE"
     })
@@ -77,7 +76,7 @@ function showList(jsonData) {
   tbody.appendChild(tr2);
 }
 function orderBasket() {
-  var basketId = (new URL(document.location)).searchParams.get('basket');
+  var basketId = user.basketId;
   fetch(`/myorders?basketId=${basketId}`, {
       method: "POST"
     })
@@ -99,7 +98,7 @@ function orderBasket() {
 
 function deleteBasketItem() {
     var productId = this["raw-data"].id;
-    var basketId = (new URL(document.location)).searchParams.get('basket');
+    var basketId = user.basketId;
     if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
             return;
         }
