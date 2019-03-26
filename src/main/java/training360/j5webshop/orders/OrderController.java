@@ -48,9 +48,9 @@ public class OrderController {
         return orderService.listAllOrderWithDeleted();
     }
 
-    @GetMapping("/myorders/{id}")
-    public List<OrderedProduct> findOrderedProductByOrderId(@PathVariable long id){
-        return orderService.findOrderedProductByOrderId(id);
+    @GetMapping("/myorders/{orderId}")
+    public List<OrderedProduct> findOrderedProductByOrderId(@PathVariable long orderId){
+        return orderService.findOrderedProductByOrderId(orderId);
     }
     @GetMapping("/orders")
     public List<OrderInfo> listAdminOrders(){
@@ -72,7 +72,7 @@ public class OrderController {
         orderService.deleteItem(id,address);
     }
 
-    @PostMapping("/orders/{orderId}")
+    @PostMapping("/orders/{orderId}/status")
     public void changeStatusById(@PathVariable long orderId){
         orderService.changeStatusById(orderId);
     }
