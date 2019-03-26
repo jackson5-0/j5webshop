@@ -47,6 +47,15 @@ public class OrderDaoTest {
         assertThat(orderedProducts.size(), equalTo(3));
         assertThat(orderedProducts.get(0).getName(), equalTo(new OrderedProduct(productDao.findProductById(2), 1).getName()));
     }
+    @Test
+    public void listAllOrderTest(){
+        //When
+        List<Order> orderList = orderDao.listAllOrder("nagygizi22");
+        // Than
+        assertThat(orderList.size(), equalTo(2));
+        assertThat(orderList.get(0).getOrderedProduct().size(), equalTo(3));
+
+    }
 
 
 

@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "/product_init.sql")
+@Sql(scripts = "/basket_init.sql")
 public class ProductDaoTest {
 
     @Autowired
@@ -81,35 +81,28 @@ public class ProductDaoTest {
     @Test
     public void testFindProductById() {
         // Given
-        Product product = new Product("name", "publisher", 10_000);
-        // When
-        long id = productDao.createProduct(product);
+        Product product = new Product(1, "GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");;
         // Then
-        assertThat(productDao.findProductById(id), equalTo(product));
+        assertThat(productDao.findProductById(1), equalTo(product));
     }
 
     @Test
     public void testUpdateProduct() {
         // Given
-        Product product = new Product("name", "publisher", 10_000);
         Product updated = new Product("nameUpdated", "publisherUpdated", 20_000);
-        long id = productDao.createProduct(product);
         // When
-        productDao.updateProduct(id, updated);
+        productDao.updateProduct(1, updated);
         // Then
-        assertThat(productDao.findProductById(id), equalTo(updated));
+        assertThat(productDao.findProductById(1), equalTo(updated));
     }
 
     @Test
     public void testDeleteProductById() {
-        // Given
-        Product product = new Product("name", "publisher", 10_000);
-        long id = productDao.createProduct(product);
         // When
-        productDao.deleteProductById(id);
+        productDao.deleteProductById(1);
         // Then
-        assertThat(productDao.findProductById(id).getStatus(), equalTo(ProductStatus.DELETED));
-        assertThat(productDao.listAllProducts().size(), equalTo(5));
+        assertThat(productDao.findProductById(1).getStatus(), equalTo(ProductStatus.DELETED));
+        assertThat(productDao.listAllProducts().size(), equalTo(4));
     }
 
 
