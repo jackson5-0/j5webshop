@@ -38,7 +38,7 @@ public class OrderDaoTest {
     private ProductDao productDao;
 
     @Test
-    public void addOrderedPorductTest() {
+    public void addOrderedPorductTest(){
         Basket basket = basketDao.findBasket(2L);
         //When
         orderDao.addOrderedProduct(1L, basket);
@@ -47,4 +47,7 @@ public class OrderDaoTest {
         assertThat(orderedProducts.size(), equalTo(3));
         assertThat(orderedProducts.get(0).getName(), equalTo(new OrderedProduct(productDao.findProductById(2), 1).getName()));
     }
+
+
+
 }
