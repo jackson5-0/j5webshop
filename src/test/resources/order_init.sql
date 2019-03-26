@@ -1,6 +1,8 @@
-delete from product;
-delete from users;
+delete from basket_item;
 delete from basket;
+delete from users;
+delete from product;
+
 
 insert into product (id, code, name, address, publisher, price, status) values
     (1, "GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
@@ -26,3 +28,20 @@ insert into users (id, firstname, lastname, username, password, enabled, role) v
 
 insert into users (id, firstname, lastname, username, password, enabled, role) values
     (4, "Béla", "Kiss", "kissbeci", "kissbeci00", 1, "ROLE_USER");
+
+insert into basket(id, users_id) values (1,1);
+insert into basket(id, users_id) values (2,2);
+insert into basket(id, users_id) values (3,3);
+insert into basket(id, users_id) values (4,4);
+
+insert into basket_item(id, basket_id, product_id) values
+    (1, 2, 2);
+insert into basket_item(id, basket_id, product_id) values
+    (2, 2, 3);
+insert into basket_item(id, basket_id, product_id) values
+    (3, 2, 4);
+insert into basket_item(id, basket_id, product_id) values
+    (4, 3, 2);
+insert into basket_item(id, basket_id, product_id) values
+    (5, 3, 3);
+
