@@ -45,22 +45,19 @@ public class BasketDao {
         }, basketId);
     }
 
-    public Basket findBasket(long basketId) {
-        List<Long> productIds = listProductIdsOfBasket(basketId);
-        long userId = findUserByBasketId(basketId);
-        Basket basket = new Basket(basketId, userId);
-        for (Long productId : productIds) {
-            Product product = jdbcTemplate.queryForObject("select code, name, address, publisher, price from product where id = ?",
-                    (rs, rowNum) -> new Product(
-                            rs.getString("code"),
-                            rs.getString("name"),
-                            rs.getString("address"),
-                            rs.getString("publisher"),
-                            rs.getInt("price")),
-                    productId);
-            basket.addProduct(product, 1);
-        }
-        return basket;
+    public List<Product> findBasketItems(long basketId) {
+        return jdbcTemplate.query("select product.id, code, name, address, publisher, price, status from product " +
+                "join basket_item on product.id = basket_item.product_id " +
+                "where basket_item.basket_id = ?",
+                (rs, rowNum) -> new Product(
+                        rs.getLong("product.id"),
+                        rs.getString("code"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("publisher"),
+                        rs.getInt("price"),
+                        rs.getString("status")), basketId
+                );
     }
 
     public Long findBasketId(long userId) {
