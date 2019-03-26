@@ -57,7 +57,7 @@ function showActiveOrders(){
         });
 }
 function showAllOrders(){
-    fetch(`/myorders/all`)
+     fetch(`/myorders/all`)
         .then(function (response) {
           return response.json();
         })
