@@ -50,13 +50,15 @@ public class BasketDao {
         long userId = findUserByBasketId(basketId);
         Basket basket = new Basket(basketId, userId);
         for (Long productId : productIds) {
-            Product product = jdbcTemplate.queryForObject("select code, name, address, publisher, price from product where id = ?",
+            Product product = jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status from product where id = ?",
                     (rs, rowNum) -> new Product(
+                            rs.getLong("id"),
                             rs.getString("code"),
                             rs.getString("name"),
                             rs.getString("address"),
                             rs.getString("publisher"),
-                            rs.getInt("price")),
+                            rs.getInt("price"),
+                            rs.getString("status")),
                     productId);
             basket.addProduct(product, 1);
         }
