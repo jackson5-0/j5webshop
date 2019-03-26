@@ -41,7 +41,7 @@ function showList(jsonData) {
 
 
     var purchaseDateTd = document.createElement('td');
-    purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
+    purchaseDateTd.innerHTML = jsonData[i].purchaseDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16);;
 
 
     var orderStatusTd = document.createElement('td');
@@ -53,7 +53,16 @@ function showList(jsonData) {
                fetchList();
                });
     }
-        orderStatusTd.innerHTML = jsonData[i].orderStatus;
+
+    if (jsonData[i].orderStatus == 'DELIVERED') {
+        orderStatusTd.innerHTML = 'Kiszállítva';
+    }
+    if (jsonData[i].orderStatus == 'DELETED') {
+        orderStatusTd.innerHTML = 'Törölt';
+    }
+    if (jsonData[i].orderStatus == 'ACTIVE') {
+        orderStatusTd.innerHTML = 'Aktív';
+    }
 
     var totalPriceTd = document.createElement('td');
     totalPriceTd.innerHTML = jsonData[i].totalPrice;
