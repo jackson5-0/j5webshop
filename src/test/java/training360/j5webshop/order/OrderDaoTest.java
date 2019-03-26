@@ -11,15 +11,13 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.baskets.BasketDao;
-import training360.j5webshop.orders.Order;
-import training360.j5webshop.orders.OrderDao;
-import training360.j5webshop.orders.OrderService;
-import training360.j5webshop.orders.OrderedProduct;
+import training360.j5webshop.orders.*;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
 import training360.j5webshop.users.User;
 import training360.j5webshop.users.UserDao;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -50,10 +48,23 @@ public class OrderDaoTest {
     @Test
     public void listAllOrderTest(){
         //When
-        List<Order> orderList = orderDao.listAllOrder("nagygizi22");
+        orderDao.addOrderedProduct(4L, basketDao.findBasket(3));
+        List<Order> orderList = orderDao.listAllOrder("kissbeci");
+        // Than
+        assertThat(orderList.size(), equalTo(3));
+        assertThat(orderList.get(0).getPurchaseDate(), equalTo(LocalDate.of(2019, 03, 26)));
+    }
+
+    @Test
+    public void listActiveOrderTest(){
+        //When
+        orderDao.addOrderedProduct(4L, basketDao.findBasket(3));
+        List<Order> orderList = orderDao.listActiveOrder("kissbeci");
+        System.out.println(orderList);
         // Than
         assertThat(orderList.size(), equalTo(2));
-        assertThat(orderList.get(0).getOrderedProduct().size(), equalTo(3));
+        assertThat(orderList.get(0).getOrderedProduct().size(), equalTo(2));
+        assertThat(orderList.get(1).getOrderStatus(), equalTo(OrderStatus.valueOf("ACTIVE")));
 
     }
 
