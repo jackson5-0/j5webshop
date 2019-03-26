@@ -38,6 +38,7 @@ function createAdminHeader(admin) {
             <li><a href="index.html">főoldal</a></li>
             <li><a href="adminproducts.html">termékek</a></li>
             <li><a href="adminusers.html">felhasználók</a></li>
+            <li><a href="orders.html">megrendelések</a></li>
          </ul>
      </div>
   </div>
