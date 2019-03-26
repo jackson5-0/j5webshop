@@ -24,9 +24,11 @@ function flushBasket() {
        if(jsonData.status == 'SUCCESS') {
             document.getElementById("message-div").setAttribute("class", "alert alert-success");
             document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
        } else {
             document.getElementById("message-div").setAttribute("class", "alert alert-danger");
-             document.getElementById("message-div").innerHTML = jsonData.messages;
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
        }
     })
     .then(function (jsonData) {
