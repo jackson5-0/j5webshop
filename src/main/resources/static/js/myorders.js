@@ -12,22 +12,22 @@ function fetchList() {
 
 function showList(jsonData) {
   var tbody = document.querySelector('#orderlist');
-  var thead = `<th class="tablehead" class="orderlist">
-                    <td class="orderlist__table__th">Rendelés száma</td>
-                    <td class="orderlist__table__th">Rendelés dátuma</td>
-                    <td class="orderlist__table__th">Rendelés státusza</td>
-                    </th>`
-  var orderedProductHead = `<th class="tablehead" class="orderlist">
-                                           <td class="orderlist__table__th">Termék neve</td>
-                                           <td class="orderlist__table__th">Darabszám</td>
-                                           <td class="orderlist__table__th">Termék ára</td>
-                                           </th>`
+  var thead = `<tr class="tablehead" class="orderlist">
+                    <th class="orderlist__table__th1">Rendelés száma</th>
+                    <th class="orderlist__table__th1">Rendelés dátuma</th>
+                    <th class="orderlist__table__th1">Rendelés státusza</th>
+                    </tr>`
+  var orderedProductHead = `<tr class="tablehead" class="orderlist">
+                                           <th class="orderlist__table__th2">Termék neve</th>
+                                           <th class="orderlist__table__th2">Darabszám</th>
+                                           <th class="orderlist__table__th2">Termék ára</th>
+                                           </tr>`
   var tableRow = '';
 
 
 
   for (var i = 0; i < jsonData.length; i++) {
-    tableRow += `<tr class="tableLine${i}" class="orderlist">
+    tableRow += thead +`<tr class="tableLine${i}" class="orderlist">
                       <td class="orderlist__table__td">#${jsonData[i].id}</td>
                       <td class="orderlist__table__td">${jsonData[i].purchaseDate}</td>
                       <td class="orderlist__table__td">${jsonData[i].orderStatus}</td>
@@ -43,7 +43,7 @@ function showList(jsonData) {
                                          `;
     }
 
-  } tbody.innerHTML = thead+tableRow;
+  } tbody.innerHTML = tableRow;
 
 }
 

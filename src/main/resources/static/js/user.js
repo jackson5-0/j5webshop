@@ -62,8 +62,6 @@ function createDefaultHeader(user) {
         <div class="nav-div">
             <ul>
                 <li><a href="index.html">főoldal</a></li>
-                <li><a href="">Menu2</a></li>
-                <li><a href="">Menu3</a></li>
             </ul>
         </div>
      </div>`;
@@ -88,8 +86,7 @@ function createUserHeader(user) {
       <div class="nav-div">
          <ul>
             <li><a href="index.html">főoldal</a></li>
-            <li><a href="">Menu2</a></li>
-            <li><a href="">Menu3</a></li>
+            <li><a href="myorders.html">rendeléseim</a></li>
          </ul>
       </div>
   </div>`;
