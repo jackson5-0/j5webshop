@@ -1,6 +1,7 @@
 package training360.j5webshop.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.baskets.BasketDao;
@@ -42,11 +43,15 @@ public class UserService {
         userDao.updateUser(id, user);
     }
 
-    public User findUserById(long id){
+    public User findUserById(long id) throws EmptyResultDataAccessException {
         return userDao.findUserById(id);
     }
 
-    public long getUserId(String userName) {
+    public long getUserId(String userName) throws EmptyResultDataAccessException {
         return userDao.getUserId(userName);
+    }
+
+    public List<Long> listUserIds() {
+        return userDao.listUserIds();
     }
 }

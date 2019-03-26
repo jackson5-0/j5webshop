@@ -4,7 +4,7 @@ delete from users;
 insert into users (firstname, lastname, username, password, enabled, role) values
     ("Géza", "Kovács", "kovacsgeza", "KovacsGeza90", 1, "ROLE_USER");
 
-insert into users (firstname, lastname, username, password, enabled, role) values
+insert into users(firstname, lastname, username, password, enabled, role) values
     ("Gizella", "Nagy", "nagygizi22", "GiziAZizi11", 1, "ROLE_USER");
 
 insert into users (firstname, lastname, username, password, enabled, role) values

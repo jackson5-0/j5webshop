@@ -1,5 +1,6 @@
 package training360.j5webshop.users;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -41,7 +42,7 @@ public class UserDao {
         return keyHolder.getKey().longValue();
     }
 
-    public long getUserId(String userName){
+    public long getUserId(String userName) throws EmptyResultDataAccessException {
         return jdbcTemplate.queryForObject("select id from users where username = ?",
                 (rs, rowNum) -> rs.getLong("id"), userName);
     }
@@ -52,6 +53,15 @@ public class UserDao {
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new User(resultSet.getLong("id"), resultSet.getString("firstname"), resultSet.getString("lastname"),
                         resultSet.getString("username"), resultSet.getString("password"));
+            }
+        });
+    }
+
+    public List<Long> listUserIds() {
+        return jdbcTemplate.query("select id from users order by id", new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getLong("id");
             }
         });
     }
@@ -71,7 +81,7 @@ public class UserDao {
                firstName, lastName, userName, password, id);
     }
 
-    public User findUserById(long id){
+    public User findUserById(long id) throws EmptyResultDataAccessException {
         return jdbcTemplate.queryForObject("select firstname, lastname, username, password from users where id = ?",
                 (rs, rowNum) -> new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"),
                         rs.getString("password")), id);

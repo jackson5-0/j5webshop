@@ -25,7 +25,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "/product_init.sql")
+@Sql({ "/product_init.sql", "/user_init.sql", "/basket_init.sql"} )
 public class OrderDaoTest {
 
     private OrderDao orderDao;
@@ -37,13 +37,8 @@ public class OrderDaoTest {
 
     @Test
     public void createOrderTest(){
-        //Given
+        //when
 
-
-        // When
-
-
-        //Than
 
 
 
