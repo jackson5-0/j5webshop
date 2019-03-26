@@ -60,6 +60,26 @@ public class BasketDao {
                 );
     }
 
+    public Basket findBasket(long basketId) {
+        List<Long> productIds = listProductIdsOfBasket(basketId);
+        long userId = findUserByBasketId(basketId);
+        Basket basket = new Basket(basketId, userId);
+        for (Long productId : productIds) {
+            Product product = jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status from product where id = ?",
+                    (rs, rowNum) -> new Product(
+                            rs.getLong("id"),
+                            rs.getString("code"),
+                            rs.getString("name"),
+                            rs.getString("address"),
+                            rs.getString("publisher"),
+                            rs.getInt("price"),
+                            rs.getString("status")),
+                    productId);
+            basket.addProduct(product, 1);
+        }
+        return basket;
+    }
+
     public Long findBasketId(long userId) {
         return jdbcTemplate.queryForObject("select id from basket where users_id = ?",
                 (rs, rowNum) -> rs.getLong("id"), userId);

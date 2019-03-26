@@ -34,25 +34,17 @@ public class OrderDaoTest {
     private OrderDao orderDao;
     @Autowired
     private BasketDao basketDao;
+    @Autowired
+    private ProductDao productDao;
 
     @Test
-    public void createOrderTest(){
+    public void addOrderedPorductTest() {
+        Basket basket = basketDao.findBasket(2L);
         //When
-        Long orderId = orderDao.createOrder(2);
-        //Than
-        assertThat(orderId, equalTo(3L));
-
-    }
-
-    @Test
-    public void addOrderedPorductTest(){
-        //When
-        orderDao.addOrderedProduct(1L, basketDao.findBasket(2));
+        orderDao.addOrderedProduct(1L, basket);
         List<OrderedProduct> orderedProducts = orderDao.findOrderedProductByOrderId(1L);
-        System.out.println(orderedProducts);
         //Than
-
+        assertThat(orderedProducts.size(), equalTo(3));
+        assertThat(orderedProducts.get(0).getName(), equalTo(new OrderedProduct(productDao.findProductById(2), 1).getName()));
     }
-
-
 }
