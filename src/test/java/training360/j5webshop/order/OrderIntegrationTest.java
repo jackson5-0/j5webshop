@@ -32,11 +32,8 @@ public class OrderIntegrationTest {
         int basketSizeAfterCreateOrder = basketController.listProductsOfBasket(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
 
         // Then
-        System.out.println(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")));
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
+        assertThat(orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(3));
         assertThat(orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(1));
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getUserId(), equalTo(2L));
-        assertThat(orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getUserId(), equalTo(2L));
         assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getOrderedProduct().size(), equalTo(3));
         assertThat(basketController.listProductsOfBasket(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(0));
         assertThat(basketSizeBeforeCreateOrder, equalTo(3));
@@ -44,46 +41,54 @@ public class OrderIntegrationTest {
     }
 
     @Test
-    public void listAllOrderTest() {
+    public void listAllAndListAllOrderWithDeletedOrderTest() {
         // When
         orderController.createOrder(2);
+        int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
+        int sizeOfListWithoutDeleted = orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
 
         // Then
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
-        orderController.deleteOrders(2);
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(1));
+        assertThat(sizeOfListWithDeleted, equalTo(3));
+        assertThat(sizeOfListWithoutDeleted, equalTo(2));
     }
 
     @Test
     public void listActiveOrderTest() {
         // When
         orderController.createOrder(2);
-        orderController.createOrder(3);
+        int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
+        int sizeOfActiveList = orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
 
         // Then
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
-        orderController.deleteOrders(2);
-        assertThat(orderController.listActiveOrders().size(), equalTo(1));
-    }
-
-    @Test
-    public void listAllOrderWithDeletedTest() {
-        // When
-        orderController.createOrder(2);
-        orderController.createOrder(3);
-
-        // Then
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
-        orderController.deleteOrders(2);
-        assertThat(orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
+        assertThat(sizeOfListWithDeleted, equalTo(3));
+        assertThat(sizeOfActiveList, equalTo(1));
     }
 
     @Test
     public void findOrderedProductByOrderIdTest() {
         // When
         orderController.createOrder(2);
+        int numberOfProducts = orderController.findOrderedProductByOrderId(4).size();
 
         // Then
-        assertThat(orderController.findOrderedProductByOrderId(1).size(), equalTo(3));
+        assertThat(numberOfProducts, equalTo(3));
+    }
+
+    @Test
+    public void listAdminOrdersTest() {
+        // When
+        int numberOfOrders = orderController.listAdminOrders().size();
+
+        // Then
+        assertThat(numberOfOrders, equalTo(3));
+    }
+
+    @Test
+    public void listActiveOrdersTest() {
+        // When
+        int numberOfOrders = orderController.listActiveOrders().size();
+
+        // Then
+        assertThat(numberOfOrders, equalTo(1));
     }
 }
