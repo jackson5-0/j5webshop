@@ -76,7 +76,7 @@ function createUserHeader(user) {
             <a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a>
         </div>
         <div class="login-out-div">
-            <span>Szia ${user.userName}!</span>
+            <span>Szia ${user.firstName}!</span>
             <a href="/logout">kijelentkezés</a>
             <a href="/basket.html"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
         </div>
