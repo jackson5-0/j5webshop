@@ -10,6 +10,7 @@ import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -85,7 +86,7 @@ public class UserIntegrationTest {
         User user = new User("Anna", "Arany", "aranyanna", "Annacska55");
         userController.addUser(user);
         // When
-        ResponseStatus status = userController.deleteUserById(userController.getUserId("aranyanna"));
+        ResponseStatus status = userController.deleteUserById(userController.getUserId("aranyanna").get());
         // Then
         assertThat(status.getStatus(), equalTo(ValidationStatus.SUCCESS));
         assertThat(status.getMessages().size(), equalTo(1));
@@ -98,33 +99,71 @@ public class UserIntegrationTest {
     }
 
     @Test
+    public void testDeleteUserWhenIdDoesNotExist() {
+        // When
+        List<Long> listOfExistingIds = userController.listUserIds();
+        ResponseStatus status = userController.deleteUserById(listOfExistingIds.get(listOfExistingIds.size()-1)+1);
+        // Then
+        assertThat(status.getStatus(), equalTo(ValidationStatus.FAIL));
+        assertThat(status.getMessages().size(), equalTo(1));
+        assertThat(status.getMessages().get(0), equalTo("Ilyen id-vel felhasználó nem található!"));
+    }
+
+    @Test
     public void testUpdateUserAndFindUserById() {
         // Given
         userController.addUser(new User("Anna", "Arany", "aranyanna", "Annacska55"));
-        long id = userController.getUserId("aranyanna");
+        Optional<Long> opt = userController.getUserId("aranyanna");
         // When
-        ResponseStatus status = userController.updateUser(id, new User(id,"Anna", "Arany-Kiss", "aranyanna", "Annacska55"));
+        ResponseStatus status = userController.updateUser(opt.get(), new User(opt.get(),"Anna", "Arany-Kiss", "aranyanna", "Annacska55"));
         // Then
         assertThat(status.getStatus(), equalTo(ValidationStatus.SUCCESS));
         assertThat(status.getMessages().size(), equalTo(1));
         assertThat(status.getMessages().get(0), equalTo("Sikeres módosítás!"));
         assertThat(userController.listUsers().size(), equalTo(5));
-        assertThat(userController.findUserById(id), equalTo(new User("Anna", "Arany-Kiss", "aranyanna", "Annacska55")));
+        assertThat(userController.findUserById(opt.get()), equalTo(Optional.of(new User("Anna", "Arany-Kiss", "aranyanna", "Annacska55"))));
     }
 
     @Test
     public void testUpdateUserWhenUsernameIsAlreadyTaken() {
         // Given
         userController.addUser(new User("Anna", "Arany", "aranyanna", "Annacska55"));
-        long id = userController.getUserId("aranyanna");
+        Optional<Long> opt = userController.getUserId("aranyanna");
         // When
-        ResponseStatus status = userController.updateUser(id, new User(id,"Anna", "Arany", "nagygizi22", "Annacska55"));
+        ResponseStatus status = userController.updateUser(opt.get(), new User(opt.get(),"Anna", "Arany", "nagygizi22", "Annacska55"));
         // Then
         assertThat(status.getStatus(), equalTo(ValidationStatus.FAIL));
         assertThat(status.getMessages().size(), equalTo(1));
         assertThat(status.getMessages().get(0), equalTo("A kért felhasználónév foglalt!"));
     }
 
+    @Test
+    public void testUpdateUserWhenIdDoesNotExist() {
+        // When
+        List<Long> listOfExistingIds = userController.listUserIds();
+        long idDoesNotExist = listOfExistingIds.get(listOfExistingIds.size()-1)+1;
+        ResponseStatus status = userController.updateUser(idDoesNotExist, new User(idDoesNotExist,"Anna", "Arany", "nagygizi22", "Annacska55"));
+        // Then
+        assertThat(status.getStatus(), equalTo(ValidationStatus.FAIL));
+        assertThat(status.getMessages().size(), equalTo(1));
+        assertThat(status.getMessages().get(0), equalTo("Ilyen id-vel felhasználó nem található!"));
+    }
 
+    @Test
+    public void testFindUserByIdWhenIdDoesNotExist() {
+        // When
+        List<Long> listOfExistingIds = userController.listUserIds();
+        long idDoesNotExist = listOfExistingIds.get(listOfExistingIds.size()-1)+1;
+        Optional<User> user = userController.findUserById(idDoesNotExist);
+        // Then
+        assertThat(user, equalTo(Optional.empty()));
+    }
 
+    @Test
+    public void testGetUserIdWhenUserNameDoesNotExist() {
+        // When
+        Optional<Long> opt = userController.getUserId("A");
+        // Then
+        assertThat(opt, equalTo(Optional.empty()));
+    }
 }

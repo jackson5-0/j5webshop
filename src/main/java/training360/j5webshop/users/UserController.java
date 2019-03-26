@@ -1,6 +1,7 @@
 package training360.j5webshop.users;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import training360.j5webshop.validation.Validator;
 
 import javax.validation.Validation;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -49,28 +51,55 @@ public class UserController {
 
     @DeleteMapping("/admin/users")
     public ResponseStatus deleteUserById(@RequestParam long id) {
-        ResponseStatus status = new ResponseStatus().addMessage("A felhasználó törlése sikeres volt!");
-        userService.deleteUserById(id);
+        ResponseStatus status = new ResponseStatus();
+        if (userService.listUserIds().contains(id)) {
+            userService.deleteUserById(id);
+            status.setStatus(ValidationStatus.SUCCESS);
+            status.addMessage("A felhasználó törlése sikeres volt!");
+        }  else {
+            status.setStatus(ValidationStatus.FAIL);
+            status.addMessage("Ilyen id-vel felhasználó nem található!");
+        }
         return status;
     }
 
     @PutMapping("/admin/users")
     public ResponseStatus updateUser(@RequestParam long id, @RequestBody User user) {
-        Validator validator = new Validator(user, userService.listUsers());
-        if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
-            userService.updateUser(id, user);
-            return new ResponseStatus().addMessage("Sikeres módosítás!");
-        } else {
-            ResponseStatus status = new ResponseStatus().setStatus(ValidationStatus.FAIL);
-            return validator.getResponseStatus();
+        ResponseStatus status = new ResponseStatus();
+        if (userService.listUserIds().contains(id)) {
+            Validator validator = new Validator(user, userService.listUsers());
+            if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
+                userService.updateUser(id, user);
+                status.addMessage("Sikeres módosítás!");
+                status.setStatus(ValidationStatus.SUCCESS);
+            } else {
+                status.setStatus(ValidationStatus.FAIL);
+                status.addMessage(validator.getResponseStatus().getMessages().get(0));
+            }
+        }  else {
+            status.setStatus(ValidationStatus.FAIL);
+            status.addMessage("Ilyen id-vel felhasználó nem található!");
+        }
+        return status;
+    }
+
+    public Optional<User> findUserById(long id)  {
+        try {
+            return Optional.of(userService.findUserById(id));
+        } catch (EmptyResultDataAccessException erdae) {
+            return Optional.empty();
         }
     }
 
-    public User findUserById(long id) {
-        return userService.findUserById(id);
+    public Optional<Long> getUserId(String userName) {
+        try {
+            return Optional.of(userService.getUserId(userName));
+        } catch (EmptyResultDataAccessException erdae) {
+            return Optional.empty();
+        }
     }
 
-    public long getUserId(String userName) {
-        return userService.getUserId(userName);
+    public List<Long> listUserIds() {
+        return userService.listUserIds();
     }
 }
