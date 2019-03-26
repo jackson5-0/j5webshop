@@ -14,6 +14,9 @@ function fetchList() {
 
 function flushBasket() {
   var basketId = user.basketId;
+  if (!confirm("Biztosan ki szeretné üríteni a kosarát?")) {
+         return;
+  }
   fetch(`/basket?basketId=${basketId}`, {
       method: "DELETE"
     })
