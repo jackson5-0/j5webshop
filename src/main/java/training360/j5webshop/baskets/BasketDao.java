@@ -47,8 +47,8 @@ public class BasketDao {
 
     public List<Product> findBasketItems(long basketId) {
         return jdbcTemplate.query("select product.id, code, name, address, publisher, price, status from product " +
-                        "join basket_item on product.id = basket_item.product_id " +
-                        "where basket_item.basket_id = ?",
+                "join basket_item on product.id = basket_item.product_id " +
+                "where basket_item.basket_id = ?",
                 (rs, rowNum) -> new Product(
                         rs.getLong("product.id"),
                         rs.getString("code"),
@@ -57,7 +57,7 @@ public class BasketDao {
                         rs.getString("publisher"),
                         rs.getInt("price"),
                         rs.getString("status")), basketId
-        );
+                );
     }
 
     public Basket findBasket(long basketId) {

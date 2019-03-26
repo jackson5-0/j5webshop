@@ -154,12 +154,12 @@ function deleteProduct() {
 }
 
 function updateProduct() {
-  var id = this["raw-data"].id; //vagy =(new URL(document.location)).searchParams.get("id");
+  var id = this["raw-data"].id;
   var code = document.getElementById('code-Td' + id).innerHTML;
   var name = document.getElementById('name-Td' + id).innerHTML;
   var address = document.getElementById('address-Td' + id).innerHTML;
   var publisher = document.getElementById('publisher-Td' + id).innerHTML;
-  var price = document.getElementById('price-Td' + id).innerHTML;
+  var price = document.getElementById('price-Td' + id).innerHTML.replace(' Ft', '');
   var request = {
     "id": id,
     "code": code,
