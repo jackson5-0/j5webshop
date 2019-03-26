@@ -38,7 +38,7 @@ public class OrderService {
         }
         long orderId = orderDao.createOrder(basket.getUserId());
         validator.getResponseStatus().addMessage("A " + orderId +" számú rendelését sikeresen feladta.");
-        orderDao.addOrderdProduct(orderId, basket);
+        orderDao.addOrderedProduct(orderId, basket);
         basketDao.flushBasket(basketId);
         return validator.getResponseStatus();
     }

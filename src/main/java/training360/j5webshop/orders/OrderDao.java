@@ -34,7 +34,7 @@ public class OrderDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    public void addOrderdProduct(Long orderId, Basket basket) {
+    public void addOrderedProduct(Long orderId, Basket basket) {
         for (Product p : basket.getProducts().keySet()) {
             jdbcTemplate.update("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", orderId, p.getId(), p.getPrice());
         }

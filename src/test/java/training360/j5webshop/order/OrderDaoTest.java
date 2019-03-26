@@ -5,6 +5,7 @@ import org.flywaydb.core.Flyway;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -25,24 +26,29 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql({ "/product_init.sql", "/user_init.sql", "/basket_init.sql"} )
+@Sql(scripts = "/order_init.sql")
+
 public class OrderDaoTest {
 
+    @Autowired
     private OrderDao orderDao;
-    private UserDao userDao;
+    @Autowired
     private BasketDao basketDao;
-    private ProductDao productDao;
-    private OrderService orderService;
-
 
     @Test
     public void createOrderTest(){
-        //when
-
-
-
+        //When
+        Long orderId = orderDao.createOrder(2);
+        //Than
+        assertThat(orderId, equalTo(1L));
 
     }
+
+//    @Test
+//    public void addOrderedPorductTest(){
+//        //When
+//        orderDao.addOrderedProduct(1L, basketDao.createBasket(2););
+//    }
 
 
 }
