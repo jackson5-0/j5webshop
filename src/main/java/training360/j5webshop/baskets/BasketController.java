@@ -1,6 +1,7 @@
 package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.validation.ValidationStatus;
@@ -17,12 +18,16 @@ public class BasketController {
 
     @PostMapping("/basket")
     public ResponseStatus addToBasket(@RequestParam long basketId, @RequestParam long productId) {
-        ResponseStatus rs = new ResponseStatus();
-        if (basketService.addToBasket(basketId, productId)) {
-            return rs.addMessage("A termék bekerült a kosárba!");
-        } else {
-            rs.setStatus(ValidationStatus.FAIL);
-            return rs.addMessage("A termék már a kosárban van!");
+        try {
+            ResponseStatus rs = new ResponseStatus();
+            if (basketService.addToBasket(basketId, productId)) {
+                return rs.addMessage("A termék bekerült a kosárba!");
+            } else {
+                rs.setStatus(ValidationStatus.FAIL);
+                return rs.addMessage("A termék már a kosárban van!");
+            }
+        } catch (DataIntegrityViolationException de) {
+            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem letező kosár vagy termék");
         }
     }
 

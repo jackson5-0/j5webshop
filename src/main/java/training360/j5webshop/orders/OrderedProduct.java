@@ -14,7 +14,6 @@ public class OrderedProduct {
 
     public OrderedProduct(Product product, int quantity /*int priceAtPurchase*/) {
         this.name = product.getName();
-        product.setCodeAndAddress();
         this.address=product.getAddress();
         this.quantity = quantity;
 //        this.priceAtPurchase = priceAtPurchase;

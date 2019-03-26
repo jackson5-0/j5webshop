@@ -25,9 +25,12 @@ public class Product {
     }
 
     public Product(String code, String name, String address, String publisher, int price) {
-        this(name, publisher, price);
+        this(name, address, publisher, price);
         this.code = code;
-        this.address = address;
+    }
+    public Product(String name, String address, String publisher, int price){
+        this(name,publisher,price);
+        this.address=address;
     }
 
     public Product(String name, String publisher, int price) {

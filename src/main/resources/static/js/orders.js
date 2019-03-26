@@ -62,17 +62,17 @@ function showList(jsonData) {
     tr.appendChild(orderStatusTd);
     tr.appendChild(totalPriceTd);
 
-    if (jsonData[i].orderStatus == "ACTIVE" || jsonData[i].orderStatus == "DELIVERED") {
+    if (jsonData[i].orderStatus == "ACTIVE") {
         var delBut = document.createElement('button');
         delBut.innerHTML = "Törlés";
         delBut.onclick = deleteOrderItem;
         delBut["raw-data"] = jsonData[i];
         delTd.appendChild(delBut);
         var changeStatusButton = document.createElement('button');
-        changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
-        changeStatusButton.onclick = changeStatusToDelivered;
-        changeStatusButton["raw-data"] = jsonData[i];
-        delTd.appendChild(changeStatusButton)
+                changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
+                changeStatusButton.onclick = changeStatusToDelivered;
+                changeStatusButton["raw-data"] = jsonData[i];
+                delTd.appendChild(changeStatusButton)
     }
 
     tr.appendChild(delTd);
@@ -97,7 +97,7 @@ function deleteOrderItem() {
 
 function changeStatusToDelivered(){
     var orderId = this["raw-data"].id;
-    fetch(`/orders/${orderId}`, {
+    fetch(`/orders/${orderId}/status`, {
             method: "POST"
        }).then( function() {
                       fetchList();

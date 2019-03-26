@@ -1,6 +1,7 @@
 package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -26,8 +27,8 @@ public class BasketDao {
         jdbcTemplate.update("insert into basket (users_id) values(?)", userId);
     }
 
-    public void addToBasket(long basketId, long productId) {
-        jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
+    public void addToBasket(long basketId, long productId) throws DataIntegrityViolationException {
+            jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
     }
 
     public int flushBasket(long basketId) {

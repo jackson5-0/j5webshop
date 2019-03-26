@@ -1,6 +1,7 @@
 package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
@@ -17,7 +18,7 @@ public class BasketService {
     @Autowired
     private ProductDao productDao;
 
-    public boolean addToBasket(long basketId, long productId) {
+    public boolean addToBasket(long basketId, long productId) throws DataIntegrityViolationException {
         if (productAlreadyAdded(basketId, productId)) {
             return false;
         } else {
