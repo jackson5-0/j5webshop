@@ -65,7 +65,7 @@ function showList(jsonData) {
   var totalTd = document.createElement('td');
   var sumTd = document.createElement('td');
 
-  sumTd.innerHTML = "Teljes összeg";
+  sumTd.innerHTML = "TELJES ÖSSZEG";
   totalTd.innerHTML = sum;
 
   tr2.appendChild(sumTd);
@@ -84,16 +84,19 @@ function orderBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.getElementById("message-div").innerHTML = jsonData.messages;
-      return jsonData;
-      })
+        if(jsonData.status == 'SUCCESS') {
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+        } else {
+            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+        }
+    })
     .then(function (jsonData) {
           showList(jsonData);
-    })
-    .then(function(){
-        window.open("/myorders.html","_self");})
-    ;
+    });
 }
 
 function deleteBasketItem() {

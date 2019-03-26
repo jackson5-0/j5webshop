@@ -13,15 +13,15 @@
     </div>
 </header>
 <main>
-<div class="product-info-div">
+<div class="administration-table">
     <h1>Kosár tartalma:</h1>
     <table id="basket-table">
             <thead>
                 <tr>
-                    <th>Megnevezés</th>
-                    <th>Ár</th>
-                    <th>Mennyiség</th>
-                    <th>Törlés</th>
+                    <th>MEGNEVEZÉS</th>
+                    <th>ÁR</th>
+                    <th>MENNYISÉG</th>
+                    <th class="wider-th">TÖRLÉS</th>
                 </tr>
             </thead>
             <tbody id="basket-tablebody">
@@ -30,9 +30,10 @@
     <div id="message-div" class="product-to-basket-message"></div>
 </div>
 <div>
-    <button class="button"><a href="index.html">Folytatom a vásárlást!</a></button>
-    <button id="flush" class="button">Kosár ürítése</button>
-    <button id="order" class="button" onclick="orderBasket()">Leadom a rendelésem!</button>
+    <br>
+    <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button>
+    <button id="flush" class="basket-option-button">Kosár ürítése</button>
+    <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelésem!</button>
 </div>
 </main>
 <footer>
