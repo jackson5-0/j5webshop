@@ -29,52 +29,58 @@ function fetchActive() {
 }
 
 function showList(jsonData) {
-  console.log(jsonData);
   var tbody = document.getElementById('orders-tablebody');
   tbody.innerHTML = '';
   var sum = 0;
   for (var i = 0; i < jsonData.length; i++) {
-//  if (jsonData.totalPrice===0){
-//   ?
-//  }
+
     var tr = document.createElement('tr');
 
     var userNameTd = document.createElement('td');
     userNameTd.innerHTML = jsonData[i].userName;
-    userNameTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+
 
     var purchaseDateTd = document.createElement('td');
     purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
-    purchaseDateTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+
 
     var orderStatusTd = document.createElement('td');
-    orderStatusTd.innerHTML = jsonData[i].orderStatus;
-    orderStatusTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+    if (jsonData[i].totalPrice===0 && jsonData[i].orderStatus!=="DELETED"){
+        fetch(`/orders/delete/${jsonData[i].id}`, {
+                    method: "DELETE"
+               })
+               .then(function(){
+               fetchList();
+               });
+    }
+        orderStatusTd.innerHTML = jsonData[i].orderStatus;
 
     var totalPriceTd = document.createElement('td');
     totalPriceTd.innerHTML = jsonData[i].totalPrice;
-    totalPriceTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var delTd = document.createElement('td');
+
+    if (jsonData[i].orderStatus == "ACTIVE") {
+        totalPriceTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+        orderStatusTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+        purchaseDateTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+        userNameTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+        var delBut = document.createElement('button');
+        delBut.innerHTML = "TÖRLÉS";
+        delBut.onclick = deleteOrderItem;
+        delBut["raw-data"] = jsonData[i];
+        delTd.appendChild(delBut);
+        var changeStatusButton = document.createElement('button');
+        changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
+        changeStatusButton.onclick = changeStatusToDelivered;
+        changeStatusButton["raw-data"] = jsonData[i];
+        delTd.appendChild(changeStatusButton)
+    }
 
     tr.appendChild(userNameTd);
     tr.appendChild(purchaseDateTd);
     tr.appendChild(orderStatusTd);
     tr.appendChild(totalPriceTd);
-
-    if (jsonData[i].orderStatus == "ACTIVE") {
-        var delBut = document.createElement('button');
-        delBut.innerHTML = "Törlés";
-        delBut.onclick = deleteOrderItem;
-        delBut["raw-data"] = jsonData[i];
-        delTd.appendChild(delBut);
-        var changeStatusButton = document.createElement('button');
-                changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
-                changeStatusButton.onclick = changeStatusToDelivered;
-                changeStatusButton["raw-data"] = jsonData[i];
-                delTd.appendChild(changeStatusButton)
-    }
-
     tr.appendChild(delTd);
 
     tbody.appendChild(tr);
