@@ -44,11 +44,19 @@ function showList(jsonData) {
     userNameTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var purchaseDateTd = document.createElement('td');
-    purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
+    purchaseDateTd.innerHTML = jsonData[i].purchaseDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16);
     purchaseDateTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var orderStatusTd = document.createElement('td');
-    orderStatusTd.innerHTML = jsonData[i].orderStatus;
+    if (jsonData[i].orderStatus == 'DELIVERED') {
+        orderStatusTd.innerHTML = 'Kiszállítva';
+    }
+    if (jsonData[i].orderStatus == 'DELETED') {
+        orderStatusTd.innerHTML = 'Törölt';
+    }
+    if (jsonData[i].orderStatus == 'ACTIVE') {
+        orderStatusTd.innerHTML = 'Aktív';
+    }
     orderStatusTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var totalPriceTd = document.createElement('td');
