@@ -1,6 +1,7 @@
 package training360.j5webshop.orders;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.products.Product;
@@ -34,18 +35,18 @@ public class OrderController {
     }
 
     @GetMapping("/myorders")
-    public List<Order> listAllOrder(){
-        return orderService.listAllOrder();
+    public List<Order> listAllOrder(Authentication auth){
+        return orderService.listAllOrder(auth.getName());
     }
 
     @GetMapping("/myorders/active")
-    public List<Order> listActiveOrder(){
-        return orderService.listActiveOrder();
+    public List<Order> listActiveOrder(Authentication auth){
+        return orderService.listActiveOrder(auth.getName());
     }
 
     @GetMapping("myorders/all")
-    public List<Order> listAllOrderWithDeleted(){
-        return orderService.listAllOrderWithDeleted();
+    public List<Order> listAllOrderWithDeleted(Authentication auth){
+        return orderService.listAllOrderWithDeleted(auth.getName());
     }
 
     @GetMapping("/myorders/{orderId}")

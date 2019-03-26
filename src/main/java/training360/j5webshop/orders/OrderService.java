@@ -56,16 +56,16 @@ public class OrderService {
 
 
 
-    public List<Order> listAllOrder(){
-        return orderDao.listAllOrder();
+    public List<Order> listAllOrder(String userName){
+        return orderDao.listAllOrder(userName);
     }
 
-    public List<Order> listActiveOrder(){
-        return orderDao.listActiveOrder();
+    public List<Order> listActiveOrder(String userName){
+        return orderDao.listActiveOrder(userName);
     }
 
-    public List<Order> listAllOrderWithDeleted(){
-        return orderDao.listAllOrderWithDeleted();
+    public List<Order> listAllOrderWithDeleted(String userName){
+        return orderDao.listAllOrderWithDeleted(userName);
     }
 
     public List<OrderedProduct> findOrderedProductByOrderId(long id){
