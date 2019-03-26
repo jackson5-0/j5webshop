@@ -87,7 +87,7 @@ public class OrderDaoTest {
         //When
         List<OrderInfo> list = orderDao.listAdminOrders();
         //Then
-        assertThat(list.size(), equalTo(2));
+        assertThat(list.size(), equalTo(6));
     }
 
 
@@ -98,7 +98,7 @@ public class OrderDaoTest {
         //When
         List<OrderInfo> list = orderDao.listActiveAdminOrders();
         //Then
-        assertThat(list.size(), equalTo(1));
+        assertThat(list.size(), equalTo(3));
     }
 
     @Test
