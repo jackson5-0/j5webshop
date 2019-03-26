@@ -33,6 +33,7 @@
     width: 28%;
 }
 
+.basket-option-button,
 .administration-table tr td button {
     position: relative;
 	display: inline-block;
@@ -45,6 +46,7 @@
 	font-weight: bold;
 	text-align: center;
 	font-style: normal;
+	max-width: 220px;
 	width: 40%;
 	border: 1px solid #16a085;
 	border-radius: 4px;
@@ -52,6 +54,7 @@
 	margin-bottom: 5px;
 }
 
+.basket-option-button:hover,
 .administration-table tr td button:hover {
 	background: #109177;
 }
@@ -81,6 +84,13 @@
     -webkit-transition-duration: 0.4s;
     transition-duration: 0.4s;
 }
+
+.basket-option-button a {
+    text-decoration: none;
+    color: ivory;
+}
+
+.orders-table-div-button a,
 .button a{
     text-decoration: none;
     color: black;

@@ -13,7 +13,7 @@ function fetchList() {
 function showList(jsonData) {
   var tbody = document.querySelector('#orderlist');
   var thead = `<tr class="tablehead" class="orderlist">
-                    <th class="orderlist__table__th1">Rendelés száma</th>
+                    <th class="orderlist__table__th1">Rendelés azonosítója</th>
                     <th class="orderlist__table__th1">Rendelés dátuma</th>
                     <th class="orderlist__table__th1">Rendelés státusza</th>
                     </tr>`

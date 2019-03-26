@@ -56,6 +56,8 @@ public class BasketDaoTest {
         assertThat(ids.get(2), equalTo(3L));
     }
 
+
+
     public void testFindBasketId(long userId) {
         // When
         long id = basketDao.findBasketId(2);
@@ -81,5 +83,6 @@ public class BasketDaoTest {
         assertThat(basketDao.listProductIdsOfBasket(1).get(0), equalTo(1L));
         assertThat(basketDao.listProductIdsOfBasket(1).get(1), equalTo(2L));
     }
+
 
 }
