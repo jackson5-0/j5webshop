@@ -9,7 +9,7 @@ function fetchList(){
 }
 
 function fetchAll() {
-  fetch(`/orders`)
+  fetch(/orders)
     .then(function (response) {
       return response.json();
     })
@@ -19,7 +19,7 @@ function fetchAll() {
 }
 
 function fetchActive() {
-  fetch(`/activeorders`)
+  fetch(/activeorders)
     .then(function (response) {
       return response.json();
     })
@@ -29,60 +29,58 @@ function fetchActive() {
 }
 
 function showList(jsonData) {
-  console.log(jsonData);
   var tbody = document.getElementById('orders-tablebody');
   tbody.innerHTML = '';
   var sum = 0;
   for (var i = 0; i < jsonData.length; i++) {
-//  if (jsonData.totalPrice===0){
-//   ?
-//  }
+
     var tr = document.createElement('tr');
 
     var userNameTd = document.createElement('td');
     userNameTd.innerHTML = jsonData[i].userName;
-    userNameTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+
 
     var purchaseDateTd = document.createElement('td');
-    purchaseDateTd.innerHTML = jsonData[i].purchaseDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16);
-    purchaseDateTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+    purchaseDateTd.innerHTML = jsonData[i].purchaseDate;
+
 
     var orderStatusTd = document.createElement('td');
-    if (jsonData[i].orderStatus == 'DELIVERED') {
-        orderStatusTd.innerHTML = 'Kiszállítva';
+    if (jsonData[i].totalPrice===0 && jsonData[i].orderStatus!=="DELETED"){
+        fetch(/orders/delete/${jsonData[i].id}, {
+                    method: "DELETE"
+               })
+               .then(function(){
+               fetchList();
+               });
     }
-    if (jsonData[i].orderStatus == 'DELETED') {
-        orderStatusTd.innerHTML = 'Törölt';
-    }
-    if (jsonData[i].orderStatus == 'ACTIVE') {
-        orderStatusTd.innerHTML = 'Aktív';
-    }
-    orderStatusTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
+        orderStatusTd.innerHTML = jsonData[i].orderStatus;
 
     var totalPriceTd = document.createElement('td');
     totalPriceTd.innerHTML = jsonData[i].totalPrice;
-    totalPriceTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
 
     var delTd = document.createElement('td');
+
+    if (jsonData[i].orderStatus == "ACTIVE") {
+        totalPriceTd.setAttribute('onclick', window.location="/order.html?order=${jsonData[i].id}");
+        orderStatusTd.setAttribute('onclick', window.location="/order.html?order=${jsonData[i].id}");
+        purchaseDateTd.setAttribute('onclick', window.location="/order.html?order=${jsonData[i].id}");
+        userNameTd.setAttribute('onclick', window.location="/order.html?order=${jsonData[i].id}");
+        var delBut = document.createElement('button');
+        delBut.innerHTML = "TÖRLÉS";
+        delBut.onclick = deleteOrderItem;
+        delBut["raw-data"] = jsonData[i];
+        delTd.appendChild(delBut);
+        var changeStatusButton = document.createElement('button');
+        changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
+        changeStatusButton.onclick = changeStatusToDelivered;
+        changeStatusButton["raw-data"] = jsonData[i];
+        delTd.appendChild(changeStatusButton)
+    }
 
     tr.appendChild(userNameTd);
     tr.appendChild(purchaseDateTd);
     tr.appendChild(orderStatusTd);
     tr.appendChild(totalPriceTd);
-
-    if (jsonData[i].orderStatus == "ACTIVE") {
-        var delBut = document.createElement('button');
-        delBut.innerHTML = "Törlés";
-        delBut.onclick = deleteOrderItem;
-        delBut["raw-data"] = jsonData[i];
-        delTd.appendChild(delBut);
-        var changeStatusButton = document.createElement('button');
-                changeStatusButton.innerHTML = 'KISZÁLLÍTÁS';
-                changeStatusButton.onclick = changeStatusToDelivered;
-                changeStatusButton["raw-data"] = jsonData[i];
-                delTd.appendChild(changeStatusButton)
-    }
-
     tr.appendChild(delTd);
 
     tbody.appendChild(tr);
@@ -94,7 +92,7 @@ function deleteOrderItem() {
     if (!confirm("Biztosan törölni szeretné a rendelést?")) {
             return;
         }
-     fetch(`/orders/delete/${id}`, {
+     fetch(/orders/delete/${id}, {
            method: "DELETE"
          }).then( function() {
             fetchList();
@@ -105,7 +103,7 @@ function deleteOrderItem() {
 
 function changeStatusToDelivered(){
     var orderId = this["raw-data"].id;
-    fetch(`/orders/${orderId}`, {
+    fetch(/orders/${orderId}/status, {
             method: "POST"
        }).then( function() {
                       fetchList();

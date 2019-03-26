@@ -2,14 +2,20 @@
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
-    <title>Basket</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kosár</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<header>
+    <div class="nav">
+    </div>
+</header>
 <main>
-<div id="message-div"></div>
-<div>
+<div class="product-info-div">
     <h1>Kosár tartalma:</h1>
-    <table class="table table-hover" id="basket-table">
+    <table id="basket-table">
             <thead>
                 <tr>
                     <th>Megnevezés</th>
@@ -21,14 +27,18 @@
             <tbody id="basket-tablebody">
             </tbody>
     </table>
+    <div id="message-div" class="product-to-basket-message"></div>
 </div>
 <div>
-    <button id="flush">Kosár ürítés</button>
+    <button class="button"><a href="index.html">Folytatom a vásárlást!</a></button>
+    <button id="flush" class="button">Kosár ürítése</button>
+    <button id="order" class="button" onclick="orderBasket()">Leadom a rendelésem!</button>
 </div>
-    <div>
-        <button id="order" onclick="orderBasket()">Rendelés leadása</button>
-    </div>
 </main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
+<script src="/js/user.js"></script>
 <script src="js/basket.js"></script>
 </body>
 </html>
