@@ -97,7 +97,7 @@ function deleteOrderItem() {
 
 function changeStatusToDelivered(){
     var orderId = this["raw-data"].id;
-    fetch(`/orders/${orderId}`, {
+    fetch(`/orders/${orderId}/status`, {
             method: "POST"
        }).then( function() {
                       fetchList();
