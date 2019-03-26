@@ -1,6 +1,5 @@
 window.onload = fetchList;
-var flush = document.getElementById('flush');
-flush.onclick = flushBasket;
+
 
 function fetchList() {
   var basketId = (new URL(document.location)).searchParams.get('basket');
@@ -62,6 +61,20 @@ function showList(jsonData) {
 
     tbody.appendChild(tr);
   }
+  var emptyBasketButton = document.createElement('button');
+  emptyBasketButton.id = 'flush';
+  emptyBasketButton.onclick = flushBasket;
+  emptyBasketButton.innerHTML = "Kosár ürítése";
+  var placeOrderButton = document.createElement('button');
+  placeOrderButton.id='orderit'
+  placeOrderButton.onclick = orderBasket;
+  placeOrderButton.innerHTML = "Leadom a rendelést"
+  if (sum!==0){
+    document.getElementById('buttons').appendChild(emptyBasketButton);
+    document.getElementById('buttons').appendChild(placeOrderButton);
+  }
+
+
   var tr2 = document.createElement('tr');
   var totalTd = document.createElement('td');
   var sumTd = document.createElement('td');
@@ -92,8 +105,8 @@ function orderBasket() {
     .then(function (jsonData) {
           showList(jsonData);
     })
-    .then(function(){
-        window.open("/myorders.html","_self");})
+//    .then(function(){
+//        window.open("/myorders.html","_self");})
     ;
 }
 
