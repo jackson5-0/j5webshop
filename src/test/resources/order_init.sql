@@ -1,10 +1,11 @@
-delete from order_item;
-delete from orders;
 delete from basket_item;
+delete from order_item;
 delete from basket;
-delete from users;
+delete from orders;
 delete from product;
+delete from users;
 
+ALTER TABLE orders AUTO_INCREMENT = 1;
 
 insert into product (id, code, name, address, publisher, price, status) values
     (1, "GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
@@ -48,7 +49,7 @@ insert into basket_item(id, basket_id, product_id) values
     (5, 3, 3);
 
 insert into orders (id, user_id, status, purchase_date) values
-(1, 2, "ACTIVE", "2019-03-26");
+(1, 2, "DELETED", "2019-03-26");
 insert into orders (id, user_id, status, purchase_date) values
 (2, 3, "ACTIVE", "2019-03-26");
 
