@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
+import training360.j5webshop.products.ProductStatus;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -42,6 +43,24 @@ public class BasketDao {
                 return resultSet.getLong("product_id");
             }
         }, basketId);
+    }
+
+    public Basket findBasket(long basketId) {
+        List<Long> productIds = listProductIdsOfBasket(basketId);
+        long userId = findUserByBasketId(basketId);
+        Basket basket = new Basket(basketId, userId);
+        for (Long productId : productIds) {
+            Product product = jdbcTemplate.queryForObject("select code, name, address, publisher, price from product where id = ?",
+                    (rs, rowNum) -> new Product(
+                            rs.getString("code"),
+                            rs.getString("name"),
+                            rs.getString("address"),
+                            rs.getString("publisher"),
+                            rs.getInt("price")),
+                    productId);
+            basket.addProduct(product, 1);
+        }
+        return basket;
     }
 
     public Long findBasketId(long userId) {
