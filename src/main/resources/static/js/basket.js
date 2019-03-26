@@ -3,8 +3,7 @@ var flush = document.getElementById('flush');
 flush.onclick = flushBasket;
 
 function fetchList() {
-  var basketId = (new URL(document.location)).searchParams.get('basket');
-  fetch(`/basket?basketId=${basketId}`)
+  fetch(`/basket`)
     .then(function (response) {
       return response.json();
     })
@@ -14,7 +13,7 @@ function fetchList() {
 }
 
 function flushBasket() {
-  var basketId = (new URL(document.location)).searchParams.get('basket');
+  var basketId = user.basketId;
   fetch(`/basket?basketId=${basketId}`, {
       method: "DELETE"
     })
@@ -22,8 +21,15 @@ function flushBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.getElementById("message-div").innerHTML = jsonData.messages;
+       if(jsonData.status == 'SUCCESS') {
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+       } else {
+            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+       }
     })
     .then(function (jsonData) {
       showList(jsonData); // hibát ír a consolra (jsonData is not defined)
@@ -66,7 +72,7 @@ function showList(jsonData) {
   var totalTd = document.createElement('td');
   var sumTd = document.createElement('td');
 
-  sumTd.innerHTML = "Teljes összeg";
+  sumTd.innerHTML = "TELJES ÖSSZEG";
   totalTd.innerHTML = sum;
 
   tr2.appendChild(sumTd);
@@ -77,7 +83,7 @@ function showList(jsonData) {
   tbody.appendChild(tr2);
 }
 function orderBasket() {
-  var basketId = (new URL(document.location)).searchParams.get('basket');
+  var basketId = user.basketId;
   fetch(`/myorders?basketId=${basketId}`, {
       method: "POST"
     })
@@ -85,21 +91,24 @@ function orderBasket() {
       return response.json();
     })
     .then(function (jsonData) {
-      document.getElementById("message-div").setAttribute("class", "alert alert-success");
-      document.getElementById("message-div").innerHTML = jsonData.messages;
-      return jsonData;
-      })
+        if(jsonData.status == 'SUCCESS') {
+            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+        } else {
+            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            document.getElementById("message-div").innerHTML = jsonData.messages;
+            return jsonData;
+        }
+    })
     .then(function (jsonData) {
           showList(jsonData);
-    })
-    .then(function(){
-        window.open("/myorders.html","_self");})
-    ;
+    });
 }
 
 function deleteBasketItem() {
     var productId = this["raw-data"].id;
-    var basketId = (new URL(document.location)).searchParams.get('basket');
+    var basketId = user.basketId;
     if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
             return;
         }

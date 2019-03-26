@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import training360.j5webshop.baskets.BasketController;
@@ -26,17 +27,18 @@ public class OrderIntegrationTest {
     @Test
     public void createOrderTest() {
         // When
-        int basketSizeBeforeCreateOrder = basketController.listProductsOfBasket(2).size();
+        int basketSizeBeforeCreateOrder = basketController.listProductsOfBasket(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
         orderController.createOrder(2);
-        int basketSizeAfterCreateOrder = basketController.listProductsOfBasket(2).size();
+        int basketSizeAfterCreateOrder = basketController.listProductsOfBasket(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
 
         // Then
-        assertThat(orderController.listAllOrder().size(), equalTo(1));
-        assertThat(orderController.listActiveOrder().size(), equalTo(1));
-        assertThat(orderController.listAllOrder().get(0).getUserId(), equalTo(2L));
-        assertThat(orderController.listActiveOrder().get(0).getUserId(), equalTo(2L));
-        assertThat(orderController.listAllOrder().get(0).getOrderedProduct().size(), equalTo(3));
-        assertThat(basketController.listProductsOfBasket(2).size(), equalTo(0));
+        System.out.println(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
+        assertThat(orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(1));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getUserId(), equalTo(2L));
+        assertThat(orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getUserId(), equalTo(2L));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getOrderedProduct().size(), equalTo(3));
+        assertThat(basketController.listProductsOfBasket(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(0));
         assertThat(basketSizeBeforeCreateOrder, equalTo(3));
         assertThat(basketSizeAfterCreateOrder, equalTo(0));
     }
@@ -45,12 +47,11 @@ public class OrderIntegrationTest {
     public void listAllOrderTest() {
         // When
         orderController.createOrder(2);
-        orderController.createOrder(3);
 
         // Then
-        assertThat(orderController.listAllOrder().size(), equalTo(2));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
         orderController.deleteOrders(2);
-        assertThat(orderController.listAllOrder().size(), equalTo(1));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(1));
     }
 
     @Test
@@ -60,7 +61,7 @@ public class OrderIntegrationTest {
         orderController.createOrder(3);
 
         // Then
-        assertThat(orderController.listAllOrder().size(), equalTo(2));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
         orderController.deleteOrders(2);
         assertThat(orderController.listActiveOrders().size(), equalTo(1));
     }
@@ -72,9 +73,9 @@ public class OrderIntegrationTest {
         orderController.createOrder(3);
 
         // Then
-        assertThat(orderController.listAllOrder().size(), equalTo(2));
+        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
         orderController.deleteOrders(2);
-        assertThat(orderController.listAllOrderWithDeleted().size(), equalTo(2));
+        assertThat(orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
     }
 
     @Test
@@ -83,7 +84,6 @@ public class OrderIntegrationTest {
         orderController.createOrder(2);
 
         // Then
-        System.out.println(orderController.findOrderedProductByOrderId(1).size());
-        System.out.println(orderController.findOrderedProductByOrderId(1));
+        assertThat(orderController.findOrderedProductByOrderId(1).size(), equalTo(3));
     }
 }

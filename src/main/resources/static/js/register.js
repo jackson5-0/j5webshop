@@ -40,4 +40,5 @@ function handleCreateForm() {
         });
         return false;
     }
+    return false;
 }

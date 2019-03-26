@@ -47,3 +47,11 @@ insert into basket_item(id, basket_id, product_id) values
     (4, 3, 2);
 insert into basket_item(id, basket_id, product_id) values
     (5, 3, 3);
+
+insert into orders (id, user_id, status, purchase_date) values
+(1, 2, "DELETED", "2019-03-26");
+insert into orders (id, user_id, status, purchase_date) values
+(2, 3, "ACTIVE", "2019-03-26");
+
+
+

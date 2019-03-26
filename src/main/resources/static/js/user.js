@@ -78,7 +78,7 @@ function createUserHeader(user) {
         <div class="login-out-div">
             <span>Szia ${user.userName}!</span>
             <a href="/logout">kijelentkezés</a>
-            <a href="/basket.html?basket=${user.basketId}"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
+            <a href="/basket.html"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
         </div>
     </div>
     <br>
