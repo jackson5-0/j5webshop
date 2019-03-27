@@ -16,7 +16,7 @@ import training360.j5webshop.orders.OrderStatus;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "/order_init.sql")
+@Sql(scripts = "/init.sql")
 public class OrderIntegrationTest {
 
     @Autowired

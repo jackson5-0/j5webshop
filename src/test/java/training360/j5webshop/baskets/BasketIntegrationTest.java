@@ -16,13 +16,11 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql({"/basket_init.sql"})
+@Sql({"/init.sql"})
 public class BasketIntegrationTest {
 
     @Autowired
@@ -33,11 +31,10 @@ public class BasketIntegrationTest {
     @Test
     public void testAddToBasket() {
         // Given
-        Product product = new Product("name", "publisher", 10_000);
-        long id = productDao.createProduct(product);
+        Product product = new Product(1, "GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
         // When
-        ResponseStatus rs = basketController.addToBasket(2, id);
-        Set<Product> products = basketController.listProductsOfBasket(new TestingAuthenticationToken("user", "user"));
+        ResponseStatus rs = basketController.addToBasket(1, 1);
+        Set<Product> products = basketController.listProductsOfBasket(new TestingAuthenticationToken("kovacsgeza", "KovacsGeza90"));
         // Then
         assertThat(products.size(), equalTo(1));
         assertTrue(products.contains(product));
@@ -49,14 +46,12 @@ public class BasketIntegrationTest {
     @Test
     public void testAddToBasketAlreadyExistingProduct() {
         // Given
-        Product product = new Product("name", "publisher", 10_000);
-        long id = productDao.createProduct(product);
+        Product product = new Product(3, "AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990, "ACTIVE");
         // When
-        basketController.addToBasket(2, id);
-        ResponseStatus rs = basketController.addToBasket(2, id);
-        Set<Product> products = basketController.listProductsOfBasket(new TestingAuthenticationToken("user", "user"));
+        ResponseStatus rs = basketController.addToBasket(3, 3);
+        Set<Product> products = basketController.listProductsOfBasket(new TestingAuthenticationToken("tadri1988", "Tadri1988"));
         // Then
-        assertThat(products.size(), equalTo(1));
+        assertThat(products.size(), equalTo(2));
         assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
         assertThat(rs.getMessages().get(0), equalTo("A termék már a kosárban van!"));
     }
@@ -73,7 +68,7 @@ public class BasketIntegrationTest {
     @Test
     public void testFlushBasket() {
         // When
-        ResponseStatus rs = basketController.flushBasket(1);
+        ResponseStatus rs = basketController.flushBasket(3);
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.SUCCESS));
         assertThat(rs.getMessages().get(0), equalTo("A kosár újra üres!"));
@@ -90,11 +85,12 @@ public class BasketIntegrationTest {
 
     @Test
     public void testListProductsOfBasket() {
-        Product product = new Product(1, "GEMHAC01", "Hacker játszma", "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
+        // Given
+        Product product = new Product(3, "AVALOR01", "Lord of Hellas", "lord-of-hellas", "Avaken Realms", 35990, "ACTIVE");
         Product product2 = new Product(2, "GEMDIX01", "Dixit", "dixit", "Gém Klub Kft.", 7990, "ACTIVE");
-        basketController.addToBasket(2, 1);
-        basketController.addToBasket(2, 2);
-        Set<Product> products = basketController.listProductsOfBasket(new TestingAuthenticationToken("user", "user"));
+        // When
+        Set<Product> products = basketController.listProductsOfBasket(new TestingAuthenticationToken("tadri1988", "Tadri1988"));
+        // Then
         assertTrue(products.contains(product));
         assertTrue(products.contains(product2));
     }
@@ -102,7 +98,7 @@ public class BasketIntegrationTest {
     @Test
     public void testDeleteItemFromBasket() {
         // When
-        ResponseStatus rs = basketController.deleteItemFromBasket(1, 2);
+        ResponseStatus rs = basketController.deleteItemFromBasket(3, 2);
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.SUCCESS));
         assertThat(rs.getMessages().get(0), equalTo("A terméket sikeresen eltávolítottuk a kosárból."));

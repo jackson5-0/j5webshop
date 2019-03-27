@@ -49,6 +49,8 @@ public class BasketController {
         String userName = auth.getName();
         Long id = userService.findBasketId(userName);
         return basketService.listProductsOfBasket(id).keySet();
+//        Alternativ megoldas a kosar kilistazasara
+//        return basketService.listProductsOfBasket(auth.getName());
     }
 
     @DeleteMapping("/basket/{basket}")

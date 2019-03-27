@@ -60,6 +60,23 @@ public class BasketDao {
                 );
     }
 
+    // Alternativ verzio a kosar tartalmanak listazasara -- nincs hasznalatban
+    public List<Product> findBasketProductsByUserName(String userName) {
+        return jdbcTemplate.query("select product.id, code, name, address, publisher, price, status from product \n" +
+                "join basket_item on product.id = basket_item.product_id \n" +
+                "join basket on basket_item.basket_id = basket.id\n" +
+                "where (select users.id from users where users.username = 'user')",
+                (rs, rowNum) -> new Product(
+                        rs.getLong("product.id"),
+                        rs.getString("code"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("publisher"),
+                        rs.getInt("price"),
+                        rs.getString("status")), userName
+        );
+    }
+
     public Basket findBasket(long basketId) {
         List<Long> productIds = listProductIdsOfBasket(basketId);
         long userId = findUserByBasketId(basketId);

@@ -6,9 +6,7 @@ import org.springframework.stereotype.Service;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class BasketService {
@@ -38,6 +36,8 @@ public class BasketService {
             productMap.put(productDao.findProductById(id), 1);
         }
         return productMap;
+//        Alternativ megoldas a kosar tartalmanak listazasara
+//        return new HashSet<>(basketDao.findBasketProductsByUserName(userName));
     }
 
     private boolean productAlreadyAdded(long basketId, long productId) {
