@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import training360.j5webshop.products.Product;
@@ -44,7 +45,7 @@ public class BasketDaoTest {
         basketDao.addToBasket(1, 1);
         basketDao.addToBasket(1, 2);
         // When
-        basketDao.flushBasket(1);
+        basketDao.flushBasket(new TestingAuthenticationToken("kovacsgeza", "KovacsGeza90").getName());
         // Then
         assertThat(basketDao.listProductIdsOfBasket(1).size(), equalTo(0));
     }

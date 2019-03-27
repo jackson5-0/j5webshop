@@ -25,8 +25,8 @@ public class BasketService {
         }
     }
 
-    public int flushBasket(long basketId) {
-        return basketDao.flushBasket(basketId);
+    public int flushBasket(String userName) {
+        return basketDao.flushBasket(userName);
     }
 
     public Map<Product, Integer> listProductsOfBasket(long basketId) {

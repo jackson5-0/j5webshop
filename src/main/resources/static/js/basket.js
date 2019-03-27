@@ -17,7 +17,7 @@ function flushBasket() {
   if (!confirm("Biztosan ki szeretné üríteni a kosarát?")) {
          return;
   }
-  fetch(`/basket?basketId=${basketId}`, {
+  fetch(`/basket`, {
       method: "DELETE"
     })
     .then(function (response) {

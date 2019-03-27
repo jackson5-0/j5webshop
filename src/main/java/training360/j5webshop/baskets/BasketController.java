@@ -36,8 +36,8 @@ public class BasketController {
     }
 
     @DeleteMapping("/basket")
-    public ResponseStatus flushBasket(@RequestParam long basketId) {
-            if(basketService.flushBasket(basketId) != 0){
+    public ResponseStatus flushBasket(Authentication authentication) {
+            if(basketService.flushBasket(authentication.getName()) != 0){
                 return new ResponseStatus().addMessage("A kosár újra üres!");
             } else {
                 return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár");

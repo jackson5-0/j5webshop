@@ -68,7 +68,7 @@ public class BasketIntegrationTest {
     @Test
     public void testFlushBasket() {
         // When
-        ResponseStatus rs = basketController.flushBasket(3);
+        ResponseStatus rs = basketController.flushBasket(new TestingAuthenticationToken("tadri1988", "Tadri1988"));
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.SUCCESS));
         assertThat(rs.getMessages().get(0), equalTo("A kosár újra üres!"));
@@ -77,7 +77,7 @@ public class BasketIntegrationTest {
     @Test
     public void testFlushBasketIfDoesntExist() {
         // When
-        ResponseStatus rs = basketController.flushBasket(100);
+        ResponseStatus rs = basketController.flushBasket(new TestingAuthenticationToken("", ""));
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
         assertThat(rs.getMessages().get(0), equalTo("Nem létező kosár"));
