@@ -62,7 +62,6 @@ public class BasketDao {
                 );
     }
 
-    // Alternativ verzio a kosar tartalmanak listazasara -- nincs hasznalatban
     public List<Product> findBasketProductsByUserName(String userName) {
         return jdbcTemplate.query("select product.id, code, name, address, publisher, price, status from product \n" +
                 "join basket_item on product.id = basket_item.product_id \n" +
