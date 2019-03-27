@@ -12,12 +12,11 @@ public class OrderedProduct {
     public OrderedProduct() {
     }
 
-    public OrderedProduct(Product product, int quantity /*int priceAtPurchase*/) {
+    public OrderedProduct(Product product, int quantity, int priceAtPurchase) {
         this.name = product.getName();
         this.address=product.getAddress();
         this.quantity = quantity;
-//        this.priceAtPurchase = priceAtPurchase;
-        this.priceAtPurchase = product.getPrice();
+        this.priceAtPurchase = priceAtPurchase;
     }
 
     public String getAddress() {

@@ -18,6 +18,7 @@ import training360.j5webshop.users.User;
 import training360.j5webshop.users.UserDao;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -44,7 +45,7 @@ public class OrderDaoTest {
         List<OrderedProduct> orderedProducts = orderDao.findOrderedProductByOrderId(1L);
         //Than
         assertThat(orderedProducts.size(), equalTo(3));
-        assertThat(orderedProducts.get(0).getName(), equalTo(new OrderedProduct(productDao.findProductById(2), 1).getName()));
+        assertThat(orderedProducts.get(0).getName(), equalTo(new OrderedProduct(productDao.findProductById(2), 1, 7000).getName()));
     }
     @Test
     public void listAllOrderTest(){
@@ -53,7 +54,7 @@ public class OrderDaoTest {
         List<Order> orderList = orderDao.listAllOrder("kissbeci");
         // Than
         assertThat(orderList.size(), equalTo(3));
-        assertThat(orderList.get(0).getPurchaseDate(), equalTo(LocalDate.of(2019, 03, 26)));
+        assertThat(orderList.get(0).getPurchaseDate(), equalTo(LocalDateTime.of(2019, 03, 26, 0, 0)));
     }
 
     @Test

@@ -12,8 +12,7 @@ public class Order {
 
     private long id;
     private long userId;
-//    private LocalDateTime purchaseDate;
-    private LocalDate purchaseDate;
+    private LocalDateTime purchaseDate;
     private List<OrderedProduct> orderedProduct = new ArrayList<>();
     private OrderStatus orderStatus;
 
@@ -22,17 +21,16 @@ public class Order {
 
     public Order(Basket basket) {
         this.id = id;
-//        this.purchaseDate = LocalDateTime.now();
-        this.purchaseDate = LocalDate.now();
+        this.purchaseDate = LocalDateTime.now();
         this.orderStatus = OrderStatus.ACTIVE;
         this.userId = basket.getUserId();
         for(Product p: basket.getProducts().keySet()){
             int quantity = basket.getProducts().get(p);
-            orderedProduct.add(new OrderedProduct(p, quantity));
+            orderedProduct.add(new OrderedProduct(p, quantity, p.getPrice()));
         }
     }
 
-    public Order(long id, long userId, /*LocalDateTime purchaseDate,*/ LocalDate purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
+    public Order(long id, long userId, LocalDateTime purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus) {
         this.id = id;
         this.userId = userId;
         this.purchaseDate = purchaseDate;
@@ -44,11 +42,11 @@ public class Order {
         return id;
     }
 
-    public /*LocalDateTime*/ LocalDate getPurchaseDate() {
+    public LocalDateTime getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(/*LocalDateTime*/ LocalDate purchaseDate) {
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
