@@ -29,7 +29,7 @@ public class Basket {
         this.products = products;
     }
 
-    public void addProduct(Product product, Integer numOfProduct) {
+    public void addProduct(Product product, int numOfProduct) {
         if (products.containsKey(product)) {
             products.put(product, products.get(product) + numOfProduct);
         } else {

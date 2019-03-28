@@ -16,13 +16,9 @@ public class BasketService {
     @Autowired
     private ProductDao productDao;
 
-    public boolean addToBasket(long basketId, long productId) throws DataIntegrityViolationException {
-        if (productAlreadyAdded(basketId, productId)) {
-            return false;
-        } else {
-            basketDao.addToBasket(basketId, productId);
-            return true;
-        }
+    public void addToBasketWithQuantity(int quantity, long productId, String userName) throws DataIntegrityViolationException {
+        Long basketId = basketDao.findBasketIdByUserName(userName);
+        basketDao.addToBasketWithQuantity(quantity, productId, basketId);
     }
 
     public int flushBasket(String userName) {
