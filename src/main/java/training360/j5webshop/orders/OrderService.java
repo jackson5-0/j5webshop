@@ -30,8 +30,8 @@ public class OrderService {
 //        return id;
 //    }
 
-    public ResponseStatus createOrder(long basketId) {
-        Basket basket = createBasket(basketId);
+    public ResponseStatus createOrder(long basketId, String userName) {
+        Basket basket = createBasket(basketId, userName);
         Validator validator = new Validator(basket);
         if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
             return validator.getResponseStatus();
@@ -39,16 +39,16 @@ public class OrderService {
         long orderId = orderDao.createOrder(basket.getUserId());
         validator.getResponseStatus().addMessage("A " + orderId +" számú rendelését sikeresen feladta.");
         orderDao.addOrderedProduct(orderId, basket);
-        basketDao.flushBasket(basketId);
+        basketDao.flushBasket(userName);
         return validator.getResponseStatus();
     }
 
-    private Basket createBasket(long basketId) {
-        List<Long> productIds = basketDao.listProductIdsOfBasket(basketId);
+    private Basket createBasket(long basketId, String userName) {
+        List<Product> products = basketDao.findBasketProductsByUserName(userName);
         long userId = basketDao.findUserByBasketId(basketId);
         Basket basket = new Basket(basketId, userId);
-        for (Long productId : productIds) {
-            basket.addProduct(productDao.findProductById(productId), 1);
+        for (Product product: products) {
+            basket.addProduct(product, 1);
         }
         return basket;
     }

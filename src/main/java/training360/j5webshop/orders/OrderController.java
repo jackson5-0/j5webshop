@@ -30,8 +30,8 @@ public class OrderController {
 //    }
 
     @PostMapping("/myorders")
-    public ResponseStatus createOrder(@RequestParam long basketId) {
-        return orderService.createOrder(basketId);
+    public ResponseStatus createOrder(Authentication authentication, @RequestParam long basketId) {
+        return orderService.createOrder(basketId, authentication.getName());
     }
 
     @GetMapping("/myorders")

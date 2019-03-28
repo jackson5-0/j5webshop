@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "/basket_init.sql")
+@Sql(scripts = "/init.sql")
 public class ProductDaoTest {
 
     @Autowired

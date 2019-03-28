@@ -17,7 +17,7 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "/basket_init.sql")
+@Sql(scripts = "/init.sql")
 public class ProductIntegrationTest {
 
     @Autowired
