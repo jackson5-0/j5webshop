@@ -21,7 +21,7 @@ function showStatistics(jsonData){
     var ct1 = document.getElementById('chart1');
 
     var data = {
-        labels: [`Aktív termékek: ${numberOfActiveProducts}`, `Törölt termékek: ${numberOfAllProducts-numberOfActiveProducts}`],
+        labels: [`Aktív termékek`, `Törölt termékek`],
         datasets: [{
             data: [numberOfActiveProducts, numberOfAllProducts-numberOfActiveProducts],
             backgroundColor: [
@@ -49,16 +49,17 @@ function showStatistics(jsonData){
     var ct2 = document.getElementById('chart2');
 
     var data2 = {
-            labels: [`Aktív rendelések: ${numberOfActiveOrders}`, `Nem aktív rendelések: ${numberOfAllOrders-numberOfActiveOrders}`],
+            labels: [`Aktív rendelések`, `Nem aktív rendelések`],
             datasets: [{
                 data: [numberOfActiveOrders, numberOfAllOrders-numberOfActiveOrders],
                 backgroundColor: [
-                                 'rgba(255, 99, 132, 0.2)',
-                                 'rgba(54, 162, 235, 0.2)'
+                                 'rgba(54, 162, 235, 0.2)',
+                                 'rgba(255, 99, 132, 0.2)'
                                  ],
                 borderColor: [
-                                'rgba(255, 99, 132, 1)',
-                                'rgba(54, 162, 235, 1)'
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 99, 132, 1)'
+
                              ],
                              borderWidth:1
             }],

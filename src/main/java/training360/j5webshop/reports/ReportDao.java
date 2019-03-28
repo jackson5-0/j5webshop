@@ -33,6 +33,13 @@ public class ReportDao {
                         rs.getInt("num_of_orders"),
                         rs.getInt("sum")));
     }
+    public Integer sizeOfAllOrders(){
+        return jdbcTemplate.queryForObject("Select count(id) from orders", (resultSet, i) -> resultSet.getInt("count(id)"));
+
+    }
+    public Integer sizeOfActiveOrders(){
+        return jdbcTemplate.queryForObject("Select count(id) from orders where status='ACTIVE'", (resultSet, i) -> resultSet.getInt("count(id)"));
+    }
 
 //    public List<ReportOfProductSale> listDeliveredProductsByMonth() {
 //        return
