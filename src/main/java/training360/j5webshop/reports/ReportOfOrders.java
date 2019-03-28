@@ -7,13 +7,15 @@ import java.time.format.TextStyle;
 import java.util.Locale;
 
 public class ReportOfOrders {
+    private int year;
     private String month;
     private OrderStatus status;
     private int numberOfOrders;
     private int valueOfOrders;
 
-    public ReportOfOrders(Month month, OrderStatus status, int numberOfOrders, int valueOfOrders) {
-        this.month = month.getDisplayName(TextStyle.FULL, new Locale("hu", "Hu"));
+    public ReportOfOrders(int year, Month month, OrderStatus status, int numberOfOrders, int valueOfOrders) {
+        this.year = year;
+        this.month = month.getDisplayName(TextStyle.FULL, new Locale("hu", "HU"));
         this.status = status;
         this.numberOfOrders = numberOfOrders;
         this.valueOfOrders = valueOfOrders;
@@ -49,5 +51,13 @@ public class ReportOfOrders {
 
     public void setMonth(String month) {
         this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 }

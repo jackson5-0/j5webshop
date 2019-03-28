@@ -16,4 +16,9 @@ public class ReportController {
     public List<ReportOfOrders> listOrdersByMonthAndByStatus() {
         return reportService.listOrdersByMonthAndByStatus();
     }
+
+    @GetMapping("/reports/products")
+    public List<ReportOfProductSale> listDeliveredProductsByMonth() {
+        return reportService.listDeliveredProductsByMonth();
+    }
 }

@@ -15,5 +15,9 @@ public class ReportService {
         return reportDao.listOrdersByMonthAndByStatus();
     }
 
+    public List<ReportOfProductSale> listDeliveredProductsByMonth() {
+        return reportDao.listDeliveredProductsByMonth();
+    }
+
 
 }
