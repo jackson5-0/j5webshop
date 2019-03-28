@@ -32,8 +32,10 @@ public class BasketDao {
             jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
     }
 
-    public int flushBasket(long basketId) {
-            return jdbcTemplate.update("delete from basket_item where basket_id = ?", basketId);
+    public int flushBasket(String userName) {
+        return jdbcTemplate.update("DELETE basket_item FROM basket_item \n" +
+                "join basket on basket.id = basket_item.basket_id \n" +
+                "where basket.users_id = (select users.id from users where username = ?)", userName);
     }
 
     public List<Long> listProductIdsOfBasket(long basketId) {
@@ -58,6 +60,22 @@ public class BasketDao {
                         rs.getInt("price"),
                         rs.getString("status")), basketId
                 );
+    }
+
+    public List<Product> findBasketProductsByUserName(String userName) {
+        return jdbcTemplate.query("select product.id, code, name, address, publisher, price, status from product \n" +
+                "join basket_item on product.id = basket_item.product_id \n" +
+                "join basket on basket_item.basket_id = basket.id\n" +
+                "where (select users.id from users where users.username = ?)",
+                (rs, rowNum) -> new Product(
+                        rs.getLong("product.id"),
+                        rs.getString("code"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("publisher"),
+                        rs.getInt("price"),
+                        rs.getString("status")), userName
+        );
     }
 
     public Basket findBasket(long basketId) {

@@ -14,7 +14,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Sql(scripts = "/user_init.sql")
+@Sql(scripts = "/init.sql")
 public class UserDaoTest {
 
     @Autowired
