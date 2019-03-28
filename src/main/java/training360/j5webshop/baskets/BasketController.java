@@ -8,6 +8,7 @@ import training360.j5webshop.products.Product;
 import training360.j5webshop.users.UserService;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.ResponseStatus;
+import training360.j5webshop.validation.Validator;
 
 import java.util.Map;
 import java.util.Set;
@@ -21,18 +22,20 @@ public class BasketController {
     private UserService userService;
 
     @PostMapping("/basket")
-    public ResponseStatus addToBasket(@RequestParam long basketId, @RequestParam long productId) {
+    public ResponseStatus addToBasketWithQuantity(@RequestParam int quantity, @RequestParam long productId, Authentication auth) {
+        Validator validator = new Validator(quantity);
         try {
-            ResponseStatus rs = new ResponseStatus();
-            if (basketService.addToBasket(basketId, productId)) {
-                return rs.addMessage("A termék bekerült a kosárba!");
-            } else {
-                rs.setStatus(ValidationStatus.FAIL);
-                return rs.addMessage("A termék már a kosárban van!");
+
+            if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
+                return validator.getResponseStatus();
             }
+            basketService.addToBasketWithQuantity(quantity, productId, auth.getName());
+            validator.getResponseStatus().addMessage(quantity+" db termék bekerült a kosárba.");
+
         } catch (DataIntegrityViolationException de) {
             return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár vagy termék");
         }
+        return validator.getResponseStatus();
     }
 
     @DeleteMapping("/basket")

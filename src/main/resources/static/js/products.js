@@ -25,6 +25,12 @@ function fetchProduct() {
                 addBasketButton.onclick = addBasket;
                 addBasketButton["raw-data"] = jsonData.product.id;
                 addBasketTd.appendChild(addBasketButton);
+                var quantityInputTd = document.querySelector('#quantity');
+                var quantityInput = document.createElement('input');
+                quantityInput.setAttribute('id', 'quantityInput');
+                quantityInput.setAttribute('type', 'text');
+                quantityInput.setAttribute('value', 1);
+                quantityInputTd.appendChild(quantityInput);
             }
             var imgDiv = document.getElementById("product-image-div");
             var img = document.createElement('img');
@@ -35,10 +41,12 @@ function fetchProduct() {
         });
 }
 function addBasket(){
-    fetch(`/basket?basketId=${user.basketId}&productId=${this["raw-data"]}`,
+    var quantity = document.querySelector('#quantityInput').value;
+    fetch(`/basket?quantity=${quantity}&productId=${this["raw-data"]}`,
         {method: "POST"})
              .then(function(response) {
                          return response.json();
+
               })
              .then(function (jsonData) {
                    if (jsonData.status=='SUCCESS') {

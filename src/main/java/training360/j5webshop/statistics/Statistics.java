@@ -9,10 +9,12 @@ public class Statistics {
     private int numberOfActiveOrders;
     private int numberOfAllOrders;
 
-    public Statistics(int numberOfActiveUsers, int numberOfActiveProducts, int numberOfAllProducts) {
+    public Statistics(int numberOfActiveUsers, int numberOfActiveProducts, int numberOfAllProducts, int numberOfActiveOrders, int numberOfAllOrders) {
         this.numberOfActiveUsers = numberOfActiveUsers;
         this.numberOfActiveProducts = numberOfActiveProducts;
         this.numberOfAllProducts = numberOfAllProducts;
+        this.numberOfActiveOrders = numberOfActiveOrders;
+        this.numberOfAllOrders = numberOfAllOrders;
     }
 
     public int getNumberOfActiveUsers() {
