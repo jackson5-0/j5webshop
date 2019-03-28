@@ -60,4 +60,12 @@ public class ReportOfOrders {
     public void setYear(int year) {
         this.year = year;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+        ReportOfOrders other = (ReportOfOrders) obj;
+        return (year == other.getYear()) && (month.equals(other.getMonth())) && (status == other.getStatus());
+    }
 }

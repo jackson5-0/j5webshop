@@ -1,28 +1,27 @@
 package training360.j5webshop.reports;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
-import training360.j5webshop.orders.Order;
-import training360.j5webshop.orders.OrderInfo;
 import training360.j5webshop.orders.OrderStatus;
-import training360.j5webshop.products.Product;
 
 import javax.sql.DataSource;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Repository
 public class ReportDao {
     private JdbcTemplate jdbcTemplate;
-    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public ReportDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
+    public Integer sizeOfAllOrders(){
+        return jdbcTemplate.queryForObject("Select count(id) from orders", (resultSet, i) -> resultSet.getInt("count(id)"));
+    }
+
+    public Integer sizeOfActiveOrders(){
+        return jdbcTemplate.queryForObject("Select count(id) from orders where status='ACTIVE'", (resultSet, i) -> resultSet.getInt("count(id)"));
     }
 
     public List<ReportOfOrders> listOrdersByMonthAndByStatus() {
@@ -36,13 +35,6 @@ public class ReportDao {
                         OrderStatus.valueOf(rs.getString("status")),
                         rs.getInt("num_of_orders"),
                         rs.getInt("sum")));
-    }
-    public Integer sizeOfAllOrders(){
-        return jdbcTemplate.queryForObject("Select count(id) from orders", (resultSet, i) -> resultSet.getInt("count(id)"));
-
-    }
-    public Integer sizeOfActiveOrders(){
-        return jdbcTemplate.queryForObject("Select count(id) from orders where status='ACTIVE'", (resultSet, i) -> resultSet.getInt("count(id)"));
     }
 
     public List<ReportOfProductSale> listDeliveredProductsByMonth() {

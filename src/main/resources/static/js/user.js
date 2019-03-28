@@ -64,6 +64,7 @@ function createDefaultHeader(user) {
         <div class="nav-div">
             <ul>
                 <li><a href="index.html">főoldal</a></li>
+                <li><a href="index.html">főoldal</a></li>
             </ul>
         </div>
      </div>`;

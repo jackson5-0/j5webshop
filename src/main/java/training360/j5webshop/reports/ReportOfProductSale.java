@@ -80,4 +80,12 @@ public class ReportOfProductSale {
     public void setSum(int sum) {
         this.sum = sum;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+        ReportOfProductSale other = (ReportOfProductSale) obj;
+        return (year == other.getYear()) && (month.equals(other.getMonth())) && (code.equals(other.getCode())) && (price == other.getPrice());
+    }
 }

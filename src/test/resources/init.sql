@@ -51,7 +51,7 @@ insert into basket_item(id, basket_id, product_id) values
 insert into orders (id, user_id, status, purchase_date) values
 (1, 2, "DELETED", "2019-03-25");
 insert into orders (id, user_id, status, purchase_date) values
-(2, 3, "ACTIVE", "2019-03-26");
+(2, 3, "ACTIVE", "2019-02-26");
 insert into orders (id, user_id, status, purchase_date) values
 (3, 4, "ACTIVE", "2019-03-24");
 insert into orders (id, user_id, status, purchase_date) values
@@ -60,6 +60,22 @@ insert into orders (id, user_id, status, purchase_date) values
 (5, 4, "DELIVERED", "2019-03-25");
 insert into orders (id, user_id, status, purchase_date) values
 (6, 4, "DELETED", "2019-03-23");
+
+
+insert into order_item (id, orders_id, product_id, price) values
+(1, 2, 1, 3290);
+insert into order_item (id, orders_id, product_id, price) values
+(2, 3, 1, 3190);
+insert into order_item (id, orders_id, product_id, price) values
+(3, 3, 2, 7990);
+insert into order_item (id, orders_id, product_id, price) values
+(4, 4, 3, 35990);
+insert into order_item (id, orders_id, product_id, price) values
+(5, 5, 4, 17990);
+insert into order_item (id, orders_id, product_id, price) values
+(6, 5, 2, 7990);
+insert into order_item (id, orders_id, product_id, price) values
+(7, 5, 3, 35990);
 
 
 
