@@ -4,7 +4,7 @@ product_id BIGINT,
 users_id BIGINT,
 review_date DATETIME,
 message VARCHAR(255),
-rate TINYINT,
+rating TINYINT,
 FOREIGN KEY (product_id) REFERENCES product(id),
 FOREIGN KEY (users_id) REFERENCES users(id)
 )

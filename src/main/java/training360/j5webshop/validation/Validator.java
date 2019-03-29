@@ -2,6 +2,7 @@ package training360.j5webshop.validation;
 
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.products.Product;
+import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
 
 import java.util.List;
@@ -32,6 +33,14 @@ public class Validator {
     public Validator(Basket basket){
         responseStatus = new ResponseStatus();
         checkBasket(basket);
+        if(responseStatus.getMessages().size()>0){
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
+
+    public Validator(Review review) {
+        responseStatus = new ResponseStatus();
+        checkReview(review);
         if(responseStatus.getMessages().size()>0){
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
@@ -85,6 +94,16 @@ public class Validator {
     private void checkBasket(Basket basket){
         if(basket.getProducts().size()==0){
             responseStatus.addMessage("Csak terméket tartalmazó kosarat lehet megrendelni");
+        }
+    }
+
+    private void checkReview(Review review) {
+        if (review.getRating() < 1 || review.getRating() > 5) {
+            responseStatus.addMessage("Az értékelés értékének 1 és 5 közé kell esnie!");
+        } else if (review.getMessage().length() > 255) {
+            responseStatus.addMessage("A szöveges értékelés hossza nem lehet több 255 karakternél!");
+        } else if (review.getMessage().matches("[<>]")) {
+            responseStatus.addMessage("A szöveges értékelés nem tartalmazhatja a '<' , '>' karaktereket!");
         }
     }
 

@@ -19,6 +19,7 @@ public class UserDao {
 
     public UserDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
+        System.out.println(findUserByUserName("user"));
     }
 
     public long addUser(User user){
@@ -85,5 +86,11 @@ public class UserDao {
         return jdbcTemplate.queryForObject("select firstname, lastname, username, password from users where id = ?",
                 (rs, rowNum) -> new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"),
                         rs.getString("password")), id);
+    }
+
+    public User findUserByUserName(String userName) {
+        return jdbcTemplate.queryForObject("select id, firstname, lastname, username, password from users where username = ?",
+                (rs, rowNum) -> new User(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"),
+                        rs.getString("password")), userName);
     }
 }
