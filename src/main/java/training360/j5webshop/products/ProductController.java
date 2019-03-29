@@ -16,8 +16,8 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public List<Category> listProducts(@RequestParam int start, @RequestParam int size) {
-        return productService.listProductsWithLimit(start, size);
+    public List<Category> listProducts(@RequestParam int start, @RequestParam int size, @RequestParam (required = false) String category) {
+        return productService.listProductsWithLimit(start, size, category);
     }
 
     @GetMapping("/admin/products")
@@ -63,8 +63,8 @@ public class ProductController {
     }
 
     @GetMapping("/products/count")
-    public int getLengthOfProductList() {
-        return productService.getLengthOfProductList();
+    public int getLengthOfProductList(@RequestParam (required = false) String category) {
+        return productService.getLengthOfProductList(category);
     }
 
     @GetMapping("/categories")

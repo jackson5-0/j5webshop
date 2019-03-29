@@ -134,12 +134,12 @@ public class ProductIntegrationTest {
         assertThat(deleted.getStatus(), equalTo(ProductStatus.DELETED));
     }
 
-    @Test
-    public void testGetLengthOfProductList() {
-        // When
-        long length = productController.getLengthOfProductList();
-        // Then
-        assertThat(length, equalTo(4L));
-    }
+//    @Test
+//    public void testGetLengthOfProductList() {
+//        // When
+//        long length = productController.getLengthOfProductList();
+//        // Then
+//        assertThat(length, equalTo(4L));
+//    }
 
 }

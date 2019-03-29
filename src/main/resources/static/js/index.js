@@ -37,7 +37,10 @@ function showProducts(jsonData) {
     categoriesDiv.innerHTML = '';
     for (var i = 0; i < jsonData.length; i++) {
         var category = document.createElement('div');
-        category.innerHTML = `<h1>${jsonData[i].name}</h1>`
+        var header = document.createElement('h1');
+        header.innerHTML = jsonData[i].name;
+        header.setAttribute('onclick', `window.location="/category.html?category=${jsonData[i].name}"`);
+        category.appendChild(header);
         for (var k = 0; k < jsonData[i].products.length; k++) {
                 var product = document.createElement('div');
 
