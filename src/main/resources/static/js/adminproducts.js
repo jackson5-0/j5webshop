@@ -40,6 +40,8 @@ function showProducts(jsonData) {
   for (var i = 0; i < jsonData.length; i++) {
     var tr = document.createElement('tr');
 
+    console.log(jsonData[i].categories)
+
     var codeTd = document.createElement('td');
     codeTd.contentEditable = "true";
     codeTd.innerHTML = jsonData[i].code;

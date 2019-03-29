@@ -64,7 +64,11 @@ public class ProductService {
     }
 
     public List<Product> listProductsWithLimitAdmin(int start, int size) {
-        return productDao.listProductsWithLimitAdmin(start, size);
+         List<Product> products = productDao.listProductsWithLimitAdmin(start, size);
+         for (Product product: products) {
+             product.setCategories(productDao.listCategoriesByProduct(product));
+         }
+         return products;
     }
 
     public List<Product> listAllProducts() {
@@ -82,11 +86,16 @@ public class ProductService {
     public boolean updateProduct(Product product) {
         if (addressUnreserved(product) && codeUnreserved(product)) {
             productDao.updateProduct(product);
+            productDao.deleteProductCategoryEntriesOfProduct(product);
             createProductCategoryEntry(product);
             return true;
         } else {
             return false;
         }
+    }
+
+    public List<Category> listCategories() {
+        return productDao.listCategories();
     }
 
 }

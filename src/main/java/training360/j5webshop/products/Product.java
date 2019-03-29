@@ -136,6 +136,10 @@ public class Product {
         this.status = status;
     }
 
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

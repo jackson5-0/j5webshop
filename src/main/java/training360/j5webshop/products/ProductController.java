@@ -16,7 +16,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public List<Category> listProducts(@RequestParam(required = false) int start, @RequestParam(required = false) int size) {
+    public List<Category> listProducts(@RequestParam int start, @RequestParam int size) {
         return productService.listProductsWithLimit(start, size);
     }
 
@@ -65,6 +65,11 @@ public class ProductController {
     @GetMapping("/products/count")
     public int getLengthOfProductList() {
         return productService.getLengthOfProductList();
+    }
+
+    @GetMapping("/categories")
+    public List<Category> listCategories() {
+        return productService.listCategories();
     }
 
     @ExceptionHandler({InvalidFormatException.class})

@@ -48,16 +48,6 @@ public class ProductDao {
         }, start, size);
     }
 
-    public List<Category> listCategories() {
-        return jdbcTemplate.query("select id, name, priority from category",
-                (rs, rowNum) -> new Category(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getInt("priority"),
-                        new ArrayList<>()
-                ));
-    }
-
     public List<Product> listAllProducts() {
         return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product order by name, publisher", new RowMapper<Product>() {
             @Override
@@ -134,6 +124,32 @@ public class ProductDao {
 
     public void createProductCategoryEntry(long productId, long categoryId) {
         jdbcTemplate.update("insert into product_category (product_id, category_id) values (?, ?)", productId, categoryId);
+    }
+
+    public void deleteProductCategoryEntriesOfProduct(Product product) {
+        jdbcTemplate.update("delete from product_category where product_id = ?", product.getId());
+    }
+
+    public List<Category> listCategories() {
+        return jdbcTemplate.query("select id, name, priority from category order by priority",
+                (rs, rowNum) -> new Category(
+                        rs.getLong("id"),
+                        rs.getString("name"),
+                        rs.getInt("priority"),
+                        new ArrayList<>()
+                ));
+    }
+
+    public List<Category> listCategoriesByProduct(Product product) {
+            return jdbcTemplate.query("select category.id, category.name, category.priority from category " +
+                            "join product_category on category.id = product_category.category_id " +
+                            "where product_id = ?",
+                    (rs, rowNum) -> new Category(
+                            rs.getLong("category.id"),
+                            rs.getString("category.name"),
+                            rs.getInt("category.priority")
+                    ), product.getId()
+            );
     }
 
 }
