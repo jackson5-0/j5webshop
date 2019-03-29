@@ -37,6 +37,13 @@ public class Validator {
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
     }
+    public Validator(int quantity){
+        responseStatus = new ResponseStatus();
+        checkQuantity(quantity);
+        if(responseStatus.getMessages().size()>0){
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
 
     public Validator(Review review) {
         responseStatus = new ResponseStatus();
@@ -102,8 +109,17 @@ public class Validator {
             responseStatus.addMessage("Az értékelés értékének 1 és 5 közé kell esnie!");
         } else if (review.getMessage().length() > 255) {
             responseStatus.addMessage("A szöveges értékelés hossza nem lehet több 255 karakternél!");
-        } else if (review.getMessage().matches("[<>]")) {
-            responseStatus.addMessage("A szöveges értékelés nem tartalmazhatja a '<' , '>' karaktereket!");
+        }
+        for (int i = 0; i < review.getMessage().length(); i++) {
+            if (Character.toString(review.getMessage().charAt(i)).matches("[<>]")) {
+                responseStatus.addMessage("A szöveges értékelés nem tartalmazhatja a '<' , '>' karaktereket!");
+            }
+        }
+    }
+
+    private void checkQuantity(int quantity){
+        if(quantity <=0){
+            responseStatus.addMessage("Egynél kevesebb termék megrendelése nem lehetséges");
         }
     }
 

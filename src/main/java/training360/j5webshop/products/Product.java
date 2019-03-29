@@ -1,6 +1,8 @@
 package training360.j5webshop.products;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Product {
@@ -13,6 +15,7 @@ public class Product {
     private String postfix = "01";
     private String urlPostFix = "01";
     private ProductStatus status = ProductStatus.ACTIVE;
+    private List<Category> categories = new ArrayList<>();
 
     public Product() {}
 
@@ -22,6 +25,15 @@ public class Product {
         this.code = code;
         this.address = address;
         this.status = ProductStatus.valueOf(status);
+    }
+
+    public Product(long id, String code, String name, String address, String publisher, int price, String status, List<Category> categories) {
+        this(name, publisher, price);
+        this.id = id;
+        this.code = code;
+        this.address = address;
+        this.status = ProductStatus.valueOf(status);
+        this.categories = categories;
     }
 
     public Product(String code, String name, String address, String publisher, int price) {
@@ -39,6 +51,10 @@ public class Product {
         this.price = price;
     }
 
+    public Product(String name, String publisher, int price, List<Category> categories) {
+        this(name, publisher, price);
+        this.categories = categories;
+    }
 
     public void setCodeAndAddress() {
         String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
@@ -59,6 +75,10 @@ public class Product {
     }
 
     public void incrementAddressPostFix(){ urlPostFix = String.format("%02d", (Integer.parseInt(urlPostFix) + 1));}
+
+    public List<Category> getCategories() {
+        return categories;
+    }
 
     public String getCode() {
         return code;
@@ -114,6 +134,10 @@ public class Product {
 
     public void setStatus(ProductStatus status) {
         this.status = status;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
     }
 
     @Override

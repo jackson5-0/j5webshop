@@ -25,6 +25,12 @@ function fetchProduct() {
                 addBasketButton.onclick = addBasket;
                 addBasketButton["raw-data"] = jsonData.product.id;
                 addBasketTd.appendChild(addBasketButton);
+                var quantityInputTd = document.querySelector('#quantity');
+                var quantityInput = document.createElement('input');
+                quantityInput.setAttribute('id', 'quantityInput');
+                quantityInput.setAttribute('type', 'text');
+                quantityInput.setAttribute('value', 1);
+                quantityInputTd.appendChild(quantityInput);
             }
             var imgDiv = document.getElementById("product-image-div");
             var img = document.createElement('img');
@@ -42,10 +48,12 @@ function fetchProduct() {
         ;
 }
 function addBasket(){
-    fetch(`/basket?basketId=${user.basketId}&productId=${this["raw-data"]}`,
+    var quantity = document.querySelector('#quantityInput').value;
+    fetch(`/basket?quantity=${quantity}&productId=${this["raw-data"]}`,
         {method: "POST"})
              .then(function(response) {
                          return response.json();
+
               })
              .then(function (jsonData) {
                    if (jsonData.status=='SUCCESS') {
@@ -65,7 +73,8 @@ function createReviewDiv(username, product) {
                        return response.json();
                   })
                  .then(function (jsonData) {
-                       if (jsonData > 0) {
+                       console.log(jsonData);
+                       if (jsonData[0]) {
                          var writeReviewDiv = document.createElement('div');
                          var ratingFieldset  = document.createElement('fieldset');
 
@@ -118,8 +127,7 @@ function createReviewDiv(username, product) {
                          writeReviewDiv.appendChild(addReviewButton);
                          var productDiv = document.getElementsByClassName("product-div")[0];
                          productDiv.appendChild(writeReviewDiv);
-                       } else {
-                     }
+                       }
                    });
                    return false;
 }
@@ -158,6 +166,13 @@ function addReview() {
                   return response.json();
              })
             .then(function (jsonData) {
-              });
+              if (jsonData.status=='SUCCESS') {
+                document.getElementById("message-div").setAttribute("class", "alert-success");
+                document.getElementById("message-div").innerHTML = jsonData.messages;
+              } else {
+                document.getElementById("message-div").setAttribute("class", "alert-danger");
+                document.getElementById("message-div").innerHTML = jsonData.messages;
+              }
+            });
               return false;
 }

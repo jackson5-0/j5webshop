@@ -19,12 +19,21 @@ public class ProductService {
         while (true) {
             product.setCodeAndAddress();
             if (codeUnreserved(product) && addressUnreserved(product)) {
-                return productDao.createProduct(product);
+                long id =  productDao.createProduct(product);
+                product.setId(id);
+                createProductCategoryEntry(product);
+                return id;
             } else if(!codeUnreserved(product)){
                 product.incrementCodePostFix();
             } else if (!addressUnreserved(product)){
                 product.incrementAddressPostFix();
             }
+        }
+    }
+
+    private void createProductCategoryEntry(Product product) {
+        for (Category category: product.getCategories()) {
+            productDao.createProductCategoryEntry(product.getId(), category.getId());
         }
     }
 
@@ -46,8 +55,20 @@ public class ProductService {
         return true;
     }
 
-    public List<Product> listProductsWithLimit(int start, int size) {
-        return productDao.listProductsWithLimit(start, size);
+    public List<Category> listProductsWithLimit(int start, int size) {
+        List<Category> productsByCategory = productDao.listCategories();
+        for (Category category: productsByCategory) {
+            category.setProducts(productDao.listProductsWithLimit(start, size, category.getName()));
+        }
+        return productsByCategory;
+    }
+
+    public List<Product> listProductsWithLimitAdmin(int start, int size) {
+         List<Product> products = productDao.listProductsWithLimitAdmin(start, size);
+         for (Product product: products) {
+             product.setCategories(productDao.listCategoriesByProduct(product));
+         }
+         return products;
     }
 
     public List<Product> listAllProducts() {
@@ -62,13 +83,19 @@ public class ProductService {
         productDao.deleteProductById(id);
     }
 
-    public boolean updateProduct(long id, Product product) {
+    public boolean updateProduct(Product product) {
         if (addressUnreserved(product) && codeUnreserved(product)) {
-            productDao.updateProduct(id, product);
+            productDao.updateProduct(product);
+            productDao.deleteProductCategoryEntriesOfProduct(product);
+            createProductCategoryEntry(product);
             return true;
         } else {
             return false;
         }
+    }
+
+    public List<Category> listCategories() {
+        return productDao.listCategories();
     }
 
 }

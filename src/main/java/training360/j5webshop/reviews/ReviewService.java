@@ -31,7 +31,10 @@ public class ReviewService {
         return validator.getResponseStatus();
     }
 
-    public Long checkIfUserHasDeliveredProduct(String userName, long productId) {
-        return reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
+    public Boolean[] checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
+        Boolean userHasDeliveredProduct = reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
+        Boolean userHasReview = reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
+        Boolean[] ret = new Boolean[]{userHasDeliveredProduct, userHasReview};
+        return ret;
     }
 }

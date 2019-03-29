@@ -16,9 +16,14 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public List<Product> listProducts(@RequestParam(required = false) int start, @RequestParam(required = false) int size) {
+    public List<Category> listProducts(@RequestParam int start, @RequestParam int size) {
+        return productService.listProductsWithLimit(start, size);
+    }
+
+    @GetMapping("/admin/products")
+    public List<Product> listProductsAdmin(@RequestParam(required = false) int start, @RequestParam(required = false) int size) {
         if (size != 0) {
-            return productService.listProductsWithLimit(start, size);
+            return productService.listProductsWithLimitAdmin(start, size);
         } else {
             return productService.listAllProducts();
         }
@@ -41,8 +46,8 @@ public class ProductController {
     }
 
     @PutMapping("/admin/products")
-    public ResponseStatus updateProduct(@RequestParam long id, @RequestBody Product product) {
-        if (productService.updateProduct(id, product)) {
+    public ResponseStatus updateProduct(@RequestBody Product product) {
+        if (productService.updateProduct(product)) {
             return new ResponseStatus().addMessage("Sikeres módosítás!");
         } else {
             ResponseStatus status = new ResponseStatus().setStatus(ValidationStatus.FAIL);
@@ -60,6 +65,11 @@ public class ProductController {
     @GetMapping("/products/count")
     public int getLengthOfProductList() {
         return productService.getLengthOfProductList();
+    }
+
+    @GetMapping("/categories")
+    public List<Category> listCategories() {
+        return productService.listCategories();
     }
 
     @ExceptionHandler({InvalidFormatException.class})

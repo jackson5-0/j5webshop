@@ -5,7 +5,7 @@ function fetchProducts() {
   fetchPageNavigators();
   var pageNum = (new URL(document.location)).searchParams.get('page');
   var start = (parseInt(pageNum, 10) - 1) * 10;
-  var url = `/products?start=${start || 0}&size=${10}`;
+  var url = `/admin/products?start=${start || 0}&size=${10}`;
   fetch(url)
     .then(function (response) {
       return response.json();
@@ -39,6 +39,8 @@ function showProducts(jsonData) {
   tableBody.innerHTML = "";
   for (var i = 0; i < jsonData.length; i++) {
     var tr = document.createElement('tr');
+
+    console.log(jsonData[i].categories)
 
     var codeTd = document.createElement('td');
     codeTd.contentEditable = "true";
@@ -169,7 +171,7 @@ function updateProduct() {
     "price": price,
   };
   console.log(request);
-  fetch(`/admin/products?id=${id}`, {
+  fetch(`/admin/products`, {
       method: "PUT",
       body: JSON.stringify(request),
       headers: {

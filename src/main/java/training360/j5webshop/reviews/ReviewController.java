@@ -26,7 +26,7 @@ public class ReviewController {
 //    }
 
     @GetMapping("/checkifuserhasdeliveredproduct")
-    public Long checkIfUserHasDeliveredProduct(@RequestParam String username, @RequestParam long productid) {
-        return reviewService.checkIfUserHasDeliveredProduct(username, productid);
+    public Boolean[] checkIfUserHasDeliveredProduct(@RequestParam String username, @RequestParam long productid) {
+        return reviewService.checkIfUserHasDeliveredProductAndHasReview(username, productid);
     }
 }

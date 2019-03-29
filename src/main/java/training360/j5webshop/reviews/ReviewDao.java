@@ -18,6 +18,8 @@ public class ReviewDao {
     private JdbcTemplate jdbcTemplate;
 
     public ReviewDao(DataSource dataSource) {
+        System.out.println(checkIfUserHasReview2("user", 2));
+        System.out.println(checkIfUserHasReview2("user", 3));
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -42,13 +44,37 @@ public class ReviewDao {
         return keyHolder.getKey().longValue();
     }
 
-    public Long checkIfUserHasDeliveredProduct(String userName, long productId) {
-        return jdbcTemplate.queryForObject("select count(order_item.id) from order_item join orders on orders.id=order_item.orders_id" +
+    public Boolean checkIfUserHasDeliveredProduct(String userName, long productId) {
+        return 0 < (jdbcTemplate.queryForObject("select count(order_item.id) from order_item join orders on orders.id=order_item.orders_id" +
                 " join users on users.id=orders.user_id where users.username = ? and product_id = ? and orders.status = 'DELIVERED'", new RowMapper<Long>() {
             @Override
             public Long mapRow(ResultSet resultSet, int i) throws SQLException {
                 return resultSet.getLong("count(order_item.id)");
             }
-        }, userName, productId);
+        }, userName, productId));
+    }
+
+    public Boolean checkIfUserHasReview(String userName, long productId) {
+        return 0 < (jdbcTemplate.queryForObject("select count(review.id) from review join users on " +
+                "review.users_id=users.id where users.username = ? and review.product_id = ?", new RowMapper<Long>() {
+            @Override
+            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                return resultSet.getLong("count(review.id)");
+            }
+        }, userName, productId));
+    }
+
+    public String checkIfUserHasReview2(String userName, long productId) {
+        try {
+            return jdbcTemplate.queryForObject("select review.message from review join users on " +
+                    "review.users_id=users.id where users.username = ? and review.product_id = ?", new RowMapper<String>() {
+                @Override
+                public String mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getString("count(review.id)");
+                }
+            }, userName, productId);
+        } catch (NullPointerException npe) {
+            return "";
+        }
     }
 }

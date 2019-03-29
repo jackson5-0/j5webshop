@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Riportok</title>
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<header>
+    <div class="nav">
+    </div>
+</header>
+<main>
+    <div id="message-div"></div>
+    <br>
+    <div id="order-report-div" class="administration-table">
+        <h1>Összes megrendelés</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ÉV</th>
+                <th>HÓNAP</th>
+                <th>STÁTUSZ</th>
+                <th>RENDELÉSEK SZÁMA</th>
+                <th>ÖSSZÉRTÉK</th>
+            </tr>
+            </thead>
+            <tbody id="order-report-tablebody">
+
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <div id="product-report-div" class="administration-table">
+        <h1>Kiszállított megrendelések</h1>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ÉV</th>
+                <th>HÓNAP</th>
+                <th>TERMÉKKÓD</th>
+                <th>TERMÉK NEVE</th>
+                <th>AKTUÁLIS EGYSÉGÁR</th>
+                <th>MENNYISÉG</th>
+                <th>ÖSSZÉRTÉK</th>
+            </tr>
+            </thead>
+            <tbody id="product-report-tablebody">
+
+            </tbody>
+        </table>
+    </div>
+</main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
+<script src="/js/user.js"></script>
+<script src="/js/reports.js"></script>
+</body>
+</html>
