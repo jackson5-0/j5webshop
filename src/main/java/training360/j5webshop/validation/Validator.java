@@ -96,8 +96,8 @@ public class Validator {
     }
 
     private void checkQuantity(int quantity){
-        if(quantity <=0){
-            responseStatus.addMessage("Egynél kevesebb termék megrendelése nem lehetséges");
+        if(quantity <=0 || quantity > 20){
+            responseStatus.addMessage("Egy darabnál kevesebb vagy 20 darabnál több termék megrendelése nem lehetséges");
         }
     }
 

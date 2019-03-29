@@ -11,6 +11,7 @@ function fetchList() {
 }
 
 function showList(jsonData) {
+  var sumPrice = 0;
   var tbody = document.querySelector('#orderlist');
   var thead = `<tr class="tablehead" class="orderlist">
                     <th class="orderlist__table__th1">Rendelés azonosítója</th>
@@ -21,7 +22,9 @@ function showList(jsonData) {
                                            <th class="orderlist__table__th2">Termék neve</th>
                                            <th class="orderlist__table__th2">Darabszám</th>
                                            <th class="orderlist__table__th2">Termék ára</th>
+                                           <th class="orderlist__table__th2">Részösszeg</th>
                                            </tr>`
+
   var tableRow = '';
 
 
@@ -35,13 +38,21 @@ function showList(jsonData) {
                     ` + orderedProductHead;
 
     for(var j = 0; j < jsonData[i].orderedProduct.length; j++){
+        sumPrice += jsonData[i].orderedProduct[j].priceAtPurchase * jsonData[i].orderedProduct[j].quantity;
         tableRow += `<tr class="orderedItemList">
                                               <td class="orderedItemList__table__td">${jsonData[i].orderedProduct[j].name}</td>
                                               <td class="orderedItemList__table__td">${jsonData[i].orderedProduct[j].quantity} db </td>
                                               <td class="orderedItemList__table__td">${jsonData[i].orderedProduct[j].priceAtPurchase} Ft</td>
+                                              <td class="orderedItemList__table__td">${jsonData[i].orderedProduct[j].priceAtPurchase * jsonData[i].orderedProduct[j].quantity} Ft</td>
                                            </tr>
                                          `;
     }
+    tableRow += `<tr class="tablehead" class="orderlist">
+                                                 <th class="orderlist__table__th2">Megrendelés végösszege</th>
+                                                 </tr>
+                                                 <tr class="tablehead" class="orderlist">
+                                                      <td class="orderlist__table__th2">${sumPrice}</td>
+                                                 </tr>`
 
   } tbody.innerHTML = tableRow;
 
