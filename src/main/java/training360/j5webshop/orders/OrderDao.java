@@ -79,7 +79,9 @@ public class OrderDao {
 
     public void addOrderedProduct(Long orderId, Basket basket) {
         for (Product p : basket.getProducts().keySet()) {
-            jdbcTemplate.update("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", orderId, p.getId(), p.getPrice());
+            for (int i = 0; i < basket.getProducts().get(p); i++) {
+                jdbcTemplate.update("insert into order_item (orders_id, product_id, price) values(?, ?, ?)", orderId, p.getId(), p.getPrice());
+            }
         }
     }
 
