@@ -10,6 +10,7 @@ import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.Validator;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,13 +49,18 @@ public class BasketController {
         }
 
     @GetMapping("/basket")
-    public Set<Product> listProductsOfBasket(Authentication auth) {
+    public List<BasketItemContainer> basketItemsWithQuantity(Authentication auth){
         String userName = auth.getName();
-        Long id = userService.findBasketId(userName);
-        return basketService.listProductsOfBasket(id).keySet();
-//        Alternativ megoldas a kosar kilistazasara
-//        return basketService.listProductsOfBasket(auth.getName());
+        Long basketId = userService.findBasketId(userName);
+        return basketService.basketItemsWithQuantity(basketId);
     }
+//    public Set<Product> listProductsOfBasket(Authentication auth) {
+//        String userName = auth.getName();
+//        Long id = userService.findBasketId(userName);
+//        return basketService.listProductsOfBasket(id).keySet();
+////        Alternativ megoldas a kosar kilistazasara
+////        return basketService.listProductsOfBasket(auth.getName());
+//    }
 
     @DeleteMapping("/basket/{basket}")
     public ResponseStatus deleteItemFromBasket(@PathVariable long basket, @RequestParam long productId) {

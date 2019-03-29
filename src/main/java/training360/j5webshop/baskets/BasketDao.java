@@ -140,4 +140,19 @@ public class BasketDao {
     public int deleteItemFromBasket(long basketId, long productId) {
         return jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
     }
+
+    public List<BasketItemContainer> basketItemsWithQuantity(long basketId){
+        return jdbcTemplate.query("select COUNT(product_id), product.id, code, name, address, publisher, price, status " +
+                        "from product join basket_item on product.id = basket_item.product_id where basket_item.basket_id = ? GROUP by basket_item.product_id",
+                (rs, rowNum) -> new BasketItemContainer(new Product(
+                        rs.getLong("product.id"),
+                        rs.getString("code"),
+                        rs.getString("name"),
+                        rs.getString("address"),
+                        rs.getString("publisher"),
+                        rs.getInt("price"),
+                        rs.getString("status")),
+                        rs.getInt("COUNT(product_id)")), basketId
+        );
+    }
 }

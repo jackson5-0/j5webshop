@@ -47,14 +47,14 @@ function showList(jsonData) {
     var tr = document.createElement('tr');
 
     var nameTd = document.createElement('td');
-    nameTd.innerHTML = jsonData[i].name;
+    nameTd.innerHTML = jsonData[i].product.name;
 
     var priceTd = document.createElement('td');
-    priceTd.innerHTML = jsonData[i].price + " Ft";
-    sum += jsonData[i].price;
+    priceTd.innerHTML = jsonData[i].product.price + " Ft";
+    sum += jsonData[i].product.price * jsonData[i].quantity ;
 
     var qtyTd = document.createElement('td');
-    qtyTd.innerHTML = 1;
+    qtyTd.innerHTML = jsonData[i].quantity;
 
     var delTd = document.createElement('td');
 

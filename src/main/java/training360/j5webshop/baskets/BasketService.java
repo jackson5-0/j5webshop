@@ -48,4 +48,8 @@ public class BasketService {
     public int deleteItemFromBasket(long basketId, long productId) {
         return basketDao.deleteItemFromBasket(basketId, productId);
     }
+
+    public List<BasketItemContainer> basketItemsWithQuantity(long basketId){
+        return basketDao.basketItemsWithQuantity(basketId);
+    }
 }
