@@ -21,6 +21,12 @@ public class ReviewService {
     private UserDao userDao;
 
     public ResponseStatus createReview(String userName, Review review) {
+        if (reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, review.getProduct().getId()).getUserReview() != null) {
+            return new ResponseStatus().addMessage("Ehhez a termékhez már írt értékelést!");
+        }
+        if (!reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, review.getProduct().getId()).getHasDeliveredProduct()) {
+            return new ResponseStatus().addMessage("A termékhez csak akkor írhat értékelést, ha már rendelt belőle!");
+        }
         review.setUser(userDao.findUserByUserName(userName));
         Validator validator = new Validator(review);
         if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
@@ -31,10 +37,7 @@ public class ReviewService {
         return validator.getResponseStatus();
     }
 
-    public Boolean[] checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
-        Boolean userHasDeliveredProduct = reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
-        Boolean userHasReview = reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
-        Boolean[] ret = new Boolean[]{userHasDeliveredProduct, userHasReview};
-        return ret;
+    public ReviewInfo checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
+        return reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, productId);
     }
 }

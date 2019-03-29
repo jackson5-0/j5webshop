@@ -106,7 +106,7 @@ public class Validator {
 
     private void checkReview(Review review) {
         if (review.getRating() < 1 || review.getRating() > 5) {
-            responseStatus.addMessage("Az értékelés értékének 1 és 5 közé kell esnie!");
+            responseStatus.addMessage("Kérjük értékelje a terméket 1-től 5-ig terjedő skálán!");
         } else if (review.getMessage().length() > 255) {
             responseStatus.addMessage("A szöveges értékelés hossza nem lehet több 255 karakternél!");
         }

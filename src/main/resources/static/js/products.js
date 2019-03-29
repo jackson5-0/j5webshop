@@ -38,14 +38,12 @@ function fetchProduct() {
             img.setAttribute('src', '/img/fantasy_game_dice.jpg');
             img.setAttribute('alt', 'picture of the game');
             imgDiv.appendChild(img);
-            var username = user.userName;
             var product = jsonData.product;
-            createReviewDiv(username, product);
+            return product;
         })
-//        .then(function (username, productid) {
-//            createReviewDiv(username, productid);
-//        })
-        ;
+        .then(function (product) {
+            createReviewDiv(product);
+        });
 }
 function addBasket(){
     var quantity = document.querySelector('#quantityInput').value;
@@ -66,16 +64,16 @@ function addBasket(){
                  });
                return false;
 }
-function createReviewDiv(username, product) {
-        fetch(`/checkifuserhasdeliveredproduct?username=${username}&productid=${product.id}`,
+function createReviewDiv(product) {
+        fetch(`/checkifuserhasdeliveredproduct?productid=${product.id}`,
             {method: "GET"})
                  .then(function(response) {
                        return response.json();
                   })
                  .then(function (jsonData) {
-                       console.log(jsonData);
-                       if (jsonData[0]) {
+                       if (jsonData.hasDeliveredProduct) {
                          var writeReviewDiv = document.createElement('div');
+                         writeReviewDiv.setAttribute('id', 'rev-div');
                          var ratingFieldset  = document.createElement('fieldset');
 
                          var ratingLegend = document.createElement('legend');
@@ -86,47 +84,63 @@ function createReviewDiv(username, product) {
                          radio1.setAttribute('type', 'radio');
                          radio1.setAttribute('name', 'rating');
                          radio1.setAttribute('value', '1');
+                         radio1.setAttribute('id', '1');
                          ratingFieldset.appendChild(radio1);
 
                          var radio2 = document.createElement('input');
                          radio2.setAttribute('type', 'radio');
                          radio2.setAttribute('name', 'rating');
                          radio2.setAttribute('value', '2');
+                         radio2.setAttribute('id', '2');
                          ratingFieldset.appendChild(radio2);
 
                          var radio3 = document.createElement('input');
                          radio3.setAttribute('type', 'radio');
                          radio3.setAttribute('name', 'rating');
                          radio3.setAttribute('value', '3');
+                         radio3.setAttribute('id', '3');
                          ratingFieldset.appendChild(radio3);
 
                          var radio4 = document.createElement('input');
                          radio4.setAttribute('type', 'radio');
                          radio4.setAttribute('name', 'rating');
                          radio4.setAttribute('value', '4');
+                         radio4.setAttribute('id', '4');
                          ratingFieldset.appendChild(radio4);
 
                          var radio5 = document.createElement('input');
                          radio5.setAttribute('type', 'radio');
                          radio5.setAttribute('name', 'rating');
                          radio5.setAttribute('value', '5');
+                         radio5.setAttribute('id', '5');
                          ratingFieldset.appendChild(radio5);
 
                          writeReviewDiv.appendChild(ratingFieldset);
                          var addReviewButton = document.createElement('button');
                          addReviewButton['raw-data'] = product;
-                         addReviewButton.onclick = addReview;
                          addReviewButton.setAttribute('class', 'button');
-                         addReviewButton.innerHTML = 'Értékelés elküldése';
+                         addReviewButton.setAttribute('id', 'butt');
                          var reviewInputField = document.createElement('textarea');
                          reviewInputField.setAttribute('maxlength', '255');
                          reviewInputField.setAttribute('id', 'rev-input');
-                         reviewInputField.style.width = "1000px";
+                         reviewInputField.style.width = "800px";
                          reviewInputField.style.height = "70px";
                          writeReviewDiv.appendChild(reviewInputField);
                          writeReviewDiv.appendChild(addReviewButton);
                          var productDiv = document.getElementsByClassName("product-div")[0];
                          productDiv.appendChild(writeReviewDiv);
+                         if (jsonData.userRating != 0) {
+                            addReviewButton.innerHTML = 'Értékelés módosítása';
+                            addReviewButton.onclick = modifyReview;
+                            document.getElementById(jsonData.userRating).checked = true;
+                            createDeleteButton(product);
+                         } else {
+                            addReviewButton.innerHTML = 'Értékelés elküldése';
+                            addReviewButton.onclick = addReview;
+                         }
+                         if (jsonData.userReview != null) {
+                            reviewInputField.innerHTML = jsonData.userReview;
+                         }
                        }
                    });
                    return false;
@@ -141,6 +155,12 @@ function addReview() {
             if(radios[i].checked){
                 valueOfRadio = radios[i].value;
             }
+        }
+        if (typeof valueOfRadio !== 'undefined') {
+            var addReviewButton = document.getElementById('butt');
+            addReviewButton.innerHTML = 'Értékelés módosítása';
+            addReviewButton.onclick = modifyReview;
+            createDeleteButton(product);
         }
           var request = {
                         	"product": {
@@ -173,6 +193,28 @@ function addReview() {
                 document.getElementById("message-div").setAttribute("class", "alert-danger");
                 document.getElementById("message-div").innerHTML = jsonData.messages;
               }
-            });
-              return false;
+            })
+        ;
+        return false;
+}
+
+function createDeleteButton(product) {
+        var deleteButton = document.createElement('button');
+        deleteButton['raw-data'] = product;
+        deleteButton.setAttribute('class', 'button');
+        deleteButton.setAttribute('id', 'del-butt');
+        deleteButton.innerHTML = "Értékelés törlése";
+        deleteButton.onclick = deleteReview;
+        var writeReviewDiv = document.getElementById('rev-div');
+        writeReviewDiv.appendChild(deleteButton);
+}
+
+function modifyReview() {
+    alert(this['raw-data']);
+    alert("modifyReview");
+}
+
+function deleteReview() {
+    alert(this['raw-data']);
+    alert("deleteReview");
 }
