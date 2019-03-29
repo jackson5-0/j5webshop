@@ -36,6 +36,13 @@ public class Validator {
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
     }
+    public Validator(int quantity){
+        responseStatus = new ResponseStatus();
+        checkQuantity(quantity);
+        if(responseStatus.getMessages().size()>0){
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
 
     private void checkName(String name) {
         if (name == null || name.trim().equals("")) {
@@ -85,6 +92,12 @@ public class Validator {
     private void checkBasket(Basket basket){
         if(basket.getProducts().size()==0){
             responseStatus.addMessage("Csak terméket tartalmazó kosarat lehet megrendelni");
+        }
+    }
+
+    private void checkQuantity(int quantity){
+        if(quantity <=0){
+            responseStatus.addMessage("Egynél kevesebb termék megrendelése nem lehetséges");
         }
     }
 

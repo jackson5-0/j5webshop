@@ -111,8 +111,8 @@ public class OrderDaoTest {
         orderDao.deleteItem(2L, "dixit");
         List<OrderedProduct> listAfterDelete = orderDao.findOrderedProductByOrderId(2);
         //Then
-        assertThat(listBeforeDelete.size(), equalTo(3));
-        assertThat(listAfterDelete.size(), equalTo(2));
+        assertThat(listBeforeDelete.size(), equalTo(4));
+        assertThat(listAfterDelete.size(), equalTo(3));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class OrderDaoTest {
         orderDao.deleteWholeOrder(2L);
         List<OrderedProduct> listAfterDelete = orderDao.findOrderedProductByOrderId(2);
         //Then
-        assertThat(listBeforeDelete.size(), equalTo(3));
+        assertThat(listBeforeDelete.size(), equalTo(4));
         assertThat(listAfterDelete.size(), equalTo(0));
     }
 
@@ -144,7 +144,7 @@ public class OrderDaoTest {
         //When
         List<OrderedProduct> list = orderDao.findOrderedProductByOrderId(2);
         //Then
-        assertThat(list.size(), equalTo(3));
+        assertThat(list.size(), equalTo(4));
     }
 
 
