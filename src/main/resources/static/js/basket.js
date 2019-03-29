@@ -56,6 +56,9 @@ function showList(jsonData) {
     var qtyTd = document.createElement('td');
     qtyTd.innerHTML = jsonData[i].quantity;
 
+    var sumItemPriceTd = document.createElement('td');
+    sumItemPriceTd.innerHTML = jsonData[i].product.price * jsonData[i].quantity + " Ft";
+
     var delTd = document.createElement('td');
 
     var delBut = document.createElement('button')
@@ -66,6 +69,7 @@ function showList(jsonData) {
     tr.appendChild(nameTd);
     tr.appendChild(priceTd);
     tr.appendChild(qtyTd);
+    tr.appendChild(sumItemPriceTd);
     delTd.appendChild(delBut);
     tr.appendChild(delTd);
 

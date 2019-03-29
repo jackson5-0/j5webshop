@@ -89,7 +89,7 @@ public class BasketDao {
         return jdbcTemplate.query("select product.id, code, name, address, publisher, price, status from product \n" +
                 "join basket_item on product.id = basket_item.product_id \n" +
                 "join basket on basket_item.basket_id = basket.id\n" +
-                "where (select users.id from users where users.username = ?)",
+                "where basket.users_id =(select users.id from users where users.username = ?)",
                 (rs, rowNum) -> new Product(
                         rs.getLong("product.id"),
                         rs.getString("code"),
