@@ -75,7 +75,7 @@ public class UserDao {
         String firstName = user.getFirstName()== null ? findUserById(id).getFirstName() : user.getFirstName();
         String lastName = user.getLastName() == null ? findUserById(id).getLastName() : user.getLastName();
         String userName = user.getUserName() == null? findUserById(id).getUserName() : user.getUserName();
-        String password = user.getPassword() == null ? findUserById(id).getPassword() : user.getPassword();
+        String password = user.getPassword()  == null? findUserById(id).getPassword() : user.getPassword();
 
         jdbcTemplate.update("update users set firstname = ?, lastname = ?, username = ?, password = ? where id = ?",
                firstName, lastName, userName, password, id);

@@ -1,5 +1,7 @@
 package training360.j5webshop.users;
 
+import java.util.List;
+
 public class User {
     private long id;
     private String firstName;
@@ -7,6 +9,7 @@ public class User {
     private String userName;
     private String password;
     private Role role = Role.ROLE_USER;
+    private List<Address> addressList;
 
     public User() {
     }
@@ -32,6 +35,16 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.role = role;
+    }
+
+    public User(long id, String firstName, String lastName, String userName, String password, Role role, List<Address> addressList) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
+        this.role = role;
+        this.addressList = addressList;
     }
 
     public long getId() {
@@ -80,6 +93,14 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Address> getAddressList() {
+        return addressList;
+    }
+
+    public void setAddressList(List<Address> addressList) {
+        this.addressList = addressList;
     }
 
     @Override

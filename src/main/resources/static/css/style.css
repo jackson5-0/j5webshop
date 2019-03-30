@@ -148,12 +148,14 @@ footer {
 	border: none;
 }
 
+.little-input-form h1,
 .input-form h1 {
 	font-size: 2vw;
 	margin-bottom: 10px;
 	text-align: center;
 }
 
+.little-input-form input,
 .input-form input {
 	background: rgba(255,255,255,.1);
 	border: none;
@@ -175,10 +177,12 @@ footer {
 	margin-bottom: 10px;
 }
 
+.little-input-form input:focus,
 .input-form input:focus {
 	background: #d2d9dd;
 }
 
+.little-input-form input[type="submit"],
 .input-form input[type="submit"] {
 	position: relative;
 	display: block;
@@ -195,6 +199,7 @@ footer {
 	margin-bottom: 10px;
 }
 
+.little-input-form input[type="submit"]:hover,
 .input-form input[type="submit"]:hover {
 	background: #109177;
 }
@@ -419,6 +424,7 @@ main {
     padding: 0 0 1vw 12vw;
 }
 
+.user-div,
 .product-div {
     display: block;
     width: 100%;
@@ -426,11 +432,13 @@ main {
     padding: 10px 10px;
 }
 
+.input-form-right,
 .product-image-div {
     margin-left: 52%;
     width: 45%;
 }
 
+.input-form-left,
 .product-info-div {
     box-sizing: border-box;
     float: left;
@@ -441,6 +449,15 @@ main {
     min-font-size: 2vw;
     padding: 0 0 0 10vw;
     width: 45%;
+}
+
+.little-input-form {
+    background-color: #f4f7f8;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: "Existence";
+    font-weight: bold;
+    padding: 10px 10px 0px 10px;
 }
 
 .price {

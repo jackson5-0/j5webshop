@@ -68,6 +68,14 @@ public class ProductDao {
         });
     }
 
+    public Integer getLengthOfProductListByCategory(String category) {
+        return jdbcTemplate.queryForObject("select count(product.id) from product " +
+                "join product_category on product.id = product_category.product_id " +
+                "join category on product_category.category_id = category.id " +
+                "where category.name = ?", (rs, rowNum) -> rs.getInt("count(product.id)"), category
+                );
+    }
+
     public long createProduct(Product product) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(new PreparedStatementCreator() {
