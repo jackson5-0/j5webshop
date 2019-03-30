@@ -21,6 +21,12 @@ public class ReviewService {
     private UserDao userDao;
 
     public ResponseStatus createReview(String userName, Review review) {
+        if (reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, review.getProduct().getId()).getUserReview() != null) {
+            return new ResponseStatus().addMessage("Ehhez a termékhez már írt értékelést!");
+        }
+        if (!reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, review.getProduct().getId()).getHasDeliveredProduct()) {
+            return new ResponseStatus().addMessage("A termékhez csak akkor írhat értékelést, ha már rendelt belőle!");
+        }
         review.setUser(userDao.findUserByUserName(userName));
         Validator validator = new Validator(review);
         if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
@@ -31,10 +37,19 @@ public class ReviewService {
         return validator.getResponseStatus();
     }
 
-    public Boolean[] checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
-        Boolean userHasDeliveredProduct = reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
-        Boolean userHasReview = reviewDao.checkIfUserHasDeliveredProduct(userName, productId);
-        Boolean[] ret = new Boolean[]{userHasDeliveredProduct, userHasReview};
-        return ret;
+    public ResponseStatus uploadReview(String userName, Review review) {
+        review.setUser(userDao.findUserByUserName(userName));
+        reviewDao.updateReview(review);
+        return new ResponseStatus().setStatus(ValidationStatus.SUCCESS).addMessage("Az értékelést módosította!");
+    }
+
+    public ResponseStatus deleteReview(String userName, Review review) {
+        review.setUser(userDao.findUserByUserName(userName));
+        reviewDao.deleteReview(review);
+        return new ResponseStatus().setStatus(ValidationStatus.SUCCESS).addMessage("Az értékelést sikeresen törölte!");
+    }
+
+    public ReviewInfo checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
+        return reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, productId);
     }
 }

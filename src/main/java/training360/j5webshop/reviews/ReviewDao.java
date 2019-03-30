@@ -1,11 +1,14 @@
 package training360.j5webshop.reviews;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import training360.j5webshop.products.Product;
+import training360.j5webshop.users.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -18,8 +21,6 @@ public class ReviewDao {
     private JdbcTemplate jdbcTemplate;
 
     public ReviewDao(DataSource dataSource) {
-        System.out.println(checkIfUserHasReview2("user", 2));
-        System.out.println(checkIfUserHasReview2("user", 3));
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -44,37 +45,50 @@ public class ReviewDao {
         return keyHolder.getKey().longValue();
     }
 
-    public Boolean checkIfUserHasDeliveredProduct(String userName, long productId) {
-        return 0 < (jdbcTemplate.queryForObject("select count(order_item.id) from order_item join orders on orders.id=order_item.orders_id" +
-                " join users on users.id=orders.user_id where users.username = ? and product_id = ? and orders.status = 'DELIVERED'", new RowMapper<Long>() {
-            @Override
-            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getLong("count(order_item.id)");
-            }
-        }, userName, productId));
+    public void deleteReview(Review review) {
+        jdbcTemplate.update(    "DELETE review.* " +
+                                    "from review " +
+                                    "join users on users.id=review.users_id " +
+                                    "where users.username = ? and review.product_id = ?",
+                                    review.getUser().getUserName(), review.getProduct().getId());
     }
 
-    public Boolean checkIfUserHasReview(String userName, long productId) {
-        return 0 < (jdbcTemplate.queryForObject("select count(review.id) from review join users on " +
-                "review.users_id=users.id where users.username = ? and review.product_id = ?", new RowMapper<Long>() {
-            @Override
-            public Long mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getLong("count(review.id)");
-            }
-        }, userName, productId));
+    public void updateReview(Review review) {
+        jdbcTemplate.update("update review join users on users.id=review.users_id " +
+                                "set review.review_date= ?, review.message= ?, review.rating= ? " +
+                                "where users.username = ? and review.product_id = ?",
+                LocalDateTime.now().format(DATE_FORMATTER), review.getMessage(), review.getRating(),
+                review.getUser().getUserName(), review.getProduct().getId());
     }
 
-    public String checkIfUserHasReview2(String userName, long productId) {
+    public boolean checkIfUserHasDeliveredProduct(String userName, long productId) {
+        boolean ret = false;
         try {
-            return jdbcTemplate.queryForObject("select review.message from review join users on " +
-                    "review.users_id=users.id where users.username = ? and review.product_id = ?", new RowMapper<String>() {
+            ret = 0 < (jdbcTemplate.queryForObject("select count(order_item.id) from order_item join orders on orders.id=order_item.orders_id" +
+                    " join users on users.id=orders.user_id where users.username = ? and product_id = ? and orders.status = 'DELIVERED'", new RowMapper<Long>() {
                 @Override
-                public String mapRow(ResultSet resultSet, int i) throws SQLException {
-                    return resultSet.getString("count(review.id)");
+                public Long mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return resultSet.getLong("count(order_item.id)");
+                }
+            }, userName, productId));
+        } catch (NullPointerException npe) {
+            return true;
+        }
+        return ret;
+    }
+
+    public ReviewInfo checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
+        try {
+            return jdbcTemplate.queryForObject("select message, rating from review join users on " +
+                    "review.users_id=users.id where users.username = ? and review.product_id = ?", new RowMapper<ReviewInfo>() {
+                @Override
+                public ReviewInfo mapRow(ResultSet resultSet, int i) throws SQLException {
+                    return new ReviewInfo(checkIfUserHasDeliveredProduct(userName, productId),
+                            resultSet.getString("message"), resultSet.getInt("rating"));
                 }
             }, userName, productId);
-        } catch (NullPointerException npe) {
-            return "";
+        } catch (EmptyResultDataAccessException erdae) {
+            return new ReviewInfo(checkIfUserHasDeliveredProduct(userName, productId), null, 0);
         }
     }
 }

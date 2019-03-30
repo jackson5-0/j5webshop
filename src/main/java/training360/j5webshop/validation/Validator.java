@@ -4,52 +4,81 @@ import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
+import training360.j5webshop.users.UserWithNewPassword;
 
 import java.util.List;
 
 public class Validator {
 
-    private ResponseStatus responseStatus;
+    private ResponseStatus responseStatus = new ResponseStatus();
+
+    public Validator(long id, User user, List<User> userList) {
+        checkName(user.getLastName());
+        checkName(user.getFirstName());
+        checkName(user.getUserName());
+        checkUsername(user, userList);
+        if (responseStatus.getMessages().size() > 0) {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
+        }
+    }
+
+    public Validator(UserWithNewPassword userWithNewPassword){
+        checkPassword(userWithNewPassword.getNewPassword());
+        if (responseStatus.getMessages().size() > 0) {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
+        }
+    }
 
     public Validator(User user, List<User> userList) {
-        responseStatus = new ResponseStatus();
+        checkName(user.getLastName());
+        checkName(user.getFirstName());
         checkUsername(user, userList);
         checkPassword(user.getPassword());
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
 
     public Validator(Product product) {
-        responseStatus = new ResponseStatus();
         checkName(product.getName());
         checkPublisher(product.getPublisher());
         checkPrice(product.getPrice());
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
 
     public Validator(Basket basket){
-        responseStatus = new ResponseStatus();
         checkBasket(basket);
-        if(responseStatus.getMessages().size()>0){
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
     public Validator(int quantity){
-        responseStatus = new ResponseStatus();
         checkQuantity(quantity);
-        if(responseStatus.getMessages().size()>0){
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
 
     public Validator(Review review) {
-        responseStatus = new ResponseStatus();
         checkReview(review);
-        if(responseStatus.getMessages().size()>0){
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
 
@@ -77,7 +106,7 @@ public class Validator {
         }
     }
 
-    private void checkUsername(User user, List<User> userList){
+    public void checkUsername(User user, List<User> userList){
         for (User userItem : userList){
             if (userItem.getUserName().equals(user.getUserName()) && user.getId() != userItem.getId()){
                 responseStatus.addMessage("A kért felhasználónév foglalt!");
@@ -87,10 +116,9 @@ public class Validator {
         if (!user.getUserName().matches(pattern)){
             responseStatus.addMessage("A felhasználói név legalább 3 karakter hosszú legyen, csak számot, kis- és nagybetűt, pontot, alulvonást és kötőjelet tartalmazhat!");
         }
-
     }
 
-    private void checkPassword(String password){
+    public void checkPassword(String password){
         String pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
         String patternForHashedPassword = "^\\$2[aby]?\\$[\\d]+\\$[./A-Za-z0-9]{53}$";
         if (password.length() < 8 || !(password.matches(pattern) || password.matches(patternForHashedPassword))){
@@ -106,7 +134,7 @@ public class Validator {
 
     private void checkReview(Review review) {
         if (review.getRating() < 1 || review.getRating() > 5) {
-            responseStatus.addMessage("Az értékelés értékének 1 és 5 közé kell esnie!");
+            responseStatus.addMessage("Kérjük értékelje a terméket 1-től 5-ig terjedő skálán!");
         } else if (review.getMessage().length() > 255) {
             responseStatus.addMessage("A szöveges értékelés hossza nem lehet több 255 karakternél!");
         }

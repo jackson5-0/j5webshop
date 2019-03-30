@@ -115,7 +115,7 @@ public class UserIntegrationTest {
         userController.addUser(new User("Anna", "Arany", "aranyanna", "Annacska55"));
         Optional<Long> opt = userController.getUserId("aranyanna");
         // When
-        ResponseStatus status = userController.updateUser(opt.get(), new User(opt.get(),"Anna", "Arany-Kiss", "aranyanna", "Annacska55"));
+        ResponseStatus status = userController.updateUserDatasByAdmin(opt.get(), new User(opt.get(),"Anna", "Arany-Kiss", "aranyanna", "Annacska55"));
         // Then
         assertThat(status.getStatus(), equalTo(ValidationStatus.SUCCESS));
         assertThat(status.getMessages().size(), equalTo(1));
@@ -130,7 +130,7 @@ public class UserIntegrationTest {
         userController.addUser(new User("Anna", "Arany", "aranyanna", "Annacska55"));
         Optional<Long> opt = userController.getUserId("aranyanna");
         // When
-        ResponseStatus status = userController.updateUser(opt.get(), new User(opt.get(),"Anna", "Arany", "nagygizi22", "Annacska55"));
+        ResponseStatus status = userController.updateUserDatasByAdmin(opt.get(), new User(opt.get(),"Anna", "Arany", "nagygizi22", "Annacska55"));
         // Then
         assertThat(status.getStatus(), equalTo(ValidationStatus.FAIL));
         assertThat(status.getMessages().size(), equalTo(1));
@@ -142,7 +142,7 @@ public class UserIntegrationTest {
         // When
         List<Long> listOfExistingIds = userController.listUserIds();
         long idDoesNotExist = listOfExistingIds.get(listOfExistingIds.size()-1)+1;
-        ResponseStatus status = userController.updateUser(idDoesNotExist, new User(idDoesNotExist,"Anna", "Arany", "nagygizi22", "Annacska55"));
+        ResponseStatus status = userController.updateUserDatasByAdmin(idDoesNotExist, new User(idDoesNotExist,"Anna", "Arany", "nagygizi22", "Annacska55"));
         // Then
         assertThat(status.getStatus(), equalTo(ValidationStatus.FAIL));
         assertThat(status.getMessages().size(), equalTo(1));
