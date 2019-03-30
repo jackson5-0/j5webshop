@@ -64,7 +64,6 @@ function createDefaultHeader(user) {
         <div class="nav-div">
             <ul>
                 <li><a href="index.html">főoldal</a></li>
-                <li><a href="index.html">főoldal</a></li>
             </ul>
         </div>
      </div>`;
@@ -78,7 +77,7 @@ function createUserHeader(user) {
             <a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a>
         </div>
         <div class="login-out-div">
-            <span>Szia ${user.userName}!</span>
+            <span><a href="userprofile.html">Szia ${user.userName}!<a></span>
             <a href="/logout">kijelentkezés</a>
             <a href="/basket.html"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
         </div>
@@ -88,6 +87,7 @@ function createUserHeader(user) {
       <div class="nav-div">
          <ul>
             <li><a href="index.html">főoldal</a></li>
+            <li><a href="userprofile.html">személyes adataim</a></li>
             <li><a href="myorders.html">rendeléseim</a></li>
          </ul>
       </div>

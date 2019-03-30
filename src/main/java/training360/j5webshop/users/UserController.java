@@ -64,12 +64,12 @@ public class UserController {
     }
 
     @PutMapping("/admin/users")
-    public ResponseStatus updateUser(@RequestParam long id, @RequestBody User user) {
+    public ResponseStatus updateUserDatasByAdmin(@RequestParam long id, @RequestBody User user) {
         ResponseStatus status = new ResponseStatus();
         if (userService.listUserIds().contains(id)) {
             Validator validator = new Validator(user, userService.listUsers());
             if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
-                userService.updateUser(id, user);
+                userService.updateUserDatasByAdmin(id, user);
                 status.addMessage("Sikeres módosítás!");
                 status.setStatus(ValidationStatus.SUCCESS);
             } else {
@@ -79,6 +79,59 @@ public class UserController {
         }  else {
             status.setStatus(ValidationStatus.FAIL);
             status.addMessage("Ilyen id-vel felhasználó nem található!");
+        }
+        return status;
+    }
+
+    @GetMapping("/userprofile")
+    public User findUserByUserName(Authentication authentication) {
+        return userService.findUserByUserName(authentication.getName());
+    }
+
+    @PostMapping("/userprofile")
+    public ResponseStatus updateUserDatasByUser(@RequestParam long id, @RequestBody User user) {
+        ResponseStatus status = new ResponseStatus();
+        if (userService.listUserIds().contains(id)) {
+            Validator validator = new Validator(id, user, userService.listUsers());
+            if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
+                status.addMessage(validator.getResponseStatus().getMessages().get(0));
+                status.setStatus(ValidationStatus.FAIL);
+            } else if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS && userService.updateUserDatasByUser(id, user)) {
+                status.addMessage("Sikeres módosítás!");
+                status.setStatus(ValidationStatus.SUCCESS);
+            } else if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS && !userService.updateUserDatasByUser(id, user)) {
+                status.addMessage("A beírt jelszó nem megfelelő!");
+                status.setStatus(ValidationStatus.FAIL);
+            }
+        }  else {
+            status.setStatus(ValidationStatus.FAIL);
+            status.addMessage("Ilyen id-vel felhasználó nem található!");
+        }
+        return status;
+    }
+
+    @PutMapping("/userprofile")
+    public ResponseStatus changePassword(@RequestParam long id, @RequestBody UserWithNewPassword userWithNewPassword) {
+        ResponseStatus status = new ResponseStatus();
+        try {
+            if (!userService.givenPasswordIsCorrect(id, userWithNewPassword.getUser())) {
+                status.addMessage("A régi jelszó nem megfelelő!");
+                status.setStatus(ValidationStatus.FAIL);
+            } else {
+                Validator validator = new Validator(userWithNewPassword);
+                if (validator.getResponseStatus().getMessages().size() > 0) {
+                    status.addMessage(validator.getResponseStatus().getMessages().get(0));
+                    status.setStatus(ValidationStatus.FAIL);
+                } else {
+                    userService.changePassword(userWithNewPassword.getUser().getId(), new User(userWithNewPassword.getUser().getFirstName(),
+                            userWithNewPassword.getUser().getLastName(), userWithNewPassword.getUser().getUserName(), userWithNewPassword.getNewPassword()));
+                    status.addMessage("A jelszó sikeresen módosult!");
+                    status.setStatus(ValidationStatus.SUCCESS);
+                }
+            }
+        } catch (EmptyResultDataAccessException erdae) {
+            status.addMessage("A kért felhasználó nem található!");
+            status.setStatus(ValidationStatus.FAIL);
         }
         return status;
     }
@@ -102,4 +155,5 @@ public class UserController {
     public List<Long> listUserIds() {
         return userService.listUserIds();
     }
+
 }

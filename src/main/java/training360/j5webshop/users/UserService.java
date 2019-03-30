@@ -39,7 +39,7 @@ public class UserService {
         userDao.deleteUserById(id);
     }
 
-    public void updateUser(long id, User user) {
+    public void updateUserDatasByAdmin(long id, User user) {
         userDao.updateUser(id, user);
     }
 
@@ -53,5 +53,26 @@ public class UserService {
 
     public List<Long> listUserIds() {
         return userDao.listUserIds();
+    }
+
+    public User findUserByUserName(String userName){
+        return userDao.findUserByUserName(userName);
+    }
+
+    public boolean updateUserDatasByUser(long id, User user){
+        if (givenPasswordIsCorrect(id, user)) {
+            userDao.updateUser(id, new User(user.getFirstName(), user.getLastName(), user.getUserName(), findUserById(id).getPassword()));
+            return true;
+        }
+        return false;
+    }
+
+    public void changePassword(long id, User user){
+        String savedPassword = passwordEncoder.encode(user.getPassword());
+        userDao.updateUser(id, new User(user.getFirstName(), user.getLastName(), user.getUserName(), savedPassword));
+    }
+
+    public boolean givenPasswordIsCorrect(long id, User user) throws EmptyResultDataAccessException {
+        return passwordEncoder.matches(user.getPassword(), findUserById(id).getPassword());
     }
 }
