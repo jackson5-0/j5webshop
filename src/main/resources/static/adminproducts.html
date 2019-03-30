@@ -1,57 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Termékadminisztráció</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/popup.css" rel="stylesheet" type="text/css">
 </head>
-<body>
-<header>
-    <div class="nav">
-    </div>
-</header>
-<main>
-    <div id="product-registration" class="input-form">
-        <h1>Termék-regisztráció</h1>
-        <br>
-        <form id="product-registration-form">
-            <label>Megnevezés: <input name="name-input" id="name-input"></label><br>
-            <label>Gyártó: <input name="publisher-input" id="publisher-input"></label><br>
-            <label>Ár: <input name="price-input" id="price-input"></label><br>
-            <input type="submit" value="Mentés"> <br>
-        </form>
-        <div id="message-div"></div>
-    </div>
-     <div id="product-administration" class="administration-table">
-        <h1>Termékeink:</h1>
-        <table class="table" id="products-table">
-            <thead>
-                <tr>
-                    <th>TERMÉKKÓD</th>
-                    <th>MEGNEVEZÉS</th>
-                    <th>URL-CÍM</th>
-                    <th>GYÁRTÓ</th>
-                    <th>ÁR</th>
-                    <th>ÁLLAPOT</th>
-                    <th class="wider-th">TÖRLÉS/MÓDOSÍTÁS MENTÉSE</th>
-                </tr>
-            </thead>
-            <tbody id="products-tablebody">
 
-            </tbody>
-        </table>
-         <br>
-         <div id="page-number" class="page-number"></div>
-         <br>
-         <br>
-    </div>
-</main>
-<footer>
-    <p>Copyright © 2019 by Jackson5.0</p>
-</footer>
-<script src="/js/user.js"></script>
-<script src="/js/adminproducts.js"></script>
+<body>
+    <header>
+        <div class="nav">
+        </div>
+    </header>
+    <main>
+        <div id="product-registration" class="input-form">
+            <h1>Termék-regisztráció</h1>
+            <br>
+            <form id="product-registration-form">
+                <label>Megnevezés: <input name="name-input" id="name-input"></label><br>
+                <label>Gyártó: <input name="publisher-input" id="publisher-input"></label><br>
+                <label>Ár: <input name="price-input" id="price-input"></label><br>
+                <input type="submit" value="Mentés"> <br>
+            </form>
+            <div id="message-div"></div>
+
+            <div id="myModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Kérjük válasszon az alábbi kategóriák közül:</p>
+                    <p id="chosen-categories"></p>
+                    <form id="category-checkbox-form"></form>
+                    <span class="close">Mégse</span>
+                    <span class="save">Mentés</span>
+                </div>
+            </div>
+
+        </div>
+        <div id="product-administration" class="administration-table">
+            <h1>Termékeink:</h1>
+            <table class="table" id="products-table">
+                <thead>
+                    <tr>
+                        <th>TERMÉKKÓD</th>
+                        <th>MEGNEVEZÉS</th>
+                        <th>URL-CÍM</th>
+                        <th>GYÁRTÓ</th>
+                        <th>ÁR</th>
+                        <th>ÁLLAPOT</th>
+                        <th class="wider-th">TÖRLÉS/MÓDOSÍTÁS MENTÉSE</th>
+                        <th>KATEGÓRIÁK</th>
+                    </tr>
+                </thead>
+                <tbody id="products-tablebody">
+
+                </tbody>
+            </table>
+            <br>
+            <div id="page-number" class="page-number"></div>
+            <br>
+            <br>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+    <script src="/js/user.js"></script>
+    <script src="/js/adminproducts.js"></script>
+    <script src="/js/popup.js"></script>
 </body>
+
 </html>
