@@ -53,6 +53,7 @@ function updateUserDatas() {
              }
              document.getElementById("message-div").innerHTML = jsonData.messages[0];
              document.getElementById('password-input').value = '';
+             createUserHeader(request);
         });
         return false;
      }
@@ -61,9 +62,9 @@ function updateUserDatas() {
 
 function changePassword() {
     var id = document.getElementById('submit-button')["raw-data"].id;
-    var firstName = document.getElementById('submit-button')["raw-data"].firstName;
-    var lastName = document.getElementById('submit-button')["raw-data"].lastName;
-    var userName = document.getElementById('submit-button')["raw-data"].userName;
+    var firstName = document.getElementById('firstname-input').firstName;
+    var lastName = document.getElementById('lastname-input').lastName;
+    var userName = document.getElementById('username-input').userName;
     var oldpassword = document.getElementById('old-password').value;
     var newpassword = document.getElementById('new-password1').value;
     var newpassword2 = document.getElementById('new-password2').value;
@@ -101,7 +102,7 @@ function changePassword() {
              document.getElementById('old-password').value = '';
              document.getElementById('new-password1').value = '';
              document.getElementById('new-password2').value = '';
-             fetchUser();
+             fetchUser;
         });
         return false;
     }
