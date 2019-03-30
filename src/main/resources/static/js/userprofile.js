@@ -7,18 +7,23 @@ function fetchUser() {
     .then(function (response) {
       return response.json();
     }).then(function (jsonData) {
-        var firstNameInput = document.getElementById('firstname-input');
-        firstNameInput.value = jsonData.firstName;
-        var lastNameInput = document.getElementById('lastname-input');
-        lastNameInput.value = jsonData.lastName;
-        var userNameInput = document.getElementById('username-input');
-        userNameInput.value = jsonData.userName;
-        var submitInput = document.getElementById('submit-button');
-        submitInput["raw-data"] = jsonData;
-        var submitInput2 = document.getElementById('submit2-button');
-        submitInput2["raw-data"] = jsonData;
+        loadData(jsonData);
     });
 }
+
+function loadData(jsonData) {
+   var firstNameInput = document.getElementById('firstname-input');
+   firstNameInput.value = jsonData.firstName;
+   var lastNameInput = document.getElementById('lastname-input');
+   lastNameInput.value = jsonData.lastName;
+   var userNameInput = document.getElementById('username-input');
+   userNameInput.value = jsonData.userName;
+   var submitInput = document.getElementById('submit-button');
+   submitInput["raw-data"] = jsonData;
+   var submitInput2 = document.getElementById('submit2-button');
+   submitInput2["raw-data"] = jsonData;
+}
+
 
 function updateUserDatas() {
      var id = document.getElementById('submit-button')["raw-data"].id;
@@ -55,6 +60,7 @@ function updateUserDatas() {
              document.getElementById('password-input').value = '';
              createUserHeader(request);
         });
+        loadData(request);
         return false;
      }
      return false;
@@ -62,9 +68,9 @@ function updateUserDatas() {
 
 function changePassword() {
     var id = document.getElementById('submit-button')["raw-data"].id;
-    var firstName = document.getElementById('firstname-input').firstName;
-    var lastName = document.getElementById('lastname-input').lastName;
-    var userName = document.getElementById('username-input').userName;
+    var firstName = document.getElementById('submit-button')["raw-data"].firstName;
+    var lastName = document.getElementById('submit-button')["raw-data"].lastName;
+    var userName = document.getElementById('submit-button')["raw-data"].userName;
     var oldpassword = document.getElementById('old-password').value;
     var newpassword = document.getElementById('new-password1').value;
     var newpassword2 = document.getElementById('new-password2').value;
@@ -102,7 +108,13 @@ function changePassword() {
              document.getElementById('old-password').value = '';
              document.getElementById('new-password1').value = '';
              document.getElementById('new-password2').value = '';
-             fetchUser;
+        });
+        loadData({
+              "id" : id,
+               "firstName" : firstName,
+               "lastName" : lastName,
+               "userName" : userName,
+               "password" : newpassword,
         });
         return false;
     }
