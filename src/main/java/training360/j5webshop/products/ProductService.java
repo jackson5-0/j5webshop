@@ -3,6 +3,7 @@ package training360.j5webshop.products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -55,12 +56,18 @@ public class ProductService {
         return true;
     }
 
-    public List<Category> listProductsWithLimit(int start, int size) {
-        List<Category> productsByCategory = productDao.listCategories();
-        for (Category category: productsByCategory) {
-            category.setProducts(productDao.listProductsWithLimit(start, size, category.getName()));
+    public List<Category> listProductsWithLimit(int start, int size, String singleCategory) {
+        if (singleCategory == null) {
+            List<Category> productsByCategory = productDao.listCategories();
+            for (Category category: productsByCategory) {
+                category.setProducts(productDao.listProductsWithLimit(start, size, category.getName()));
+            }
+            return productsByCategory;
         }
-        return productsByCategory;
+        Category category = new Category();
+        category.setName(singleCategory);
+        category.setProducts(productDao.listProductsWithLimit(start, size, singleCategory));
+        return Arrays.asList(category);
     }
 
     public List<Product> listProductsWithLimitAdmin(int start, int size) {
@@ -75,8 +82,11 @@ public class ProductService {
         return productDao.listAllProducts();
     }
 
-    public Integer getLengthOfProductList() {
-        return productDao.getLengthOfProductList();
+    public Integer getLengthOfProductList(String category) {
+        if (category == null) {
+            return productDao.getLengthOfProductList();
+        }
+        return productDao.getLengthOfProductListByCategory(category);
     }
 
     public void deleteProductById(long id) {

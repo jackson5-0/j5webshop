@@ -31,7 +31,6 @@ function createAdminHeader(admin) {
           <a href="/logout">kijelentkezés</a>
       </div>
   </div>
-  <br>
   <div class="navigation">
       <div class="nav-div">
          <ul>
@@ -59,7 +58,6 @@ function createDefaultHeader(user) {
             <a href="/login.html">bejelentkezés</a>
         </div>
     </div>
-    <br>
     <div class="navigation">
         <div class="nav-div">
             <ul>
@@ -77,9 +75,10 @@ function createUserHeader(user) {
             <a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a>
         </div>
         <div class="login-out-div">
-            <span><a href="userprofile.html">Szia ${user.userName}!<a></span>
+            <span style="margin-right:20px"><a href="userprofile.html">Szia ${user.userName}!<a></span>
             <a href="/logout">kijelentkezés</a>
             <a href="/basket.html"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
+            <a href="/logout">kijelentkezés</a>
         </div>
     </div>
     <br>
