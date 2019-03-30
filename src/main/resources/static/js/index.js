@@ -5,13 +5,18 @@ function fetchProducts() {
 //  var start = (parseInt(pageNum, 10) - 1) * 10;
 //  var url = `/products?start=${start || 0}&size=${10}`;
     var url = '/products?start=0&size=3'
-  fetch(url)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      showProducts(jsonData);
-    });
+    var category = (new URL(document.location)).searchParams.get('category');
+    if (!category) {
+    fetch(url)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (jsonData) {
+        showProducts(jsonData);
+      });
+    } else {
+        fetchProductsOfCategory();
+    }
 }
 
 //function fetchPageNavigators() {
@@ -39,7 +44,7 @@ function showProducts(jsonData) {
         var category = document.createElement('div');
         var header = document.createElement('h1');
         header.innerHTML = jsonData[i].name;
-        header.setAttribute('onclick', `window.location="/category.html?category=${jsonData[i].name}"`);
+        header.setAttribute('onclick', `window.location="/index.html?category=${jsonData[i].name}"`);
         category.appendChild(header);
         for (var k = 0; k < jsonData[i].products.length; k++) {
                 var product = document.createElement('div');

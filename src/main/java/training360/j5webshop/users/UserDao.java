@@ -19,7 +19,6 @@ public class UserDao {
 
     public UserDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
-        System.out.println(findUserByUserName("user"));
     }
 
     public long addUser(User user){
