@@ -65,6 +65,7 @@ function addBasket(){
                return false;
 }
 function createReviewDiv(product) {
+    if (user.userRole == 'ROLE_USER') {
         fetch(`/checkifuserhasdeliveredproduct?productid=${product.id}`,
             {method: "GET"})
                  .then(function(response) {
@@ -144,6 +145,7 @@ function createReviewDiv(product) {
                        }
                    });
                    return false;
+    }
 }
 
 function addReview() {
@@ -193,8 +195,7 @@ function addReview() {
                 document.getElementById("message-div").setAttribute("class", "alert-danger");
                 document.getElementById("message-div").innerHTML = jsonData.messages;
               }
-            })
-        ;
+            });
         return false;
 }
 
@@ -210,11 +211,85 @@ function createDeleteButton(product) {
 }
 
 function modifyReview() {
-    alert(this['raw-data']);
-    alert("modifyReview");
+    var product = this['raw-data'];
+    var message = document.getElementById('rev-input').value;
+    var radios = document.getElementsByName('rating');
+    var valueOfRadio;
+    for(i = 0; i < radios.length; i++){
+        if(radios[i].checked){
+            valueOfRadio = radios[i].value;
+        }
+    }
+       var request = {
+                     	"product": {
+                     		"id": product.id,
+                     		"code": product.code,
+                     		"name": product.name,
+                     		"address": product.address,
+                     		"publisher": product.publisher,
+                     		"price": product.price,
+                     		"status": product.status
+                     	},
+                     	"message": message,
+                       "rating": valueOfRadio
+                     };
+    fetch(`/updatereview`, {
+        method: "PUT",
+        body: JSON.stringify(request),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+      .then(function (response) {
+        return response.json();
+      }).then(function (jsonData) {
+          document.getElementById("message-div").setAttribute("class", "alert alert-success");
+          document.getElementById("message-div").innerHTML = jsonData.messages[0];
+      });
+    return false;
 }
 
 function deleteReview() {
-    alert(this['raw-data']);
-    alert("deleteReview");
+    document.getElementById('rev-input').value = "";
+    document.getElementById('1').checked = false;
+    document.getElementById('2').checked = false;
+    document.getElementById('3').checked = false;
+    document.getElementById('4').checked = false;
+    document.getElementById('5').checked = false;
+    document.getElementById('del-butt').remove();
+    var addReviewButton = document.getElementById('butt');
+    addReviewButton.innerHTML = 'Értékelés elküldése';
+    addReviewButton.onclick = addReview;
+    var product = this['raw-data'];
+       var request = {
+                     	"product": {
+                     		"id": product.id,
+                     		"code": product.code,
+                     		"name": product.name,
+                     		"address": product.address,
+                     		"publisher": product.publisher,
+                     		"price": product.price,
+                     		"status": product.status
+                     	}
+                     };
+    fetch(`/deletereview`, {
+        method: "DELETE",
+        body: JSON.stringify(request),
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+      .then(function (response) {
+        return response.json();
+      }).then(function (jsonData) {
+          document.getElementById("message-div").setAttribute("class", "alert alert-success");
+          document.getElementById("message-div").innerHTML = jsonData.messages[0];
+//          return product;
+      })
+//      .then(function(product) {
+//          document.getElementById('rev-div').remove();
+//          createReviewDiv(product);
+//      })
+      ;
+    return false;
 }

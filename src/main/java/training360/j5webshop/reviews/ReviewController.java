@@ -19,14 +19,18 @@ public class ReviewController {
         return reviewService.createReview(authentication.getName(), review);
     }
 
-//     Postman teszt
-//    @PostMapping("/review")
-//    public ResponseStatus createReview(@RequestBody Review review) {
-//        return reviewService.createReview("admin", review);
-//    }
+    @PutMapping("/updatereview")
+    public ResponseStatus updateReview(Authentication authentication, @RequestBody Review review) {
+        return reviewService.uploadReview(authentication.getName(), review);
+    }
 
     @GetMapping("/checkifuserhasdeliveredproduct")
     public ReviewInfo checkIfUserHasDeliveredProductAndHasReview(Authentication authentication, @RequestParam long productid) {
         return reviewService.checkIfUserHasDeliveredProductAndHasReview(authentication.getName(), productid);
+    }
+
+    @DeleteMapping("/deletereview")
+    public ResponseStatus deleteReview(Authentication authentication, @RequestBody Review review) {
+        return reviewService.deleteReview(authentication.getName(), review);
     }
 }

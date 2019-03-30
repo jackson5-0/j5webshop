@@ -7,6 +7,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import training360.j5webshop.products.Product;
+import training360.j5webshop.users.User;
 
 import javax.sql.DataSource;
 import java.sql.*;
@@ -41,6 +43,22 @@ public class ReviewDao {
             }
         }, keyHolder);
         return keyHolder.getKey().longValue();
+    }
+
+    public void deleteReview(Review review) {
+        jdbcTemplate.update(    "DELETE review.* " +
+                                    "from review " +
+                                    "join users on users.id=review.users_id " +
+                                    "where users.username = ? and review.product_id = ?",
+                                    review.getUser().getUserName(), review.getProduct().getId());
+    }
+
+    public void updateReview(Review review) {
+        jdbcTemplate.update("update review join users on users.id=review.users_id " +
+                                "set review.review_date= ?, review.message= ?, review.rating= ? " +
+                                "where users.username = ? and review.product_id = ?",
+                LocalDateTime.now().format(DATE_FORMATTER), review.getMessage(), review.getRating(),
+                review.getUser().getUserName(), review.getProduct().getId());
     }
 
     public boolean checkIfUserHasDeliveredProduct(String userName, long productId) {

@@ -37,6 +37,18 @@ public class ReviewService {
         return validator.getResponseStatus();
     }
 
+    public ResponseStatus uploadReview(String userName, Review review) {
+        review.setUser(userDao.findUserByUserName(userName));
+        reviewDao.updateReview(review);
+        return new ResponseStatus().setStatus(ValidationStatus.SUCCESS).addMessage("Az értékelést módosította!");
+    }
+
+    public ResponseStatus deleteReview(String userName, Review review) {
+        review.setUser(userDao.findUserByUserName(userName));
+        reviewDao.deleteReview(review);
+        return new ResponseStatus().setStatus(ValidationStatus.SUCCESS).addMessage("Az értékelést sikeresen törölte!");
+    }
+
     public ReviewInfo checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
         return reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, productId);
     }

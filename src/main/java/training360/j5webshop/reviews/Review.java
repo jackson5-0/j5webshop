@@ -14,6 +14,10 @@ public class Review {
     private String message;
     private int rating;
 
+    public Review(Product product) {
+        this.product = product;
+    }
+
     public Review(Product product, User user, String message, int rating) {
         this.product = product;
         this.user = user;
