@@ -1,5 +1,9 @@
 fetchProducts();
 document.forms["product-registration-form"].onsubmit = handleCreateForm;
+document.getElementById("new-product-categories").addEventListener('click', function () {
+  showCategoryOfItem('new-product-categories');
+  saveProductIdToRawDataSaveButton('new-product-categories');
+});
 
 function fetchProducts() {
   fetchPageNavigators();
@@ -112,13 +116,15 @@ function addEventListenerToCategoryButton(category, productCode) {
 }
 
 function handleCreateForm() {
-  var name = document.getElementById("name-input").value;;
-  var publisher = document.getElementById("publisher-input").value;;
-  var price = document.getElementById("price-input").value;;
+  var name = document.getElementById("name-input").value;
+  var publisher = document.getElementById("publisher-input").value;
+  var price = document.getElementById("price-input").value;
+  var categories = document.getElementById("new-product-categories")['raw-data'];
   var request = {
     "name": name,
     "publisher": publisher,
-    "price": price
+    "price": price,
+    "categories": categories
   };
   fetch('/admin/products', {
       method: "POST",
