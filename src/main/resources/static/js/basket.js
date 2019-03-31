@@ -170,11 +170,9 @@ function decreaseAmount(){
             fetch(`/basket/${basketId}/${productId}?quantity=${quantity}`,
                 {method: "DELETE"})
                      .then(function(response) {
-                                 console.log(response);
-                                 return response.json();
-
-                      })
+                           return response.json();
+                     })
                      .then(function (jsonData) {
-                                fetchList();
-                              });
+                           fetchList();
+                     });
 }

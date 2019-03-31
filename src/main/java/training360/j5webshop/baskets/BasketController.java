@@ -39,8 +39,12 @@ public class BasketController {
         return validator.getResponseStatus();
     }
     @DeleteMapping("/basket/{basketId}/{productId}")
-    public void decreaseAmountInBasket(@PathVariable long basketId, @PathVariable long productId, @RequestParam int quantity){
-        basketService.decreaseAmountInBasket(productId, basketId, quantity);
+    public ResponseStatus decreaseAmountInBasket(@PathVariable long basketId, @PathVariable long productId, @RequestParam int quantity){
+        if(basketService.decreaseAmountInBasket(productId, basketId, quantity) != 0) {
+            return new ResponseStatus().addMessage("Egy termék sikeresen kikerült a kosárból!");
+        } else {
+            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező termék");
+        }
     }
 
     @DeleteMapping("/basket")

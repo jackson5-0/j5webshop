@@ -57,8 +57,8 @@ public class BasketDao {
     }
 
 
-    public void decreaseAmountInBasket(long productId, long basketId, int quantity){
-            jdbcTemplate.update("Delete FROM `basket_item` WHERE basket_id=? and product_id =? limit ?", basketId, productId, quantity);
+    public int decreaseAmountInBasket(long productId, long basketId, int quantity){
+            return jdbcTemplate.update("Delete FROM `basket_item` WHERE basket_id=? and product_id =? limit ?", basketId, productId, quantity);
     }
 
     public int flushBasket(String userName) {
