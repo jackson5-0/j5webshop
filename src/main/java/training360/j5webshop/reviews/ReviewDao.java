@@ -14,6 +14,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Repository
 public class ReviewDao {
@@ -90,5 +91,19 @@ public class ReviewDao {
         } catch (EmptyResultDataAccessException erdae) {
             return new ReviewInfo(checkIfUserHasDeliveredProduct(userName, productId), null, 0);
         }
+    }
+
+    public List<Review> listReviewByProductId(long productId) {
+        return jdbcTemplate.query(
+                        "select review.id, review.product_id, users.username, review.review_date, review.message, review.rating " +
+                            "from review join users on review.users_id=users.id " +
+                            "where product_id = ? order by review.review_date desc", new RowMapper<Review>() {
+                    @Override
+                    public Review mapRow(ResultSet resultSet, int i) throws SQLException {
+                        return new Review(resultSet.getLong("id"), new Product(), new User(resultSet.getString("username")),
+                                LocalDateTime.parse(resultSet.getString("review_date"), DATE_FORMATTER),
+                                resultSet.getString("message"), resultSet.getInt("rating"));
+                    }
+                }, productId);
     }
 }
