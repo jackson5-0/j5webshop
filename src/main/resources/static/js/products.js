@@ -17,7 +17,7 @@ function fetchProduct() {
             } else {
                 document.querySelector(".product-info-div").innerHTML = jsonData.message;
             }
-            if (user.userRole == "ROLE_USER") {
+            if (typeof user !== 'undefined' && user.userRole == "ROLE_USER") {
                 var addBasketTd = document.getElementById('add-to-basket');
                 var addBasketButton = document.createElement('button');
                 addBasketButton.setAttribute('class', 'button');
@@ -65,7 +65,7 @@ function addBasket(){
                return false;
 }
 function createReviewDiv(product) {
-    if (user.userRole == 'ROLE_USER') {
+    if (typeof user !== 'undefined' && user.userRole == 'ROLE_USER') {
         fetch(`/checkifuserhasdeliveredproduct?productid=${product.id}`,
             {method: "GET"})
                  .then(function(response) {
