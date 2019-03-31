@@ -13,14 +13,20 @@
     </header>
     <main>
 
+        <h1>Kategória hozzáadása</h1>
+        <form id="category-registration-form">
+            <label for="category-name-input">Név:</label>
+            <input type="text" id="category-name-input">
+            <label for="category-priority-input">Sorszám:</label>
+            <input type="text" id="category-priority-input">
+            <input type="submit">
+        </form>
+
+        <br>
+
+        <div id="message-div"></div>
+
         <ul id="sortable">
-            <li class="ui-state-default">Item 1</li>
-            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-            <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
         </ul>
 
     </main>
@@ -37,28 +43,6 @@
             $("#sortable").disableSelection();
         });
     </script>
-</body>
-
-</html>
-
-
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jQuery UI Sortable - Default functionality</title>
-    <style>
-
-    </style>
-
-</head>
-
-<body>
-
-
-
-
 </body>
 
 </html>
