@@ -19,4 +19,12 @@ public class BasketItemContainer {
     public int getQuantity() {
         return quantity;
     }
+
+    @Override
+    public String toString() {
+        return "BasketItemContainer{" +
+                "product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
