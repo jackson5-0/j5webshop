@@ -17,7 +17,7 @@ function fetchProduct() {
             } else {
                 document.querySelector(".product-info-div").innerHTML = jsonData.message;
             }
-            if (typeof user !== 'undefined' && user.userRole == "ROLE_USER") {
+            if (user.userRole == "ROLE_USER") {
                 var addBasketTd = document.getElementById('add-to-basket');
                 var addBasketButton = document.createElement('button');
                 addBasketButton.setAttribute('class', 'button');
@@ -43,10 +43,6 @@ function fetchProduct() {
         })
         .then(function (product) {
             createReviewDiv(product);
-            return product;
-        })
-        .then(function (product) {
-            createReviewListDiv(product);
         });
         return false;
 }
@@ -56,7 +52,6 @@ function addBasket(){
         {method: "POST"})
              .then(function(response) {
                          return response.json();
-
               })
              .then(function (jsonData) {
                    if (jsonData.status=='SUCCESS') {
@@ -147,21 +142,25 @@ function createReviewDiv(product) {
                          if (jsonData.userReview != null) {
                             reviewInputField.innerHTML = jsonData.userReview;
                          }
+                         createReviewListDiv(product);
                        } else {
-                          var productDiv = document.getElementsByClassName("product-div")[0];
-                          var writeReviewDiv = document.createElement('div');
-                          writeReviewDiv.setAttribute('id', 'rev-div');
-                          writeReviewDiv.innerHTML = 'Csak akkor írhat értékelést, ha már rendelt ebből a termékből!<br><br>';
-                          productDiv.appendChild(writeReviewDiv);
+                         var productDiv = document.getElementsByClassName("product-div")[0];
+                         var writeReviewDiv = document.createElement('div');
+                         writeReviewDiv.setAttribute('id', 'rev-div');
+                         writeReviewDiv.innerHTML = 'Csak akkor írhat értékelést, ha már rendelt ebből a termékből!<br><br>';
+                         productDiv.appendChild(writeReviewDiv);
+                         createReviewListDiv(product);
                        }
-                   });
-                   return false;
+                       return product;
+                 });
+                 return false;
     } else {
        var productDiv = document.getElementsByClassName("product-div")[0];
        var writeReviewDiv = document.createElement('div');
        writeReviewDiv.setAttribute('id', 'rev-div');
        writeReviewDiv.innerHTML = 'Értékelést csak az a bejelentkezett felhasználó írhat, aki már rendelt ebből a termékből!<br><br>';
        productDiv.appendChild(writeReviewDiv);
+       createReviewListDiv(product);
     }
 }
 function createReviewListDiv(product) {
@@ -171,7 +170,7 @@ function createReviewListDiv(product) {
                   return response.json();
             })
             .then(function (jsonData) {
-                if (jsonData != 0) {
+                if (jsonData.length != 0) {
                     if (document.getElementById('rev-list') != null) {
                         document.getElementById('rev-list').remove();
                     }
@@ -193,8 +192,12 @@ function createReviewListDiv(product) {
                     }
                     productDiv.appendChild(reviewListDiv);
                 } else {
+                    if (document.getElementById('rev-list') != null) {
+                        document.getElementById('rev-list').remove();
+                    }
                     var reviewListDiv = document.createElement('div');
                     var productDiv = document.getElementsByClassName("product-div")[0];
+                    reviewListDiv.setAttribute('id', 'rev-list');
                     productDiv.appendChild(reviewListDiv);
                     reviewListDiv.innerHTML = 'Erre a termékre még nem érkezet értékelés';
                 }
@@ -251,8 +254,6 @@ function addReview() {
               return product;
             })
             .then(function (product) {
-//                document.getElementById('rev-list').remove();
-//                document.getElementById('rev-list').innerHTML = "";
                 createReviewListDiv(product);
             });
         return false;
@@ -305,8 +306,6 @@ function modifyReview() {
           return product;
       })
       .then(function (product) {
-//          document.getElementById('rev-list').remove();
-//          document.getElementById('rev-list').innerHTML = "";
           createReviewListDiv(product);
       });
     return false;
@@ -349,8 +348,8 @@ function deleteReview() {
           return product;
       })
       .then(function (product) {
-//          document.getElementById('rev-list').remove();
           createReviewListDiv(product);
+          console.log("del");
       });
     return false;
 }
