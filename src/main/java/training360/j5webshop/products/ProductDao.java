@@ -138,15 +138,7 @@ public class ProductDao {
         jdbcTemplate.update("delete from product_category where product_id = ?", product.getId());
     }
 
-    public List<Category> listCategories() {
-        return jdbcTemplate.query("select id, name, priority from category order by priority",
-                (rs, rowNum) -> new Category(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getInt("priority"),
-                        new ArrayList<>()
-                ));
-    }
+
 
     public List<Category> listCategoriesByProduct(Product product) {
             return jdbcTemplate.query("select category.id, category.name, category.priority from category " +

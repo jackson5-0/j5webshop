@@ -21,6 +21,10 @@ public class BasketService {
         basketDao.addToBasketWithQuantity(quantity, productId, basketId);
     }
 
+    public int decreaseAmountInBasket(long productId, long basketId, int quantity){
+        return basketDao.decreaseAmountInBasket(productId, basketId, quantity);
+    }
+
     public int flushBasket(String userName) {
         return basketDao.flushBasket(userName);
     }
@@ -52,4 +56,5 @@ public class BasketService {
     public List<BasketItemContainer> basketItemsWithQuantity(long basketId){
         return basketDao.basketItemsWithQuantity(basketId);
     }
+
 }
