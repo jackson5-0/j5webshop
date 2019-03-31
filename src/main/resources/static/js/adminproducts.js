@@ -1,5 +1,9 @@
 fetchProducts();
 document.forms["product-registration-form"].onsubmit = handleCreateForm;
+document.getElementById("new-product-categories").addEventListener('click', function () {
+  showCategoryOfItem('new-product-categories');
+  saveProductIdToRawDataSaveButton('new-product-categories');
+});
 
 function fetchProducts() {
   fetchPageNavigators();
@@ -40,8 +44,6 @@ function showProducts(jsonData) {
   for (var i = 0; i < jsonData.length; i++) {
     var tr = document.createElement('tr');
 
-    console.log(jsonData[i].categories)
-
     var codeTd = document.createElement('td');
     codeTd.contentEditable = "true";
     codeTd.innerHTML = jsonData[i].code;
@@ -71,6 +73,14 @@ function showProducts(jsonData) {
     statusTd.innerHTML = jsonData[i].status;
     statusTd.setAttribute('id', 'status-Td' + jsonData[i].id)
 
+    var categoryTd = document.createElement('td');
+    var category = document.createElement('button');
+    category.innerHTML = 'Kategoriak';
+    category['raw-data'] = jsonData[i].categories;
+    category.setAttribute('id', jsonData[i].code);
+
+    addEventListenerToCategoryButton(category, jsonData[i].code);
+
     var buttonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Törlés";
@@ -84,6 +94,7 @@ function showProducts(jsonData) {
 
     buttonTd.appendChild(deleteButton);
     buttonTd.appendChild(modifyButton);
+    categoryTd.appendChild(category);
 
     tr.appendChild(codeTd);
     tr.appendChild(nameTd);
@@ -92,18 +103,28 @@ function showProducts(jsonData) {
     tr.appendChild(priceTd);
     tr.appendChild(statusTd);
     tr.appendChild(buttonTd);
+    tr.appendChild(categoryTd);
     tableBody.appendChild(tr);
   }
 }
 
+function addEventListenerToCategoryButton(category, productCode) {
+  category.addEventListener('click', function () {
+    showCategoryOfItem(productCode);
+    saveProductIdToRawDataSaveButton(productCode);
+  });
+}
+
 function handleCreateForm() {
-  var name = document.getElementById("name-input").value;;
-  var publisher = document.getElementById("publisher-input").value;;
-  var price = document.getElementById("price-input").value;;
+  var name = document.getElementById("name-input").value;
+  var publisher = document.getElementById("publisher-input").value;
+  var price = document.getElementById("price-input").value;
+  var categories = document.getElementById("new-product-categories")['raw-data'];
   var request = {
     "name": name,
     "publisher": publisher,
-    "price": price
+    "price": price,
+    "categories": categories
   };
   fetch('/admin/products', {
       method: "POST",
@@ -162,6 +183,7 @@ function updateProduct() {
   var address = document.getElementById('address-Td' + id).innerHTML;
   var publisher = document.getElementById('publisher-Td' + id).innerHTML;
   var price = document.getElementById('price-Td' + id).innerHTML.replace(' Ft', '');
+  var categories = document.getElementById(code)['raw-data'];
   var request = {
     "id": id,
     "code": code,
@@ -169,6 +191,7 @@ function updateProduct() {
     "address": address,
     "publisher": publisher,
     "price": price,
+    "categories": categories
   };
   console.log(request);
   fetch(`/admin/products`, {

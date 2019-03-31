@@ -67,11 +67,6 @@ public class ProductController {
         return productService.getLengthOfProductList(category);
     }
 
-    @GetMapping("/categories")
-    public List<Category> listCategories() {
-        return productService.listCategories();
-    }
-
     @ExceptionHandler({InvalidFormatException.class})
     public ResponseStatus handleParseException(Exception exception) {
         ResponseStatus status = new ResponseStatus().addMessage("Hibás formátum!");

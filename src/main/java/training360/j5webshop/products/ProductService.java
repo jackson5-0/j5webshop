@@ -2,6 +2,7 @@ package training360.j5webshop.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import training360.j5webshop.categories.CategoryDao;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,6 +12,8 @@ public class ProductService {
 
     @Autowired
     private ProductDao productDao;
+    @Autowired
+    private CategoryDao categoryDao;
 
     public ProductContainer findProductByAddress(String address) {
         return productDao.findProductByAddress(address);
@@ -58,7 +61,7 @@ public class ProductService {
 
     public List<Category> listProductsWithLimit(int start, int size, String singleCategory) {
         if (singleCategory == null) {
-            List<Category> productsByCategory = productDao.listCategories();
+            List<Category> productsByCategory = categoryDao.listCategories();
             for (Category category: productsByCategory) {
                 category.setProducts(productDao.listProductsWithLimit(start, size, category.getName()));
             }
@@ -104,8 +107,6 @@ public class ProductService {
         }
     }
 
-    public List<Category> listCategories() {
-        return productDao.listCategories();
-    }
+
 
 }
