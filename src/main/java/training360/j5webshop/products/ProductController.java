@@ -3,6 +3,7 @@ package training360.j5webshop.products;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import training360.j5webshop.categories.Category;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 import training360.j5webshop.validation.ResponseStatus;

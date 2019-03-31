@@ -1,5 +1,7 @@
 package training360.j5webshop.products;
 
+import training360.j5webshop.categories.Category;
+
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;

@@ -33,29 +33,29 @@ function showPageNavigatorOfCategory(jsonData) {
 }
 
 function showProductsOfCategory(jsonData) {
-    var products = document.getElementById('products');
-    products.innerHTML = `<h1>${jsonData[0].name}</h1>`;
-        for (var i = 0; i < jsonData[0].products.length; i++) {
-                var product = document.createElement('div');
-                product.setAttribute('class', 'product');
-                product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[0].products[i].address}"`);
+  var products = document.getElementById('products');
+  products.innerHTML = `<h1>${jsonData[0].name}</h1>`;
+  for (var i = 0; i < jsonData[0].products.length; i++) {
+    var product = document.createElement('div');
+    product.setAttribute('class', 'product');
+    product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[0].products[i].address}"`);
 
-                var img = document.createElement('img');
-                img.setAttribute('class', 'picture');
-                img.setAttribute('src', '/img/fantasy_game_dice.jpg');
-                img.setAttribute('alt', 'picture of the game');
-                var name = document.createElement('span');
-                name.setAttribute('class', 'name');
-                var price = document.createElement('span');
-                price.setAttribute('class', 'price');
+    var img = document.createElement('img');
+    img.setAttribute('class', 'picture');
+    img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+    img.setAttribute('alt', 'picture of the game');
+    var name = document.createElement('span');
+    name.setAttribute('class', 'name');
+    var price = document.createElement('span');
+    price.setAttribute('class', 'price');
 
-                name.innerHTML = jsonData[0].products[i].name;
-                price.innerHTML = jsonData[0].products[i].price + ' Ft';
+    name.innerHTML = jsonData[0].products[i].name;
+    price.innerHTML = jsonData[0].products[i].price + ' Ft';
 
-                product.appendChild(img);
-                product.appendChild(name);
-                product.appendChild(price);
+    product.appendChild(img);
+    product.appendChild(name);
+    product.appendChild(price);
 
-                products.appendChild(product);
-        }
+    products.appendChild(product);
+  }
 }

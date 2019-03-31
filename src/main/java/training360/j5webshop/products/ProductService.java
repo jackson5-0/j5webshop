@@ -2,6 +2,7 @@ package training360.j5webshop.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import training360.j5webshop.categories.Category;
 import training360.j5webshop.categories.CategoryDao;
 
 import java.util.Arrays;
