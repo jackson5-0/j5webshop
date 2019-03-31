@@ -18,6 +18,15 @@ public class Review {
         this.product = product;
     }
 
+    public Review(long id, Product product, User user, LocalDateTime reviewDate, String message, int rating) {
+        this.id = id;
+        this.product = product;
+        this.user = user;
+        this.reviewDate = reviewDate;
+        this.message = message;
+        this.rating = rating;
+    }
+
     public Review(Product product, User user, String message, int rating) {
         this.product = product;
         this.user = user;

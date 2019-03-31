@@ -2,6 +2,7 @@ package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.products.Product;
@@ -33,10 +34,18 @@ public class BasketController {
             basketService.addToBasketWithQuantity(quantity, productId, auth.getName());
             validator.getResponseStatus().addMessage(quantity+" db termék bekerült a kosárba.");
 
-        } catch (DataIntegrityViolationException de) {
+        } catch (EmptyResultDataAccessException ea) {
             return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár vagy termék");
         }
         return validator.getResponseStatus();
+    }
+    @DeleteMapping("/basket/{basketId}/{productId}")
+    public ResponseStatus decreaseAmountInBasket(@PathVariable long basketId, @PathVariable long productId, @RequestParam int quantity){
+        if(basketService.decreaseAmountInBasket(productId, basketId, quantity) != 0) {
+            return new ResponseStatus().addMessage("Egy termék sikeresen kikerült a kosárból!");
+        } else {
+            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező termék");
+        }
     }
 
     @DeleteMapping("/basket")

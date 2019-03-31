@@ -8,6 +8,8 @@ import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 
+import java.util.List;
+
 @RestController
 public class ReviewController {
 
@@ -32,5 +34,10 @@ public class ReviewController {
     @DeleteMapping("/deletereview")
     public ResponseStatus deleteReview(Authentication authentication, @RequestBody Review review) {
         return reviewService.deleteReview(authentication.getName(), review);
+    }
+
+    @GetMapping("/listreview")
+    public List<Review> listReviewByProductId(@RequestParam long productid) {
+        return reviewService.listReviewByProductId(productid);
     }
 }
