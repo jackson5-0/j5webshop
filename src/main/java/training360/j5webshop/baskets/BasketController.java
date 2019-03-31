@@ -38,6 +38,10 @@ public class BasketController {
         }
         return validator.getResponseStatus();
     }
+    @DeleteMapping("/basket/{basketId}/{productId}")
+    public void decreaseAmountInBasket(@PathVariable long basketId, @PathVariable long productId, @RequestParam int quantity){
+        basketService.decreaseAmountInBasket(productId, basketId, quantity);
+    }
 
     @DeleteMapping("/basket")
     public ResponseStatus flushBasket(Authentication authentication) {

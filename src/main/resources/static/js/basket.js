@@ -59,6 +59,17 @@ function showList(jsonData) {
     var sumItemPriceTd = document.createElement('td');
     sumItemPriceTd.innerHTML = jsonData[i].product.price * jsonData[i].quantity + " Ft";
 
+    var increaseAmountTd = document.createElement('td');
+    var increaseAmountBut = document.createElement('button')
+        increaseAmountBut.innerHTML = "+";
+        increaseAmountBut.onclick = increaseAmount;
+        increaseAmountBut["raw-data"] = jsonData[i];
+    var decreaseAmountTd = document.createElement('td');
+    var decreaseAmountBut = document.createElement('button')
+        decreaseAmountBut.innerHTML = "-";
+        decreaseAmountBut.onclick = decreaseAmount;
+        decreaseAmountBut["raw-data"] = jsonData[i];
+
     var delTd = document.createElement('td');
 
     var delBut = document.createElement('button')
@@ -70,6 +81,10 @@ function showList(jsonData) {
     tr.appendChild(priceTd);
     tr.appendChild(qtyTd);
     tr.appendChild(sumItemPriceTd);
+    increaseAmountTd.appendChild(increaseAmountBut);
+    tr.appendChild(increaseAmountTd);
+    decreaseAmountTd.appendChild(decreaseAmountBut);
+        tr.appendChild(decreaseAmountTd);
     delTd.appendChild(delBut);
     tr.appendChild(delTd);
 
@@ -133,4 +148,33 @@ function deleteBasketItem() {
            fetchList();
          });
 
+}
+function increaseAmount(){
+        var productId = this["raw-data"].product.id;
+        var basketId = user.basketId;
+        var quantity = 1;
+            fetch(`/basket?quantity=${quantity}&productId=${productId}`,
+                {method: "POST"})
+                     .then(function(response) {
+                                 return response.json();
+
+                      })
+                     .then(function (jsonData) {
+                                fetchList();
+                              });
+}
+function decreaseAmount(){
+        var productId = this["raw-data"].product.id;
+        var basketId = user.basketId;
+        var quantity = 1;
+            fetch(`/basket/${basketId}/${productId}?quantity=${quantity}`,
+                {method: "DELETE"})
+                     .then(function(response) {
+                                 console.log(response);
+                                 return response.json();
+
+                      })
+                     .then(function (jsonData) {
+                                fetchList();
+                              });
 }
