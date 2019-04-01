@@ -10,10 +10,10 @@ public class Address {
     private String city_code;
     private String city;
     private String street;
-    private int number;
+    private String number;
     private String otherInfo;
 
-    public Address(long id, User user, Order order, String country, String city_code, String city, String street, int number, String otherInfo) {
+    public Address(long id, User user, Order order, String country, String city_code, String city, String street, String number, String otherInfo) {
         this.id = id;
         this.user = user;
         this.order = order;
@@ -23,6 +23,25 @@ public class Address {
         this.street = street;
         this.number = number;
         this.otherInfo = otherInfo;
+    }
+
+    public Address(User user, String country, String city_code, String city, String street, String number, String otherInfo) {
+        this.user = user;
+        this.country = country;
+        this.city_code = city_code;
+        this.city = city;
+        this.street = street;
+        this.number = number;
+        this.otherInfo = otherInfo;
+    }
+
+    public Address(User user, String country, String city_code, String city, String street, String number) {
+        this.user = user;
+        this.country = country;
+        this.city_code = city_code;
+        this.city = city;
+        this.street = street;
+        this.number = number;
     }
 
     public long getId() {
@@ -81,11 +100,11 @@ public class Address {
         this.street = street;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -95,5 +114,15 @@ public class Address {
 
     public void setOtherInfo(String otherInfo) {
         this.otherInfo = otherInfo;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj.getClass() != getClass()) return false;
+        Address other = (Address) obj;
+        return other.user.getUserName().equals(user.getUserName()) && other.getCountry().equals(country) &&
+                other.getCity_code().equals(city_code) && other.getCity().equals(city) && other.getStreet().equals(street) &&
+                other.getNumber().equals(number) && other.getOtherInfo().equals(otherInfo);
     }
 }
