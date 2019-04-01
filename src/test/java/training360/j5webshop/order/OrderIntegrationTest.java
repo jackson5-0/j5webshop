@@ -25,45 +25,45 @@ public class OrderIntegrationTest {
     @Autowired
     private BasketController basketController;
 
-    @Test
-    public void createOrderTest() {
-        // When
-        int basketSizeBeforeCreateOrder = basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
-        int basketSizeAfterCreateOrder = basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
+//    @Test
+//    public void createOrderTest() {
+//        // When
+//        int basketSizeBeforeCreateOrder = basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
+//        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
+//        int basketSizeAfterCreateOrder = basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
+//
+//        // Then
+//        assertThat(orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
+//        assertThat(orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(1));
+//        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getOrderedProduct().size(), equalTo(3));
+//        assertThat(basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(0));
+//        assertThat(basketSizeBeforeCreateOrder, equalTo(3));
+//        assertThat(basketSizeAfterCreateOrder, equalTo(0));
+//    }
 
-        // Then
-        assertThat(orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(2));
-        assertThat(orderController.listActiveOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(1));
-        assertThat(orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getOrderedProduct().size(), equalTo(3));
-        assertThat(basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size(), equalTo(0));
-        assertThat(basketSizeBeforeCreateOrder, equalTo(3));
-        assertThat(basketSizeAfterCreateOrder, equalTo(0));
-    }
+//    @Test
+//    public void listAllAndListAllOrderWithDeletedOrderTest() {
+//        // When
+//        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
+//        int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
+//        int sizeOfListWithoutDeleted = orderController.listAllOrder(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
+//
+//        // Then
+//        assertThat(sizeOfListWithDeleted, equalTo(4));
+//        assertThat(sizeOfListWithoutDeleted, equalTo(3));
+//    }
 
-    @Test
-    public void listAllAndListAllOrderWithDeletedOrderTest() {
-        // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
-        int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
-        int sizeOfListWithoutDeleted = orderController.listAllOrder(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
-
-        // Then
-        assertThat(sizeOfListWithDeleted, equalTo(4));
-        assertThat(sizeOfListWithoutDeleted, equalTo(3));
-    }
-
-    @Test
-    public void listActiveOrderTest() {
-        // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
-        int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
-        int sizeOfActiveList = orderController.listActiveOrder(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
-
-        // Then
-        assertThat(sizeOfListWithDeleted, equalTo(4));
-        assertThat(sizeOfActiveList, equalTo(2));
-    }
+//    @Test
+//    public void listActiveOrderTest() {
+//        // When
+//        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
+//        int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
+//        int sizeOfActiveList = orderController.listActiveOrder(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
+//
+//        // Then
+//        assertThat(sizeOfListWithDeleted, equalTo(4));
+//        assertThat(sizeOfActiveList, equalTo(2));
+//    }
 
 //    @Test
 //    public void findOrderedProductByOrderIdTest() {
