@@ -1,6 +1,5 @@
 package training360.j5webshop.categories;
 
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -73,6 +72,10 @@ public class CategoryDao {
 
     public Integer isCategoryNameTaken(Category category) {
         return jdbcTemplate.queryForObject("select count(id) from category where name = ?", Integer.class, category.getName());
+    }
+
+    public void deleteCategory(Category category) {
+        jdbcTemplate.update("delete from category where id = ?", category.getId());
     }
 
 }

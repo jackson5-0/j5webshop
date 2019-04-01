@@ -134,7 +134,7 @@ public class OrderDao {
     public int totalPrice(long orderId){
         int sum = 0;
         for (OrderedProduct op : findOrderedProductByOrderId(orderId)){
-            sum+=op.getPriceAtPurchase();
+            sum+=op.getPriceAtPurchase()*op.getQuantity();
         }
         return sum;
     }

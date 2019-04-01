@@ -8,6 +8,7 @@ function fetchList() {
     })
     .then(function (jsonData) {
       showList(jsonData);
+      console.log(jsonData);
     });
 }
 
@@ -21,11 +22,14 @@ function showList(jsonData) {
     var nameTd = document.createElement('td');
     nameTd.innerHTML = jsonData[i].name;
 
-    var priceTd = document.createElement('td');
-    priceTd.innerHTML = jsonData[i].priceAtPurchase + " Ft";
-
     var quantityTd = document.createElement('td');
-    quantityTd.innerHTML = 1 + " db"; //quantity
+        quantityTd.innerHTML = jsonData[i].quantity + " db"; //quantity
+
+    var priceTd = document.createElement('td');
+        priceTd.innerHTML = jsonData[i].priceAtPurchase + " Ft";
+
+    var sumPriceTd = document.createElement('td');
+    sumPriceTd.innerHTML = jsonData[i].priceAtPurchase * jsonData[i].quantity + " Ft";
 
     var delTd = document.createElement('td');
 
@@ -35,8 +39,9 @@ function showList(jsonData) {
     delBut["raw-data"] = jsonData[i];
 
     tr.appendChild(nameTd);
-    tr.appendChild(priceTd);
     tr.appendChild(quantityTd);
+    tr.appendChild(priceTd);
+    tr.appendChild(sumPriceTd);
     delTd.appendChild(delBut);
     tr.appendChild(delTd);
 

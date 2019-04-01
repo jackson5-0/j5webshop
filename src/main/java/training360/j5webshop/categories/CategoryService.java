@@ -27,17 +27,32 @@ public class CategoryService {
 
         long categoryId = categoryDao.createCategory(category);
         category.setId(categoryId);
-        sortCategoriesByPriority(categories, category);
+        sortCategoriesByPriorityAfterCreate(categories, category);
         updateCategories(categories);
         return "";
     }
 
-    private void sortCategoriesByPriority(List<Category> categories, Category inserted) {
+    private void sortCategoriesByPriorityAfterCreate(List<Category> categories, Category modified) {
         for (Category category: categories) {
-            if (category.getPriority() >= inserted.getPriority()) {
+            if (category.getPriority() >= modified.getPriority()) {
                 category.setPriority(category.getPriority() + 1);
             }
         }
+    }
+
+    private void sortCategoriesByPriorityAfterDelete(List<Category> categories, Category modified) {
+        for (Category category: categories) {
+            if (modified.getPriority() < category.getPriority()) {
+                category.setPriority(category.getPriority() - 1);
+            }
+        }
+    }
+
+    public void deleteCategory(Category category) {
+        categoryDao.deleteCategory(category);
+        List<Category> categories = categoryDao.listCategories();
+        sortCategoriesByPriorityAfterDelete(categories, category);
+        updateCategories(categories);
     }
 
     public void updateCategories(List<Category> categories) {
