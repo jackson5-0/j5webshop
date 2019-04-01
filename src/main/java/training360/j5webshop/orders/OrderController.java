@@ -33,6 +33,10 @@ public class OrderController {
     public ResponseStatus createOrder(Authentication authentication, @RequestParam long basketId) {
         return orderService.createOrder(basketId, authentication.getName());
     }
+    @GetMapping("/myorders/top3")
+    public List<Product> listLast3OrderedItem(Authentication auth){
+        return orderService.listLast3OrderedItem(auth.getName());
+    }
 
     @GetMapping("/myorders")
     public List<Order> listAllOrder(Authentication auth){
