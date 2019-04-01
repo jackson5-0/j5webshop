@@ -35,8 +35,8 @@ public class OrderController {
         return orderService.createOrder(basketId, authentication.getName());
     }
     @GetMapping("/myorders/top3")
-    public Set<Product> listLast3OrderedItem(Authentication auth){
-        return orderService.listLast3OrderedItem(auth.getName());
+    public Set<Product> listLast3OrderedItem(){
+        return orderService.listLast3OrderedItem();
     }
 
     @GetMapping("/myorders")

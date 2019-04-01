@@ -55,8 +55,8 @@ public class OrderService {
         return basket;
     }
 
-    public Set<Product> listLast3OrderedItem(String userName){
-        return new HashSet<Product>(orderDao.listLast3OrderedItem(userName));
+    public Set<Product> listLast3OrderedItem(){
+        return new HashSet<>(orderDao.listLast3OrderedItem());
     }
     public List<Order> listAllOrder(String userName){
         return orderDao.listAllOrder(userName);

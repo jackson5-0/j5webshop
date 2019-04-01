@@ -130,4 +130,17 @@ public class OrderIntegrationTest {
         assertThat(orderStatusBeforeChange, equalTo(OrderStatus.ACTIVE));
         assertThat(orderStatusAfterChange, equalTo(OrderStatus.DELIVERED));
     }
+
+    @Test
+    public void listLast3ItemsTest(){
+        //When
+        int sizeOfListBefore = orderController.listLast3OrderedItem().size();
+        orderController.deleteOrders(3);
+        orderController.deleteOrders(4);
+        orderController.deleteOrders(5);
+        int sizeOfListAfter = orderController.listLast3OrderedItem().size();
+        //Then
+        assertThat(sizeOfListBefore, equalTo(3));
+        assertThat(sizeOfListAfter,equalTo(1));
+    }
 }

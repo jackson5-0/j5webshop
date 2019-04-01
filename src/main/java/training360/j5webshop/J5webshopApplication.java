@@ -26,7 +26,7 @@ public class J5webshopApplication extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
-				.antMatchers("/", "/products/**", "/products/count", "/products")
+				.antMatchers("/", "/products/**", "/products/count", "/products", "/myorders/top3")
 					.permitAll()
 				.antMatchers("/dashboard.html","/dashboard/","/adminproducts.html", "/admin/**","/order/**","/orders/**","/orders.html","/order.html")
 					.hasRole("ADMIN")

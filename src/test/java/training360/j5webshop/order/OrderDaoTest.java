@@ -155,4 +155,15 @@ public class OrderDaoTest {
         //Then
         assertThat(orderDao.listAllOrder("tadri1988").get(0).getOrderStatus(), equalTo(OrderStatus.DELIVERED));
     }
+    @Test
+    public void listLast3OrderedItemTest(){
+        assertThat(orderDao.listLast3OrderedItem().size(),equalTo(3));
+    }
+    @Test
+    public void listLast3OrderedItemTest2(){
+        //When
+        orderDao.deleteWholeOrder(3);
+        orderDao.deleteWholeOrder(5);
+        assertThat(orderDao.listLast3OrderedItem().size(),equalTo(2));
+    }
 }
