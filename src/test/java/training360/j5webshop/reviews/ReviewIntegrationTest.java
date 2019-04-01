@@ -7,15 +7,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import training360.j5webshop.products.Product;
-import training360.j5webshop.users.Address;
 import training360.j5webshop.users.Role;
 import training360.j5webshop.users.User;
 
-import java.util.ArrayList;
 import java.util.Collection;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -72,7 +69,7 @@ public class ReviewIntegrationTest {
         Product product = new Product(2, "GEMDIX01", "Dixit", "dixit",
                 "Gém Klub Kft.", 7990, "ACTIVE");
         User user = new User(4, "Béla", "Kiss", "kissbeci",
-                "kissbeci00", Role.ROLE_USER, new ArrayList<Address>());
+                "kissbeci00", Role.ROLE_USER);
         Review newReview = new Review(product, user, "Kiváló termék, ajánlom!", 5);
         // When
         int numberOfreviewsBeforeCreate = reviewController.listReviewByProductId(2).size();
@@ -90,7 +87,7 @@ public class ReviewIntegrationTest {
         Product product = new Product(2, "GEMDIX01", "Dixit", "dixit",
                 "Gém Klub Kft.", 7990, "ACTIVE");
         User user = new User(4, "Béla", "Kiss", "kissbeci",
-                "kissbeci00", Role.ROLE_USER, new ArrayList<Address>());
+                "kissbeci00", Role.ROLE_USER);
         Review review = new Review(product, user, "Kiváló termék, ajánlom!", 5);
         reviewController.createReview(kissbeci, review);
         // When
@@ -109,7 +106,7 @@ public class ReviewIntegrationTest {
         Product product = new Product(2, "GEMDIX01", "Dixit", "dixit",
                 "Gém Klub Kft.", 7990, "ACTIVE");
         User user = new User(4, "Béla", "Kiss", "kissbeci",
-                "kissbeci00", Role.ROLE_USER, new ArrayList<Address>());
+                "kissbeci00", Role.ROLE_USER);
         Review review = new Review(product, user, "Kiváló termék, ajánlom!", 5);
         reviewController.createReview(kissbeci, review);
         // When
@@ -134,7 +131,7 @@ public class ReviewIntegrationTest {
         boolean hasDeliveredProduct = reviewController.checkIfUserHasDeliveredProductAndHasReview(kissbeci, 2).getHasDeliveredProduct();
         boolean hasNoDeliveredProduct = reviewController.checkIfUserHasDeliveredProductAndHasReview(kissbeci, 1).getHasDeliveredProduct();
         User user = new User(4, "Béla", "Kiss", "kissbeci", "kissbeci00",
-                Role.ROLE_USER, new ArrayList<Address>());
+                Role.ROLE_USER);
         Product product = new Product(2, "GEMDIX01", "Dixit", "dixit",
                 "Gém Klub Kft.", 7990, "ACTIVE");
         Review review = new Review(product, user, "Kiváló termék, ajánlom!", 5);
@@ -157,7 +154,7 @@ public class ReviewIntegrationTest {
         Product notDeliveredProduct = new Product(1, "GEMHAC01", "Hacker játszma", "hacker-jatszma",
                 "Gém Klub Kft.", 3190, "ACTIVE");
         User user = new User(4, "Béla", "Kiss", "kissbeci",
-                "kissbeci00", Role.ROLE_USER, new ArrayList<Address>());
+                "kissbeci00", Role.ROLE_USER);
         Review reviewWithNoRating = new Review(product, user, "Kiváló termék, ajánlom!", 0);
         Review reviewWithTooLongMessage = new Review(product, user, "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
                 "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip" +
@@ -195,7 +192,7 @@ public class ReviewIntegrationTest {
         Product product = new Product(2, "GEMDIX01", "Dixit", "dixit",
                 "Gém Klub Kft.", 7990, "ACTIVE");
         User user = new User(4, "Béla", "Kiss", "kissbeci",
-                "kissbeci00", Role.ROLE_USER, new ArrayList<Address>());
+                "kissbeci00", Role.ROLE_USER);
         Review newReview = new Review(product, user, "Nem tetszik!", 1);
         reviewController.createReview(kissbeci, newReview);
         Review reviewWithNoRating = new Review(product, user, "Kiváló termék, ajánlom!", 0);

@@ -7,11 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import training360.j5webshop.products.Product;
-import training360.j5webshop.users.Address;
 import training360.j5webshop.users.Role;
 import training360.j5webshop.users.User;
-
-import java.util.ArrayList;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -30,7 +27,7 @@ public class RewiewDaoTest {
         Product product = new Product(1, "GEMHAC01", "Hacker játszma",
                 "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
         User user = new User(1, "Géza", "Kovács", "kovacsgeza",
-                "KovacsGeza90", Role.ROLE_USER, new ArrayList<Address>());
+                "KovacsGeza90", Role.ROLE_USER);
         Review newReview = new Review(product, user, "Kiváló termék, ajánlom!", 5);
         // When
         int numberOfreviewsBeforeCreate = reviewDao.listReviewByProductId(1).size();
@@ -48,11 +45,11 @@ public class RewiewDaoTest {
         Product product = new Product(1, "GEMHAC01", "Hacker játszma",
                 "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
         User user1 = new User(1, "Géza", "Kovács", "kovacsgeza",
-                "KovacsGeza90", Role.ROLE_USER, new ArrayList<Address>());
+                "KovacsGeza90", Role.ROLE_USER);
         Review review1 = new Review(product, user1, "Kiváló termék, ajánlom!", 5);
         reviewDao.createReview(review1);
         User user2 = new User(2, "Gizella", "Nagy", "nagygizi22",
-                "GiziAZizi11", Role.ROLE_USER, new ArrayList<Address>());
+                "GiziAZizi11", Role.ROLE_USER);
         Review review2 = new Review(product, user2, "Nem tetszett!", 1);
         reviewDao.createReview(review2);
         // When
@@ -71,7 +68,7 @@ public class RewiewDaoTest {
         Product product = new Product(1, "GEMHAC01", "Hacker játszma",
                 "hacker-jatszma", "Gém Klub Kft.", 3190, "ACTIVE");
         User user = new User(1, "Géza", "Kovács", "kovacsgeza",
-                "KovacsGeza90", Role.ROLE_USER, new ArrayList<Address>());
+                "KovacsGeza90", Role.ROLE_USER);
         Review review = new Review(product, user, "Kiváló termék, ajánlom!", 5);
         reviewDao.createReview(review);
         // When
@@ -103,7 +100,7 @@ public class RewiewDaoTest {
         // When
         ReviewInfo beforeHasReview = reviewDao.checkIfUserHasDeliveredProductAndHasReview("kissbeci", 2);
         User user = new User(4, "Béla", "Kiss", "kissbeci", "kissbeci00",
-                Role.ROLE_USER, new ArrayList<Address>());
+                Role.ROLE_USER);
         Product product = new Product(2, "GEMDIX01", "Dixit", "dixit",
                 "Gém Klub Kft.", 7990, "ACTIVE");
         Review review = new Review(product, user, "Kiváló termék, ajánlom!", 5);
