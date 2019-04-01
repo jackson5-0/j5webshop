@@ -73,7 +73,7 @@ public class OrderDaoTest {
     @Test
     public void testListAllOrderWithDeleted() {
         //Given
-        orderDao.createOrder(2L);
+        orderDao.createOrder(2L, "Magyarország, 1111 Budapest, Fő utca 11.");
         orderDao.addOrderedProduct(2L, basketDao.findBasket(2L));
         orderDao.deleteWholeOrder(2L);
         //When

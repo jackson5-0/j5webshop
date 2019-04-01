@@ -15,6 +15,7 @@ public class Order {
     private LocalDateTime purchaseDate;
     private List<OrderedProduct> orderedProduct = new ArrayList<>();
     private OrderStatus orderStatus;
+    private String shippingAddress;
 
     public Order() {
     }
@@ -36,6 +37,22 @@ public class Order {
         this.purchaseDate = purchaseDate;
         this.orderedProduct = orderedProduct;
         this.orderStatus = orderStatus;
+    }
+
+    public Order(long id, long userId, LocalDateTime purchaseDate, OrderStatus orderStatus) {
+        this.id = id;
+        this.userId = userId;
+        this.purchaseDate = purchaseDate;
+        this.orderStatus = orderStatus;
+    }
+
+    public Order(long id, long userId, LocalDateTime purchaseDate, List<OrderedProduct> orderedProduct, OrderStatus orderStatus, String shippingAddress) {
+        this.id = id;
+        this.userId = userId;
+        this.purchaseDate = purchaseDate;
+        this.orderedProduct = orderedProduct;
+        this.orderStatus = orderStatus;
+        this.shippingAddress = shippingAddress;
     }
 
     public long getId() {
@@ -72,6 +89,18 @@ public class Order {
 
     public void setUserId(long userId) {
         this.userId = userId;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     @Override

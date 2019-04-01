@@ -87,7 +87,6 @@ function createUserHeader(user) {
          <ul>
             <li><a href="index.html">főoldal</a></li>
             <li><a href="userprofile.html">személyes adataim</a></li>
-            <li><a href="useraddresses.html">szállítási címeim</a></li>
             <li><a href="myorders.html">rendeléseim</a></li>
          </ul>
       </div>
