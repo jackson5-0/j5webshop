@@ -108,19 +108,30 @@
 }
 
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
+
 @-webkit-keyframes fade {
-  from {opacity: .1}
-  to {opacity: 1}
+    from {
+        opacity: .1
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 @keyframes fade {
-  from {opacity: .1}
-  to {opacity: 1}
+    from {
+        opacity: .1
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 .input-form {
@@ -254,7 +265,7 @@
 
 .orders-table-div-button:hover {
     background-color: white;
-    border: 1px solid #ccc;
+    outline: 1px solid #ccc;
     color: black;
 }
 
@@ -416,9 +427,10 @@ textarea {
     font-size: 1.4em;
     height: 18px;
 }
-#top3{
+
+#top3 {
     text-align: center;
-    display:inline-block;
+    display: inline-block;
     margin: 0 auto;
 }
 
