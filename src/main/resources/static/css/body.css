@@ -5,6 +5,7 @@
 
 body {
   margin: 0;
+  margin-bottom: 50px;
   padding: 0;
   height: 100%;
 }
@@ -69,8 +70,9 @@ footer {
 }
 
 footer p {
-  position: relative;
-  bottom: 15px;
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #header-top {
@@ -108,7 +110,6 @@ footer p {
 }
 
 main {
-  padding-bottom: 40px;
   width: 100%;
 }
 

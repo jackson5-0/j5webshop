@@ -387,16 +387,21 @@
     display: block;
     float: center;
     position: relative;
-    width: 100%;
 }
 
 .product {
+    box-sizing: border-box;
+    display: inline-block;
     border: 1px solid #ccc;
-    float: left;
-    padding: 20px 0 0 15px;
-    text-align: center;
-    width: 30%;
+    padding: 10px;
+    width: 32%;
     margin: 5px;
+}
+
+.categories-div {
+    border-radius: 8px;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .product:hover {
@@ -452,5 +457,13 @@ textarea {
 .delete-category:focus {
     color: #000;
     text-decoration: none;
+    cursor: pointer;
+}
+
+.category-header {
+    font-family: "Existence";
+}
+
+.category-header:hover {
     cursor: pointer;
 }
