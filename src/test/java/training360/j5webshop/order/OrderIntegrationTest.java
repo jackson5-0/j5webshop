@@ -1,30 +1,30 @@
-//package training360.j5webshop.order;
-//
-//import static org.hamcrest.CoreMatchers.equalTo;
-//import static org.hamcrest.MatcherAssert.assertThat;
-//
-//import org.junit.Test;
-//import org.junit.runner.RunWith;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.security.authentication.TestingAuthenticationToken;
-//import org.springframework.test.context.jdbc.Sql;
-//import org.springframework.test.context.junit4.SpringRunner;
-//import training360.j5webshop.baskets.BasketController;
-//import training360.j5webshop.orders.OrderController;
-//import training360.j5webshop.orders.OrderStatus;
-//
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
-//@Sql(scripts = "/init.sql")
-//public class OrderIntegrationTest {
-//
-//    @Autowired
-//    private OrderController orderController;
-//
-//    @Autowired
-//    private BasketController basketController;
-//
+package training360.j5webshop.order;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.authentication.TestingAuthenticationToken;
+import org.springframework.test.context.jdbc.Sql;
+import org.springframework.test.context.junit4.SpringRunner;
+import training360.j5webshop.baskets.BasketController;
+import training360.j5webshop.orders.OrderController;
+import training360.j5webshop.orders.OrderStatus;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+@Sql(scripts = "/init.sql")
+public class OrderIntegrationTest {
+
+    @Autowired
+    private OrderController orderController;
+
+    @Autowired
+    private BasketController basketController;
+
 //    @Test
 //    public void createOrderTest() {
 //        // When
@@ -40,7 +40,7 @@
 //        assertThat(basketSizeBeforeCreateOrder, equalTo(3));
 //        assertThat(basketSizeAfterCreateOrder, equalTo(0));
 //    }
-//
+
 //    @Test
 //    public void listAllAndListAllOrderWithDeletedOrderTest() {
 //        // When
@@ -52,7 +52,7 @@
 //        assertThat(sizeOfListWithDeleted, equalTo(4));
 //        assertThat(sizeOfListWithoutDeleted, equalTo(3));
 //    }
-//
+
 //    @Test
 //    public void listActiveOrderTest() {
 //        // When
@@ -64,7 +64,7 @@
 //        assertThat(sizeOfListWithDeleted, equalTo(4));
 //        assertThat(sizeOfActiveList, equalTo(2));
 //    }
-//
+
 //    @Test
 //    public void findOrderedProductByOrderIdTest() {
 //        // When
@@ -74,37 +74,37 @@
 //        // Then
 //        assertThat(numberOfProducts, equalTo(3));
 //    }
-//
-//    @Test
-//    public void listAdminOrdersTest() {
-//        // When
-//        int numberOfOrders = orderController.listAdminOrders().size();
-//
-//        // Then
-//        assertThat(numberOfOrders, equalTo(6));
-//    }
-//
-//    @Test
-//    public void listActiveOrdersTest() {
-//        // When
-//        int numberOfOrders = orderController.listActiveOrders().size();
-//
-//        // Then
-//        assertThat(numberOfOrders, equalTo(3));
-//    }
-//
-//    @Test
-//    public void deleteOrdersTest() {
-//        // When
-//        int numberOfOrdersBeforeDelete = orderController.listActiveOrders().size();
-//        orderController.deleteOrders(4);
-//        int numberOfOrdersAfterDelete = orderController.listActiveOrders().size();
-//
-//        // Then
-//        assertThat(numberOfOrdersBeforeDelete, equalTo(3));
-//        assertThat(numberOfOrdersAfterDelete, equalTo(2));
-//    }
-//
+
+    @Test
+    public void listAdminOrdersTest() {
+        // When
+        int numberOfOrders = orderController.listAdminOrders().size();
+
+        // Then
+        assertThat(numberOfOrders, equalTo(6));
+    }
+
+    @Test
+    public void listActiveOrdersTest() {
+        // When
+        int numberOfOrders = orderController.listActiveOrders().size();
+
+        // Then
+        assertThat(numberOfOrders, equalTo(3));
+    }
+
+    @Test
+    public void deleteOrdersTest() {
+        // When
+        int numberOfOrdersBeforeDelete = orderController.listActiveOrders().size();
+        orderController.deleteOrders(4);
+        int numberOfOrdersAfterDelete = orderController.listActiveOrders().size();
+
+        // Then
+        assertThat(numberOfOrdersBeforeDelete, equalTo(3));
+        assertThat(numberOfOrdersAfterDelete, equalTo(2));
+    }
+
 //    @Test
 //    public void deleteItemTest() {
 //        // When
@@ -117,7 +117,7 @@
 //        assertThat(numberOfProductsBeforeDelete, equalTo(3));
 //        assertThat(numberOfProductsAfterDelete, equalTo(2));
 //    }
-//
+
 //    @Test
 //    public void changeStatusByIdTest() {
 //        // When
@@ -130,17 +130,17 @@
 //        assertThat(orderStatusBeforeChange, equalTo(OrderStatus.ACTIVE));
 //        assertThat(orderStatusAfterChange, equalTo(OrderStatus.DELIVERED));
 //    }
-//
-//    @Test
-//    public void listLast3ItemsTest(){
-//        //When
-//        int sizeOfListBefore = orderController.listLast3OrderedItem().size();
-//        orderController.deleteOrders(3);
-//        orderController.deleteOrders(4);
-//        orderController.deleteOrders(5);
-//        int sizeOfListAfter = orderController.listLast3OrderedItem().size();
-//        //Then
-//        assertThat(sizeOfListBefore, equalTo(3));
-//        assertThat(sizeOfListAfter,equalTo(1));
-//    }
-//}
+
+    @Test
+    public void listLast3ItemsTest(){
+        //When
+        int sizeOfListBefore = orderController.listLast3OrderedItem().size();
+        orderController.deleteOrders(3);
+        orderController.deleteOrders(4);
+        orderController.deleteOrders(5);
+        int sizeOfListAfter = orderController.listLast3OrderedItem().size();
+        //Then
+        assertThat(sizeOfListBefore, equalTo(3));
+        assertThat(sizeOfListAfter,equalTo(1));
+    }
+}
