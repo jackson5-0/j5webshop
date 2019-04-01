@@ -1,8 +1,3 @@
-@font-face {
-    font-family: "Existence";
-    src: url("/fonts/Existence-Light.ttf");
-}
-
 .administration-table {
     background-color: #f4f7f8;
     border-radius: 8px;
@@ -56,7 +51,7 @@
 
 .basket-option-button:hover,
 .administration-table tr td button:hover {
-	background: #109177;
+    background: #109177;
 }
 
 .alert-success {
@@ -91,7 +86,7 @@
 }
 
 .orders-table-div-button a,
-.button a{
+.button a {
     text-decoration: none;
     color: black;
 }
@@ -102,10 +97,6 @@
     color: black;
 }
 
-.cart-img {
-    height: 30px;
-    width: 30px;
-}
 .chart-container {
     width: 100%;
     height: 100%;
@@ -116,20 +107,6 @@
     height: 300px;
 }
 
-footer {
-  background-color: grey;
-  bottom: 0;
-  color: white;
-  font-family: "Existence";
-  font-size: 1vw;
-  height: 30px;
-  left: 0;
-  opacity: 0.5;
-  position: fixed;
-  text-align: center;
-  width: 100%;
-}
-
 .input-form {
     background-color: #f4f7f8;
     border-radius: 8px;
@@ -138,114 +115,72 @@ footer {
     font-family: "Existence";
     font-weight: bold;
     left: 30vw;
-	max-width: 500px;
-	margin: auto;
-	padding: 10px 10px 0px 10px;
-	position: relative;
+    max-width: 500px;
+    margin: auto;
+    padding: 10px 10px 0px 10px;
+    position: relative;
 }
 
 .input-form form {
-	border: none;
+    border: none;
 }
 
 .little-input-form h1,
 .input-form h1 {
-	font-size: 2vw;
-	margin-bottom: 10px;
-	text-align: center;
+    font-size: 2vw;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .little-input-form input,
 .input-form input {
-	background: rgba(255,255,255,.1);
-	border: none;
-	border-radius: 4px;
-	box-sizing: border-box;
-	color:#8a97a0;
-	font-family: "Existence";
+    background: rgba(255, 255, 255, .1);
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #8a97a0;
+    font-family: "Existence";
     font-weight: bold;
-	font-size: 1.5vw;
-	margin: 0;
-	outline: 0;
-	padding: 10px;
-	width: 100%;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	background-color: #e8eeef;
-	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-	margin-bottom: 10px;
+    font-size: 1.5vw;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    background-color: #e8eeef;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03) inset;
+    margin-bottom: 10px;
 }
 
 .little-input-form input:focus,
 .input-form input:focus {
-	background: #d2d9dd;
+    background: #d2d9dd;
 }
 
 .little-input-form input[type="submit"],
 .input-form input[type="submit"] {
-	position: relative;
-	display: block;
-	padding: 19px 39px 18px 39px;
-	color: #FFF;
-	margin: 0 auto;
-	background: #1abc9c;
-	font-size: 18px;
-	text-align: center;
-	font-style: normal;
-	width: 100%;
-	border: 1px solid #16a085;
-	border-width: 1px 1px 3px;
-	margin-bottom: 10px;
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #1abc9c;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
 }
 
 .little-input-form input[type="submit"]:hover,
 .input-form input[type="submit"]:hover {
-	background: #109177;
+    background: #109177;
 }
 
-#header-top {
-    display: block;
-    width: 100%;
-}
-
-.login-out-div {
-    box-sizing: border-box;
-    display: inline-block;
-    float: right;
-    text-align: right;
-    width: auto;
-    max-width: 30%;
-    margin: 0 auto;
-    padding: 8px 20px 8px 15px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-}
-
-.login-out-div a {
-    padding: 20px;
-    font-family: "Existence";
-    color: rgba(0, 0, 0, 0.5);
-    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
-    font-size: auto;
-    max-font-size: 5vw;
-    min-font-size: 3vw;
-    font-weight: bold;
-    text-decoration: none;
-    display: inline-block;
-}
-
-.logo-div {
-    box-sizing: border-box;
-    display: inline-block;
-    float: left;
-    max-width: 40%;
-}
-
-.logo {
-    height:80px;
-    width: 120px;
-}
 
 .name {
     float: left;
@@ -257,13 +192,6 @@ footer {
     margin: 1vw;
 }
 
-main {
-    display: block;
-    width: 100%;
-    position: relative;
-    float: left;
-}
-
 .user-mod-message {
     float: left;
     font-family: "Existence";
@@ -271,47 +199,6 @@ main {
     font-weight: bold;
     height: 1.5vw;
     min-font-size: 1.5vw;
-}
-
-.navigation {
-  display: block;
-  box-sizing: border-box;
-  float: center;
-  min-width: 300px;
-  max-width: 500px;
-  mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
-  margin: 0 auto;
-  padding: 20px 0px, 20px 0px;
-}
-
-.navigation ul {
-  text-align: center;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
-  width: 100%;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-}
-
-.navigation ul li {
-  display: inline-block;
-}
-
-.navigation ul li a {
-  padding: 20px;
-  font-family: "Existence";
-  color: rgba(0, 0, 0, 0.5);
-  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.4);
-  font-size: auto;
-  max-font-size: 5vw;
-  min-font-size: 3vw;
-  font-weight: bold;
-  text-decoration: none;
-  display: block;
-}
-
-.navigation ul li a:hover {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(0, 0, 0, 0.7);
 }
 
 .orders-table-div {
@@ -345,7 +232,7 @@ main {
     transition-duration: 0.4s;
 }
 
-.orders-table-div-button a{
+.orders-table-div-button a {
     text-decoration: none;
     color: black;
 }

@@ -1,6 +1,6 @@
 fetchCategories();
 document.getElementById('category-registration-form').onsubmit = addCategory;
-document.getElementById('save-category').addEventListener('click', function() {
+document.getElementById('save-category').addEventListener('click', function () {
   saveCategoryModifications();
 });
 
@@ -16,14 +16,16 @@ function saveCategoryModifications() {
   }
   console.log(JSON.stringify(categories));
   fetch('/categories', {
-    method: 'PUT',
-    body: JSON.stringify(categories),
-    headers: { 'Content-type': 'application/json' }
-  })
-    .then(function(response) {
+      method: 'PUT',
+      body: JSON.stringify(categories),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    .then(function (response) {
       return response.json();
     })
-    .then(function(responseStatus) {
+    .then(function (responseStatus) {
       console.log(responseStatus);
       handleMessages(responseStatus);
     });
@@ -37,16 +39,16 @@ function addCategory() {
     priority: priority
   };
   fetch('/categories', {
-    method: 'POST',
-    body: JSON.stringify(request),
-    headers: {
-      'Content-type': 'application/json'
-    }
-  })
-    .then(function(response) {
+      method: 'POST',
+      body: JSON.stringify(request),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    .then(function (response) {
       return response.json();
     })
-    .then(function(jsonData) {
+    .then(function (jsonData) {
       handleMessages(jsonData);
     });
   return false;
@@ -71,10 +73,10 @@ function handleMessages(responseStatus) {
 
 function fetchCategories() {
   fetch('/categories')
-    .then(function(response) {
+    .then(function (response) {
       return response.json();
     })
-    .then(function(jsonData) {
+    .then(function (jsonData) {
       createDragAndDropElements(jsonData);
     });
 }
@@ -120,7 +122,7 @@ function handlePriorityChange() {
 }
 
 function addEventListenerCategories(element, data) {
-  element.addEventListener('click', function() {
+  element.addEventListener('click', function () {
     deleteCategory(data);
   });
 }
@@ -135,16 +137,16 @@ function deleteCategory(category) {
     priority: category.priority
   };
   fetch('/categories', {
-    method: 'DELETE',
-    body: JSON.stringify(request),
-    headers: {
-      'Content-type': 'application/json'
-    }
-  })
-    .then(function(response) {
+      method: 'DELETE',
+      body: JSON.stringify(request),
+      headers: {
+        'Content-type': 'application/json'
+      }
+    })
+    .then(function (response) {
       return response.json();
     })
-    .then(function(jsonData) {
+    .then(function (jsonData) {
       handleMessages(jsonData);
     });
 }

@@ -34,7 +34,6 @@ function createAdminHeader(admin) {
   <div class="navigation">
       <div class="nav-div">
          <ul>
-            <li><a href="index.html">főoldal</a></li>
             <li><a href="adminproducts.html">termékek</a></li>
             <li><a href="adminusers.html">felhasználók</a></li>
             <li><a href="orders.html">megrendelések</a></li>
@@ -62,7 +61,7 @@ function createDefaultHeader(user) {
     <div class="navigation">
         <div class="nav-div">
             <ul>
-                <li><a href="index.html">főoldal</a></li>
+            
             </ul>
         </div>
      </div>`;
@@ -76,8 +75,7 @@ function createUserHeader(user) {
             <a href="/index.html"><img src="/img/j5logo.png" alt="logo" class="logo"></a>
         </div>
         <div class="login-out-div">
-            <span style="margin-right:20px"><a href="userprofile.html">Szia ${user.userName}!<a></span>
-            <a href="/basket.html"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
+            <span style="margin-right:20px"><a href="userprofile.html">Szia ${user.userName}!</a></span>
             <a href="/logout">kijelentkezés</a>
         </div>
     </div>
@@ -85,11 +83,11 @@ function createUserHeader(user) {
     <div class="navigation">
       <div class="nav-div">
          <ul>
-            <li><a href="index.html">főoldal</a></li>
             <li><a href="userprofile.html">személyes adataim</a></li>
             <li><a href="useraddresses.html">szállítási címeim</a></li>
             <li><a href="myorders.html">rendeléseim</a></li>
          </ul>
       </div>
+     <a href="/basket.html"><img src="/img/cart.png" alt="basket" class="cart-img"></a>
   </div>`;
 }
