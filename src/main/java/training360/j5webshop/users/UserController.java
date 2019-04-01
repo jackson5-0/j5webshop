@@ -3,14 +3,12 @@ package training360.j5webshop.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import training360.j5webshop.authentication.UserRole;
 import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 
-import javax.validation.Validation;
 import java.util.List;
 import java.util.Optional;
 
@@ -155,5 +153,4 @@ public class UserController {
     public List<Long> listUserIds() {
         return userService.listUserIds();
     }
-
 }

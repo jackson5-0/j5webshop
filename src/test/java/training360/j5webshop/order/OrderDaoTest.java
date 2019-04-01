@@ -73,7 +73,7 @@ public class OrderDaoTest {
     @Test
     public void testListAllOrderWithDeleted() {
         //Given
-        orderDao.createOrder(2L);
+        orderDao.createOrder(2L, "Magyarország, 1111 Budapest, Fő utca 11.");
         orderDao.addOrderedProduct(2L, basketDao.findBasket(2L));
         orderDao.deleteWholeOrder(2L);
         //When
@@ -154,5 +154,16 @@ public class OrderDaoTest {
         orderDao.changeStatusById(2);
         //Then
         assertThat(orderDao.listAllOrder("tadri1988").get(0).getOrderStatus(), equalTo(OrderStatus.DELIVERED));
+    }
+    @Test
+    public void listLast3OrderedItemTest(){
+        assertThat(orderDao.listLast3OrderedItem().size(),equalTo(3));
+    }
+    @Test
+    public void listLast3OrderedItemTest2(){
+        //When
+        orderDao.deleteWholeOrder(3);
+        orderDao.deleteWholeOrder(5);
+        assertThat(orderDao.listLast3OrderedItem().size(),equalTo(2));
     }
 }

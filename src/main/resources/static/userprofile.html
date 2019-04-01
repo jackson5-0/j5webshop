@@ -1,69 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Személyes adataim</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/body.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-<header class="nav">
-</header>
-<main>
-    <div class="user-div">
-        <div class="input-form-left">
-            <div id="user-information-div" class="little-input-form">
+    <header class="nav">
+    </header>
+    <main>
+        <div class="user-div">
+            <div id="user-information-div" class="input-form-left little-input-form">
                 <h1>Személyes adataim</h1>
                 <br>
-            <p>Adataidat a cellába kattintva módosíthatod!</p>
-            <form id="user-information-form" autocomplete="on">
-                <label>vezetéknév: <input name="lastname-input" id="lastname-input"></label><br>
-                <label>keresztnév: <input name="firstname-input" id="firstname-input"></label><br>
-                <label>felhasználói név: <input name="username-input" id="username-input"></label><br>
-                <label>jelszó: <input name="password-input" type="password" id="password-input"></label><br>
-                <input id="submit-button" type="submit" value="Mentés"><br>
-            </form>
-            <br>
-            <div id="message-div"></div>
-            <br>
+                <p>Adataidat a cellába kattintva módosíthatod!</p>
+                <form id="user-information-form" autocomplete="on">
+                    <label>vezetéknév: <input name="lastname-input" id="lastname-input"></label><br>
+                    <label>keresztnév: <input name="firstname-input" id="firstname-input"></label><br>
+                    <label>felhasználói név: <input name="username-input" id="username-input"></label><br>
+                    <label>jelszó: <input name="password-input" type="password" id="password-input"></label><br>
+                    <input id="submit-button" type="submit" value="Mentés"><br>
+                </form>
+                <br>
+                <div id="message-div"></div>
+                <br>
             </div>
-         <div class="little-input-form">
-            <h1>Jelszó-változtatás</h1>
-            <br>
-            <form id="password-modification-form" autocomplete="off">
-                <label>régi jelszó: <input name="old-password" type="password" id="old-password"></label><br>
-                <label>új jelszó: <input name="new-password1" type="password" id="new-password1"></label><br>
-                <label>új jelszó újra: <input name="new-password2" type="password" id="new-password2"></label><br>
-                <input id="submit2-button" type="submit" value="Mentés"><br>
-            </form>
-            <br>
-            <br>
+            <div class="input-form-right little-input-form">
+                <h1>Jelszó-változtatás</h1>
+                <br>
+                <form id="password-modification-form" autocomplete="off">
+                    <label>régi jelszó: <input name="old-password" type="password" id="old-password"></label><br>
+                    <label>új jelszó: <input name="new-password1" type="password" id="new-password1"></label><br>
+                    <label>új jelszó újra: <input name="new-password2" type="password" id="new-password2"></label><br>
+                    <input id="submit2-button" type="submit" value="Mentés"><br>
+                </form>
+                <br>
+                <br>
             </div>
         </div>
-        <div id="address-information-div" class="input-form-right little-input-form">
-        <h1>Szállítási címeim</h1>
-        <br>
-        <p>Az alábbiakban felvehetsz új címet, vagy módosíthatod a meglévőket!</p>
-        <table id="address-information-form" autocomplete="on">
-            <thead>
-            <tr>
-                <th>ORSZÁG</th>
-                <th>IRÁNYÍTÓSZÁM</th>
-                <th>VÁROS</th>
-                <th>ÚT/UTCA</th>
-                <th>HÁZSZÁM</th>
-                <th>EGYÉB</th>
-            </tr>
-            </thead>
-            <tbody id="address-tbody" class="table">
-            </tbody>
-        </table>
-        </div>
-    </div>
-</main>
-<footer></footer>
-<script src="/js/user.js"></script>
-<script src="/js/userprofile.js"></script>
+    </main>
+    <footer></footer>
+    <script src="/js/user.js"></script>
+    <script src="/js/userprofile.js"></script>
 </body>
+
 </html>

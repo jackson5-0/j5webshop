@@ -1,4 +1,7 @@
 fetchProducts();
+
+var slideIndex = 0;
+
 function fetchProducts() {
 //  fetchPageNavigators();
 //  var pageNum = (new URL(document.location)).searchParams.get('page');
@@ -13,12 +16,63 @@ function fetchProducts() {
       })
       .then(function (jsonData) {
         showProducts(jsonData);
+        fetchLast3();
       });
     } else {
         fetchProductsOfCategory();
     }
 }
 
+function fetchLast3(){
+fetch('myorders/top3')
+.then(function (response) {
+        return response.json();
+      })
+      .then(function (jsonData) {
+        showTop3(jsonData);
+      });
+}
+function showTop3(jsonData){
+    var top3Div = document.getElementById('top3');
+    top3Div.innerHTML='';
+    for (var i = 0; i < jsonData.length; i++) {
+        var product = document.createElement('div');
+        product.setAttribute('class', 'product slideshow fade');
+        product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[i].address}"`);
+
+        var img = document.createElement('img');
+        img.setAttribute('class', 'picture');
+        img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+        img.setAttribute('alt', 'picture of the game');
+        var name = document.createElement('span');
+        name.setAttribute('class', 'name');
+        var price = document.createElement('span');
+        price.setAttribute('class', 'price');
+
+        name.innerHTML = jsonData[i].name;
+        price.innerHTML = jsonData[i].price + ' Ft';
+
+        product.appendChild(img);
+        product.appendChild(name);
+        product.appendChild(price);
+        product.style.display="none";
+        top3Div.appendChild(product);
+
+    }
+    showDivs();
+}
+function showDivs() {
+   var i;
+   var x = document.getElementsByClassName("slideshow");
+
+    for (i = 0; i < x.length; i++) {
+      x[i].style.display = "none";
+    }
+    slideIndex++;
+    if(slideIndex>x.length){slideIndex=1};
+    x[slideIndex-1].style.display = "block";
+    setTimeout(showDivs,3000);
+}
 //function fetchPageNavigators() {
 //  fetch('/categories')
 //    .then(function (response) {

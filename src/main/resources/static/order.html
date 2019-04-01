@@ -1,42 +1,47 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rendelés részletei</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/body.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-<header>
-    <div class="nav">
-    </div>
-</header>
-<main>
-    <div class="administration-table">
-        <h1>Rendelés részletei:</h1>
-        <div id="message-div"></div>
-        <table class="table" id="order-table">
-            <thead>
-            <tr>
-                <th>Megnevezés</th>
-                <th>Ár</th>
-                <th>Mennyiség</th>
-                <th>Törlés</th>
-            </tr>
-            </thead>
-            <tbody id="order-tablebody">
-            </tbody>
-        </table>
-        <br>
-        <br>
-        <br>
-    </div>
-</main>
-<footer>
-    <p>Copyright © 2019 by Jackson5.0</p>
-</footer>
-<script src="/js/user.js"></script>
-<script src="js/order.js"></script>
+    <header>
+        <div class="nav">
+        </div>
+    </header>
+    <main>
+        <div class="administration-table">
+            <h1>Rendelés részletei:</h1>
+            <div id="message-div"></div>
+            <table class="table" id="order-table">
+                <thead>
+                    <tr>
+                        <th>Megnevezés</th>
+                        <th>Mennyiség</th>
+                        <th>Termék ára</th>
+                        <th>Részösszeg</th>
+                        <th>Törlés</th>
+                    </tr>
+                </thead>
+                <tbody id="order-tablebody">
+                </tbody>
+            </table>
+            <br>
+            <br>
+            <br>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+    <script src="/js/user.js"></script>
+    <script src="js/order.js"></script>
 </body>
+
 </html>

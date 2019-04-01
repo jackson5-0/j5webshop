@@ -10,7 +10,9 @@ import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class OrderService {
@@ -53,9 +55,9 @@ public class OrderService {
         return basket;
     }
 
-
-
-
+    public Set<Product> listLast3OrderedItem(){
+        return new HashSet<>(orderDao.listLast3OrderedItem());
+    }
     public List<Order> listAllOrder(String userName){
         return orderDao.listAllOrder(userName);
     }

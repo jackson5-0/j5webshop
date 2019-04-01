@@ -1,50 +1,54 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Kosár</title>
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/body.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-<header>
-    <div class="nav">
-    </div>
-</header>
-<main>
-<div class="administration-table">
-    <h1>Kosár tartalma:</h1>
-    <table id="basket-table">
-            <thead>
-                <tr>
-                    <th>MEGNEVEZÉS</th>
-                    <th>ÁR</th>
-                    <th>MENNYISÉG</th>
-                    <th>RÉSZÖSSZEG</th>
-                    <th>MENNYISÉG NÖVELÉSE</th>
-                    <th>MENNYISÉG CSÖKKENTÉSE</th>
-                    <th class="wider-th">TÖRLÉS</th>
-                </tr>
-            </thead>
-            <tbody id="basket-tablebody">
-            </tbody>
-    </table>
-    <br>
-    <div id="message-div" class="product-to-basket-message"></div>
-    <br>
-</div>
-<div>
-    <br>
-    <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button>
-    <button id="flush" class="basket-option-button">Kosár ürítése</button>
-    <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelésem!</button>
-</div>
-</main>
-<footer>
-    <p>Copyright © 2019 by Jackson5.0</p>
-</footer>
-<script src="/js/user.js"></script>
-<script src="js/basket.js"></script>
+    <header>
+        <div class="nav">
+        </div>
+    </header>
+    <main>
+        <div class="administration-table">
+            <h1>Kosár tartalma:</h1>
+            <table id="basket-table">
+                <thead>
+                    <tr>
+                        <th>MEGNEVEZÉS</th>
+                        <th>ÁR</th>
+                        <th>MENNYISÉG</th>
+                        <th>RÉSZÖSSZEG</th>
+                        <th>MENNYISÉG NÖVELÉSE</th>
+                        <th>MENNYISÉG CSÖKKENTÉSE</th>
+                        <th class="wider-th">TÖRLÉS</th>
+                    </tr>
+                </thead>
+                <tbody id="basket-tablebody">
+                </tbody>
+            </table>
+            <br>
+            <div id="message-div" class="product-to-basket-message"></div>
+            <br>
+        </div>
+        <div>
+            <br>
+            <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button>
+            <button id="flush" class="basket-option-button">Kosár ürítése</button>
+            <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelésem!</button>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+    <script src="/js/user.js"></script>
+    <script src="js/basket.js"></script>
 </body>
+
 </html>

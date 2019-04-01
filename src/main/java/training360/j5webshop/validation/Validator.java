@@ -7,9 +7,7 @@ import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
 import training360.j5webshop.users.UserWithNewPassword;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Validator {
 
