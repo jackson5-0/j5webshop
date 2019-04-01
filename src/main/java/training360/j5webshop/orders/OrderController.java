@@ -10,6 +10,7 @@ import training360.j5webshop.validation.Validator;
 import training360.j5webshop.validation.ResponseStatus;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 public class OrderController {
@@ -32,6 +33,10 @@ public class OrderController {
     @PostMapping("/myorders")
     public ResponseStatus createOrder(Authentication authentication, @RequestParam long basketId) {
         return orderService.createOrder(basketId, authentication.getName());
+    }
+    @GetMapping("/myorders/top3")
+    public Set<Product> listLast3OrderedItem(){
+        return orderService.listLast3OrderedItem();
     }
 
     @GetMapping("/myorders")
