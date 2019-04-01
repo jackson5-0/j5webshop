@@ -53,9 +53,9 @@ public class OrderService {
         return basket;
     }
 
-
-
-
+    public List<Product> listLast3OrderedItem(String userName){
+        return orderDao.listLast3OrderedItem(userName);
+    }
     public List<Order> listAllOrder(String userName){
         return orderDao.listAllOrder(userName);
     }
