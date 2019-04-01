@@ -96,7 +96,7 @@ public class OrderDao {
                         " join orders on order_item.orders_id=orders.id" +
                         " join users on users.id=orders.user_id" +
                         " where orders.status !='deleted' and users.username =?" +
-                        " group by order_item.orders_id, order_item.product_id"+
+                        " group by order_item.product_id, order_item.orders_id"+
                         " order by order_item.id DESC" +
                         " LIMIT 3",
                 (resultSet, i) -> new Product(resultSet.getLong("id"),resultSet.getString("code"),resultSet.getString("name"),resultSet.getString("address"), resultSet.getString("publisher"),resultSet.getInt("price"),resultSet.getString("status")), userName);

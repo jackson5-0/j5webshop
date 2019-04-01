@@ -116,6 +116,22 @@
     height: 300px;
 }
 
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@-webkit-keyframes fade {
+  from {opacity: .1}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .1}
+  to {opacity: 1}
+}
+
 footer {
   background-color: grey;
   bottom: 0;
@@ -513,6 +529,11 @@ textarea {
     padding-left: 1.5em;
     font-size: 1.4em;
     height: 18px;
+}
+#top3{
+    text-align: center;
+    display:inline-block;
+    margin: 0 auto;
 }
 
 .ui-icon-arrowthick-2-n-s {
