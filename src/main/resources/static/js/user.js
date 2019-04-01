@@ -84,7 +84,6 @@ function createUserHeader(user) {
       <div class="nav-div">
          <ul>
             <li><a href="userprofile.html">személyes adataim</a></li>
-            <li><a href="useraddresses.html">szállítási címeim</a></li>
             <li><a href="myorders.html">rendeléseim</a></li>
          </ul>
       </div>

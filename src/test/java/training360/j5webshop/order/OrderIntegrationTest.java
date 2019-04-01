@@ -29,7 +29,7 @@ public class OrderIntegrationTest {
     public void createOrderTest() {
         // When
         int basketSizeBeforeCreateOrder = basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2);
+        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
         int basketSizeAfterCreateOrder = basketController.basketItemsWithQuantity(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).size();
 
         // Then
@@ -44,7 +44,7 @@ public class OrderIntegrationTest {
     @Test
     public void listAllAndListAllOrderWithDeletedOrderTest() {
         // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2);
+        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
         int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
         int sizeOfListWithoutDeleted = orderController.listAllOrder(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
 
@@ -56,7 +56,7 @@ public class OrderIntegrationTest {
     @Test
     public void listActiveOrderTest() {
         // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2);
+        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
         int sizeOfListWithDeleted = orderController.listAllOrderWithDeleted(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
         int sizeOfActiveList = orderController.listActiveOrder(new TestingAuthenticationToken("kissbeci", "kissbeci00")).size();
 
@@ -68,7 +68,7 @@ public class OrderIntegrationTest {
     @Test
     public void findOrderedProductByOrderIdTest() {
         // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2);
+        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
         int numberOfProducts = orderController.findOrderedProductByOrderId(7).size();
 
         // Then
@@ -108,7 +108,7 @@ public class OrderIntegrationTest {
     @Test
     public void deleteItemTest() {
         // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2);
+        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
         int numberOfProductsBeforeDelete = orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getOrderedProduct().size();
         orderController.deleteItem(7, "lord-of-hellas");
         int numberOfProductsAfterDelete = orderController.listAllOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11")).get(0).getOrderedProduct().size();
@@ -121,7 +121,7 @@ public class OrderIntegrationTest {
     @Test
     public void changeStatusByIdTest() {
         // When
-        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2);
+        orderController.createOrder(new TestingAuthenticationToken("nagygizi22", "GiziAZizi11"), 2, "Magyarország, 1111 Budapest, Fő utca 11.");
         OrderStatus orderStatusBeforeChange = orderController.listAdminOrders().get(0).getOrderStatus();
         orderController.changeStatusById(7);
         OrderStatus orderStatusAfterChange = orderController.listAdminOrders().get(0).getOrderStatus();
@@ -129,5 +129,18 @@ public class OrderIntegrationTest {
         // Then
         assertThat(orderStatusBeforeChange, equalTo(OrderStatus.ACTIVE));
         assertThat(orderStatusAfterChange, equalTo(OrderStatus.DELIVERED));
+    }
+
+    @Test
+    public void listLast3ItemsTest(){
+        //When
+        int sizeOfListBefore = orderController.listLast3OrderedItem().size();
+        orderController.deleteOrders(3);
+        orderController.deleteOrders(4);
+        orderController.deleteOrders(5);
+        int sizeOfListAfter = orderController.listLast3OrderedItem().size();
+        //Then
+        assertThat(sizeOfListBefore, equalTo(3));
+        assertThat(sizeOfListAfter,equalTo(1));
     }
 }

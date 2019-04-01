@@ -90,6 +90,17 @@ public class OrderDao {
         return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status FROM `orders` JOIN users on orders.user_id = users.id where orders.status !='deleted' and users.username =? order by purchase_date DESC",
                 ORDER_ROW_MAPPER, userName);
     }
+    public List<Product> listLast3OrderedItem() {
+        return jdbcTemplate.query("SELECT product.id, product.code, product.name, product.address, product.publisher, product.price, product.status FROM `product`" +
+                        " JOIN order_item on product.id = order_item.product_id" +
+                        " join orders on order_item.orders_id=orders.id" +
+                        " join users on users.id=orders.user_id" +
+                        " where orders.status !='deleted'" +
+                        " group by order_item.product_id, order_item.orders_id"+
+                        " order by order_item.id DESC" +
+                        " LIMIT 3",
+                (resultSet, i) -> new Product(resultSet.getLong("id"),resultSet.getString("code"),resultSet.getString("name"),resultSet.getString("address"), resultSet.getString("publisher"),resultSet.getInt("price"),resultSet.getString("status")));
+    }
 
     public List<Order> listActiveOrder(String userName) {
         return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status FROM `orders` JOIN users on orders.user_id = users.id where orders.status ='active' and users.username =? order by purchase_date DESC",

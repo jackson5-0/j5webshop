@@ -7,9 +7,7 @@ import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
 import training360.j5webshop.users.UserWithNewPassword;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Validator {
 
@@ -82,34 +80,6 @@ public class Validator {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
-        }
-    }
-
-    public Validator(String[] addressParts) {
-        checkAddress(addressParts);
-        if (responseStatus.getMessages().size() > 0) {
-            responseStatus.setStatus(ValidationStatus.FAIL);
-        } else {
-            responseStatus.setStatus(ValidationStatus.SUCCESS);
-        }
-    }
-
-    private void checkAddress(String[] addressParts) {
-        if (addressParts.length > 6) {
-            responseStatus.addMessage("A cím túl sok adatot tartalmaz, kérlek kövesd a megadott minták egyikét!");
-        } else if (addressParts.length < 5) {
-            responseStatus.addMessage("A címnek legalább az országot, irányítószámot, várost, utcanevet/postafiókot és a számot tartalmaznia kell, pontosvesszővel elválasztva! Kérlek kövesd a megadott minták egyikét!");
-        } else if (addressParts[0].trim().equals("Magyarország") || addressParts[0].trim().equals("Mo") || addressParts[0].trim().equals("Mo.") || addressParts[0].trim().equals("Magyaro.") || addressParts[0].trim().equals("HU")) {
-            try {
-                Integer.parseInt(addressParts[1].trim());
-            } catch (NumberFormatException nfe) {
-                responseStatus.addMessage("Magyar cím esetén az irányítószám helyén számnak kell szerepelnie!");
-            }
-        }
-        for (int i = 0; i < addressParts.length; i++) {
-            if (addressParts[i].contains("<") || addressParts[i].contains(">")) {
-                responseStatus.addMessage("A cím nem tartalmazhatja a '<' , '>' karaktereket!");
-            }
         }
     }
 

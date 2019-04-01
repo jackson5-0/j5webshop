@@ -5,7 +5,6 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.baskets.BasketDao;
-import training360.j5webshop.validation.Validator;
 
 import java.util.List;
 
@@ -57,7 +56,6 @@ public class UserService {
 
     public User findUserByUserName(String userName){
         User user = userDao.findUserByUserName(userName);
-        user.setAddressList(userDao.listUserAddresses(userName));
         return user;
     }
 
@@ -76,13 +74,5 @@ public class UserService {
 
     public boolean givenPasswordIsCorrect(long id, User user) throws EmptyResultDataAccessException {
         return passwordEncoder.matches(user.getPassword(), findUserById(id).getPassword());
-    }
-
-    public long saveNewAddress(Address address){
-        return userDao.saveNewAddress(address);
-    }
-
-    public List<Address> listUserAddresses(String userName) {
-        return userDao.listUserAddresses(userName);
     }
 }

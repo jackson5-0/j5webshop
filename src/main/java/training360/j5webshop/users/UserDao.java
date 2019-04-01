@@ -93,33 +93,4 @@ public class UserDao {
                 (rs, rowNum) -> new User(rs.getLong("id"), rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"),
                         rs.getString("password")), userName);
     }
-
-    public List<Address> listUserAddresses(String userName) {
-        return jdbcTemplate.query("select user_id, country, city_code, city, street, number, other_info from address " +
-                        "join users on address.user_id = users.id where users.username = ?",
-            (rs, rowNum) -> new Address(findUserById(rs.getLong("user_id")), rs.getString("country"), rs.getString("city_code"),
-                    rs.getString("city"), rs.getString("street"), rs.getString("number"), rs.getString("other_info")), userName);
-    }
-
-    public long saveNewAddress(Address address) {
-        address.getUser().setAddressList(Arrays.asList(address));
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        jdbcTemplate.update(new PreparedStatementCreator() {
-              @Override
-               public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-               PreparedStatement ps = connection.prepareStatement
-                    ("insert into address (user_id, country, city_code, city, street, number, other_info) values(?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
-               ps.setLong(1, address.getUser().getId());
-               ps.setString(2, address.getCountry());
-               ps.setString(3, address.getCity_code());
-               ps.setString(4, address.getCity());
-               ps.setString(5, address.getStreet());
-               ps.setString(6, address.getNumber());
-               ps.setString(7, address.getOtherInfo() == null ? ""  : address.getOtherInfo());
-               return ps;
-               }
-            },keyHolder
-        );
-        return keyHolder.getKey().longValue();
-    }
 }
