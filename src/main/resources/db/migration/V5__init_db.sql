@@ -12,8 +12,8 @@ CREATE TABLE Product_category (
     product_id bigint,
     category_id bigint,
     CONSTRAINT pk_category PRIMARY KEY (id),
-    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES Product(id),
-    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES Category(id)
+    CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES Product(id) ON DELETE CASCADE,
+    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES Category(id) ON DELETE CASCADE
 )
 
 engine=InnoDb character set = UTF8 collate = utf8_hungarian_ci;

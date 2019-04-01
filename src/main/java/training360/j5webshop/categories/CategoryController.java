@@ -46,6 +46,15 @@ public class CategoryController {
         }
     }
 
+    @DeleteMapping("/categories")
+    public ResponseStatus deleteCategory(@RequestBody Category category) {
+        if (category.getName().equals("Egyéb")) {
+            return new ResponseStatus().addMessage("Az 'Egyéb' kategória nem törölhető!");
+        }
+        categoryService.deleteCategory(category);
+        return new ResponseStatus().addMessage("Sikeres törlés: " + category.getName());
+    }
+
     @ExceptionHandler({InvalidFormatException.class})
     public ResponseStatus handleParseException(Exception exception) {
         ResponseStatus status = new ResponseStatus().addMessage("A sorszám csak számokból állhat!");

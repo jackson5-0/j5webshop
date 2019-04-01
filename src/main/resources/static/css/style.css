@@ -504,6 +504,7 @@ main {
 }
 
 #sortable li {
+    width: 50vh;
     margin: 0 3px 3px 3px;
     padding: 0.4em;
     padding-left: 1.5em;
@@ -511,7 +512,23 @@ main {
     height: 18px;
 }
 
-#sortable li span {
+.ui-icon-arrowthick-2-n-s {
     position: absolute;
     margin-left: -1.3em;
+}
+
+.delete-category {
+    position: relative;
+    color: #aaaaaa;
+    float: right;
+    font-size: 35px;
+    font-weight: bold;
+    bottom: 10px;
+}
+
+.delete-category:hover,
+.delete-category:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }

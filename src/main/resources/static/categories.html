@@ -23,8 +23,11 @@
         </form>
 
         <br>
-
         <div id="message-div"></div>
+        <br>
+
+        <button id="save-category">Mentés</button>
+        <br>
 
         <ul id="sortable">
         </ul>
@@ -39,7 +42,11 @@
     <script src="/js/categories.js"></script>
     <script>
         $(function () {
-            $("#sortable").sortable();
+            $("#sortable").sortable({
+                update: function (event, ui) {
+                    handlePriorityChange();
+                }
+            });
             $("#sortable").disableSelection();
         });
     </script>
