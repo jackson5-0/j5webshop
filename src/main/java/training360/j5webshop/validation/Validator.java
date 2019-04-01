@@ -2,7 +2,6 @@ package training360.j5webshop.validation;
 
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.categories.Category;
-import training360.j5webshop.products.Category;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
