@@ -15,6 +15,7 @@ function fetchAll() {
     })
     .then(function (jsonData) {
       showList(jsonData);
+      console.log(jsonData);
     });
 }
 
