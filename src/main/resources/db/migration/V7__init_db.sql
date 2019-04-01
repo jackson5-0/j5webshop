@@ -6,7 +6,7 @@ CREATE TABLE address (
     city_code varchar(255),
     city varchar(255),
     street varchar(255),
-    number int,
+    number varchar(255),
     other_info varchar(255),
     CONSTRAINT pk_address PRIMARY KEY (id),
     CONSTRAINT fk_users FOREIGN KEY (user_id) REFERENCES users(id),

@@ -13,6 +13,7 @@ import training360.j5webshop.validation.Validator;
 import javax.validation.Validation;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 @RestController
 public class UserController {
@@ -136,6 +137,51 @@ public class UserController {
         return status;
     }
 
+    @PostMapping("/useraddresses")
+    public ResponseStatus saveNewAddress(@RequestParam long id, @RequestBody String newAddress) {
+        ResponseStatus status = new ResponseStatus();
+        String[] arr = newAddress.split(";");
+        Validator validator = new Validator(arr);
+        if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
+            status.addMessage(validator.getResponseStatus().getMessages().get(0));
+            status.setStatus(ValidationStatus.FAIL);
+        } else {
+            if (!findUserById(id).isPresent()) {
+                status.addMessage("Ezzel az id-vel felhasználó nem található!");
+                status.setStatus(ValidationStatus.FAIL);
+                return status;
+            }
+            User user = findUserById(id).get();
+            if (arr.length == 5) {
+                Address addressToSave = new Address(user, arr[0].trim(), arr[1].trim(), arr[2].trim(), arr[3].trim(), arr[4].trim());
+                if (usersAddressIsAlreadySaved(addressToSave, user)) {
+                    status.addMessage("A megadott cím már szerepel az adatbázisunkban!");
+                    status.setStatus(ValidationStatus.FAIL);
+                    return status;
+                }
+                userService.saveNewAddress(addressToSave);
+                status.addMessage("A szállítási cím sikeresen létrejött!");
+                status.setStatus(ValidationStatus.SUCCESS);
+            } else if (arr.length == 6) {
+                Address addressToSave = new Address(user, arr[0].trim(), arr[1].trim(), arr[2].trim(), arr[3].trim(), arr[4].trim(), arr[5].trim());
+                if (usersAddressIsAlreadySaved(addressToSave, user)) {
+                    status.addMessage("A megadott cím már szerepel az adatbázisunkban!");
+                    status.setStatus(ValidationStatus.FAIL);
+                    return status;
+                }
+                userService.saveNewAddress(addressToSave);
+                status.addMessage("A szállítási cím sikeresen létrejött!");
+                status.setStatus(ValidationStatus.SUCCESS);
+            }
+        }
+        return status;
+    }
+
+    @GetMapping("/useraddresses")
+    public List<Address> listUserAddresses(Authentication authentication) {
+        return userService.listUserAddresses(authentication.getName());
+    }
+
     public Optional<User> findUserById(long id)  {
         try {
             return Optional.of(userService.findUserById(id));
@@ -154,6 +200,19 @@ public class UserController {
 
     public List<Long> listUserIds() {
         return userService.listUserIds();
+    }
+
+    public boolean usersAddressIsAlreadySaved(Address address, User user){
+        if (userService.listUserAddresses(user.getUserName()) == null || userService.listUserAddresses(user.getUserName()).size() == 0) {
+            return false;
+        } else {
+            for (Address a : userService.listUserAddresses(user.getUserName())){
+                if (a.equals(address)){
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
 }

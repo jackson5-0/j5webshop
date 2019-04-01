@@ -1,5 +1,6 @@
 document.forms["user-information-form"].onsubmit = updateUserDatas;
 document.forms["password-modification-form"].onsubmit = changePassword;
+
 fetchUser();
 
 function fetchUser() {
@@ -23,7 +24,6 @@ function loadData(jsonData) {
    var submitInput2 = document.getElementById('submit2-button');
    submitInput2["raw-data"] = jsonData;
 }
-
 
 function updateUserDatas() {
      var id = document.getElementById('submit-button')["raw-data"].id;
