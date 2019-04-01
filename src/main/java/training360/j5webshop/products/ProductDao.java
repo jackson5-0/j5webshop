@@ -150,4 +150,8 @@ public class ProductDao {
             );
     }
 
+    public void deleteProductFromEveryBasket(long productId) {
+        jdbcTemplate.update("delete from basket_item where product_id = ?", productId);
+    }
+
 }

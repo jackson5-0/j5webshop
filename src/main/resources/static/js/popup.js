@@ -62,9 +62,9 @@ function showCategoryOfItem(rowIdentifier) {
 };
 
 function createDefaultStateOfSelectedCategoryList(categories) {
-    if (!categories) return;
     var collectedCategories = document.getElementById('chosen-categories');
     collectedCategories.innerHTML = '';
+    if (!categories) return;
     for (var i = 0; i < categories.length; i++) {
         collectedCategories.innerHTML += " " + categories[i].name + " ";
     }

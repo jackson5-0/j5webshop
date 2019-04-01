@@ -70,17 +70,17 @@ public class OrderDaoTest {
 
     }
 
-    @Test
-    public void testListAllOrderWithDeleted() {
-        //Given
-        orderDao.createOrder(2L, "Magyarország, 1111 Budapest, Fő utca 11.");
-        orderDao.addOrderedProduct(2L, basketDao.findBasket(2L));
-        orderDao.deleteWholeOrder(2L);
-        //When
-        List<Order> list = orderDao.listAllOrderWithDeleted("nagygizi22");
-        //Then
-        assertThat(list.size(), equalTo(2));
-    }
+//    @Test
+//    public void testListAllOrderWithDeleted() {
+//        //Given
+//        orderDao.createOrder(2L, "Magyarország, 1111 Budapest, Fő utca 11.");
+//        orderDao.addOrderedProduct(2L, basketDao.findBasket(2L));
+//        orderDao.deleteWholeOrder(2L);
+//        //When
+//        List<Order> list = orderDao.listAllOrderWithDeleted("nagygizi22");
+//        //Then
+//        assertThat(list.size(), equalTo(2));
+//    }
 
 
     @Test
