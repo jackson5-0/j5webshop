@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class BasketDao {
@@ -53,6 +54,11 @@ public class BasketDao {
     public void addToBasketWithQuantity(int quantity, long productId, long basketId) throws DataIntegrityViolationException{
         for(int i =0; i<quantity;i++)
         jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
+    }
+
+
+    public int decreaseAmountInBasket(long productId, long basketId, int quantity){
+            return jdbcTemplate.update("Delete FROM `basket_item` WHERE basket_id=? and product_id =? limit ?", basketId, productId, quantity);
     }
 
     public int flushBasket(String userName) {

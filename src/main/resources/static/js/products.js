@@ -17,7 +17,7 @@ function fetchProduct() {
             } else {
                 document.querySelector(".product-info-div").innerHTML = jsonData.message;
             }
-            if (user.userRole == "ROLE_USER") {
+            if (typeof user !== 'undefined' && user.userRole == "ROLE_USER") {
                 var addBasketTd = document.getElementById('add-to-basket');
                 var addBasketButton = document.createElement('button');
                 addBasketButton.setAttribute('class', 'button');
@@ -44,6 +44,7 @@ function fetchProduct() {
         .then(function (product) {
             createReviewDiv(product);
         });
+        return false;
 }
 function addBasket(){
     var quantity = document.querySelector('#quantityInput').value;
@@ -51,7 +52,6 @@ function addBasket(){
         {method: "POST"})
              .then(function(response) {
                          return response.json();
-
               })
              .then(function (jsonData) {
                    if (jsonData.status=='SUCCESS') {
@@ -65,7 +65,7 @@ function addBasket(){
                return false;
 }
 function createReviewDiv(product) {
-    if (user.userRole == 'ROLE_USER') {
+    if (typeof user !== 'undefined' && user.userRole == 'ROLE_USER') {
         fetch(`/checkifuserhasdeliveredproduct?productid=${product.id}`,
             {method: "GET"})
                  .then(function(response) {
@@ -142,12 +142,68 @@ function createReviewDiv(product) {
                          if (jsonData.userReview != null) {
                             reviewInputField.innerHTML = jsonData.userReview;
                          }
+                         createReviewListDiv(product);
+                       } else {
+                         var productDiv = document.getElementsByClassName("product-div")[0];
+                         var writeReviewDiv = document.createElement('div');
+                         writeReviewDiv.setAttribute('id', 'rev-div');
+                         writeReviewDiv.innerHTML = 'Csak akkor írhat értékelést, ha már rendelt ebből a termékből!<br><br>';
+                         productDiv.appendChild(writeReviewDiv);
+                         createReviewListDiv(product);
                        }
-                   });
-                   return false;
+                       return product;
+                 });
+                 return false;
+    } else {
+       var productDiv = document.getElementsByClassName("product-div")[0];
+       var writeReviewDiv = document.createElement('div');
+       writeReviewDiv.setAttribute('id', 'rev-div');
+       writeReviewDiv.innerHTML = 'Értékelést csak az a bejelentkezett felhasználó írhat, aki már rendelt ebből a termékből!<br><br>';
+       productDiv.appendChild(writeReviewDiv);
+       createReviewListDiv(product);
     }
 }
-
+function createReviewListDiv(product) {
+    fetch(`/listreview?productid=${product.id}`,
+        {method: "GET"})
+            .then(function(response) {
+                  return response.json();
+            })
+            .then(function (jsonData) {
+                if (jsonData.length != 0) {
+                    if (document.getElementById('rev-list') != null) {
+                        document.getElementById('rev-list').remove();
+                    }
+                    var reviewListDiv = document.createElement('div');
+                    reviewListDiv.setAttribute('id', 'rev-list');
+                    var productDiv = document.getElementsByClassName("product-div")[0];
+                    var avg = 0;
+                    for (var i = 0; i < jsonData.length; i++) {
+                        avg += jsonData[i].rating;
+                    }
+                    reviewListDiv.innerHTML = 'Értékelések átlaga: ' + Number((avg / jsonData.length).toFixed(1)) + '<br/><br/><br/><br/>';
+                    for (var i = 0; i < jsonData.length; i++) {
+                        var singleReviewDiv = document.createElement('div');
+                        singleReviewDiv.style.padding = "25px";
+                        singleReviewDiv.innerHTML = jsonData[i].reviewDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16) +
+                        '<br/><br/>' + jsonData[i].user.userName + '<br/><br/>Értékelés: ' + jsonData[i].rating +
+                        '<br/><br/>' + jsonData[i].message + '<br/><br/><br/>';
+                        reviewListDiv.appendChild(singleReviewDiv);
+                    }
+                    productDiv.appendChild(reviewListDiv);
+                } else {
+                    if (document.getElementById('rev-list') != null) {
+                        document.getElementById('rev-list').remove();
+                    }
+                    var reviewListDiv = document.createElement('div');
+                    var productDiv = document.getElementsByClassName("product-div")[0];
+                    reviewListDiv.setAttribute('id', 'rev-list');
+                    productDiv.appendChild(reviewListDiv);
+                    reviewListDiv.innerHTML = 'Erre a termékre még nem érkezet értékelés';
+                }
+            });
+            return false;
+}
 function addReview() {
         var product = this['raw-data'];
         var message = document.getElementById('rev-input').value;
@@ -195,10 +251,13 @@ function addReview() {
                 document.getElementById("message-div").setAttribute("class", "alert-danger");
                 document.getElementById("message-div").innerHTML = jsonData.messages;
               }
+              return product;
+            })
+            .then(function (product) {
+                createReviewListDiv(product);
             });
         return false;
 }
-
 function createDeleteButton(product) {
         var deleteButton = document.createElement('button');
         deleteButton['raw-data'] = product;
@@ -209,7 +268,6 @@ function createDeleteButton(product) {
         var writeReviewDiv = document.getElementById('rev-div');
         writeReviewDiv.appendChild(deleteButton);
 }
-
 function modifyReview() {
     var product = this['raw-data'];
     var message = document.getElementById('rev-input').value;
@@ -245,10 +303,13 @@ function modifyReview() {
       }).then(function (jsonData) {
           document.getElementById("message-div").setAttribute("class", "alert alert-success");
           document.getElementById("message-div").innerHTML = jsonData.messages[0];
+          return product;
+      })
+      .then(function (product) {
+          createReviewListDiv(product);
       });
     return false;
 }
-
 function deleteReview() {
     document.getElementById('rev-input').value = "";
     document.getElementById('1').checked = false;
@@ -284,12 +345,11 @@ function deleteReview() {
       }).then(function (jsonData) {
           document.getElementById("message-div").setAttribute("class", "alert alert-success");
           document.getElementById("message-div").innerHTML = jsonData.messages[0];
-//          return product;
+          return product;
       })
-//      .then(function(product) {
-//          document.getElementById('rev-div').remove();
-//          createReviewDiv(product);
-//      })
-      ;
+      .then(function (product) {
+          createReviewListDiv(product);
+          console.log("del");
+      });
     return false;
 }

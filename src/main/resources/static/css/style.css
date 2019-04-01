@@ -36,22 +36,22 @@
 .basket-option-button,
 .administration-table tr td button {
     position: relative;
-	display: inline-block;
-	padding: 10px 10px 10px 10px;
-	color: #FFF;
-	margin: 0 5px 0 5px;
-	background: #1abc9c;
-	font-family: "Existence";
-	font-size: 18px;
-	font-weight: bold;
-	text-align: center;
-	font-style: normal;
-	max-width: 220px;
-	width: 40%;
-	border: 1px solid #16a085;
-	border-radius: 4px;
-	border-width: 1px 1px 3px;
-	margin-bottom: 5px;
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    color: #FFF;
+    margin: 0 5px 0 5px;
+    background: #1abc9c;
+    font-family: "Existence";
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    font-style: normal;
+    max-width: 220px;
+    width: 40%;
+    border: 1px solid #16a085;
+    border-radius: 4px;
+    border-width: 1px 1px 3px;
+    margin-bottom: 5px;
 }
 
 .basket-option-button:hover,
@@ -498,3 +498,23 @@ textarea {
     width: 100%;
 }
 
+
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+}
+
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    height: 18px;
+}
+
+#sortable li span {
+    position: absolute;
+    margin-left: -1.3em;
+}

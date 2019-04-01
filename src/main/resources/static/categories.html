@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Kategóriák</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <header class="nav">
+    </header>
+    <main>
+
+        <h1>Kategória hozzáadása</h1>
+        <form id="category-registration-form">
+            <label for="category-name-input">Név:</label>
+            <input type="text" id="category-name-input">
+            <label for="category-priority-input">Sorszám:</label>
+            <input type="text" id="category-priority-input">
+            <input type="submit">
+        </form>
+
+        <br>
+
+        <div id="message-div"></div>
+
+        <ul id="sortable">
+        </ul>
+
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="/js/user.js"></script>
+    <script src="/js/categories.js"></script>
+    <script>
+        $(function () {
+            $("#sortable").sortable();
+            $("#sortable").disableSelection();
+        });
+    </script>
+</body>
+
+</html>

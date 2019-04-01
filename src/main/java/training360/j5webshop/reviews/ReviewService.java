@@ -8,6 +8,8 @@ import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 
+import java.util.List;
+
 @Service
 public class ReviewService {
 
@@ -51,5 +53,9 @@ public class ReviewService {
 
     public ReviewInfo checkIfUserHasDeliveredProductAndHasReview(String userName, long productId) {
         return reviewDao.checkIfUserHasDeliveredProductAndHasReview(userName, productId);
+    }
+
+    public List<Review> listReviewByProductId(long productId) {
+        return reviewDao.listReviewByProductId(productId);
     }
 }

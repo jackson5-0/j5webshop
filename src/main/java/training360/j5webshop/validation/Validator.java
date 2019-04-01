@@ -1,12 +1,16 @@
 package training360.j5webshop.validation;
 
 import training360.j5webshop.baskets.Basket;
+import training360.j5webshop.categories.Category;
+import training360.j5webshop.products.Category;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
 import training360.j5webshop.users.UserWithNewPassword;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Validator {
 
@@ -107,6 +111,62 @@ public class Validator {
             if (addressParts[i].contains("<") || addressParts[i].contains(">")) {
                 responseStatus.addMessage("A cím nem tartalmazhatja a '<' , '>' karaktereket!");
             }
+        }
+    }
+
+    public Validator(Category category) {
+        checkCategoryName(category.getName());
+        if (responseStatus.getMessages().size() > 0) {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
+
+    public Validator(List<Category> categories) {
+        checkCategoryNameAndPriorityMatch(categories);
+        if (responseStatus.getMessages().size() == 0) {
+            checkCategoryListName(categories);
+        } else {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+        if (responseStatus.getMessages().size() > 0) {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
+
+    private void checkCategoryListName(List<Category> categories) {
+        for (Category category: categories) {
+            checkCategoryName(category.getName());
+        }
+    }
+
+    private void checkCategoryNameAndPriorityMatch(List<Category> categories) {
+        boolean nameMatchFound = false;
+        boolean priorityMatchFound = false;
+        boolean idMatchFound = false;
+        for (int i = 0; i < categories.size()-1; i++) {
+            Category first = categories.get(i);
+            for (int k =  i + 1; k < categories.size(); k++) {
+                Category second = categories.get(k);
+                if (!nameMatchFound && first.getName().equals(second.getName())) {
+                    nameMatchFound = true;
+                    responseStatus.addMessage("Két kategória neve nem egyezhet meg!");
+                }
+                if (!priorityMatchFound && first.getPriority() == second.getPriority()) {
+                    priorityMatchFound = true;
+                    responseStatus.addMessage("Két sorszám nem egyezhet meg!");
+                }
+                if (!idMatchFound && first.getId() == second.getId()) {
+                    idMatchFound = true;
+                    responseStatus.addMessage("Két id megegyezik: " + first.getName() + ": #" + first.getId()+ ", " + second.getName() + ": #" + second.getId());
+                }
+            }
+        }
+    }
+
+
+    private void checkCategoryName(String category) {
+        if (category == null || category.trim().equals("")) {
+            responseStatus.addMessage("A kategória neve nem lehet üres!");
         }
     }
 

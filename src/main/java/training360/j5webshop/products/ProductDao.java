@@ -7,10 +7,10 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import training360.j5webshop.categories.Category;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -136,16 +136,6 @@ public class ProductDao {
 
     public void deleteProductCategoryEntriesOfProduct(Product product) {
         jdbcTemplate.update("delete from product_category where product_id = ?", product.getId());
-    }
-
-    public List<Category> listCategories() {
-        return jdbcTemplate.query("select id, name, priority from category order by priority",
-                (rs, rowNum) -> new Category(
-                        rs.getLong("id"),
-                        rs.getString("name"),
-                        rs.getInt("priority"),
-                        new ArrayList<>()
-                ));
     }
 
     public List<Category> listCategoriesByProduct(Product product) {

@@ -17,3 +17,5 @@ CREATE TABLE Product_category (
 )
 
 engine=InnoDb character set = UTF8 collate = utf8_hungarian_ci;
+
+insert into category (name, priority) values ('Egyéb', 1);
