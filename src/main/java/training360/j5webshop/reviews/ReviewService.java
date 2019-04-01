@@ -41,8 +41,13 @@ public class ReviewService {
 
     public ResponseStatus uploadReview(String userName, Review review) {
         review.setUser(userDao.findUserByUserName(userName));
+        Validator validator = new Validator(review);
+        if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
+            return validator.getResponseStatus();
+        }
         reviewDao.updateReview(review);
-        return new ResponseStatus().setStatus(ValidationStatus.SUCCESS).addMessage("Az értékelést módosította!");
+        validator.getResponseStatus().addMessage("Az értékelést módosította!");
+        return validator.getResponseStatus();
     }
 
     public ResponseStatus deleteReview(String userName, Review review) {

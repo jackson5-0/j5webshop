@@ -15,6 +15,9 @@ public class Validator {
 
     private ResponseStatus responseStatus = new ResponseStatus();
 
+    public Validator() {
+    }
+
     public Validator(long id, User user, List<User> userList) {
         checkName(user.getLastName());
         checkName(user.getFirstName());

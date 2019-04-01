@@ -3,6 +3,7 @@ package training360.j5webshop.validation;
 import org.junit.Test;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.products.Product;
+import training360.j5webshop.reviews.Review;
 import training360.j5webshop.users.User;
 
 import java.util.Arrays;
@@ -168,5 +169,32 @@ public class ValidatorTest {
         //Then
         assertThat(validator.getResponseStatus().getMessages().size(), equalTo(1));
         assertThat(validator.getResponseStatus().getMessages().get(0), equalTo("Csak terméket tartalmazó kosarat lehet megrendelni"));
+    }
+
+    @Test
+    public void checkReviewTest() {
+        // Given
+        Review reviewWithNoRating = new Review("Kiváló termék, ajánlom!", 0);
+        Review reviewWithTooLongMessage = new Review("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+                "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip" +
+                " ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                3);
+        Review reviewWithAngleBrackets = new Review("L<br>O<br>V<br>E", 5);
+        // When
+        Validator validatorWithNoRating = new Validator();
+        Validator validatorWithTooLongMessage = new Validator();;
+        Validator validatorWithAngleBrackets = new Validator();;
+        try {
+            validatorWithNoRating = new Validator(reviewWithNoRating);
+            validatorWithTooLongMessage = new Validator(reviewWithTooLongMessage);
+            validatorWithAngleBrackets = new Validator(reviewWithAngleBrackets);
+        } catch (NullPointerException npe) {};
+        // Then
+        assertThat(validatorWithNoRating.getResponseStatus().getMessages().get(0), equalTo("Kérjük értékelje a terméket 1-től 5-ig terjedő skálán!"));
+        assertThat(validatorWithNoRating.getResponseStatus().getStatus(), equalTo(ValidationStatus.FAIL));
+        assertThat(validatorWithTooLongMessage.getResponseStatus().getMessages().get(0), equalTo("A szöveges értékelés hossza nem lehet több 255 karakternél!"));
+        assertThat(validatorWithTooLongMessage.getResponseStatus().getStatus(), equalTo(ValidationStatus.FAIL));
+        assertThat(validatorWithAngleBrackets.getResponseStatus().getMessages().get(0), equalTo("A szöveges értékelés nem tartalmazhatja a '<' , '>' karaktereket!"));
+        assertThat(validatorWithAngleBrackets.getResponseStatus().getStatus(), equalTo(ValidationStatus.FAIL));
     }
 }
