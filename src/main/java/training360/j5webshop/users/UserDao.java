@@ -49,11 +49,11 @@ public class UserDao {
     }
 
     public List<User> listUsers() {
-        return jdbcTemplate.query("select id, firstname, lastname, username, password from users where enabled != 0 order by firstname, lastname", new RowMapper<User>() {
+        return jdbcTemplate.query("select id, firstname, lastname, username, password, role from users where enabled != 0 order by firstname, lastname", new RowMapper<User>() {
             @Override
             public User mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new User(resultSet.getLong("id"), resultSet.getString("firstname"), resultSet.getString("lastname"),
-                        resultSet.getString("username"), resultSet.getString("password"));
+                        resultSet.getString("username"), resultSet.getString("password"), Role.valueOf(resultSet.getString("role")));
             }
         });
     }
@@ -83,9 +83,9 @@ public class UserDao {
     }
 
     public User findUserById(long id) throws EmptyResultDataAccessException {
-        return jdbcTemplate.queryForObject("select firstname, lastname, username, password from users where id = ?",
+        return jdbcTemplate.queryForObject("select firstname, lastname, username, password, role from users where id = ?",
                 (rs, rowNum) -> new User(rs.getString("firstname"), rs.getString("lastname"), rs.getString("username"),
-                        rs.getString("password")), id);
+                        rs.getString("password"), Role.valueOf(rs.getString("role"))), id);
     }
 
     public User findUserByUserName(String userName) {

@@ -74,6 +74,9 @@ function deleteUser() {
         document.getElementById("message-div").setAttribute("class", "alert alert-success");
         document.getElementById("message-div").innerHTML = jsonData.messages[0];
         fetchUsers();
+      } else {
+        document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+        document.getElementById("message-div").innerHTML = jsonData.messages[0];
       }
     });
 }
