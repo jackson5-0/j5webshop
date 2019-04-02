@@ -62,7 +62,6 @@ footer {
   bottom: 0;
   color: white;
   font-family: "Existence";
-  font-size: 1vw;
   height: 30px;
   left: 0;
   opacity: 0.5;
@@ -75,6 +74,7 @@ footer p {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
+  bottom: -16px;
 }
 
 #header-top {
