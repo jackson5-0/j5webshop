@@ -207,7 +207,7 @@ function createReviewListDiv(product) {
                         singleReviewDiv.style.padding = "25px";
                         star = `<font color="#c59b08">&starf;</font>`;
                         singleReviewDiv.innerHTML = jsonData[i].reviewDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16) +
-                        '<br/><br/>' + jsonData[i].user.userName + '<br/><br/>Értékelés: ' + (star).repeat(jsonData[i].rating);
+                        '<br/><br/>' + jsonData[i].user.userName + '<br/><br/>Értékelés: ' + star.repeat(jsonData[i].rating);
                         '<br/><br/>' + jsonData[i].message + '<br/><br/><br/>';
                         reviewListDiv.appendChild(singleReviewDiv);
                     }
