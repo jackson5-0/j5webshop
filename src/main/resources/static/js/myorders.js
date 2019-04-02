@@ -6,6 +6,7 @@ function fetchList() {
       return response.json();
     })
     .then(function (jsonData) {
+        console.log(jsonData);
       showList(jsonData);
     });
 }
