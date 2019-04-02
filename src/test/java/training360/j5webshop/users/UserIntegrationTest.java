@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 import training360.j5webshop.validation.ResponseStatus;
@@ -121,7 +122,7 @@ public class UserIntegrationTest {
         assertThat(status.getMessages().size(), equalTo(1));
         assertThat(status.getMessages().get(0), equalTo("Sikeres módosítás!"));
         assertThat(userController.listUsers().size(), equalTo(5));
-        assertThat(userController.findUserById(opt.get()), equalTo(Optional.of(new User("Anna", "Arany-Kiss", "aranyanna", "Annacska55"))));
+        assertThat(userController.findUserById(opt.get()).get().getUserName(), equalTo("aranyanna"));
     }
 
     @Test

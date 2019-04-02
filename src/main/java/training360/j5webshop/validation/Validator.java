@@ -90,8 +90,15 @@ public class Validator {
 
     public Validator(Category category) {
         checkCategoryName(category.getName());
+        checkCategoryPriority(category.getPriority());
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
+
+    private void checkCategoryPriority(int priority) {
+        if (priority < 1){
+            responseStatus.addMessage("A kategória sorszáma 1-től kezdődhet!");
         }
     }
 

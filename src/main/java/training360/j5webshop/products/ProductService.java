@@ -7,6 +7,7 @@ import training360.j5webshop.categories.Category;
 import training360.j5webshop.categories.CategoryDao;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -68,8 +69,12 @@ public class ProductService {
     public List<Category> listProductsWithLimit(int start, int size, String singleCategory) {
         if (singleCategory == null) {
             List<Category> productsByCategory = categoryDao.listCategories();
-            for (Category category: productsByCategory) {
+            for (Iterator<Category> i = productsByCategory.iterator(); i.hasNext();) {
+                Category category = i.next();
                 category.setProducts(productDao.listProductsWithLimit(start, size, category.getName()));
+                if (category.getProducts().size() == 0) {
+                    i.remove();
+                }
             }
             return productsByCategory;
         }

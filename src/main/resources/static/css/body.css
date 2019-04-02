@@ -11,14 +11,14 @@ body {
 }
 
 header {
-  background-color: #e9e5d4;
+  background-color: grey;
   border-bottom-style: inset;
 }
 
 header ul a {
   text-transform: uppercase;
   font-family: "Existence";
-  color: black;
+  color: white;
   font-weight: bold;
   text-shadow: 0px 0px 20px #3a3a3a91;
   text-decoration: none;
@@ -33,7 +33,7 @@ header ul a {
 #header-top a {
   text-transform: uppercase;
   font-family: "Existence";
-  color: black;
+  color: white;
   font-weight: bold;
   text-shadow: 0px 0px 20px #3a3a3a91;
   text-decoration: none;
@@ -133,7 +133,7 @@ main {
 header ul a:hover,
 #header-top a:hover {
   text-shadow: black;
-  color: chocolate;
+  color: #B2D142;
   cursor: pointer;
 }
 
