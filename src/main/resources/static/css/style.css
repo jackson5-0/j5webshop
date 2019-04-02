@@ -532,6 +532,25 @@ textarea {
     cursor: pointer;
 }
 
+.login-message{
+height: 200px;
+  width: 800px;
+  position: absolute;
+  top: 80%;
+  left: 22%;
+  margin-top: -100px;
+  margin-left: 50px;
+  color: #47476b;
+  font-family: "Existence";
+      src: url("/fonts/Existence-Light.ttf")
+  font-weight: bold;
+}
+.login-message h1{
+  font-size: 30px;
+  line-height: 46px;
+  margin-bottom: 40px;
+ }
+
 h1 {
     font-family: "Existence";
 }
