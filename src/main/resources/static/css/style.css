@@ -176,7 +176,6 @@
 
 .input-form form {
     border: none;
-    font-size: 1.5vw;
 }
 
 .little-input-form h1,
@@ -188,6 +187,7 @@
 
 .little-input-form input,
 .input-form input {
+    background: rgba(255, 255, 255, .1);
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
@@ -216,24 +216,22 @@
 .input-form input[type="submit"] {
     position: relative;
     display: block;
-    padding: 1vw 2.5vw 1vw 2.5vw;
+    padding: 19px 39px 18px 39px;
     color: #FFF;
-    margin: 0 25% 0 25%;
-    background: #00654F;
-    font-size: 2vw;
+    margin: 0 auto;
+    background: #1abc9c;
+    font-size: 18px;
     text-align: center;
     font-style: normal;
-    width: 20vw;
-    border: 1px solid #00654F;
+    width: 100%;
+    border: 1px solid #16a085;
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
 }
 
 .little-input-form input[type="submit"]:hover,
 .input-form input[type="submit"]:hover {
-    background: #B2D142;
-    border: 1px solid #B2D142;
-    color: black;
+    background: #109177;
 }
 
 .name {
@@ -534,23 +532,25 @@ textarea {
     cursor: pointer;
 }
 
-.login-message{
-  left: 31%;
-  width: auto;
-  position: relative;
-  margin-top: 25vw;
-  color: red;
-  font-family: "Existence";
-      src: url("/fonts/Existence-Light.ttf")
-  font-weight: bold;
+.login-message {
+    height: 200px;
+    width: 800px;
+    position: absolute;
+    top: 80%;
+    left: 22%;
+    margin-top: -100px;
+    margin-left: 50px;
+    color: #47476b;
+    font-family: "Existence";
+    src: url("/fonts/Existence-Light.ttf");
+    font-weight: bold;
 }
 
-.login-message h1{
-  font-size: 1.5vw;
-  max-font-size: 20px;
-  line-height: 46px;
-  margin-bottom: 40px;
- }
+.login-message h1 {
+    font-size: 30px;
+    line-height: 46px;
+    margin-bottom: 40px;
+}
 
 h1 {
     font-family: "Existence";
@@ -565,33 +565,39 @@ h1 {
     height: 46px;
     padding: 0 10px;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    left:-99999px;
+
+.rate:not(:checked)>input {
+    position: absolute;
+    left: -99999px;
 }
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
-.rate:not(:checked) > label:before {
+
+.rate:not(:checked)>label:before {
     content: '★ ';
 }
-.rate > input:checked ~ label {
+
+.rate>input:checked~label {
     color: #ffc700;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
     color: #deb217;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
     color: #c59b08;
 }
