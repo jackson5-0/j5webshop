@@ -17,9 +17,13 @@ function showStatistics(jsonData){
     var numberOfAllProducts = jsonData.numberOfAllProducts;
     var numberOfActiveOrders = jsonData.numberOfActiveOrders;
     var numberOfAllOrders = jsonData.numberOfAllOrders;
+    var options = {responsive: true,
+                       maintainAspectRatio:false,
 
+                       };
+
+    if(numberOfAllProducts !==0){
     var ct1 = document.getElementById('chart1');
-
     var data = {
         labels: [`Aktív termékek`, `Törölt termékek`],
         datasets: [{
@@ -35,17 +39,19 @@ function showStatistics(jsonData){
                          borderWidth:1
         }]
      };
-    var options = {responsive: true,
-                   maintainAspectRatio:false,
 
-                   };
 
     var myPieChart = new Chart(ct1, {
         type: 'pie',
         data: data,
         options: options
     });
+    } else {
 
+        document.getElementById('message-product').innerHTML = "Nincsenek termékek a rendszerben.";
+    }
+
+    if(numberOfAllOrders !==0){
     var ct2 = document.getElementById('chart2');
 
     var data2 = {
@@ -71,4 +77,7 @@ function showStatistics(jsonData){
             data: data2,
             options: options
         });
+        } else {
+            document.getElementById('message-order').innerHTML="Nincsenek rendelések a rendszerben.";
+        }
 }
