@@ -94,11 +94,11 @@ footer p {
   height: inherit;
   float: left;
   position: relative;
-  padding: 7px;
+  padding: 10px;
 }
 
 .logo {
-  height: 110px;
+  height: 100px;
   transition-duration: 0.3s;
 }
 
