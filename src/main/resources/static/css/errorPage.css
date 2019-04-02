@@ -10,6 +10,15 @@ svg {
   max-height: 280px;
   width: auto;
 }
+.image {
+position: absolute;
+  top: 37%;
+  left: 40%;
+  margin-top: -280px;
+  margin-left: -400px;
+  max-height: 280px;
+  width: auto;
+}
 .message-box {
   height: 300px;
   width: 480px;
@@ -33,9 +42,33 @@ svg {
   line-height: 46px;
   margin-bottom: 40px;
 }
+.message-box2 {
+  height: 300px;
+  width: 480px;
+  position: absolute;
+  top: 50%;
+  left: 65%;
+  margin-top: -100px;
+  margin-left: 50px;
+  color: #d87d0f;
+  font-family: "Existence";
+      src: url("/fonts/Existence-Light.ttf")
+  font-weight: bold;
+}
+.message-box2 h1 {
+  font-size: 100px;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
+.message-box2 p{
+  font-size: 65px;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
 .buttons-con .action-link-wrap {
   margin-top: 40px;
 }
+
 .buttons-con .action-link-wrap a {
   background: #47476b;
   padding: 8px 25px;
@@ -49,10 +82,25 @@ svg {
   margin-right: 10px
 }
 .buttons-con .action-link-wrap a:hover {
-  background: #5A5C6C;
+  background: #7a7ea3;
   color: #fff;
 }
-
+.buttons-con2 .action-link-wrap a {
+  background: #d87d0f;
+  padding: 8px 25px;
+  border-radius: 4px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px
+}
+.buttons-con2 .action-link-wrap a:hover {
+  background: #FFA500;
+  color: #fff;
+}
 
 @media (max-width: 450px) {
   svg {
