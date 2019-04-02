@@ -8,10 +8,15 @@ function fetchUser() {
     })
     .then(function (jsonData) {
       var userRole = jsonData.userRole;
+      var error = (new URL(document.location)).searchParams.get('error');
       if (userRole == "ROLE_ADMIN") {
         createAdminHeader(jsonData);
       } else if (userRole == "ROLE_USER") {
         createUserHeader(jsonData);
+      } else if (error) {
+        document.querySelector('#message-h1').innerHTML ='Nincs ilyen felhasználó, vagy a jelszó nem egyezik.';
+        console.log("error");
+        createDefaultHeader(jsonData);
       } else {
         createDefaultHeader(jsonData);
       }

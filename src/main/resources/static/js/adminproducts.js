@@ -44,28 +44,25 @@ function showProducts(jsonData) {
   for (var i = 0; i < jsonData.length; i++) {
     var tr = document.createElement('tr');
 
+    tr.setAttribute('id', 'product-row-' + jsonData[i].id);
+
     var codeTd = document.createElement('td');
-    codeTd.contentEditable = "true";
     codeTd.innerHTML = jsonData[i].code;
     codeTd.setAttribute('id', 'code-Td' + jsonData[i].id)
 
     var nameTd = document.createElement('td');
-    nameTd.contentEditable = "true";
     nameTd.innerHTML = jsonData[i].name;
     nameTd.setAttribute('id', 'name-Td' + jsonData[i].id)
 
     var addressTd = document.createElement('td');
-    addressTd.contentEditable = "true";
     addressTd.innerHTML = jsonData[i].address;
     addressTd.setAttribute('id', 'address-Td' + jsonData[i].id)
 
     var publisherTd = document.createElement('td');
-    publisherTd.contentEditable = "true";
     publisherTd.innerHTML = jsonData[i].publisher;
     publisherTd.setAttribute('id', 'publisher-Td' + jsonData[i].id)
 
     var priceTd = document.createElement('td');
-    priceTd.contentEditable = "true";
     priceTd.innerHTML = jsonData[i].price + " Ft";
     priceTd.setAttribute('id', 'price-Td' + jsonData[i].id)
 
@@ -84,12 +81,14 @@ function showProducts(jsonData) {
     var buttonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Törlés";
-    deleteButton.onclick = deleteProduct;
+    deleteButton.onclick = handleDelete;
+    deleteButton.setAttribute('id', `delete-${jsonData[i].id}`)
     deleteButton["raw-data"] = jsonData[i].id;
 
     var modifyButton = document.createElement('button');
-    modifyButton.innerHTML = "Mentés";
-    modifyButton.onclick = updateProduct;
+    modifyButton.innerHTML = "Szerkesztés";
+    modifyButton.onclick = handleEdit;
+    modifyButton.setAttribute('id', `modify-${jsonData[i].id}`);
     modifyButton["raw-data"] = jsonData[i];
 
     buttonTd.appendChild(deleteButton);
@@ -158,9 +157,7 @@ function handleCreateForm() {
   return false;
 }
 
-function deleteProduct() {
-  var id = this["raw-data"];
-  console.log(id);
+function deleteProduct(id) {
   if (!confirm("Biztosan törölni szeretnéd ezt a terméket?")) {
     return;
   }
@@ -178,8 +175,8 @@ function deleteProduct() {
     });
 }
 
-function updateProduct() {
-  var id = this["raw-data"].id;
+function updateProduct(data) {
+  var id = data.id;
   var code = document.getElementById('code-Td' + id).innerHTML;
   var name = document.getElementById('name-Td' + id).innerHTML;
   var address = document.getElementById('address-Td' + id).innerHTML;
@@ -195,7 +192,6 @@ function updateProduct() {
     "price": price,
     "categories": categories
   };
-  console.log(request);
   fetch(`/admin/products`, {
       method: "PUT",
       body: JSON.stringify(request),
@@ -218,4 +214,61 @@ function updateProduct() {
       }
     });
   return false;
+}
+
+function handleEdit() {
+  var row = document.getElementById(`product-row-${this['raw-data'].id}`);
+  if (row.getAttribute('class')) {
+    row.classList.remove('under-edit');
+    updateProduct(this['raw-data']);
+  } else {
+    var editButton = document.getElementById(`modify-${this['raw-data'].id}`);
+    var cancelButton = document.getElementById(`delete-${this['raw-data'].id}`)
+    row.setAttribute('class', 'under-edit');
+    setCalssNameForEdit(row);
+    removeEditableFromOtherRows(row);
+    editButton.innerHTML = 'Mentés';
+    cancelButton.innerHTML = 'Mégse';
+  }
+}
+
+function handleDelete() {
+  var row = document.getElementById(`product-row-${this['raw-data']}`);
+  if (row.getAttribute('class')) {
+    row.classList.remove('under-edit');
+    fetchProducts();
+  } else {
+    deleteProduct(this['raw-data']);
+  }
+}
+
+
+function setCalssNameForEdit(row) {
+  var elements = row.getElementsByTagName('td');
+  for (var i = 0; i < 6; i++) {
+    elements[i].setAttribute('class', 'under-edit');
+    if (i != 6) {
+      elements[i].contentEditable = "true";
+    }
+  }
+}
+
+function removeEditableFromOtherRows(actualRow) {
+  var table = document.getElementById('products-table');
+  var rows = table.getElementsByTagName('tr');
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i] != actualRow && rows[i].getAttribute('class') == 'under-edit') {
+      var editButton = rows[i].getElementsByTagName('td')[6].lastElementChild;
+      var cancelButton = rows[i].getElementsByTagName('td')[6].firstElementChild;
+      console.log(editButton);
+      console.log(cancelButton);
+      editButton.innerHTML = 'Szerkesztés';
+      cancelButton.innerHTML = 'Törlés';
+      var children = rows[i].getElementsByTagName('td');
+      rows[i].classList.remove('under-edit');
+      for (var k = 0; k < 6; k++) {
+        children[k].classList.remove('under-edit');
+      }
+    }
+  }
 }

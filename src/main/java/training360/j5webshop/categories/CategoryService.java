@@ -58,4 +58,11 @@ public class CategoryService {
     public void updateCategories(List<Category> categories) {
         categoryDao.updateCategories(categories);
     }
+    public String updateCategoryNameById(Category category){
+        if (categoryDao.isCategoryNameTaken(category) > 0) {
+            return "A megadott kategória már létezik!";
+        }
+        categoryDao.updateCategoryNameById(category);
+        return "";
+    }
 }

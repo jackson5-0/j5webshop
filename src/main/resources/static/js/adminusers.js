@@ -33,7 +33,8 @@ function showUsers(jsonData) {
 
     var passwordTd = document.createElement('td');
     passwordTd.contentEditable = "true";
-    passwordTd.innerHTML = jsonData[i].password;
+    passwordTd.innerHTML = "**********"
+    passwordTd["raw-data"] = jsonData[i].password;
     passwordTd.setAttribute('id', 'password-Td' + jsonData[i].id)
 
     var buttonTd = document.createElement('td');
@@ -71,7 +72,7 @@ function deleteUser() {
       return response.json();
     }).then(function (jsonData) {
       if (jsonData.status == 'SUCCESS') {
-        document.getElementById("message-div").setAttribute("class", "alert alert-success");
+        document.getElementById("message-div").setAttribute("class", "alert-success");
         document.getElementById("message-div").innerHTML = jsonData.messages[0];
         fetchUsers();
       } else {
@@ -86,7 +87,12 @@ function updateUser() {
   var firstName = document.getElementById('firstName-Td' + id).innerHTML;
   var lastName = document.getElementById('lastName-Td' + id).innerHTML;
   var username = document.getElementById('userName-Td' + id).innerHTML;
-  var password = document.getElementById('password-Td' + id).innerHTML;
+  var password;
+  if (document.getElementById('password-Td' + id).innerHTML.indexOf("*") > -1) {
+        password = document.getElementById('password-Td' + id)["raw-data"];
+  } else {
+        password = document.getElementById('password-Td' + id).innerHTML;
+  }
   var request = {
     "id": id,
     "firstName": firstName,
@@ -105,12 +111,12 @@ function updateUser() {
       return response.json();
     }).then(function (jsonData) {
       if (jsonData.status == 'SUCCESS') {
-        document.getElementById("message-div").setAttribute("class", "alert alert-success");
+        document.getElementById("message-div").setAttribute("class", "alert-success");
         document.getElementById("message-div").innerHTML = jsonData.messages[0];
         fetchUsers();
       }
       if (jsonData.status == 'FAIL') {
-        document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+        document.getElementById("message-div").setAttribute("class", "alert-danger");
         document.getElementById("message-div").innerHTML = jsonData.messages[0];
         fetchUsers();
       }
