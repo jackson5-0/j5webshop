@@ -46,7 +46,8 @@ public class OrderDao {
             rs.getString("username"),
             LocalDateTime.parse(rs.getString("purchase_date"), DATE_FORMATTER),
             OrderStatus.valueOf(rs.getString("status")),
-            totalPrice(rs.getLong("id"))
+            totalPrice(rs.getLong("id")),
+            rs.getString("shipping_address")
     );
 
     private final RowMapper<OrderedProduct> ORDEREDPRODUCT_ROW_MAPPER = (rs, rowNum) -> new OrderedProduct(
@@ -105,22 +106,22 @@ public class OrderDao {
     }
 
     public List<Order> listActiveOrder(String userName) {
-        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status FROM `orders` JOIN users on orders.user_id = users.id where orders.status ='active' and users.username =? order by purchase_date DESC",
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where orders.status ='active' and users.username =? order by purchase_date DESC",
                 ORDER_ROW_MAPPER, userName);
     }
 
     public List<Order> listAllOrderWithDeleted(String userName) {
-        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status FROM `orders` JOIN users on orders.user_id = users.id where users.username =? order by purchase_date DESC",
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where users.username =? order by purchase_date DESC",
                 ORDER_ROW_MAPPER, userName);
     }
 
     //ADMINORDERS
     public List<OrderInfo> listAdminOrders(){
-        return jdbcTemplate.query("SELECT orders.id, users.username, purchase_date, status FROM `orders` JOIN `users` on orders.user_id=users.id order by purchase_date DESC",
+        return jdbcTemplate.query("SELECT orders.id, users.username, purchase_date, status, orders.shipping_address FROM `orders` JOIN `users` on orders.user_id=users.id order by purchase_date DESC",
                 ORDERINFO_ROW_MAPPER);
     }
     public List<OrderInfo> listActiveAdminOrders(){
-        return jdbcTemplate.query("SELECT orders.id, users.username, purchase_date, status FROM `orders` JOIN `users` on orders.user_id=users.id where status ='active' order by purchase_date DESC",
+        return jdbcTemplate.query("SELECT orders.id, users.username, purchase_date, status, orders.shipping_address FROM `orders` JOIN `users` on orders.user_id=users.id where status ='active' order by purchase_date DESC",
                 ORDERINFO_ROW_MAPPER);
     }
 

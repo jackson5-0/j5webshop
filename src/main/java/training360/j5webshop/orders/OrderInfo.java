@@ -9,6 +9,7 @@ public class OrderInfo {
     private LocalDateTime purchaseDate;
     private OrderStatus orderStatus;
     private int totalPrice;
+    private String shippingAddress;
 
     public OrderInfo(long id,String userName, LocalDateTime purchaseDate, OrderStatus orderStatus, int totalPrice) {
         this.id = id;
@@ -16,6 +17,15 @@ public class OrderInfo {
         this.purchaseDate = purchaseDate;
         this.orderStatus = orderStatus;
         this.totalPrice = totalPrice;
+    }
+
+    public OrderInfo(long id, String userName, LocalDateTime purchaseDate, OrderStatus orderStatus, int totalPrice, String shippingAddress) {
+        this.id = id;
+        this.userName = userName;
+        this.purchaseDate = purchaseDate;
+        this.orderStatus = orderStatus;
+        this.totalPrice = totalPrice;
+        this.shippingAddress = shippingAddress;
     }
 
     public long getId() {
@@ -56,5 +66,13 @@ public class OrderInfo {
 
     public void setTotalPrice(int totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
+
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 }
