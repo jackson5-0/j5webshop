@@ -77,5 +77,8 @@ public class CategoryDao {
     public void deleteCategory(Category category) {
         jdbcTemplate.update("delete from category where id = ?", category.getId());
     }
+    public void updateCategoryNameById(Category category){
+        jdbcTemplate.update("update category set name = ? where id=?",category.getName(),category.getId());
+    }
 
 }

@@ -50,7 +50,22 @@ public class UserController {
     @DeleteMapping("/admin/users")
     public ResponseStatus deleteUserById(@RequestParam long id) {
         ResponseStatus status = new ResponseStatus();
-        if (userService.listUserIds().contains(id)) {
+        boolean userExist = userService.listUserIds().contains(id);
+        if (userExist && userService.findUserById(id).getRole() == Role.ROLE_ADMIN) {
+            List<User> users = userService.listUsers();
+            int numOfAdmins = 0;
+            for (User user : users) {
+                if (user.getRole() == Role.ROLE_ADMIN) {
+                    numOfAdmins += 1;
+                }
+            }
+            if (numOfAdmins < 2) {
+                status.setStatus(ValidationStatus.FAIL);
+                status.addMessage("Nem törölhető az összes admin!");
+                return status;
+            }
+        }
+        if (userExist) {
             userService.deleteUserById(id);
             status.setStatus(ValidationStatus.SUCCESS);
             status.addMessage("A felhasználó törlése sikeres volt!");
@@ -67,7 +82,11 @@ public class UserController {
         if (userService.listUserIds().contains(id)) {
             Validator validator = new Validator(user, userService.listUsers());
             if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
-                userService.updateUserDatasByAdmin(id, user);
+                if(!user.getPassword().equals(findUserById(id).get().getPassword())) {
+                    userService.changePassword(id, user);
+                } else {
+                    userService.updateUserDatasByAdmin(id, user);
+                }
                 status.addMessage("Sikeres módosítás!");
                 status.setStatus(ValidationStatus.SUCCESS);
             } else {

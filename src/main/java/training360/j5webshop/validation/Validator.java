@@ -60,14 +60,16 @@ public class Validator {
         }
     }
 
-    public Validator(Basket basket){
+    public Validator(Basket basket, String address){
         checkBasket(basket);
+        checkAddress(address);
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
+
     public Validator(int quantity){
         checkQuantity(quantity);
         if (responseStatus.getMessages().size() > 0) {
@@ -208,6 +210,15 @@ public class Validator {
     private void checkQuantity(int quantity){
         if(quantity <=0 || quantity > 20){
             responseStatus.addMessage("Egy darabnál kevesebb vagy 20 darabnál több termék megrendelése nem lehetséges");
+        }
+    }
+
+
+    private void checkAddress(String address) {
+        if (address.trim().length() == 0) {
+            responseStatus.addMessage("Kérlek válassz egy szállítási címet, vagy adj meg egy újat!");
+        } else if (address.trim().length() < 20) {
+            responseStatus.addMessage("A szállítási cím nem lehet rövidebb 20 karakternél!");
         }
     }
 

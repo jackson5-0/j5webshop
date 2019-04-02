@@ -39,6 +39,8 @@ public class UserService {
     }
 
     public void updateUserDatasByAdmin(long id, User user) {
+        String savedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(savedPassword);
         userDao.updateUser(id, user);
     }
 
