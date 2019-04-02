@@ -67,7 +67,11 @@ public class UserController {
         if (userService.listUserIds().contains(id)) {
             Validator validator = new Validator(user, userService.listUsers());
             if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
-                userService.updateUserDatasByAdmin(id, user);
+                if(!user.getPassword().equals(findUserById(id).get().getPassword())) {
+                    userService.changePassword(id, user);
+                } else {
+                    userService.updateUserDatasByAdmin(id, user);
+                }
                 status.addMessage("Sikeres módosítás!");
                 status.setStatus(ValidationStatus.SUCCESS);
             } else {
