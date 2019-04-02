@@ -75,48 +75,68 @@ function createReviewDiv(product) {
                        if (jsonData.hasDeliveredProduct) {
                          var writeReviewDiv = document.createElement('div');
                          writeReviewDiv.setAttribute('id', 'rev-div');
-                         var ratingFieldset  = document.createElement('fieldset');
+                         var ratingDiv  = document.createElement('div');
+                         ratingDiv.setAttribute('class', 'rate');
 
                          var ratingLegend = document.createElement('legend');
                          ratingLegend.innerHTML = 'Értékelés:'
-                         ratingFieldset.appendChild(ratingLegend);
-
-                         var radio1 = document.createElement('input');
-                         radio1.setAttribute('type', 'radio');
-                         radio1.setAttribute('name', 'rating');
-                         radio1.setAttribute('value', '1');
-                         radio1.setAttribute('id', '1');
-                         ratingFieldset.appendChild(radio1);
-
-                         var radio2 = document.createElement('input');
-                         radio2.setAttribute('type', 'radio');
-                         radio2.setAttribute('name', 'rating');
-                         radio2.setAttribute('value', '2');
-                         radio2.setAttribute('id', '2');
-                         ratingFieldset.appendChild(radio2);
-
-                         var radio3 = document.createElement('input');
-                         radio3.setAttribute('type', 'radio');
-                         radio3.setAttribute('name', 'rating');
-                         radio3.setAttribute('value', '3');
-                         radio3.setAttribute('id', '3');
-                         ratingFieldset.appendChild(radio3);
-
-                         var radio4 = document.createElement('input');
-                         radio4.setAttribute('type', 'radio');
-                         radio4.setAttribute('name', 'rating');
-                         radio4.setAttribute('value', '4');
-                         radio4.setAttribute('id', '4');
-                         ratingFieldset.appendChild(radio4);
+                         ratingDiv.appendChild(ratingLegend);
 
                          var radio5 = document.createElement('input');
                          radio5.setAttribute('type', 'radio');
-                         radio5.setAttribute('name', 'rating');
+                         radio5.setAttribute('name', 'rate');
                          radio5.setAttribute('value', '5');
                          radio5.setAttribute('id', '5');
-                         ratingFieldset.appendChild(radio5);
+                         var radio5label = document.createElement('label');
+                         radio5label.setAttribute('for', '5')
+                         ratingDiv.appendChild(radio5);
+                         ratingDiv.appendChild(radio5label);
 
-                         writeReviewDiv.appendChild(ratingFieldset);
+                         var radio4 = document.createElement('input');
+                         radio4.setAttribute('type', 'radio');
+                         radio4.setAttribute('name', 'rate');
+                         radio4.setAttribute('value', '4');
+                         radio4.setAttribute('id', '4');
+                         var radio4label = document.createElement('label');
+                         radio4label.setAttribute('for', '4')
+                         ratingDiv.appendChild(radio4);
+                         ratingDiv.appendChild(radio4label);
+
+                         var radio3 = document.createElement('input');
+                         radio3.setAttribute('type', 'radio');
+                         radio3.setAttribute('name', 'rate');
+                         radio3.setAttribute('value', '3');
+                         radio3.setAttribute('id', '3');
+                         var radio3label = document.createElement('label');
+                         radio3label.setAttribute('for', '3');
+                         ratingDiv.appendChild(radio3);
+                         ratingDiv.appendChild(radio3label);
+
+                         var radio2 = document.createElement('input');
+                         radio2.setAttribute('type', 'radio');
+                         radio2.setAttribute('name', 'rate');
+                         radio2.setAttribute('value', '2');
+                         radio2.setAttribute('id', '2');
+                         var radio2label = document.createElement('label');
+                         radio2label.setAttribute('for', '2');
+                         ratingDiv.appendChild(radio2);
+                         ratingDiv.appendChild(radio2label);
+
+                         var radio1 = document.createElement('input');
+                         radio1.setAttribute('type', 'radio');
+                         radio1.setAttribute('name', 'rate');
+                         radio1.setAttribute('value', '1');
+                         radio1.setAttribute('id', '1');
+                         var radio1label = document.createElement('label');
+                         radio1label.setAttribute('for', '1');
+                         ratingDiv.appendChild(radio1);
+                         ratingDiv.appendChild(radio1label);
+
+                         writeReviewDiv.appendChild(ratingDiv);
+
+                         br = document.createElement('br');
+                         ratingDiv.appendChild(br);
+
                          var addReviewButton = document.createElement('button');
                          addReviewButton['raw-data'] = product;
                          addReviewButton.setAttribute('class', 'button');
@@ -185,8 +205,9 @@ function createReviewListDiv(product) {
                     for (var i = 0; i < jsonData.length; i++) {
                         var singleReviewDiv = document.createElement('div');
                         singleReviewDiv.style.padding = "25px";
+                        star = `<font color="#c59b08">&starf;</font>`;
                         singleReviewDiv.innerHTML = jsonData[i].reviewDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16) +
-                        '<br/><br/>' + jsonData[i].user.userName + '<br/><br/>Értékelés: ' + jsonData[i].rating +
+                        '<br/><br/>' + jsonData[i].user.userName + '<br/><br/>Értékelés: ' + (star).repeat(jsonData[i].rating);
                         '<br/><br/>' + jsonData[i].message + '<br/><br/><br/>';
                         reviewListDiv.appendChild(singleReviewDiv);
                     }
@@ -207,7 +228,7 @@ function createReviewListDiv(product) {
 function addReview() {
         var product = this['raw-data'];
         var message = document.getElementById('rev-input').value;
-        var radios = document.getElementsByName('rating');
+        var radios = document.getElementsByName('rate');
         var valueOfRadio;
         for(i = 0; i < radios.length; i++){
             if(radios[i].checked){
@@ -271,7 +292,7 @@ function createDeleteButton(product) {
 function modifyReview() {
     var product = this['raw-data'];
     var message = document.getElementById('rev-input').value;
-    var radios = document.getElementsByName('rating');
+    var radios = document.getElementsByName('rate');
     var valueOfRadio;
     for(i = 0; i < radios.length; i++){
         if(radios[i].checked){
