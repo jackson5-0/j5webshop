@@ -10,33 +10,39 @@
 </head>
 
 <body>
-    <header class="nav">
-    </header>
-    <main>
-        <div>
-            <h1>Dashboard</h1>
-            <label>Felhasználók száma: </label> <label id="users"></label>
-            <br>
-            <br>
-            <br>
-            <div class="my-chart">
+<header class="nav">
+</header>
+<main>
+    <div>
+        <h1>Dashboard</h1>
+        <br>
+        <div class="my-chart">
+            <div class="my-chart-part">
+                <br>
+                <label>Felhasználók száma: </label> <label id="users"></label>
+                <br>
                 <label id="message-product"></label>
                 <br>
                 <label id="message-order"></label>
                 <br>
+            </div>
+            <div class="my-chart-part">
                 <br>
                 <canvas class="chart-container" id="chart1"></canvas>
+            </div>
+            <div class="my-chart-part">
                 <br>
                 <canvas class="chart-container" id="chart2"></canvas>
             </div>
         </div>
-    </main>
-    <footer>
-        <p>Copyright © 2019 by Jackson5.0</p>
-    </footer>
-    <script src="js/user.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-    <script src="js/dashboard.js"></script>
+    </div>
+</main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
+<script src="js/user.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="js/dashboard.js"></script>
 </body>
 
 </html>

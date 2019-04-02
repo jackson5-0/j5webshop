@@ -112,9 +112,25 @@
     height: 100%;
 }
 
+.my-chart-part {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-height: 300px;
+    max-font-size: 2vw;
+    min-font-size: 1vw;
+    padding: 0 0 0 1vw;
+    width: 30%;
+}
+
 .my-chart {
-    width: 400px;
-    height: 300px;
+    display: block;
+    width: 100%;
+    heigth: auto;
+    /*max-width: 600px;
+    height: 300px;*/
 }
 
 .fade {
