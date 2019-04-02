@@ -28,6 +28,16 @@
     width: 28%;
 }
 
+#address-information-form {
+    background-color: #f4f7f8;
+    border-radius: 8px;
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-weight: bold;
+    padding: 10px 10px 10px 0px;
+}
+
 .basket-option-button,
 .administration-table tr td button {
     position: relative;
@@ -102,9 +112,25 @@
     height: 100%;
 }
 
+.my-chart-part {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-height: 300px;
+    max-font-size: 2vw;
+    min-font-size: 1vw;
+    padding: 0 0 0 1vw;
+    width: 30%;
+}
+
 .my-chart {
-    width: 400px;
-    height: 300px;
+    display: block;
+    width: 100%;
+    heigth: auto;
+    /*max-width: 600px;
+    height: 300px;*/
 }
 
 .fade {
@@ -328,7 +354,7 @@
 }
 
 .product-to-basket-message {
-    float: left;
+    float: center;
     font-family: "Existence";
     font-size: auto;
     font-weight: bold;
@@ -345,13 +371,50 @@
     padding: 10px 10px;
 }
 
-.input-form-right,
+.input-form-left {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    padding: 0 0 0 1vw;
+    width: 55%;
+}
+
+.basket-input-form {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    padding: 0 0 0 1vw;
+    width: 78%;
+}
+
+
+.input-form-right {
+    width: 35%;
+    padding: 0 1vw 0 0;
+    margin-left: 60%;
+}
+
+.basket-input-buttons {
+    width: 18%;
+    padding: 0 1vw 0 0;
+    margin-left: 80%;
+}
+
+
 .product-image-div {
     margin-left: 52%;
     width: 45%;
 }
 
-.input-form-left,
+
 .product-info-div {
     box-sizing: border-box;
     float: left;
@@ -468,6 +531,25 @@ textarea {
 .category-header:hover {
     cursor: pointer;
 }
+
+.login-message{
+height: 200px;
+  width: 800px;
+  position: absolute;
+  top: 80%;
+  left: 22%;
+  margin-top: -100px;
+  margin-left: 50px;
+  color: #47476b;
+  font-family: "Existence";
+      src: url("/fonts/Existence-Light.ttf")
+  font-weight: bold;
+}
+.login-message h1{
+  font-size: 30px;
+  line-height: 46px;
+  margin-bottom: 40px;
+ }
 
 h1 {
     font-family: "Existence";

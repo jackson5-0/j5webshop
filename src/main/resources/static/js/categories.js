@@ -89,6 +89,7 @@ function createDragAndDropElements(categories) {
     var arrow = document.createElement('span');
     var priority = document.createElement('span');
     var name = document.createElement('span');
+    var updateName = document.createElement('span');
     var deleteCategory = document.createElement('span');
 
     li['raw-data'] = categories[i];
@@ -99,8 +100,13 @@ function createDragAndDropElements(categories) {
     priority.setAttribute('class', 'category-priority');
     name.setAttribute('class', 'category-name');
     name.innerHTML = categories[i].name;
+    updateName.innerHTML='&#9874;';
+    updateName['raw-data']=categories[i];
+    updateName.onclick = modifyName;
+    updateName.setAttribute('class', 'update-category-name');
+    updateName.style.cssFloat = 'right';
     deleteCategory.setAttribute('class', 'delete-category');
-    deleteCategory.innerHTML = '&times;';
+    deleteCategory.innerHTML = '&#9746;';
     deleteCategory['raw-data'] = categories[i];
 
     addEventListenerCategories(deleteCategory, categories[i]);
@@ -108,12 +114,41 @@ function createDragAndDropElements(categories) {
     li.appendChild(arrow);
     li.appendChild(priority);
     li.appendChild(name);
+    li.appendChild(updateName);
     li.appendChild(deleteCategory);
 
     list.appendChild(li);
   }
 }
-
+function modifyName(){
+    console.log(this['raw-data']);
+    var newName = prompt("Add meg az új címkét:\n", this['raw-data'].name);
+    if (newName !==null){
+        var id = this['raw-data'].id;
+        var priority = this['raw-data'].priority;
+        var products = this['raw-data'].products;
+        var request = {
+            "id": id,
+            "name": newName,
+            "priority":priority,
+            "products":products
+            };
+        fetch("/categories/updatename", {
+            method:"PUT",
+            body:JSON.stringify(request),
+            headers: {
+                    "Content-type": "application/json"
+            }
+         })
+         .then(function(response){
+            return response.json();
+         })
+         .then(function(jsonData){
+            alert(jsonData.messages[0]);
+            fetchCategories();
+         });
+     }
+}
 function handlePriorityChange() {
   var priorities = document.getElementsByClassName('category-priority');
   for (var i = 0; i < priorities.length; i++) {

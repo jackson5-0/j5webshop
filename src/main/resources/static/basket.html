@@ -12,14 +12,16 @@
 </head>
 
 <body>
-    <header>
-        <div class="nav">
-        </div>
-    </header>
-    <main>
-        <div class="administration-table">
-            <h1>Kosár tartalma:</h1>
-            <table id="basket-table">
+<header>
+    <div class="nav">
+    </div>
+</header>
+<main>
+    <div class="user-div">
+        <div class="basket-input-form">
+            <div class="administration-table">
+                <h1>Kosár tartalma:</h1>
+                <table id="basket-table">
                 <thead>
                     <tr>
                         <th>MEGNEVEZÉS</th>
@@ -33,23 +35,30 @@
                 </thead>
                 <tbody id="basket-tablebody">
                 </tbody>
-            </table>
-            <br>
-            <div id="message-div" class="product-to-basket-message"></div>
-            <br>
+                </table>
+            </div>
+            <div>
+                <h2>Szállítási cím kiválasztása:</h2>
+                <form id="address-information-form" autocomplete="on">
+                </form>
+            </div>
         </div>
-        <div>
+        <div class="basket-input-buttons">
             <br>
-            <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button>
-            <button id="flush" class="basket-option-button">Kosár ürítése</button>
-            <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelésem!</button>
+            <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button><br>
+            <button id="flush" class="basket-option-button">Kosár ürítése</button><br>
+            <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelést!</button>
         </div>
-    </main>
-    <footer>
-        <p>Copyright © 2019 by Jackson5.0</p>
-    </footer>
-    <script src="/js/user.js"></script>
-    <script src="js/basket.js"></script>
+        <br>
+        <div id="message-div" class="product-to-basket-message"></div>
+        <br>
+    </div>
+</main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
+<script src="/js/user.js"></script>
+<script src="js/basket.js"></script>
 </body>
 
 </html>

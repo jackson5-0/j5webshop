@@ -6,6 +6,7 @@ function fetchList() {
       return response.json();
     })
     .then(function (jsonData) {
+        console.log(jsonData);
       showList(jsonData);
     });
 }
@@ -17,6 +18,7 @@ function showList(jsonData) {
                     <th class="orderlist__table__th1">Rendelés azonosítója</th>
                     <th class="orderlist__table__th1">Rendelés dátuma</th>
                     <th class="orderlist__table__th1">Rendelés státusza</th>
+                    <th class="orderlist__table__th1">Szállítási cím</th>
                     </tr>`
   var orderedProductHead = `<tr class="tablehead" class="orderlist">
                                            <th class="orderlist__table__th2">Termék neve</th>
@@ -34,6 +36,7 @@ function showList(jsonData) {
                       <td class="orderlist__table__td">#${jsonData[i].id}</td>
                       <td class="orderlist__table__td">${jsonData[i].purchaseDate}</td>
                       <td class="orderlist__table__td">${jsonData[i].orderStatus}</td>
+                      <td class="orderlist__table__td">${jsonData[i].shippingAddress}</td>
                     </tr>
                     ` + orderedProductHead;
 

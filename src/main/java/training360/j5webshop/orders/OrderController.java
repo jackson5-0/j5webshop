@@ -31,8 +31,8 @@ public class OrderController {
 //    }
 
     @PostMapping("/myorders")
-    public ResponseStatus createOrder(Authentication authentication, @RequestParam long basketId) {
-        return orderService.createOrder(basketId, authentication.getName());
+    public ResponseStatus createOrder(Authentication authentication, @RequestParam long basketId, @RequestBody String address) {
+        return orderService.createOrder(basketId, authentication.getName(), address);
     }
     @GetMapping("/myorders/top3")
     public Set<Product> listLast3OrderedItem(){
