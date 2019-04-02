@@ -39,6 +39,7 @@ function createAdminHeader(admin) {
   <div class="navigation">
       <div class="nav-div">
          <ul>
+            <li><a href="index.html">főoldal</a></li>
             <li><a href="adminproducts.html">termékek</a></li>
             <li><a href="adminusers.html">felhasználók</a></li>
             <li><a href="orders.html">megrendelések</a></li>
@@ -88,6 +89,7 @@ function createUserHeader(user) {
     <div class="navigation">
       <div class="nav-div">
          <ul>
+            <li><a href="index.html">főoldal</a></li>
             <li><a href="userprofile.html">személyes adataim</a></li>
             <li><a href="myorders.html">rendeléseim</a></li>
          </ul>
