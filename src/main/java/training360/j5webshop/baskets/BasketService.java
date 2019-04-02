@@ -57,4 +57,7 @@ public class BasketService {
         return basketDao.basketItemsWithQuantity(basketId);
     }
 
+    public Set<String> listUserAddresses(String userName) {
+        return basketDao.listUserAddresses(userName);
+    }
 }

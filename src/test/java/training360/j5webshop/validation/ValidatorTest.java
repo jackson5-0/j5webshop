@@ -151,8 +151,9 @@ public class ValidatorTest {
         productIntegerMap.put(got, 1);
         productIntegerMap.put(dixit, 2);
         Basket basket = new Basket(2, 2, productIntegerMap);
+        String address = "Magyarország, 1111 Budapest, Fő utca 1.";
         //When
-        Validator validator = new Validator(basket);
+        Validator validator = new Validator(basket, address);
         //Then
         assertThat(validator.getResponseStatus().getMessages().size(), equalTo(0));
     }
@@ -163,8 +164,9 @@ public class ValidatorTest {
 
         Map<Product, Integer> productIntegerMap = new HashMap<>();
         Basket basket = new Basket(2, 2, productIntegerMap);
+        String address = "Magyarország, 1111 Budapest, Fő utca 1.";
         //When
-        Validator validator = new Validator(basket);
+        Validator validator = new Validator(basket,address);
         //Then
         assertThat(validator.getResponseStatus().getMessages().size(), equalTo(1));
         assertThat(validator.getResponseStatus().getMessages().get(0), equalTo("Csak terméket tartalmazó kosarat lehet megrendelni"));
