@@ -25,7 +25,7 @@ function fetchPageNavigatorsOfCategory(category) {
 
 function showPageNavigatorOfCategory(jsonData) {
   var pages = document.getElementById('page-number');
-  var numberOfPages = Math.ceil(jsonData / 10);
+  var numberOfPages = Math.ceil(jsonData / 12);
   var category = (new URL(document.location).searchParams.get('category'));
   for (var i = 1; i <= numberOfPages; i++) {
     pages.innerHTML += `<a href="index.html?category=${category}&page=${i}">${i}</a>`;

@@ -2,6 +2,7 @@ package training360.j5webshop.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import training360.j5webshop.baskets.BasketDao;
 import training360.j5webshop.categories.Category;
 import training360.j5webshop.categories.CategoryDao;
 
@@ -21,6 +22,10 @@ public class ProductService {
     }
 
     public long createProduct(Product product) {
+        if (product.getCategories().size() == 0) {
+            Category category = new Category(1, "Egyéb", 1);
+            product.setCategories(Arrays.asList(category));
+        }
         while (true) {
             product.setCodeAndAddress();
             if (codeUnreserved(product) && addressUnreserved(product)) {
@@ -95,6 +100,7 @@ public class ProductService {
 
     public void deleteProductById(long id) {
         productDao.deleteProductById(id);
+        productDao.deleteProductFromEveryBasket(id);
     }
 
     public boolean updateProduct(Product product) {
@@ -107,7 +113,5 @@ public class ProductService {
             return false;
         }
     }
-
-
 
 }

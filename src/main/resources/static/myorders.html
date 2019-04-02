@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html lang="hu">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Rendeléseim</title>
+    <link rel="shortcut icon" type="image/x-icon" href="j5logo.png">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <link href="/css/body.css" rel="stylesheet" type="text/css">
 </head>
+
 <body>
-<header>
-    <div class="nav">
-    </div>
-</header>
-<main>
-    <div class="orders-table-div">
-        <h1>Rendeléseim</h1>
-        <button class="orders-table-div-button" id="backtoindexhtml" onclick="openIndexHtml()">Vissza a főoldalra
-        </button>
-        <button class="orders-table-div-button" id="onlyactiveorders" onclick="showActiveOrders()">Csak az aktív
-            tételek listázása
-        </button>
-        <button class="orders-table-div-button" id="allorders" onclick="showAllOrders()">Összes rendelés listázása
-        </button>
-        <br>
-        <br>
-        <div>
-            <table id="orderlist" class="orders-table">
-            </table>
+    <header>
+        <div class="nav">
         </div>
-    </div>
-</main>
-<footer>
-    <p>Copyright © 2019 by Jackson5.0</p>
-</footer>
-<script src="/js/user.js"></script>
-<!--<script src="js/basket.js"></script>-->
-<script src="js/myorders.js"></script>
+    </header>
+    <main>
+        <div class="orders-table-div">
+            <h1>Rendeléseim</h1>
+            <button class="orders-table-div-button" id="backtoindexhtml" onclick="openIndexHtml()">Vissza a főoldalra
+            </button>
+            <button class="orders-table-div-button" id="onlyactiveorders" onclick="showActiveOrders()">Csak az aktív
+                tételek listázása
+            </button>
+            <button class="orders-table-div-button" id="allorders" onclick="showAllOrders()">Összes rendelés listázása
+            </button>
+            <br>
+            <br>
+            <div>
+                <table id="orderlist" class="orders-table">
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+    <script src="/js/user.js"></script>
+    <!--<script src="js/basket.js"></script>-->
+    <script src="js/myorders.js"></script>
 </body>

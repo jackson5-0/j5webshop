@@ -3,9 +3,18 @@ body {
 }
 svg {
   position: absolute;
-  top: 30%;
+  top: 40%;
   left: 30%;
-  margin-top: -250px;
+  margin-top: -280px;
+  margin-left: -400px;
+  max-height: 280px;
+  width: auto;
+}
+.image {
+position: absolute;
+  top: 37%;
+  left: 40%;
+  margin-top: -280px;
   margin-left: -400px;
   max-height: 280px;
   width: auto;
@@ -15,7 +24,7 @@ svg {
   width: 480px;
   position: absolute;
   top: 50%;
-  left: 70%;
+  left: 65%;
   margin-top: -100px;
   margin-left: 50px;
   color: #47476b;
@@ -28,9 +37,38 @@ svg {
   line-height: 46px;
   margin-bottom: 40px;
 }
+.message-box p{
+  font-size: 65px;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
+.message-box2 {
+  height: 300px;
+  width: 480px;
+  position: absolute;
+  top: 50%;
+  left: 65%;
+  margin-top: -100px;
+  margin-left: 50px;
+  color: #d87d0f;
+  font-family: "Existence";
+      src: url("/fonts/Existence-Light.ttf")
+  font-weight: bold;
+}
+.message-box2 h1 {
+  font-size: 100px;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
+.message-box2 p{
+  font-size: 65px;
+  line-height: 46px;
+  margin-bottom: 40px;
+}
 .buttons-con .action-link-wrap {
   margin-top: 40px;
 }
+
 .buttons-con .action-link-wrap a {
   background: #47476b;
   padding: 8px 25px;
@@ -44,31 +82,26 @@ svg {
   margin-right: 10px
 }
 .buttons-con .action-link-wrap a:hover {
-  background: #5A5C6C;
+  background: #7a7ea3;
+  color: #fff;
+}
+.buttons-con2 .action-link-wrap a {
+  background: #d87d0f;
+  padding: 8px 25px;
+  border-radius: 4px;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s linear;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 10px
+}
+.buttons-con2 .action-link-wrap a:hover {
+  background: #FFA500;
   color: #fff;
 }
 
-#Polygon-1 , #Polygon-2 , #Polygon-3 , #Polygon-4 , #Polygon-4, #Polygon-5 {
-  animation: float 1s infinite ease-in-out alternate;
-}
-#Polygon-2 {
-  animation-delay: .2s;
-}
-#Polygon-3 {
-  animation-delay: .4s;
-}
-#Polygon-4 {
-  animation-delay: .6s;
-}
-#Polygon-5 {
-  animation-delay: .8s;
-}
-
-@keyframes float {
-	100% {
-    transform: translateY(20px);
-  }
-}
 @media (max-width: 450px) {
   svg {
     position: absolute;
@@ -84,4 +117,11 @@ svg {
     margin-left: -190px;
     text-align: center;
   }
+}
+
+.footer p{
+ position: absolute;
+    top: 95%;
+    left: 3%;
+
 }
