@@ -176,6 +176,7 @@
 
 .input-form form {
     border: none;
+    font-size: 1.5vw;
 }
 
 .little-input-form h1,
@@ -187,7 +188,6 @@
 
 .little-input-form input,
 .input-form input {
-    background: rgba(255, 255, 255, .1);
     border: none;
     border-radius: 4px;
     box-sizing: border-box;
@@ -216,22 +216,24 @@
 .input-form input[type="submit"] {
     position: relative;
     display: block;
-    padding: 19px 39px 18px 39px;
+    padding: 1vw 2.5vw 1vw 2.5vw;
     color: #FFF;
-    margin: 0 auto;
-    background: #1abc9c;
-    font-size: 18px;
+    margin: 0 50% 0 50%;
+    background: #00654F;
+    font-size: 2vw;
     text-align: center;
     font-style: normal;
     width: 100%;
-    border: 1px solid #16a085;
+    border: 1px solid #00654F;
     border-width: 1px 1px 3px;
     margin-bottom: 10px;
 }
 
 .little-input-form input[type="submit"]:hover,
 .input-form input[type="submit"]:hover {
-    background: #109177;
+    background: #B2D142;
+    border: 1px solid #B2D142;
+    color: black;
 }
 
 .name {
@@ -533,20 +535,19 @@ textarea {
 }
 
 .login-message{
-height: 200px;
-  width: 800px;
-  position: absolute;
-  top: 80%;
-  left: 22%;
-  margin-top: -100px;
-  margin-left: 50px;
-  color: #47476b;
+  left: 31%;
+  width: auto;
+  position: relative;
+  margin-top: 25vw;
+  color: red;
   font-family: "Existence";
       src: url("/fonts/Existence-Light.ttf")
   font-weight: bold;
 }
+
 .login-message h1{
-  font-size: 30px;
+  font-size: 1.5vw;
+  max-font-size: 20px;
   line-height: 46px;
   margin-bottom: 40px;
  }
