@@ -72,7 +72,7 @@ public class ProductDao {
         return jdbcTemplate.queryForObject("select count(product.id) from product " +
                 "join product_category on product.id = product_category.product_id " +
                 "join category on product_category.category_id = category.id " +
-                "where category.name = ?", (rs, rowNum) -> rs.getInt("count(product.id)"), category
+                "where category.name = ? and product.status != 'DELETED'", (rs, rowNum) -> rs.getInt("count(product.id)"), category
                 );
     }
 

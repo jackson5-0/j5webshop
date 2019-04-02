@@ -79,7 +79,7 @@ function showProducts(jsonData) {
     category['raw-data'] = jsonData[i].categories;
     category.setAttribute('id', jsonData[i].code);
 
-    addEventListenerToCategoryButton(category, jsonData[i].code);
+    addEventListenerToCategoryButton(category, jsonData[i]);
 
     var buttonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
@@ -108,10 +108,12 @@ function showProducts(jsonData) {
   }
 }
 
-function addEventListenerToCategoryButton(category, productCode) {
+function addEventListenerToCategoryButton(category, product) {
   category.addEventListener('click', function () {
-    showCategoryOfItem(productCode);
-    saveProductIdToRawDataSaveButton(productCode);
+    showCategoryOfItem(product.code);
+    saveProductIdToRawDataSaveButton(product.code);
+    var title = document.getElementById('product-name');
+    title.innerHTML = product.name;
   });
 }
 

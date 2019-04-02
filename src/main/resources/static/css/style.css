@@ -108,19 +108,30 @@
 }
 
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
 }
+
 @-webkit-keyframes fade {
-  from {opacity: .1}
-  to {opacity: 1}
+    from {
+        opacity: .1
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 @keyframes fade {
-  from {opacity: .1}
-  to {opacity: 1}
+    from {
+        opacity: .1
+    }
+
+    to {
+        opacity: 1
+    }
 }
 
 .input-form {
@@ -254,7 +265,7 @@
 
 .orders-table-div-button:hover {
     background-color: white;
-    border: 1px solid #ccc;
+    outline: 1px solid #ccc;
     color: black;
 }
 
@@ -376,20 +387,26 @@
     display: block;
     float: center;
     position: relative;
-    width: 100%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 
 .product {
+    box-sizing: border-box;
+    display: inline-block;
     border: 1px solid #ccc;
-    float: left;
-    padding: 20px 0 0 15px;
-    text-align: center;
-    width: 30%;
+    padding: 10px;
+    width: 32%;
     margin: 5px;
+}
+
+.categories-div {
+    border-radius: 8px;
 }
 
 .product:hover {
     border: 1px solid #777;
+    cursor: pointer;
 }
 
 #product_table {
@@ -416,9 +433,10 @@ textarea {
     font-size: 1.4em;
     height: 18px;
 }
-#top3{
+
+#top3 {
     text-align: center;
-    display:inline-block;
+    display: inline-block;
     margin: 0 auto;
 }
 
@@ -441,4 +459,16 @@ textarea {
     color: #000;
     text-decoration: none;
     cursor: pointer;
+}
+
+.category-header {
+    font-family: "Existence";
+}
+
+.category-header:hover {
+    cursor: pointer;
+}
+
+h1 {
+    font-family: "Existence";
 }
