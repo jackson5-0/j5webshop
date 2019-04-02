@@ -28,6 +28,16 @@
     width: 28%;
 }
 
+#address-information-form {
+    background-color: #f4f7f8;
+    border-radius: 8px;
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-weight: bold;
+    padding: 10px 10px 10px 0px;
+}
+
 .basket-option-button,
 .administration-table tr td button {
     position: relative;
@@ -328,7 +338,7 @@
 }
 
 .product-to-basket-message {
-    float: left;
+    float: center;
     font-family: "Existence";
     font-size: auto;
     font-weight: bold;
@@ -345,13 +355,50 @@
     padding: 10px 10px;
 }
 
-.input-form-right,
+.input-form-left {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    padding: 0 0 0 1vw;
+    width: 55%;
+}
+
+.basket-input-form {
+    box-sizing: border-box;
+    float: left;
+    font-family: "Existence";
+    font-size: auto;
+    font-weight: bold;
+    max-font-size: 3vw;
+    min-font-size: 2vw;
+    padding: 0 0 0 1vw;
+    width: 78%;
+}
+
+
+.input-form-right {
+    width: 35%;
+    padding: 0 1vw 0 0;
+    margin-left: 60%;
+}
+
+.basket-input-buttons {
+    width: 18%;
+    padding: 0 1vw 0 0;
+    margin-left: 80%;
+}
+
+
 .product-image-div {
     margin-left: 52%;
     width: 45%;
 }
 
-.input-form-left,
+
 .product-info-div {
     box-sizing: border-box;
     float: left;

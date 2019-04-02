@@ -10,6 +10,7 @@ import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,17 +33,44 @@ public class OrderService {
 //        return id;
 //    }
 
-    public ResponseStatus createOrder(long basketId, String userName) {
+    public OrderService(OrderDao orderDao) {
+        this.orderDao = orderDao;
+    }
+
+    public ResponseStatus createOrder(long basketId, String userName, String address) {
+        ResponseStatus rs = new ResponseStatus();
         Basket basket = createBasket(basketId, userName);
-        Validator validator = new Validator(basket);
+        String newAddress = address.substring(address.indexOf("w") + 1).replaceAll("\"", "");
+        Validator validator = new Validator(basket, newAddress);
         if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
-            return validator.getResponseStatus();
+            rs.setStatus(ValidationStatus.FAIL);
+            rs.addMessage(validator.getResponseStatus().getMessages().get(0));
+        } else if (address.replaceAll("\"", "").indexOf("new") == 0 && addressAlreadyRegisteredForUser(newAddress, userName)){
+            rs.setStatus(ValidationStatus.FAIL);
+            rs.addMessage("A megadott címre már korábban rendeltél terméket. Kérlek, válaszd ki a fenti listából!");
+        } else {
+            long orderId = orderDao.createOrder(basket.getUserId(), newAddress);
+            rs.addMessage("A " + orderId + " számú rendelését sikeresen feladta.");
+            rs.setStatus(ValidationStatus.SUCCESS);
+            orderDao.addOrderedProduct(orderId, basket);
+            basketDao.flushBasket(userName);
         }
-        long orderId = orderDao.createOrder(basket.getUserId());
-        validator.getResponseStatus().addMessage("A " + orderId +" számú rendelését sikeresen feladta.");
-        orderDao.addOrderedProduct(orderId, basket);
-        basketDao.flushBasket(userName);
-        return validator.getResponseStatus();
+        return rs;
+    }
+
+    private boolean addressAlreadyRegisteredForUser(String address, String userName) {
+        List<Order> orderList = orderDao.listAllOrder(userName);
+        if (orderList.size() == 0) {
+            return false;
+        }
+        for (Order order : orderList){
+            String a = order.getShippingAddress();
+            if (a != null && (a.trim().replaceAll("[^A-Za-z0-9]", "").toLowerCase())
+                    .equals(address.trim().replaceAll("[^A-Za-z0-9]", "").toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private Basket createBasket(long basketId, String userName) {

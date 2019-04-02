@@ -1,26 +1,22 @@
 package training360.j5webshop.baskets;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-import training360.j5webshop.orders.OrderStatus;
 import training360.j5webshop.products.Product;
-import training360.j5webshop.products.ProductDao;
-import training360.j5webshop.products.ProductStatus;
 
 import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 @Repository
 public class BasketDao {
@@ -30,10 +26,6 @@ public class BasketDao {
     public BasketDao(DataSource dataSource) {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
-   // public void createBasket(long userId) {
-//        jdbcTemplate.update("insert into basket (users_id) values(?)", userId);
-//                }
 
     public long createBasket(long userId) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -47,15 +39,10 @@ public class BasketDao {
         return keyHolder.getKey().longValue();
     }
 
-//    public void addToBasket(long basketId, long productId) throws DataIntegrityViolationException {
-//            jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
-//    }
-
     public void addToBasketWithQuantity(int quantity, long productId, long basketId) throws DataIntegrityViolationException{
         for(int i =0; i<quantity;i++)
         jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
     }
-
 
     public int decreaseAmountInBasket(long productId, long basketId, int quantity){
             return jdbcTemplate.update("Delete FROM `basket_item` WHERE basket_id=? and product_id =? limit ?", basketId, productId, quantity);
@@ -142,7 +129,6 @@ public class BasketDao {
                 (rs, rowNum) -> rs.getLong("users_id"), basketId);
     }
 
-
     public int deleteItemFromBasket(long basketId, long productId) {
         return jdbcTemplate.update("delete from basket_item where basket_id=? and product_id=?", basketId, productId);
     }
@@ -160,5 +146,15 @@ public class BasketDao {
                         rs.getString("status")),
                         rs.getInt("COUNT(product_id)")), basketId
         );
+    }
+
+    public Set<String> listUserAddresses(String userName) {
+        List<String> addressList = jdbcTemplate.query("select shipping_address from orders " +
+                        "join users on orders.user_id = users.id where username = ?",
+                (rs, rowNum) -> rs.getString("shipping_address"), userName);
+        if (addressList == null){
+            addressList = new ArrayList<>();
+        }
+        return new HashSet(addressList);
     }
 }

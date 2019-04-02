@@ -68,9 +68,13 @@ function showList(jsonData) {
     var totalPriceTd = document.createElement('td');
     totalPriceTd.innerHTML = jsonData[i].totalPrice + " Ft";
 
+    var shippingAddressTd = document.createElement('td');
+    shippingAddressTd.innerHTML = jsonData[i].shippingAddress;
+
     var delTd = document.createElement('td');
 
     if (jsonData[i].orderStatus == "ACTIVE") {
+        shippingAddressTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
         totalPriceTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
         orderStatusTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
         purchaseDateTd.setAttribute('onclick', `window.location="/order.html?order=${jsonData[i].id}"`);
@@ -91,6 +95,7 @@ function showList(jsonData) {
     tr.appendChild(purchaseDateTd);
     tr.appendChild(orderStatusTd);
     tr.appendChild(totalPriceTd);
+    tr.appendChild(shippingAddressTd);
     tr.appendChild(delTd);
 
     tbody.appendChild(tr);

@@ -50,7 +50,22 @@ public class UserController {
     @DeleteMapping("/admin/users")
     public ResponseStatus deleteUserById(@RequestParam long id) {
         ResponseStatus status = new ResponseStatus();
-        if (userService.listUserIds().contains(id)) {
+        boolean userExist = userService.listUserIds().contains(id);
+        if (userExist && userService.findUserById(id).getRole() == Role.ROLE_ADMIN) {
+            List<User> users = userService.listUsers();
+            int numOfAdmins = 0;
+            for (User user : users) {
+                if (user.getRole() == Role.ROLE_ADMIN) {
+                    numOfAdmins += 1;
+                }
+            }
+            if (numOfAdmins < 2) {
+                status.setStatus(ValidationStatus.FAIL);
+                status.addMessage("Nem törölhető az összes admin!");
+                return status;
+            }
+        }
+        if (userExist) {
             userService.deleteUserById(id);
             status.setStatus(ValidationStatus.SUCCESS);
             status.addMessage("A felhasználó törlése sikeres volt!");

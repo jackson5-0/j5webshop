@@ -1,4 +1,5 @@
-window.onload = fetchList;
+fetchList();
+fetchAddresses();
 var flush = document.getElementById('flush');
 flush.onclick = flushBasket;
 
@@ -25,11 +26,11 @@ function flushBasket() {
     })
     .then(function (jsonData) {
        if(jsonData.status == 'SUCCESS') {
-            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").setAttribute("class", "alert-success");
             document.getElementById("message-div").innerHTML = jsonData.messages;
             return jsonData;
        } else {
-            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            document.getElementById("message-div").setAttribute("class", "alert-danger");
             document.getElementById("message-div").innerHTML = jsonData.messages;
             return jsonData;
        }
@@ -60,19 +61,19 @@ function showList(jsonData) {
     sumItemPriceTd.innerHTML = jsonData[i].product.price * jsonData[i].quantity + " Ft";
 
     var increaseAmountTd = document.createElement('td');
-    var increaseAmountBut = document.createElement('button')
+    var increaseAmountBut = document.createElement('button');
         increaseAmountBut.innerHTML = "+";
         increaseAmountBut.onclick = increaseAmount;
         increaseAmountBut["raw-data"] = jsonData[i];
     var decreaseAmountTd = document.createElement('td');
-    var decreaseAmountBut = document.createElement('button')
+    var decreaseAmountBut = document.createElement('button');
         decreaseAmountBut.innerHTML = "-";
         decreaseAmountBut.onclick = decreaseAmount;
         decreaseAmountBut["raw-data"] = jsonData[i];
 
     var delTd = document.createElement('td');
 
-    var delBut = document.createElement('button')
+    var delBut = document.createElement('button');
     delBut.innerHTML = "Törlés";
     delBut.onclick = deleteBasketItem;
     delBut["raw-data"] = jsonData[i];
@@ -104,21 +105,37 @@ function showList(jsonData) {
   tbody.appendChild(document.createElement('br'));
   tbody.appendChild(tr2);
 }
+
 function orderBasket() {
   var basketId = user.basketId;
+  var address;
+  var addressList = document.getElementsByTagName('input');
+  for (var i = 0; i < addressList.length; i++) {
+      if (addressList[i].checked) {
+          address = addressList[i].value;
+      }
+  }
+  if (address === 'new address') {
+       address = 'new' + document.getElementById('new-address').value;
+  }
   fetch(`/myorders?basketId=${basketId}`, {
-      method: "POST"
+      method: "POST",
+      body: JSON.stringify(address),
+      headers: {
+           "Content-type": "application/json"
+      }
     })
     .then(function (response) {
       return response.json();
     })
     .then(function (jsonData) {
         if(jsonData.status == 'SUCCESS') {
-            document.getElementById("message-div").setAttribute("class", "alert alert-success");
+            document.getElementById("message-div").setAttribute("class", "alert-success");
             document.getElementById("message-div").innerHTML = jsonData.messages;
             return jsonData;
         } else {
-            document.getElementById("message-div").setAttribute("class", "alert alert-danger");
+            fetchList();
+            document.getElementById("message-div").setAttribute("class", "alert-danger");
             document.getElementById("message-div").innerHTML = jsonData.messages;
             return jsonData;
         }
@@ -141,7 +158,7 @@ function deleteBasketItem() {
            return response.json();
          })
          .then(function (jsonData) {
-           document.getElementById("message-div").setAttribute("class", "alert alert-success");
+           document.getElementById("message-div").setAttribute("class", "alert-success");
            document.getElementById("message-div").innerHTML = jsonData.messages;
          })
          .then(function (jsonData) {
@@ -175,4 +192,40 @@ function decreaseAmount(){
                      .then(function (jsonData) {
                            fetchList();
                      });
+}
+
+function fetchAddresses() {
+  fetch(`/basket/addresses`)
+    .then(function (response) {
+      return response.json();
+    }).then(function (jsonData) {
+        loadAddresses(jsonData);
+    });
+}
+
+function loadAddresses(jsonData) {
+     var addressInfoForm = document.getElementById('address-information-form');
+     addressInfoForm.innerHTML = '';
+     if (jsonData.length == 0){
+         document.getElementById('message-div').setAttribute('class', 'alert-danger');
+         document.getElementById('message-div').innerHTML = 'Kérlek, adj meg egy szállítási címet!';
+     } else {
+        for (var i = 0; i < jsonData.length; i++) {
+            var address = jsonData[i];
+            addressInfoForm.innerHTML += `<input type="radio" name="address" class="radio" value="${address}" onclick="selectAddress()">${address}<br>`;
+        }
+     }
+     addressInfoForm.innerHTML += `<input type="radio" name="address" class="radio" value="new address" id="new-address-radio" onclick="selectAddress()" checked>
+                                  <input type="text" id="new-address" maxlength="200" placeholder="új cím megadása"><br>`;
+}
+
+function selectAddress() {
+      var newAddressRadio = document.getElementById('new-address-radio');
+      if (!newAddressRadio.checked) {
+        document.getElementById('new-address').disabled = true;
+        return false;
+      } else {
+        document.getElementById('new-address').disabled = false;
+        return false;
+      }
 }
