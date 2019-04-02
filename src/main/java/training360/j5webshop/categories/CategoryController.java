@@ -45,6 +45,18 @@ public class CategoryController {
             return validator.getResponseStatus().addMessage("Sikeres módosítás!");
         }
     }
+    @PutMapping("/categories/updatename")
+    public ResponseStatus updateCategoryNameById(@RequestBody Category category) {
+        Validator validator = new Validator(category);
+        if (validator.getResponseStatus().getStatus() == ValidationStatus.FAIL) {
+            return validator.getResponseStatus();
+        }else{
+            if(!categoryService.updateCategoryNameById(category).equals("")){
+                return validator.getResponseStatus().addMessage("A megadott kategória már létezik!");
+            }
+            return validator.getResponseStatus().addMessage("Sikeres módosítás!");
+        }
+    }
 
     @DeleteMapping("/categories")
     public ResponseStatus deleteCategory(@RequestBody Category category) {
