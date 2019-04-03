@@ -43,7 +43,11 @@ function showTop3(jsonData) {
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
+    if(jsonData[i].image!==null){
     img.src =  "data:image/jpg;base64,"+ jsonData[i].image;
+    }else{
+    img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+    }
     img.setAttribute('alt', 'picture of the game');
     var name = document.createElement('span');
     name.setAttribute('class', 'name');
@@ -114,8 +118,11 @@ function showProducts(jsonData) {
 
       var img = document.createElement('img');
       img.setAttribute('class', 'picture');
+      if (jsonData.product.image !==null){
       img.src =  "data:image/jpg;base64,"+jsonData[i].products[k].image;
-      img.setAttribute('alt', 'picture of the game');
+      }else{
+      img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+      }
       var name = document.createElement('span');
       name.setAttribute('class', 'name');
       var price = document.createElement('span');
