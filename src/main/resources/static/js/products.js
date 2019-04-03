@@ -35,7 +35,7 @@ function fetchProduct() {
                 goToBasketA.setAttribute('href', '/basket.html')
                  var goToBasketButton = document.createElement('button');
                  goToBasketButton.setAttribute('class', 'button');
-                 goToBasketButton.innerHTML = 'Tovább a kosaramba';
+                 goToBasketButton.innerHTML = 'Tovább a kosaramhoz';
                  goToBasketA.appendChild(goToBasketButton);
                  addBasketTd.appendChild(goToBasketA);
             }

@@ -1,5 +1,5 @@
 fetchProducts();
-document.forms["product-registration-form"].onsubmit = handleCreateForm;
+document.getElementById("save-new-product").addEventListener('click', handleCreateForm);
 document.getElementById("new-product-categories").addEventListener('click', function () {
   showCategoryOfItem('new-product-categories');
   saveProductIdToRawDataSaveButton('new-product-categories');
@@ -85,9 +85,10 @@ function showProducts(jsonData) {
     modifyButton["raw-data"] = jsonData[i];
 
     var category = document.createElement('button');
-    category.innerHTML = 'Kategoriak';
+    category.innerHTML = 'Kategóriák';
     category['raw-data'] = jsonData[i].categories;
     category.setAttribute('id', jsonData[i].code);
+    category.setAttribute('class', 'td-button');
     category.style.display = "none";
 
     addEventListenerToCategoryButton(category, jsonData[i]);
