@@ -28,7 +28,7 @@ public class ReportDao {
         return jdbcTemplate.query("SELECT YEAR(orders.purchase_date) as year, MONTH(orders.purchase_date) as month, " +
                         "orders.status as status, COUNT(orders.id) as num_of_orders, SUM(order_item.price) as sum " +
                         "FROM order_item JOIN orders ON order_item.orders_id = orders.id GROUP BY YEAR(orders.purchase_date), " +
-                        "MONTH(orders.purchase_date), orders.status",
+                        "MONTH(orders.purchase_date), orders.status order by orders.purchase_date",
                 (rs, rowNum) -> new ReportOfOrders(
                         rs.getInt("year"),
                         Month.of(rs.getInt("month")),
@@ -41,7 +41,7 @@ public class ReportDao {
         return jdbcTemplate.query("SELECT YEAR(orders.purchase_date) as year, MONTH(orders.purchase_date) as month, product.code, product.name, " +
                         "order_item.price, COUNT(order_item.id) as count, SUM(order_item.price) as sum FROM order_item " +
                         "JOIN orders ON orders.id = order_item.orders_id JOIN product ON order_item.product_id = product.id " +
-                        "WHERE orders.status = 'DELIVERED' GROUP BY product.id, order_item.price",
+                        "WHERE orders.status = 'DELIVERED' GROUP BY product.id, order_item.price order by orders.purchase_date",
                 (rs, rowNum) -> new ReportOfProductSale(
                         rs.getInt("year"),
                         Month.of(rs.getInt("month")),
