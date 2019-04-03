@@ -56,7 +56,6 @@ function saveCategoryModifications() {
     category.name = spans[2].innerHTML;
     categories.push(category);
   }
-  console.log(JSON.stringify(categories));
   fetch('/categories', {
       method: 'PUT',
       body: JSON.stringify(categories),
