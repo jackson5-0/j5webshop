@@ -21,7 +21,6 @@ function showStatistics(jsonData){
                        maintainAspectRatio:false,
 
                        };
-
     if(numberOfAllProducts !==0){
     var ct1 = document.getElementById('chart1');
     var data = {

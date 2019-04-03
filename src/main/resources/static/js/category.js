@@ -42,7 +42,7 @@ function showProductsOfCategory(jsonData) {
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
-    img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+    img.src =  "data:image/jpg;base64,"+ jsonData[0].products[i].image;
     img.setAttribute('alt', 'picture of the game');
     var name = document.createElement('span');
     name.setAttribute('class', 'name');
