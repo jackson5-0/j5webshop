@@ -62,7 +62,6 @@ footer {
   bottom: 0;
   color: white;
   font-family: "Existence";
-  font-size: 1vw;
   height: 30px;
   left: 0;
   opacity: 0.5;
@@ -75,6 +74,7 @@ footer p {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
+  bottom: -16px;
 }
 
 #header-top {
@@ -94,11 +94,11 @@ footer p {
   height: inherit;
   float: left;
   position: relative;
-  padding: 7px;
+  padding: 10px;
 }
 
 .logo {
-  height: 110px;
+  height: 100px;
   transition-duration: 0.3s;
 }
 

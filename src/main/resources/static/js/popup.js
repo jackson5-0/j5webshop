@@ -64,7 +64,11 @@ function showCategoryOfItem(rowIdentifier) {
 function createDefaultStateOfSelectedCategoryList(categories) {
     var collectedCategories = document.getElementById('chosen-categories');
     collectedCategories.innerHTML = '';
-    if (!categories) return;
+    if (!categories) {
+        var header = document.getElementById('product-name');
+        header.innerHTML = 'Új termék';
+        return;
+    }
     for (var i = 0; i < categories.length; i++) {
         collectedCategories.innerHTML += " " + categories[i].name + " ";
     }
