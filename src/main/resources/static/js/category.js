@@ -42,8 +42,11 @@ function showProductsOfCategory(jsonData) {
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
+    if(jsonData[0].products[i].image!==null){
     img.src =  "data:image/jpg;base64,"+ jsonData[0].products[i].image;
-    img.setAttribute('alt', 'picture of the game');
+     }else{
+          img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+          }
     var name = document.createElement('span');
     name.setAttribute('class', 'name');
     var price = document.createElement('span');

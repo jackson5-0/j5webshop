@@ -42,8 +42,11 @@ function fetchProduct() {
             var imgDiv = document.getElementById("product-image-div");
             var img = document.createElement('img');
             img.setAttribute('class', 'product-image');
-            img.src =  "data:image/jpg;base64," + jsonData.product.image;
-            img.setAttribute('alt', 'picture of the game');
+            if (jsonData.product.image !==null){
+                img.src =  "data:image/jpg;base64," + jsonData.product.image;
+            }else{
+                img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+            }
             imgDiv.appendChild(img);
             var product = jsonData.product;
             return product;

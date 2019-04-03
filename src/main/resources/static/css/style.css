@@ -52,16 +52,17 @@
     text-align: center;
     font-style: normal;
     max-width: 220px;
-    width: 40%;
-    border: 1px solid #16a085;
+    width: 50%;
+    border: 1px solid #1abc9c;
     border-radius: 4px;
-    border-width: 1px 1px 3px;
     margin-bottom: 5px;
 }
 
 .basket-option-button:hover,
 .administration-table tr td button:hover {
-    background: #109177;
+    background: #B2D142;
+    border: 1px solid #B2D142;
+    color: black;
 }
 
 .alert-success {
@@ -95,7 +96,6 @@
     color: ivory;
 }
 
-.orders-table-div-button a,
 .button a {
     text-decoration: none;
     color: black;
@@ -131,6 +131,11 @@
     heigth: auto;
     /*max-width: 600px;
     height: 300px;*/
+}
+
+.new-address-input {
+    width: 100%;
+    height: 70px;
 }
 
 .fade {
@@ -268,41 +273,12 @@
     position: relative;
 }
 
-.orders-table-div-button {
-    background-color: #e7e7e7;
-    border: none;
-    color: black;
-    cursor: pointer;
-    display: inline-block;
-    font-family: "Existence";
-    font-size: 1.2vw;
-    font-weight: bold;
-    margin: 2px 1px;
-    opacity: 0.6;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-}
-
-.orders-table-div-button a {
-    text-decoration: none;
-    color: black;
-}
-
-.orders-table-div-button:hover {
-    background-color: white;
-    outline: 1px solid #ccc;
-    color: black;
-}
-
 .orders-table-div h1 {
     font-size: 2vw;
 }
 
 .orders-table tr td {
-    padding: 10px 10px 10px 10px;
+    padding: 0.5vw 0.5vw;
     text-align: center;
     width: 10%;
     background: #e8eeef;
@@ -311,12 +287,20 @@
 }
 
 .orderlist__table__th1 {
-    background-color: #1ABC9C;
-    color: ivory;
+    background-color: grey;
+    color: #B2D142;
+    padding: 1vw 1vw;
+}
+
+.sum-of-order {
+    color: black;
+    background: #B2D142;
+    outline: 1px solid #ccc;
 }
 
 .orderlist__table__th2 {
-    color: #1ABC9C;
+    color: grey;
+    padding: 1vw 1vw;
 }
 
 .page-number a {
@@ -356,13 +340,12 @@
 }
 
 .product-to-basket-message {
+    box-sizing: border-box;
     float: center;
     font-family: "Existence";
-    font-size: auto;
     font-weight: bold;
-    height: 1.5vw;
-    min-font-size: 1.5vw;
-    padding: 0 0 1vw 12vw;
+    height: 30px;
+    font-size: 15px;
 }
 
 .user-div,
@@ -406,7 +389,7 @@
 
 .basket-input-buttons {
     width: 18%;
-    padding: 0 1vw 0 0;
+    padding: 0 0;
     margin-left: 80%;
 }
 
