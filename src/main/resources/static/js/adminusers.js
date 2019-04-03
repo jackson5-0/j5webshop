@@ -1,4 +1,5 @@
 fetchUsers();
+initPopup();
 
 function fetchUsers() {
   fetch(`/admin/users`)
@@ -8,6 +9,37 @@ function fetchUsers() {
     .then(function (jsonData) {
       showUsers(jsonData);
     });
+}
+
+function doConfirm(msg, yesFn) {
+  var confirmBox = $(".confirm");
+  confirmBox.find("#product-name").text(msg);
+  confirmBox.find(".save").click(yesFn);
+}
+
+function initPopup() {
+  var confirm = document.getElementById('delete-confirm');
+  var span = document.getElementsByClassName('close');
+  var save = document.getElementsByClassName('save');
+
+  save.onclick = function () {
+    confirm.style.display = "none";
+  }
+  for (var i = 0; i < span.length; i++) {
+    save[i].onclick = function () {
+      confirm.style.display = "none";
+    }
+  }
+  for (var i = 0; i < span.length; i++) {
+    span[i].onclick = function () {
+      confirm.style.display = "none";
+    }
+  }
+  window.onclick = function (event) {
+    if (event.target == confirm) {
+      confirm.style.display = "none";
+    }
+  }
 }
 
 function showUsers(jsonData) {
@@ -40,8 +72,8 @@ function showUsers(jsonData) {
     var buttonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Törlés";
-    deleteButton.onclick = deleteUser;
     deleteButton["raw-data"] = jsonData[i].id;
+    addEventListenerOnDeleteButton(deleteButton, jsonData[i].id);
 
     var modifyButton = document.createElement('button');
     modifyButton.innerHTML = "Mentés";
@@ -60,11 +92,17 @@ function showUsers(jsonData) {
   }
 }
 
-function deleteUser() {
-  var id = this["raw-data"];
-  if (!confirm("Biztosan törölni szeretnéd ezt a felhasználót?")) {
-    return;
-  }
+function addEventListenerOnDeleteButton(element, data) {
+  element.addEventListener('click', function () {
+    var confirm = document.getElementById('delete-confirm');
+    confirm.style.display = "block";
+    doConfirm("Biztosan törölni szeretnéd a felhasználót?", function yes() {
+      deleteUser(data);
+    });
+  });
+}
+
+function deleteUser(id) {
   fetch(`/admin/users?id=${id}`, {
       method: "DELETE"
     })
@@ -89,9 +127,9 @@ function updateUser() {
   var username = document.getElementById('userName-Td' + id).innerHTML;
   var password;
   if (document.getElementById('password-Td' + id).innerHTML.indexOf("*") > -1) {
-        password = document.getElementById('password-Td' + id)["raw-data"];
+    password = document.getElementById('password-Td' + id)["raw-data"];
   } else {
-        password = document.getElementById('password-Td' + id).innerHTML;
+    password = document.getElementById('password-Td' + id).innerHTML;
   }
   var request = {
     "id": id,
