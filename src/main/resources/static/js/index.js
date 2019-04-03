@@ -44,7 +44,7 @@ function showTop3(jsonData) {
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
     if(jsonData[i].image!==null){
-    img.src =  "data:image/jpg;base64,"+ jsonData[i].image;
+    img.src =  "data:image/png;base64,"+ jsonData[i].image;
     }else{
     img.setAttribute('src', '/img/fantasy_game_dice.jpg');
     }
@@ -119,7 +119,7 @@ function showProducts(jsonData) {
       var img = document.createElement('img');
       img.setAttribute('class', 'picture');
       if (jsonData[i].products[k].image !==null){
-      img.src =  "data:image/jpg;base64,"+jsonData[i].products[k].image;
+      img.src =  "data:image/png;base64,"+jsonData[i].products[k].image;
       }else{
       img.setAttribute('src', '/img/fantasy_game_dice.jpg');
       }
