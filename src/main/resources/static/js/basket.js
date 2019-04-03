@@ -182,9 +182,6 @@ function orderBasket() {
 function deleteBasketItem() {
   var productId = this["raw-data"].product.id;
   var basketId = user.basketId;
-  if (!confirm("Biztosan el szeretné távolítani a terméket a kosárból?")) {
-    return;
-  }
   fetch(`/basket/${basketId}?productId=${productId}`, {
       method: "DELETE"
     })
