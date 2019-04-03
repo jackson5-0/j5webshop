@@ -94,7 +94,7 @@ public class OrderDao {
                 ORDER_ROW_MAPPER, userName);
     }
     public List<Product> listLast3OrderedItem() {
-        return jdbcTemplate.query("SELECT product.id, product.code, product.name, product.address, product.publisher, product.price, product.status FROM `product`" +
+        return jdbcTemplate.query("SELECT product.id, product.code, product.name, product.address, product.publisher, product.price, product.status, product.image FROM `product`" +
                         " JOIN order_item on product.id = order_item.product_id" +
                         " join orders on order_item.orders_id=orders.id" +
                         " join users on users.id=orders.user_id" +
@@ -102,7 +102,7 @@ public class OrderDao {
                         " group by order_item.product_id, order_item.orders_id"+
                         " order by order_item.id DESC" +
                         " LIMIT 3",
-                (resultSet, i) -> new Product(resultSet.getLong("id"),resultSet.getString("code"),resultSet.getString("name"),resultSet.getString("address"), resultSet.getString("publisher"),resultSet.getInt("price"),resultSet.getString("status")));
+                (resultSet, i) -> new Product(resultSet.getLong("id"),resultSet.getString("code"),resultSet.getString("name"),resultSet.getString("address"), resultSet.getString("publisher"),resultSet.getInt("price"),resultSet.getString("status"), resultSet.getBytes("image")));
     }
 
     public List<Order> listActiveOrder(String userName) {

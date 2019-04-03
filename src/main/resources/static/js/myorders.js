@@ -34,7 +34,7 @@ function showList(jsonData) {
   for (var i = 0; i < jsonData.length; i++) {
     tableRow += thead +`<tr class="tableLine${i}" class="orderlist">
                       <td class="orderlist__table__td">#${jsonData[i].id}</td>
-                      <td class="orderlist__table__td">${jsonData[i].purchaseDate}</td>
+                      <td class="orderlist__table__td">${(jsonData[i].purchaseDate).replace("T"," ")}</td>
                       <td class="orderlist__table__td">${jsonData[i].orderStatus}</td>
                       <td class="orderlist__table__td">${jsonData[i].shippingAddress}</td>
                     </tr>
