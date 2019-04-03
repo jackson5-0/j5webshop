@@ -251,7 +251,7 @@ function loadAddresses(jsonData) {
     }
   }
   addressInfoForm.innerHTML += `<input type="radio" name="address" class="radio" value="new address" id="new-address-radio" onclick="selectAddress()" checked>
-                                  <input type="text" id="new-address" maxlength="200" placeholder="új cím megadása"><br>`;
+                                  <input type="text" id="new-address" class="new-address-input" maxlength="200" placeholder="új cím megadása"><br>`;
 }
 
 function selectAddress() {

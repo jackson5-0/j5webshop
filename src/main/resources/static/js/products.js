@@ -35,7 +35,7 @@ function fetchProduct() {
                 goToBasketA.setAttribute('href', '/basket.html')
                  var goToBasketButton = document.createElement('button');
                  goToBasketButton.setAttribute('class', 'button');
-                 goToBasketButton.innerHTML = 'Tovább a kosaramba';
+                 goToBasketButton.innerHTML = 'Tovább a kosaramhoz';
                  goToBasketA.appendChild(goToBasketButton);
                  addBasketTd.appendChild(goToBasketA);
             }
@@ -43,7 +43,7 @@ function fetchProduct() {
             var img = document.createElement('img');
             img.setAttribute('class', 'product-image');
             if (jsonData.product.image !==null){
-                img.src =  "data:image/jpg;base64," + jsonData.product.image;
+                img.src =  "data:image/png;base64," + jsonData.product.image;
             }else{
                 img.setAttribute('src', '/img/fantasy_game_dice.jpg');
             }

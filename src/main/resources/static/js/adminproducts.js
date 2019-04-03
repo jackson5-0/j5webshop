@@ -1,6 +1,6 @@
 var fileByteArray = []; //image in byte array
 fetchProducts();
-document.forms["product-registration-form"].onsubmit = handleCreateForm;
+document.getElementById("save-new-product").addEventListener('click', handleCreateForm);
 document.getElementById("new-product-categories").addEventListener('click', function () {
   showCategoryOfItem('new-product-categories');
   saveProductIdToRawDataSaveButton('new-product-categories');
@@ -87,9 +87,10 @@ function showProducts(jsonData) {
     modifyButton["raw-data"] = jsonData[i];
 
     var category = document.createElement('button');
-    category.innerHTML = 'Kategoriak';
+    category.innerHTML = 'Kategóriák';
     category['raw-data'] = jsonData[i].categories;
     category.setAttribute('id', jsonData[i].code);
+    category.setAttribute('class', 'td-button');
     category.style.display = "none";
 
     addEventListenerToCategoryButton(category, jsonData[i]);
@@ -164,6 +165,7 @@ function deleteProduct(id) {
   if (!confirm("Biztosan törölni szeretnéd ezt a terméket?")) {
     return;
   }
+  console.log('cica');
   fetch(`/admin/products?id=${id}`, {
       method: "DELETE" //vagy mégis DELETE? Akkor nem kell a köv 4 sor!
     })
@@ -253,7 +255,7 @@ function setCalssNameForEdit(row) {
   var elements = row.getElementsByTagName('td');
   for (var i = 0; i < 6; i++) {
     elements[i].setAttribute('class', 'under-edit');
-    if (i != 6) {
+    if (i < 5) {
       elements[i].contentEditable = "true";
     }
   }
@@ -272,6 +274,7 @@ function removeEditableFromOtherRows(actualRow) {
       rows[i].classList.remove('under-edit');
       for (var k = 0; k < 6; k++) {
         children[k].classList.remove('under-edit');
+        children[k].contentEditable = "false";
       }
     }
   }

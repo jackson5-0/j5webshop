@@ -18,21 +18,23 @@
         </div>
     </header>
     <main>
-        <div id="product-registration" class="input-form">
+        <div id="product-registration" class="product-registration-form">
             <h1>Termék-regisztráció</h1>
             <br>
-            <form id="product-registration-form">
-                <label>Megnevezés: <input name="name-input" id="name-input"></label><br>
-                <label>Gyártó: <input name="publisher-input" id="publisher-input"></label><br>
-                <label>Ár: <input name="price-input" id="price-input"></label><br>
-                <input type="button" id="new-product-categories" value="kategóriák"><br>
-                <input type="button" id="loadFileXml" value="Kép feltöltés" onclick="document.getElementById('file').click();" />
-                <input type="file" style="display:none;" id="file" name="file"/>
-                <input type="submit" value="Mentés">
-                <br>
-            </form>
-            <div id="message-div"></div>
-
+            <table id="product-registration-form">
+                <tr>
+                <td>Megnevezés: <input name="name-input" id="name-input"></td>
+                <td>Gyártó: <input name="publisher-input" id="publisher-input"></td>
+                <td>Ár: <input name="price-input" id="price-input"></td>
+                    <td> <input type="button" id="loadFileXml" value="Kép feltöltés" onclick="document.getElementById('file').click();" /></td>
+                     <td><input type="file" style="display:none;" id="file" name="file"/></td>
+                    <td><input type="button" id="new-product-categories" value="kategóriák"></td>
+                    <td><input type="submit" id="save-new-product" value="Mentés"></td>
+                </tr>
+            </table>
+            <br>
+            <div id="message-div" class="product-to-basket-message"></div>
+            <br>
             <div id="myModal" class="modal">
                 <div class="modal-content">
                     <h2 id="product-name"></h2>

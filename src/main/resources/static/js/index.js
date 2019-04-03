@@ -38,13 +38,13 @@ function showTop3(jsonData) {
   top3Div.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
     var product = document.createElement('div');
-    product.setAttribute('class', 'product slideshow fade');
+    product.setAttribute('class', 'product2 slideshow fade');
     product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[i].address}"`);
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
     if(jsonData[i].image!==null){
-    img.src =  "data:image/jpg;base64,"+ jsonData[i].image;
+    img.src =  "data:image/png;base64,"+ jsonData[i].image;
     }else{
     img.setAttribute('src', '/img/fantasy_game_dice.jpg');
     }
@@ -79,7 +79,7 @@ function showDivs() {
     slideIndex = 1
   };
   x[slideIndex - 1].style.display = "block";
-  setTimeout(showDivs, 3000);
+  setTimeout(showDivs, 6000);
 }
 //function fetchPageNavigators() {
 //  fetch('/categories')
@@ -119,7 +119,7 @@ function showProducts(jsonData) {
       var img = document.createElement('img');
       img.setAttribute('class', 'picture');
       if (jsonData[i].products[k].image !==null){
-      img.src =  "data:image/jpg;base64,"+jsonData[i].products[k].image;
+      img.src =  "data:image/png;base64,"+jsonData[i].products[k].image;
       }else{
       img.setAttribute('src', '/img/fantasy_game_dice.jpg');
       }
