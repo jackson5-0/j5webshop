@@ -1,9 +1,11 @@
+var fileByteArray = []; //image in byte array
 fetchProducts();
 document.getElementById("save-new-product").addEventListener('click', handleCreateForm);
 document.getElementById("new-product-categories").addEventListener('click', function () {
   showCategoryOfItem('new-product-categories');
   saveProductIdToRawDataSaveButton('new-product-categories');
 });
+document.getElementById("file").addEventListener('change',handleFileUpload,false);
 
 
 function fetchProducts() {
@@ -122,11 +124,13 @@ function handleCreateForm() {
   var publisher = document.getElementById("publisher-input").value;
   var price = document.getElementById("price-input").value;
   var categories = document.getElementById("new-product-categories")['raw-data'];
+
   var request = {
     "name": name,
     "publisher": publisher,
     "price": price,
-    "categories": categories
+    "categories": categories,
+    "image": fileByteArray
   };
   fetch('/admin/products', {
       method: "POST",
@@ -153,7 +157,6 @@ function handleCreateForm() {
       for (var i = 0; i < jsonData.messages.length; i++) {
         document.getElementById("message-div").innerHTML += jsonData.messages[i] + "<br>";
       }
-
     });
   return false;
 }
@@ -275,4 +278,19 @@ function removeEditableFromOtherRows(actualRow) {
       }
     }
   }
+}
+function handleFileUpload(evt){
+    var files = evt.target.files;
+    var sajt = files[0];
+    var reader = new FileReader();
+
+    reader.readAsArrayBuffer(sajt);
+    reader.onloadend = function (evt) {
+
+           var arrayBuffer = evt.target.result,
+               array = new Uint8Array(arrayBuffer);
+           for (var i = 0; i < array.length; i++) {
+               fileByteArray.push(array[i]);
+            }
+        }
 }

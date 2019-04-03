@@ -82,13 +82,14 @@ public class ProductDao {
                                 @Override
                                 public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                                     PreparedStatement ps = connection.prepareStatement
-                                            ("insert into product (code, name, address, publisher, price, status) values(?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                                            ("insert into product (code, name, address, publisher, price, status, image) values(?, ?, ?, ?, ?, ?,?)", Statement.RETURN_GENERATED_KEYS);
                                     ps.setString(1, product.getCode());
                                     ps.setString(2, product.getName());
                                     ps.setString(3, product.getAddress());
                                     ps.setString(4, product.getPublisher());
                                     ps.setInt(5, product.getPrice());
                                     ps.setString(6, product.getStatus().name());
+                                    ps.setBytes(7,product.getImage());
                                     return ps;
                                 }
                             }, keyHolder

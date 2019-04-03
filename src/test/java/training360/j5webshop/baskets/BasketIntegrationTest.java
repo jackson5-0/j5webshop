@@ -86,7 +86,7 @@ public class BasketIntegrationTest {
         ResponseStatus rs = basketController.flushBasket(new TestingAuthenticationToken("", ""));
         // Then
         assertThat(rs.getStatus(), equalTo(ValidationStatus.FAIL));
-        assertThat(rs.getMessages().get(0), equalTo("Nem létező kosár"));
+        assertThat(rs.getMessages().get(0), equalTo("A kosár üres."));
     }
 
     @Test
