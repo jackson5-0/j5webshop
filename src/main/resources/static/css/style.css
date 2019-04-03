@@ -52,8 +52,8 @@
     text-align: center;
     font-style: normal;
     max-width: 220px;
-    width: 40%;
-    border: 1px solid grey;
+    width: 50%;
+    border: 1px solid #1abc9c;
     border-radius: 4px;
     margin-bottom: 5px;
 }
@@ -61,6 +61,7 @@
 .basket-option-button:hover,
 .administration-table tr td button:hover {
     background: #B2D142;
+    border: 1px solid #B2D142;
     color: black;
 }
 
@@ -130,6 +131,11 @@
     heigth: auto;
     /*max-width: 600px;
     height: 300px;*/
+}
+
+.new-address-input {
+    width: 100%;
+    height: 70px;
 }
 
 .fade {
@@ -334,13 +340,12 @@
 }
 
 .product-to-basket-message {
+    box-sizing: border-box;
     float: center;
     font-family: "Existence";
-    font-size: auto;
     font-weight: bold;
-    height: 1.5vw;
-    min-font-size: 1.5vw;
-    padding: 0 0 1vw 12vw;
+    height: 30px;
+    font-size: 15px;
 }
 
 .user-div,
@@ -384,7 +389,7 @@
 
 .basket-input-buttons {
     width: 18%;
-    padding: 0 1vw 0 0;
+    padding: 0 0;
     margin-left: 80%;
 }
 
