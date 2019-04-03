@@ -18,11 +18,13 @@ function showStatistics(jsonData){
     var numberOfActiveOrders = jsonData.numberOfActiveOrders;
     var numberOfAllOrders = jsonData.numberOfAllOrders;
     var options = {responsive: true,
-                       maintainAspectRatio:false,
-
-                       };
+                   maintainAspectRatio:false,
+                   animation: {
+                                duration: 3000,
+                              }
+                   };
     if(numberOfAllProducts !==0){
-    var ct1 = document.getElementById('chart1');
+    var ct1 = document.getElementById('chart1').getContext("2d");
     var data = {
         labels: [`Aktív termékek`, `Törölt termékek`],
         datasets: [{
@@ -51,7 +53,7 @@ function showStatistics(jsonData){
     }
 
     if(numberOfAllOrders !==0){
-    var ct2 = document.getElementById('chart2');
+    var ct2 = document.getElementById('chart2').getContext("2d");
 
     var data2 = {
             labels: [`Aktív rendelések`, `Nem aktív rendelések`],
