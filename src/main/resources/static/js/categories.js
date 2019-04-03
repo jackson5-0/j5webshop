@@ -148,7 +148,7 @@ function createDragAndDropElements(categories) {
     updateName.setAttribute('class', 'update-category-name');
     updateName.style.cssFloat = 'right';
     deleteCategory.setAttribute('class', 'delete-category');
-    deleteCategory.innerHTML = '&#9746;';
+    deleteCategory.innerHTML = '&times;';
     deleteCategory['raw-data'] = categories[i];
 
     addEventListenerCategories(deleteCategory, categories[i]);
@@ -157,8 +157,8 @@ function createDragAndDropElements(categories) {
     li.appendChild(arrow);
     li.appendChild(priority);
     li.appendChild(name);
-    li.appendChild(updateName);
     li.appendChild(deleteCategory);
+    li.appendChild(updateName);
 
     list.appendChild(li);
   }
@@ -201,6 +201,7 @@ function modifyName(rawData) {
         fetchCategories();
       });
   }
+  document.getElementById('new-name-input').value = '';
 }
 
 function handlePriorityChange() {
