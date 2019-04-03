@@ -482,10 +482,26 @@ textarea {
     height: 18px;
 }
 
-#top3 {
-    text-align: center;
+.top3 {
+    position: relative;
+    text-align:center;
+    margin:auto;
+    height: 40vv;
+    width: 60%;
+
+}
+.slideshow{
+    height: 80%;
+    width: 50%;
+    margin: auto;
+}
+.product2 {
+    box-sizing: border-box;
     display: inline-block;
-    margin: 0 auto;
+    padding: 1vv;
+    width: 50%;
+    margin: auto;
+    margin-bottom: 50vv;
 }
 
 .ui-icon-arrowthick-2-n-s {
