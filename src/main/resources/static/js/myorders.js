@@ -51,10 +51,10 @@ function showList(jsonData) {
                                          `;
     }
     tableRow += `<tr class="tablehead" class="orderlist">
-                                                 <th class="orderlist__table__th2">Megrendelés végösszege</th>
+                                                 <th class="orderlist__table__th1">Megrendelés végösszege</th>
                                                  </tr>
-                                                 <tr class="tablehead" class="orderlist">
-                                                      <td class="orderlist__table__th2">${sumPrice}</td>
+                                                 <tr>
+                                                      <td class="sum-of-order">${sumPrice}</td>
                                                  </tr>`
 
   } tbody.innerHTML = tableRow;
