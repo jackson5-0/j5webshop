@@ -79,11 +79,11 @@
     cursor: pointer;
     display: inline-block;
     font-family: "Existence";
-    font-size: 2vw;
+    font-size: 1.5vw;
     font-weight: bold;
-    margin: 4px 2px;
+    margin: 2px 1px;
     opacity: 0.6;
-    padding: 16px 32px;
+    padding: 1vw 1.5vw;
     text-align: center;
     text-decoration: none;
     -webkit-transition-duration: 0.4s;
@@ -102,8 +102,8 @@
 }
 
 .button:hover {
-    background-color: white;
-    border: 1px solid #ccc;
+    background-color: #B2D142;
+    outline: 1px solid #ccc;
     color: black;
 }
 
@@ -563,7 +563,7 @@ h1 {
 .rate {
     float: left;
     height: 46px;
-    padding: 0 10px;
+    padding: 12px 10px;
 }
 .rate:not(:checked) > input {
     position:absolute;
@@ -595,3 +595,12 @@ h1 {
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+.single-review-div {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 1vw;
+    width: 100%;
+    margin: 0 -1vw;
+}
+
