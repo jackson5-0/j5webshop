@@ -26,8 +26,10 @@
                 <td>Megnevezés: <input name="name-input" id="name-input"></td>
                 <td>Gyártó: <input name="publisher-input" id="publisher-input"></td>
                 <td>Ár: <input name="price-input" id="price-input"></td>
-                <td><input type="button" id="new-product-categories" value="kategóriák">
-                <td><input type="submit" id="save-new-product" value="Mentés">
+                    <td> <input type="button" id="loadFileXml" value="Kép feltöltés" onclick="document.getElementById('file').click();" /></td>
+                     <td><input type="file" style="display:none;" id="file" name="file"/></td>
+                    <td><input type="button" id="new-product-categories" value="kategóriák"></td>
+                    <td><input type="submit" id="save-new-product" value="Mentés"></td>
                 </tr>
             </table>
             <br>

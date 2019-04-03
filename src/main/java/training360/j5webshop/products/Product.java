@@ -62,6 +62,10 @@ public class Product {
         this(name, publisher, price);
         this.categories = categories;
     }
+    public Product(String name, String publisher, int price, List<Category> categories, byte[] image) {
+        this(name, publisher, price, categories);
+        this.image = image;
+    }
     public void setCodeAndAddress() {
         String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
