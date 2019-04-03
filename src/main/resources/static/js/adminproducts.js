@@ -71,14 +71,6 @@ function showProducts(jsonData) {
     statusTd.innerHTML = jsonData[i].status;
     statusTd.setAttribute('id', 'status-Td' + jsonData[i].id)
 
-    var categoryTd = document.createElement('td');
-    var category = document.createElement('button');
-    category.innerHTML = 'Kategoriak';
-    category['raw-data'] = jsonData[i].categories;
-    category.setAttribute('id', jsonData[i].code);
-
-    addEventListenerToCategoryButton(category, jsonData[i]);
-
     var buttonTd = document.createElement('td');
     var deleteButton = document.createElement('button');
     deleteButton.innerHTML = "Törlés";
@@ -92,9 +84,17 @@ function showProducts(jsonData) {
     modifyButton.setAttribute('id', `modify-${jsonData[i].id}`);
     modifyButton["raw-data"] = jsonData[i];
 
+    var category = document.createElement('button');
+    category.innerHTML = 'Kategoriak';
+    category['raw-data'] = jsonData[i].categories;
+    category.setAttribute('id', jsonData[i].code);
+    category.style.display = "none";
+
+    addEventListenerToCategoryButton(category, jsonData[i]);
+
     buttonTd.appendChild(deleteButton);
     buttonTd.appendChild(modifyButton);
-    categoryTd.appendChild(category);
+    buttonTd.appendChild(category);
 
     tr.appendChild(codeTd);
     tr.appendChild(nameTd);
@@ -103,7 +103,6 @@ function showProducts(jsonData) {
     tr.appendChild(priceTd);
     tr.appendChild(statusTd);
     tr.appendChild(buttonTd);
-    tr.appendChild(categoryTd);
     tableBody.appendChild(tr);
   }
 }
@@ -225,13 +224,16 @@ function handleEdit() {
   } else {
     var editButton = document.getElementById(`modify-${this['raw-data'].id}`);
     var cancelButton = document.getElementById(`delete-${this['raw-data'].id}`)
+    var categoryButton = document.getElementById(this['raw-data'].code);
     row.setAttribute('class', 'under-edit');
     setCalssNameForEdit(row);
     removeEditableFromOtherRows(row);
+    categoryButton.style.display = "inline-block";
     editButton.innerHTML = 'Mentés';
     cancelButton.innerHTML = 'Mégse';
   }
 }
+
 
 function handleDelete() {
   var row = document.getElementById(`product-row-${this['raw-data']}`);
