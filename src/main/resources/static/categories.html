@@ -7,13 +7,31 @@
     <link rel="shortcut icon" type="image/x-icon" href="j5logo.png">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/css/style.css">
-    <link href="/css/body.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/css/body.css" type="text/css">
+    <link rel="stylesheet" href="/css/popup.css">
 </head>
 
 <body>
     <header class="nav">
     </header>
     <main>
+
+        <div id="delete-confirm" class="confirm">
+            <div class="confirm-content">
+                <h2 id="product-name"></h2>
+                <span class="close">MÉGSE</span>
+                <span class="save">OK</span>
+            </div>
+        </div>
+
+        <div id="name-prompt" class="prompt">
+            <div class="prompt-content">
+                <h2 id="message-text"></h2>
+                <input id="new-name-input">
+                <span class="close">MÉGSE</span>
+                <span class="save">OK</span>
+            </div>
+        </div>
 
         <h1>Kategória hozzáadása</h1>
         <form id="category-registration-form">

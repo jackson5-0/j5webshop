@@ -532,24 +532,25 @@ textarea {
     cursor: pointer;
 }
 
-.login-message{
-height: 200px;
-  width: 800px;
-  position: absolute;
-  top: 80%;
-  left: 22%;
-  margin-top: -100px;
-  margin-left: 50px;
-  color: #47476b;
-  font-family: "Existence";
-      src: url("/fonts/Existence-Light.ttf")
-  font-weight: bold;
+.login-message {
+    height: 200px;
+    width: 800px;
+    position: absolute;
+    top: 80%;
+    left: 22%;
+    margin-top: -100px;
+    margin-left: 50px;
+    color: #47476b;
+    font-family: "Existence";
+    src: url("/fonts/Existence-Light.ttf");
+    font-weight: bold;
 }
-.login-message h1{
-  font-size: 30px;
-  line-height: 46px;
-  margin-bottom: 40px;
- }
+
+.login-message h1 {
+    font-size: 30px;
+    line-height: 46px;
+    margin-bottom: 40px;
+}
 
 h1 {
     font-family: "Existence";
@@ -564,33 +565,39 @@ h1 {
     height: 46px;
     padding: 0 10px;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    left:-99999px;
+
+.rate:not(:checked)>input {
+    position: absolute;
+    left: -99999px;
 }
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
-.rate:not(:checked) > label:before {
+
+.rate:not(:checked)>label:before {
     content: '★ ';
 }
-.rate > input:checked ~ label {
+
+.rate>input:checked~label {
     color: #ffc700;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
     color: #deb217;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
     color: #c59b08;
 }

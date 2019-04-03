@@ -5,6 +5,7 @@ document.getElementById("new-product-categories").addEventListener('click', func
   saveProductIdToRawDataSaveButton('new-product-categories');
 });
 
+
 function fetchProducts() {
   fetchPageNavigators();
   var pageNum = (new URL(document.location)).searchParams.get('page');

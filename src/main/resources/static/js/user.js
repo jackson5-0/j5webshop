@@ -67,7 +67,7 @@ function createDefaultHeader(user) {
     <div class="navigation">
         <div class="nav-div">
             <ul>
-            
+                <li><a href="index.html">társasjátékok</a></li>
             </ul>
         </div>
      </div>`;
@@ -89,7 +89,7 @@ function createUserHeader(user) {
     <div class="navigation">
       <div class="nav-div">
          <ul>
-            <li><a href="index.html">főoldal</a></li>
+            <li><a href="index.html">társasjátékok</a></li>
             <li><a href="userprofile.html">személyes adataim</a></li>
             <li><a href="myorders.html">rendeléseim</a></li>
          </ul>

@@ -1,4 +1,6 @@
-.modal {
+.modal,
+.confirm,
+.prompt {
   display: none;
   position: fixed;
   z-index: 1;
@@ -12,12 +14,41 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modal-content,
+.prompt-content {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
+}
+
+.confirm-content {
+  font-family: "Existence";
+  background-color: #fefefe;
+  padding: 20px;
+  margin: auto;
+  border: 1px solid #888;
+  width: 30%;
+}
+
+.prompt-content {
+  font-family: "Existence";
+  background-color: #fefefe;
+  padding: 20px;
+  margin: auto;
+  border: 1px solid #888;
+  width: 40%;
+}
+
+#new-name-input {
+  display: inherit;
+}
+
+#message-text,
+#product-name {
+  position: relative;
+  top: -10px;
 }
 
 .close {
