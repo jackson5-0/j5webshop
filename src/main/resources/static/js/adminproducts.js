@@ -161,6 +161,7 @@ function deleteProduct(id) {
   if (!confirm("Biztosan törölni szeretnéd ezt a terméket?")) {
     return;
   }
+  console.log('cica');
   fetch(`/admin/products?id=${id}`, {
       method: "DELETE" //vagy mégis DELETE? Akkor nem kell a köv 4 sor!
     })
