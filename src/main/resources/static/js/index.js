@@ -118,7 +118,7 @@ function showProducts(jsonData) {
 
       var img = document.createElement('img');
       img.setAttribute('class', 'picture');
-      if (jsonData.product.image !==null){
+      if (jsonData[i].products[k].image !==null){
       img.src =  "data:image/jpg;base64,"+jsonData[i].products[k].image;
       }else{
       img.setAttribute('src', '/img/fantasy_game_dice.jpg');
