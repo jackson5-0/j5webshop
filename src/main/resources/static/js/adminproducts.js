@@ -250,7 +250,7 @@ function setCalssNameForEdit(row) {
   var elements = row.getElementsByTagName('td');
   for (var i = 0; i < 6; i++) {
     elements[i].setAttribute('class', 'under-edit');
-    if (i != 6) {
+    if (i < 5) {
       elements[i].contentEditable = "true";
     }
   }
@@ -263,14 +263,13 @@ function removeEditableFromOtherRows(actualRow) {
     if (rows[i] != actualRow && rows[i].getAttribute('class') == 'under-edit') {
       var editButton = rows[i].getElementsByTagName('td')[6].lastElementChild;
       var cancelButton = rows[i].getElementsByTagName('td')[6].firstElementChild;
-      console.log(editButton);
-      console.log(cancelButton);
       editButton.innerHTML = 'Szerkesztés';
       cancelButton.innerHTML = 'Törlés';
       var children = rows[i].getElementsByTagName('td');
       rows[i].classList.remove('under-edit');
       for (var k = 0; k < 6; k++) {
         children[k].classList.remove('under-edit');
+        children[k].contentEditable = "false";
       }
     }
   }
