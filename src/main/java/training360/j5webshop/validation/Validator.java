@@ -89,10 +89,17 @@ public class Validator {
     }
 
     public Validator(Category category) {
+        checkIdIfDeafultCategory(category.getId());
         checkCategoryName(category.getName());
         checkCategoryPriority(category.getPriority());
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
+        }
+    }
+
+    private void checkIdIfDeafultCategory(long categoryId) {
+        if (categoryId == 1) {
+            responseStatus.addMessage("Ez a kategória nem módosítható!");
         }
     }
 
