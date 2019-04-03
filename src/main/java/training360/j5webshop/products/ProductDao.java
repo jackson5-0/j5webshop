@@ -23,7 +23,7 @@ public class ProductDao {
 
     public List<Product> listProductsWithLimit(int start, int size, String category) {
         return jdbcTemplate.query(
-                "SELECT product.id, code, product.name, address, publisher, price, status FROM product \n" +
+                "SELECT product.id, code, product.name, address, publisher, price, status, image FROM product \n" +
                 "join product_category on product.id = product_category.product_id\n" +
                 "join category on product_category.category_id = category.id\n" +
                 "where category.name = ?\n" +
@@ -32,29 +32,29 @@ public class ProductDao {
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
                         resultSet.getString("address"), resultSet.getString("publisher"),
-                        resultSet.getInt("price"), resultSet.getString("status"));
+                        resultSet.getInt("price"), resultSet.getString("status"), resultSet.getBytes("image"));
             }
         }, category, start, size);
     }
 
     public List<Product> listProductsWithLimitAdmin(int start, int size) {
-        return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product where status != 'DELETED' order by name, publisher limit ?,?", new RowMapper<Product>() {
+        return jdbcTemplate.query("select id, code, name, address, publisher, price, status, image from product where status != 'DELETED' order by name, publisher limit ?,?", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
                         resultSet.getString("address"), resultSet.getString("publisher"),
-                        resultSet.getInt("price"), resultSet.getString("status"));
+                        resultSet.getInt("price"), resultSet.getString("status"), resultSet.getBytes("image"));
             }
         }, start, size);
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select id, code, name, address, publisher, price, status from product order by name, publisher", new RowMapper<Product>() {
+        return jdbcTemplate.query("select id, code, name, address, publisher, price, status, image from product order by name, publisher", new RowMapper<Product>() {
             @Override
             public Product mapRow(ResultSet resultSet, int i) throws SQLException {
                 return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
                         resultSet.getString("address"), resultSet.getString("publisher"),
-                        resultSet.getInt("price"), resultSet.getString("status"));
+                        resultSet.getInt("price"), resultSet.getString("status"), resultSet.getBytes("image"));
             }
         });
     }
@@ -98,9 +98,9 @@ public class ProductDao {
 
     public ProductContainer findProductByAddress(String address) {
         try {
-            Product product = jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status from product where address = ?",
+            Product product = jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status, image from product where address = ?",
                 (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),
-                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status")),
+                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status"), rs.getBytes("image")),
                 address);
             return new ProductContainer(product);
         } catch (EmptyResultDataAccessException ere) {
@@ -109,9 +109,9 @@ public class ProductDao {
     }
 
     public Product findProductById(long id) {
-        return jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status from product where id = ?",
+        return jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status, image from product where id = ?",
                 (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),
-                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status")), id);
+                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status"), rs.getBytes("image")), id);
     }
 
     public void updateProduct(Product product) {

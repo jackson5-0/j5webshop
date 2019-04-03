@@ -42,7 +42,7 @@ function fetchProduct() {
             var imgDiv = document.getElementById("product-image-div");
             var img = document.createElement('img');
             img.setAttribute('class', 'product-image');
-            img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+            img.src =  "data:image/jpg;base64," + jsonData.product.image;
             img.setAttribute('alt', 'picture of the game');
             imgDiv.appendChild(img);
             var product = jsonData.product;
