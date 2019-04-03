@@ -9,6 +9,8 @@
     <link rel="shortcut icon" type="image/x-icon" href="j5logo.png">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/body.css" rel="stylesheet" type="text/css">
+    <link href="/css/popup.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -17,6 +19,15 @@
         </div>
     </header>
     <main>
+
+        <div id="delete-confirm" class="confirm">
+            <div class="confirm-content">
+                <h2 id="product-name"></h2>
+                <span class="close">MÉGSE</span>
+                <span class="save">OK</span>
+            </div>
+        </div>
+
         <div id="message-div" class="user-mod-message"></div>
         <div id="user-administration" class="administration-table">
             <h1>Felhasználóink:</h1>
@@ -45,6 +56,7 @@
     </footer>
     <script src="/js/user.js"></script>
     <script src="/js/adminusers.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </body>
 
 </html>

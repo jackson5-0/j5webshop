@@ -51,7 +51,7 @@ public class BasketController {
         if (basketService.flushBasket(authentication.getName()) != 0) {
             return new ResponseStatus().addMessage("A kosár újra üres!");
         } else {
-            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("Nem létező kosár");
+            return new ResponseStatus().setStatus(ValidationStatus.FAIL).addMessage("A kosár üres.");
         }
     }
 
