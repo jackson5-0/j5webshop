@@ -31,6 +31,13 @@ function fetchProduct() {
                 quantityInput.setAttribute('type', 'text');
                 quantityInput.setAttribute('value', 1);
                 quantityInputTd.appendChild(quantityInput);
+                var goToBasketA=document.createElement('a');
+                goToBasketA.setAttribute('href', '/basket.html')
+                 var goToBasketButton = document.createElement('button');
+                 goToBasketButton.setAttribute('class', 'button');
+                 goToBasketButton.innerHTML = 'Tovább a kosaramba';
+                 goToBasketA.appendChild(goToBasketButton);
+                 addBasketTd.appendChild(goToBasketA);
             }
             var imgDiv = document.getElementById("product-image-div");
             var img = document.createElement('img');

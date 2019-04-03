@@ -9,56 +9,67 @@
     <link rel="shortcut icon" type="image/x-icon" href="j5logo.png">
     <link href="/css/style.css" rel="stylesheet" type="text/css">
     <link href="/css/body.css" rel="stylesheet" type="text/css">
+    <link href="/css/popup.css" rel="stylesheet">
 </head>
 
 <body>
-<header>
-    <div class="nav">
-    </div>
-</header>
-<main>
-    <div class="user-div">
-        <div class="basket-input-form">
-            <div class="administration-table">
-                <h1>Kosár tartalma:</h1>
-                <table id="basket-table">
-                <thead>
-                    <tr>
-                        <th>MEGNEVEZÉS</th>
-                        <th>ÁR</th>
-                        <th>MENNYISÉG</th>
-                        <th>RÉSZÖSSZEG</th>
-                        <th>MENNYISÉG NÖVELÉSE</th>
-                        <th>MENNYISÉG CSÖKKENTÉSE</th>
-                        <th class="wider-th">TÖRLÉS</th>
-                    </tr>
-                </thead>
-                <tbody id="basket-tablebody">
-                </tbody>
-                </table>
-            </div>
-            <div>
-                <h2>Szállítási cím kiválasztása:</h2>
-                <form id="address-information-form" autocomplete="on">
-                </form>
+    <header>
+        <div class="nav">
+        </div>
+    </header>
+    <main>
+
+        <div id="delete-confirm" class="confirm">
+            <div class="confirm-content">
+                <h2 id="product-name"></h2>
+                <span class="close">MÉGSE</span>
+                <span class="save">OK</span>
             </div>
         </div>
-        <div class="basket-input-buttons">
+
+        <div class="user-div">
+            <div class="basket-input-form">
+                <div class="administration-table">
+                    <h1>Kosár tartalma:</h1>
+                    <table id="basket-table">
+                        <thead>
+                            <tr>
+                                <th>MEGNEVEZÉS</th>
+                                <th>ÁR</th>
+                                <th>MENNYISÉG</th>
+                                <th>RÉSZÖSSZEG</th>
+                                <th>MENNYISÉG NÖVELÉSE</th>
+                                <th>MENNYISÉG CSÖKKENTÉSE</th>
+                                <th class="wider-th">TÖRLÉS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="basket-tablebody">
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h2>Szállítási cím kiválasztása:</h2>
+                    <form id="address-information-form" autocomplete="on">
+                    </form>
+                </div>
+            </div>
+            <div class="basket-input-buttons">
+                <br>
+                <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button><br>
+                <button id="flush" class="basket-option-button">Kosár ürítése</button><br>
+                <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelést!</button>
+            </div>
             <br>
-            <button class="basket-option-button"><a href="index.html">Folytatom a vásárlást!</a></button><br>
-            <button id="flush" class="basket-option-button">Kosár ürítése</button><br>
-            <button id="order" class="basket-option-button" onclick="orderBasket()">Leadom a rendelést!</button>
+            <div id="message-div" class="product-to-basket-message"></div>
+            <br>
         </div>
-        <br>
-        <div id="message-div" class="product-to-basket-message"></div>
-        <br>
-    </div>
-</main>
-<footer>
-    <p>Copyright © 2019 by Jackson5.0</p>
-</footer>
-<script src="/js/user.js"></script>
-<script src="js/basket.js"></script>
+    </main>
+    <footer>
+        <p>Copyright © 2019 by Jackson5.0</p>
+    </footer>
+    <script src="/js/user.js"></script>
+    <script src="js/basket.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </body>
 
 </html>
