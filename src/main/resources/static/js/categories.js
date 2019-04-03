@@ -1,6 +1,5 @@
 initPopup();
 fetchCategories();
-document.getElementById('category-registration-form').onsubmit = addCategory;
 document.getElementById('save-category').addEventListener('click', function () {
   saveCategoryModifications();
 });

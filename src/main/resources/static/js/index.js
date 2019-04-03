@@ -38,7 +38,7 @@ function showTop3(jsonData) {
   top3Div.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
     var product = document.createElement('div');
-    product.setAttribute('class', 'product slideshow fade');
+    product.setAttribute('class', 'product2 slideshow fade');
     product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[i].address}"`);
 
     var img = document.createElement('img');
@@ -79,7 +79,7 @@ function showDivs() {
     slideIndex = 1
   };
   x[slideIndex - 1].style.display = "block";
-  setTimeout(showDivs, 3000);
+  setTimeout(showDivs, 6000);
 }
 //function fetchPageNavigators() {
 //  fetch('/categories')
