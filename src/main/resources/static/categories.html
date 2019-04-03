@@ -12,54 +12,62 @@
 </head>
 
 <body>
-    <header class="nav">
-    </header>
-    <main>
+<header class="nav">
+</header>
+<main>
 
-        <div id="delete-confirm" class="confirm">
-            <div class="confirm-content">
-                <h2 id="product-name"></h2>
-                <span class="close">MÉGSE</span>
-                <span class="save">OK</span>
-            </div>
+    <div id="delete-confirm" class="confirm">
+        <div class="confirm-content">
+            <h2 id="product-name"></h2>
+            <span class="close">MÉGSE</span>
+            <span class="save">OK</span>
         </div>
+    </div>
 
-        <div id="name-prompt" class="prompt">
-            <div class="prompt-content">
-                <h2 id="message-text"></h2>
-                <input id="new-name-input">
-                <span class="close">MÉGSE</span>
-                <span class="save">OK</span>
-            </div>
+    <div id="name-prompt" class="prompt">
+        <div class="prompt-content">
+            <h2 id="message-text"></h2>
+            <input id="new-name-input">
+            <span class="close">MÉGSE</span>
+            <span class="save">OK</span>
         </div>
-
+    </div>
+    <div class="product-registration-form">
         <h1>Kategória hozzáadása</h1>
-        <form id="category-registration-form">
-            <label for="category-name-input">Név:</label>
-            <input type="text" id="category-name-input">
-            <label for="category-priority-input">Sorszám:</label>
-            <input type="text" id="category-priority-input">
-            <input type="submit">
-        </form>
-
+        <table id="category-registration-form">
+            <tr>
+                <td><label for="category-name-input">Név:</label>
+                    <input type="text" id="category-name-input"></td>
+                <td><label for="category-priority-input">Sorszám:</label>
+                    <input type="text" id="category-priority-input"></td>
+                <td><input type="submit" onclick="addCategory()"></td>
+            </tr>
+        </table>
+    </div>
+    <br>
+    <br>
+    <div id="message-div" class="product-to-basket-message"></div>
+    <br>
+    <br>
+    <div>
         <br>
-        <div id="message-div"></div>
+        <p class="product-to-basket-message">A kategóriákat szerkesztheted, törölheted, és sorrend szerint rendezheted!</p>
         <br>
-        <button id="save-category">Mentés</button>
-        <br>
-
         <ul id="sortable">
         </ul>
-
-    </main>
-    <footer>
-        <p>Copyright © 2019 by Jackson5.0</p>
-    </footer>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="/js/user.js"></script>
-    <script src="/js/categories.js"></script>
-    <script>
+        <br>
+        <br>
+        <button id="save-category" class="basket-option-button">Mentés</button>
+    </div>
+</main>
+<footer>
+    <p>Copyright © 2019 by Jackson5.0</p>
+</footer>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="/js/user.js"></script>
+<script src="/js/categories.js"></script>
+<script>
         $(function () {
             $("#sortable").sortable({
                 update: function (event, ui) {
@@ -68,7 +76,8 @@
             });
             $("#sortable").disableSelection();
         });
-    </script>
+
+</script>
 </body>
 
 </html>
