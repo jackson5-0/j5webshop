@@ -43,7 +43,7 @@ function showTop3(jsonData) {
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
-    img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+    img.src =  "data:image/jpg;base64,"+ jsonData[i].image;
     img.setAttribute('alt', 'picture of the game');
     var name = document.createElement('span');
     name.setAttribute('class', 'name');
@@ -114,7 +114,7 @@ function showProducts(jsonData) {
 
       var img = document.createElement('img');
       img.setAttribute('class', 'picture');
-      img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+      img.src =  "data:image/jpg;base64,"+jsonData[i].products[k].image;
       img.setAttribute('alt', 'picture of the game');
       var name = document.createElement('span');
       name.setAttribute('class', 'name');

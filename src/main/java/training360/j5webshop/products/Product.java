@@ -18,8 +18,13 @@ public class Product {
     private String urlPostFix = "01";
     private ProductStatus status = ProductStatus.ACTIVE;
     private List<Category> categories = new ArrayList<>();
+    private byte[] image;
 
     public Product() {}
+    public Product(long id, String code, String name, String address, String publisher, int price, String status, byte[]image) {
+        this(id,code,name,address,publisher,price,status);
+        this.image=image;
+    }
 
     public Product(long id, String code, String name, String address, String publisher, int price, String status) {
         this(name, publisher, price);
@@ -57,7 +62,6 @@ public class Product {
         this(name, publisher, price);
         this.categories = categories;
     }
-
     public void setCodeAndAddress() {
         String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
@@ -77,6 +81,14 @@ public class Product {
     }
 
     public void incrementAddressPostFix(){ urlPostFix = String.format("%02d", (Integer.parseInt(urlPostFix) + 1));}
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
 
     public List<Category> getCategories() {
         return categories;
