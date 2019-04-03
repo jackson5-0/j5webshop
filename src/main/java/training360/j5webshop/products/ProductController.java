@@ -38,7 +38,6 @@ public class ProductController {
     @PostMapping("/admin/products")
     public ResponseStatus createProduct(@RequestBody Product product) {
         Validator validator = new Validator(product);
-        System.out.println("na");
 
         if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
             long id = productService.createProduct(product);
