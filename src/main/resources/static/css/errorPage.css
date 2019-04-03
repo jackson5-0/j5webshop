@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "Existence";
+  src: url("/fonts/Existence-Light.ttf");
+}
+
 body {
   background-color: ##f4f7f8;
 }
@@ -12,12 +17,13 @@ svg {
 }
 .image {
 position: absolute;
-  top: 37%;
-  left: 40%;
-  margin-top: -280px;
-  margin-left: -400px;
-  max-height: 280px;
-  width: auto;
+  height: auto;
+  width: 40%;
+  top: 8%;
+  left: 10%;
+  margin-top: -2vv;
+  margin-left: -2vv;
+  max-height: 40vv;
 }
 .message-box {
   height: 300px;
@@ -28,42 +34,42 @@ position: absolute;
   margin-top: -100px;
   margin-left: 50px;
   color: #47476b;
-  font-family: "Existence";
-      src: url("/fonts/Existence-Light.ttf")
   font-weight: bold;
 }
 .message-box h1 {
   font-size: 100px;
   line-height: 46px;
   margin-bottom: 40px;
+  font-family: "Existence";
 }
 .message-box p{
   font-size: 65px;
   line-height: 46px;
   margin-bottom: 40px;
+  font-family: "Existence";
 }
 .message-box2 {
-  height: 300px;
-  width: 480px;
+  height: auto;
+  width: 50%;
   position: absolute;
-  top: 50%;
-  left: 65%;
-  margin-top: -100px;
-  margin-left: 50px;
+  top: 30%;
+  left: 45%;
+  margin-top: -10vv;
+  margin-left: 5vv;
   color: #d87d0f;
-  font-family: "Existence";
-      src: url("/fonts/Existence-Light.ttf")
   font-weight: bold;
 }
 .message-box2 h1 {
   font-size: 100px;
   line-height: 46px;
   margin-bottom: 40px;
-}
+   font-family: "Existence";
+   }
 .message-box2 p{
-  font-size: 65px;
-  line-height: 46px;
+  font-size: 30px;
+  line-height: 30px;
   margin-bottom: 40px;
+   font-family: "Existence";
 }
 .buttons-con .action-link-wrap {
   margin-top: 40px;
@@ -76,6 +82,7 @@ position: absolute;
   color: #FFF;
   font-weight: bold;
   font-size: 14px;
+   font-family: "Existence";
   transition: all 0.3s linear;
   cursor: pointer;
   text-decoration: none;
@@ -92,6 +99,7 @@ position: absolute;
   color: #FFF;
   font-weight: bold;
   font-size: 14px;
+  font-family: "Existence";
   transition: all 0.3s linear;
   cursor: pointer;
   text-decoration: none;
@@ -118,10 +126,22 @@ position: absolute;
     text-align: center;
   }
 }
+footer {
+  background-color: grey;
+  bottom: 0;
+  color: white;
+  font-family: "Existence";
+  height: 30px;
+  left: 0;
+  opacity: 0.5;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+}
 
-.footer p{
- position: absolute;
-    top: 95%;
-    left: 3%;
-
+footer p {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -16px;
 }
