@@ -33,12 +33,13 @@ public class ProductController {
     @GetMapping("/products/{address}")
     public ProductContainer findProductByAddress(@PathVariable String address) {
         return productService.findProductByAddress(address);
-
     }
 
     @PostMapping("/admin/products")
     public ResponseStatus createProduct(@RequestBody Product product) {
         Validator validator = new Validator(product);
+        System.out.println("na");
+
         if (validator.getResponseStatus().getStatus() == ValidationStatus.SUCCESS) {
             long id = productService.createProduct(product);
             validator.getResponseStatus().addMessage("A terméket (id: " + id + ") sikeresen hozzáadta az adatbázishoz.");
