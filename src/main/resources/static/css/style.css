@@ -530,8 +530,18 @@ textarea {
     bottom: 10px;
 }
 
+.update-category-name {
+    position: relative;
+    color: #aaaaaa;
+    bottom: 7px;
+    font-weight: bold;
+    padding-right: 1vh;
+}
+
 .delete-category:hover,
-.delete-category:focus {
+.delete-category:focus,
+.update-category-name:hover,
+.update-category-name:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
@@ -545,23 +555,22 @@ textarea {
     cursor: pointer;
 }
 
-.login-message{
-  left: 31%;
-  width: auto;
-  position: relative;
-  margin-top: 25vw;
-  color: red;
-  font-family: "Existence";
-      src: url("/fonts/Existence-Light.ttf")
-  font-weight: bold;
+.login-message {
+    left: 31%;
+    width: auto;
+    position: relative;
+    margin-top: 25vw;
+    color: red;
+    font-family: "Existence";
+    src: url("/fonts/Existence-Light.ttf") font-weight: bold;
 }
 
-.login-message h1{
-  font-size: 1.5vw;
-  max-font-size: 20px;
-  line-height: 46px;
-  margin-bottom: 40px;
- }
+.login-message h1 {
+    font-size: 1.5vw;
+    max-font-size: 20px;
+    line-height: 46px;
+    margin-bottom: 40px;
+}
 
 h1 {
     font-family: "Existence";
@@ -576,34 +585,40 @@ h1 {
     height: 46px;
     padding: 12px 10px;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    left:-99999px;
+
+.rate:not(:checked)>input {
+    position: absolute;
+    left: -99999px;
 }
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#ccc;
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 30px;
+    color: #ccc;
 }
-.rate:not(:checked) > label:before {
+
+.rate:not(:checked)>label:before {
     content: '★ ';
 }
-.rate > input:checked ~ label {
+
+.rate>input:checked~label {
     color: #ffc700;
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
     color: #deb217;
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
     color: #c59b08;
 }
 
@@ -614,4 +629,3 @@ h1 {
     width: 100%;
     margin: 0 -1vw;
 }
-
