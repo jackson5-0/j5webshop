@@ -151,11 +151,11 @@ function createReviewDiv(product) {
                          var reviewInputField = document.createElement('textarea');
                          reviewInputField.setAttribute('maxlength', '255');
                          reviewInputField.setAttribute('id', 'rev-input');
-                         reviewInputField.style.width = "800px";
+                         reviewInputField.style.width = "100%";
                          reviewInputField.style.height = "70px";
                          writeReviewDiv.appendChild(reviewInputField);
                          writeReviewDiv.appendChild(addReviewButton);
-                         var productDiv = document.getElementsByClassName("product-div")[0];
+                         var productDiv = document.getElementById('product-info-div');
                          productDiv.appendChild(writeReviewDiv);
                          if (jsonData.userRating != 0) {
                             addReviewButton.innerHTML = 'Értékelés módosítása';
@@ -171,7 +171,7 @@ function createReviewDiv(product) {
                          }
                          createReviewListDiv(product);
                        } else {
-                         var productDiv = document.getElementsByClassName("product-div")[0];
+                         var productDiv = document.getElementById('product-info-div');
                          var writeReviewDiv = document.createElement('div');
                          writeReviewDiv.setAttribute('id', 'rev-div');
                          writeReviewDiv.innerHTML = 'Csak akkor írhat értékelést, ha már rendelt ebből a termékből!<br><br>';
@@ -182,10 +182,10 @@ function createReviewDiv(product) {
                  });
                  return false;
     } else {
-       var productDiv = document.getElementsByClassName("product-div")[0];
+       var productDiv = document.getElementById('product-info-div');
        var writeReviewDiv = document.createElement('div');
        writeReviewDiv.setAttribute('id', 'rev-div');
-       writeReviewDiv.innerHTML = 'Értékelést csak az a bejelentkezett felhasználó írhat, aki már rendelt ebből a termékből!<br><br>';
+       writeReviewDiv.innerHTML = 'Értékelést csak az a bejelentkezett felhasználó írhat, aki már rendelt ebből a termékből!<br>';
        productDiv.appendChild(writeReviewDiv);
        createReviewListDiv(product);
     }
@@ -203,19 +203,20 @@ function createReviewListDiv(product) {
                     }
                     var reviewListDiv = document.createElement('div');
                     reviewListDiv.setAttribute('id', 'rev-list');
-                    var productDiv = document.getElementsByClassName("product-div")[0];
+                    var productDiv = document.getElementById('product-info-div');
                     var avg = 0;
                     for (var i = 0; i < jsonData.length; i++) {
                         avg += jsonData[i].rating;
                     }
-                    reviewListDiv.innerHTML = 'Értékelések átlaga: ' + Number((avg / jsonData.length).toFixed(1)) + '<br/><br/><br/><br/>';
+                    reviewListDiv.innerHTML = '<br><br>' + 'Értékelések átlaga: ' + Number((avg / jsonData.length).toFixed(1)) + '<br/>';
                     for (var i = 0; i < jsonData.length; i++) {
                         var singleReviewDiv = document.createElement('div');
+                        singleReviewDiv.setAttribute('class', 'single-review-div');
                         singleReviewDiv.style.padding = "25px";
                         star = `<font color="#c59b08">&starf;</font>`;
                         singleReviewDiv.innerHTML = jsonData[i].reviewDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16) +
-                        '<br/><br/>' + jsonData[i].user.userName + '<br/><br/>Értékelés: ' + star.repeat(jsonData[i].rating);
-                        '<br/><br/>' + jsonData[i].message + '<br/><br/><br/>';
+                        '<br/><br/>' + jsonData[i].user.userName + 'Értékelés: ' + (star).repeat(jsonData[i].rating) +
+                        '<br/><br/>' + jsonData[i].message + '<br/>';
                         reviewListDiv.appendChild(singleReviewDiv);
                     }
                     productDiv.appendChild(reviewListDiv);
@@ -224,10 +225,10 @@ function createReviewListDiv(product) {
                         document.getElementById('rev-list').remove();
                     }
                     var reviewListDiv = document.createElement('div');
-                    var productDiv = document.getElementsByClassName("product-div")[0];
+                    var productDiv = document.getElementById('product-info-div');
                     reviewListDiv.setAttribute('id', 'rev-list');
                     productDiv.appendChild(reviewListDiv);
-                    reviewListDiv.innerHTML = 'Erre a termékre még nem érkezet értékelés';
+                    reviewListDiv.innerHTML = 'Erre a termékre még nem érkezett értékelés.';
                 }
             });
             return false;
@@ -329,7 +330,7 @@ function modifyReview() {
       .then(function (response) {
         return response.json();
       }).then(function (jsonData) {
-          document.getElementById("message-div").setAttribute("class", "alert alert-success");
+          document.getElementById("message-div").setAttribute("class", "alert-success");
           document.getElementById("message-div").innerHTML = jsonData.messages[0];
           return product;
       })
@@ -371,7 +372,7 @@ function deleteReview() {
       .then(function (response) {
         return response.json();
       }).then(function (jsonData) {
-          document.getElementById("message-div").setAttribute("class", "alert alert-success");
+          document.getElementById("message-div").setAttribute("class", "alert-success");
           document.getElementById("message-div").innerHTML = jsonData.messages[0];
           return product;
       })
