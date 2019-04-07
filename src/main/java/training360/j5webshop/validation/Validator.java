@@ -18,7 +18,18 @@ public class Validator {
 
     public Validator(UserWithNewPassword userWithNewPassword){
         checkPassword(userWithNewPassword.getNewPassword());
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
+            responseStatus.setStatus(ValidationStatus.FAIL);
+        } else {
+            responseStatus.setStatus(ValidationStatus.SUCCESS);
+        }
+    }
+    public Validator(long id, User user, List<User> userList) {
+        checkName(user.getLastName());
+        checkName(user.getFirstName());
+        checkName(user.getUserName());
+        checkUsername(user, userList);
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
@@ -30,7 +41,7 @@ public class Validator {
         checkName(user.getFirstName());
         checkUsername(user, userList);
         checkPassword(user.getPassword());
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
@@ -41,7 +52,7 @@ public class Validator {
         checkName(product.getName());
         checkPublisher(product.getPublisher());
         checkPrice(product.getPrice());
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
@@ -51,7 +62,7 @@ public class Validator {
     public Validator(Basket basket, String address){
         checkBasket(basket);
         checkAddress(address);
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
@@ -60,7 +71,7 @@ public class Validator {
 
     public Validator(int quantity){
         checkQuantity(quantity);
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
@@ -69,7 +80,7 @@ public class Validator {
 
     public Validator(Review review) {
         checkReview(review);
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
@@ -80,7 +91,7 @@ public class Validator {
         checkIdIfDeafultCategory(category.getId());
         checkCategoryName(category.getName());
         checkCategoryPriority(category.getPriority());
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
     }
@@ -99,12 +110,12 @@ public class Validator {
 
     public Validator(List<Category> categories) {
         checkCategoryNameAndPriorityMatch(categories);
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             checkCategoryListName(categories);
         } else {
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
-        if (responseStatus.getMessages().isEmpty()) {
+        if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         }
     }
