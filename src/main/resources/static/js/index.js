@@ -43,11 +43,11 @@ function showTop3(jsonData) {
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
-    if (jsonData[0].products[i].image != undefined && jsonData[0].products[i].image != "" && jsonData[0].products[i].image != null) {
-      img.src = "data:image/png;base64," + jsonData[i].image;
-    } else {
-      img.setAttribute('src', '/img/fantasy_game_dice.jpg');
-    }
+    if (jsonData[i].image !== null) {
+          img.src = "data:image/png;base64," + jsonData[i].image;
+        } else {
+          img.setAttribute('src', '/img/fantasy_game_dice.jpg');
+        }
     img.setAttribute('alt', 'picture of the game');
     var name = document.createElement('span');
     name.setAttribute('class', 'name');
