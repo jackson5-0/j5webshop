@@ -1,7 +1,5 @@
 package training360.j5webshop.reports;
 
-import training360.j5webshop.products.Product;
-
 import java.time.Month;
 import java.time.format.TextStyle;
 import java.util.Locale;
