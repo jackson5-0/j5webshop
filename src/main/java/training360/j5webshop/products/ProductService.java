@@ -2,7 +2,6 @@ package training360.j5webshop.products;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import training360.j5webshop.baskets.BasketDao;
 import training360.j5webshop.categories.Category;
 import training360.j5webshop.categories.CategoryDao;
 
@@ -23,7 +22,7 @@ public class ProductService {
     }
 
     public long createProduct(Product product) {
-        if (product.getCategories().size() == 0) {
+        if (product.getCategories().isEmpty()) {
             Category category = new Category(1, "Egyéb", 1);
             product.setCategories(Arrays.asList(category));
         }
@@ -72,7 +71,7 @@ public class ProductService {
             for (Iterator<Category> i = productsByCategory.iterator(); i.hasNext();) {
                 Category category = i.next();
                 category.setProducts(productDao.listProductsWithLimit(start, size, category.getName()));
-                if (category.getProducts().size() == 0) {
+                if (category.getProducts().isEmpty()) {
                     i.remove();
                 }
             }
