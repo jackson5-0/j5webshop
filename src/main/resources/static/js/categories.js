@@ -66,7 +66,6 @@ function saveCategoryModifications() {
       return response.json();
     })
     .then(function (responseStatus) {
-      console.log(responseStatus);
       handleMessages(responseStatus);
     });
 }

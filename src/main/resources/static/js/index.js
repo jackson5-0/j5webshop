@@ -3,10 +3,6 @@ fetchProducts();
 var slideIndex = 0;
 
 function fetchProducts() {
-  //  fetchPageNavigators();
-  //  var pageNum = (new URL(document.location)).searchParams.get('page');
-  //  var start = (parseInt(pageNum, 10) - 1) * 10;
-  //  var url = `/products?start=${start || 0}&size=${10}`;
   var url = '/products?start=0&size=3'
   var category = (new URL(document.location)).searchParams.get('category');
   if (!category) {
@@ -34,7 +30,6 @@ function fetchLast3() {
 }
 
 function showTop3(jsonData) {
-  console.log(jsonData);
   var top3Div = document.getElementById('top3');
   top3Div.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
@@ -82,23 +77,6 @@ function showDivs() {
   x[slideIndex - 1].style.display = "block";
   setTimeout(showDivs, 6000);
 }
-//function fetchPageNavigators() {
-//  fetch('/categories')
-//    .then(function (response) {
-//      return response.json();
-//    })
-//    .then(function (jsonData) {
-//      showPageNavigator(jsonData);
-//    });
-//}
-//
-//function showPageNavigator(jsonData) {
-//  var pages = document.getElementById('page-number');
-//  var numberOfPages = Math.ceil(jsonData / 10);
-//  for (var i = 1; i <= numberOfPages; i++) {
-//    pages.innerHTML += `<a href="index.html?page=${i}">${i}</a>`;
-//  }
-//}
 
 function showProducts(jsonData) {
   var categoriesDiv = document.getElementById('products');
@@ -141,31 +119,3 @@ function showProducts(jsonData) {
     categoriesDiv.appendChild(category);
   }
 }
-
-//function showProducts(jsonData) {
-//  var allProducts = document.getElementById('products');
-//  allProducts.innerHTML = '';
-//  for (var i = 0; i < jsonData.length; i++) {
-//    var product = document.createElement('div');
-//    product.setAttribute('class', 'product');
-//    product.setAttribute('onclick', `window.location="/products.html?address=${jsonData[i].address}"`);
-//
-//    var img = document.createElement('img');
-//    img.setAttribute('class', 'picture');
-//    img.setAttribute('src', '/img/fantasy_game_dice.jpg');
-//    img.setAttribute('alt', 'picture of the game');
-//    var name = document.createElement('span');
-//    name.setAttribute('class', 'name');
-//    var price = document.createElement('span');
-//    price.setAttribute('class', 'price');
-//
-//    name.innerHTML = jsonData[i].name;
-//    price.innerHTML = jsonData[i].price + ' Ft';
-//
-//    product.appendChild(img);
-//    product.appendChild(name);
-//    product.appendChild(price);
-//
-//    allProducts.appendChild(product);
-//  }
-//}
