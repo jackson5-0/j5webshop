@@ -21,59 +21,49 @@ public class ProductDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    private final RowMapper<Product> PRODUCT_ROW_MAPPER = (rs, rowNum) -> new Product(
+            rs.getLong("id"),
+            rs.getString("code"),
+            rs.getString("name"),
+            rs.getString("address"),
+            rs.getString("publisher"),
+            rs.getInt("price"),
+            rs.getString("status"),
+            rs.getBytes("image")
+    );
+
     public List<Product> listProductsWithLimit(int start, int size, String category) {
         return jdbcTemplate.query(
                 "SELECT product.id, code, product.name, address, publisher, price, status, image FROM product \n" +
                 "join product_category on product.id = product_category.product_id\n" +
                 "join category on product_category.category_id = category.id\n" +
                 "where category.name = ?\n" +
-                "and status != 'DELETED' order by name, publisher limit ?, ?", new RowMapper<Product>() {
-            @Override
-            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
-                        resultSet.getString("address"), resultSet.getString("publisher"),
-                        resultSet.getInt("price"), resultSet.getString("status"), resultSet.getBytes("image"));
-            }
-        }, category, start, size);
+                "and status != 'DELETED' order by name, publisher limit ?, ?",
+                PRODUCT_ROW_MAPPER, category, start, size);
     }
 
     public List<Product> listProductsWithLimitAdmin(int start, int size) {
-        return jdbcTemplate.query("select id, code, name, address, publisher, price, status, image from product where status != 'DELETED' order by name, publisher limit ?,?", new RowMapper<Product>() {
-            @Override
-            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
-                        resultSet.getString("address"), resultSet.getString("publisher"),
-                        resultSet.getInt("price"), resultSet.getString("status"), resultSet.getBytes("image"));
-            }
-        }, start, size);
+        return jdbcTemplate.query("select id, code, name, address, publisher, price, status, image " +
+                "from product where status != 'DELETED' order by name, publisher limit ?,?",
+                PRODUCT_ROW_MAPPER, start, size);
     }
 
     public List<Product> listAllProducts() {
-        return jdbcTemplate.query("select id, code, name, address, publisher, price, status, image from product order by name, publisher", new RowMapper<Product>() {
-            @Override
-            public Product mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Product(resultSet.getLong("id"), resultSet.getString("code"), resultSet.getString("name"),
-                        resultSet.getString("address"), resultSet.getString("publisher"),
-                        resultSet.getInt("price"), resultSet.getString("status"), resultSet.getBytes("image"));
-            }
-        });
+        return jdbcTemplate.query("select id, code, name, address, publisher, price, status, image " +
+                        "from product order by name, publisher", PRODUCT_ROW_MAPPER);
     }
 
     public Integer getLengthOfProductList() {
-        return jdbcTemplate.queryForObject("select count(id) from product where status != 'DELETED'", new RowMapper<Integer>() {
-            @Override
-            public Integer mapRow(ResultSet resultSet, int i) throws SQLException {
-                return resultSet.getInt("count(id)");
-            }
-        });
+        return jdbcTemplate.queryForObject("select count(id) from product where status != 'DELETED'",
+                (resultSet, i) -> resultSet.getInt("count(id)"));
     }
 
     public Integer getLengthOfProductListByCategory(String category) {
         return jdbcTemplate.queryForObject("select count(product.id) from product " +
                 "join product_category on product.id = product_category.product_id " +
                 "join category on product_category.category_id = category.id " +
-                "where category.name = ? and product.status != 'DELETED'", (rs, rowNum) -> rs.getInt("count(product.id)"), category
-                );
+                "where category.name = ? and product.status != 'DELETED'",
+                (rs, rowNum) -> rs.getInt("count(product.id)"), category);
     }
 
     public long createProduct(Product product) {
@@ -100,8 +90,7 @@ public class ProductDao {
     public ProductContainer findProductByAddress(String address) {
         try {
             Product product = jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status, image from product where address = ?",
-                (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),
-                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status"), rs.getBytes("image")),
+                PRODUCT_ROW_MAPPER,
                 address);
             return new ProductContainer(product);
         } catch (EmptyResultDataAccessException ere) {
@@ -111,8 +100,7 @@ public class ProductDao {
 
     public Product findProductById(long id) {
         return jdbcTemplate.queryForObject("select id, code, name, address, publisher, price, status, image from product where id = ?",
-                (rs, rowNum) -> new Product(rs.getLong("id"), rs.getString("code"), rs.getString("name"),
-                        rs.getString("address"), rs.getString("publisher"), rs.getInt("price"), rs.getString("status"), rs.getBytes("image")), id);
+               PRODUCT_ROW_MAPPER, id);
     }
 
     public void updateProduct(Product product) {

@@ -16,20 +16,19 @@ public class Validator {
     public Validator() {
     }
 
-    public Validator(long id, User user, List<User> userList) {
-        checkName(user.getLastName());
-        checkName(user.getFirstName());
-        checkName(user.getUserName());
-        checkUsername(user, userList);
+    public Validator(UserWithNewPassword userWithNewPassword){
+        checkPassword(userWithNewPassword.getNewPassword());
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
             responseStatus.setStatus(ValidationStatus.SUCCESS);
         }
     }
-
-    public Validator(UserWithNewPassword userWithNewPassword){
-        checkPassword(userWithNewPassword.getNewPassword());
+    public Validator(long id, User user, List<User> userList) {
+        checkName(user.getLastName());
+        checkName(user.getFirstName());
+        checkName(user.getUserName());
+        checkUsername(user, userList);
         if (responseStatus.getMessages().size() > 0) {
             responseStatus.setStatus(ValidationStatus.FAIL);
         } else {
@@ -111,7 +110,7 @@ public class Validator {
 
     public Validator(List<Category> categories) {
         checkCategoryNameAndPriorityMatch(categories);
-        if (responseStatus.getMessages().size() == 0) {
+        if (responseStatus.getMessages().size() > 0) {
             checkCategoryListName(categories);
         } else {
             responseStatus.setStatus(ValidationStatus.FAIL);

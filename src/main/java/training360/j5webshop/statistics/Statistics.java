@@ -2,10 +2,8 @@ package training360.j5webshop.statistics;
 
 public class Statistics {
     private int numberOfActiveUsers;
-
     private int numberOfActiveProducts;
     private int numberOfAllProducts;
-
     private int numberOfActiveOrders;
     private int numberOfAllOrders;
 

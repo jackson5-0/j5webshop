@@ -34,15 +34,6 @@ public class Product {
         this.status = ProductStatus.valueOf(status);
     }
 
-    public Product(long id, String code, String name, String address, String publisher, int price, String status, List<Category> categories) {
-        this(name, publisher, price);
-        this.id = id;
-        this.code = code;
-        this.address = address;
-        this.status = ProductStatus.valueOf(status);
-        this.categories = categories;
-    }
-
     public Product(String code, String name, String address, String publisher, int price) {
         this(name, address, publisher, price);
         this.code = code;
@@ -70,14 +61,14 @@ public class Product {
         String validName = Normalizer.normalize(this.name, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
         String validPublisher = Normalizer.normalize(this.publisher, Normalizer.Form.NFKD).replaceAll("\\p{M}", "");
 
-        String code = validName.replaceAll(" ","").substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
-        String address = validName.replaceAll(" ","-").toLowerCase();
+        String generatedCode = validName.replaceAll(" ","").substring(0, 3).toUpperCase() + validPublisher.substring(0, 3).toUpperCase() + postfix;
+        String generatedAddress = validName.replaceAll(" ","-").toLowerCase();
         if (Integer.parseInt(urlPostFix)!=1){
-            address+=urlPostFix;
+            generatedAddress+=urlPostFix;
         }
 
-        setCode(code);
-        setAddress(address);
+        setCode(generatedCode);
+        setAddress(generatedAddress);
     }
 
     public void incrementCodePostFix() {

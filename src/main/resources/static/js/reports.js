@@ -9,7 +9,7 @@ function fetchOrdersReport(){
     .then(function (jsonData) {
         if (jsonData.length === 0) {
             var messageDiv = document.getElementById('message-div');
-            messageDiv.setAttribute("class", "alert alert-danger");
+            messageDiv.setAttribute("class", "alert-danger");
             messageDiv.innerHTML = "Rendszerünkben még nem rögzítettünk rendelést!";
         } else {
             showOrdersReport(jsonData);

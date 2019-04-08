@@ -66,7 +66,6 @@ function saveCategoryModifications() {
       return response.json();
     })
     .then(function (responseStatus) {
-      console.log(responseStatus);
       handleMessages(responseStatus);
     });
 }
@@ -140,23 +139,26 @@ function createDragAndDropElements(categories) {
     priority.setAttribute('class', 'category-priority');
     name.setAttribute('class', 'category-name');
     name.innerHTML = categories[i].name;
-    updateName.innerHTML = '&#9874;';
-    updateName['raw-data'] = categories[i];
+    if (categories[i].name != 'Egyéb') {
+        updateName.innerHTML = '&#9874;';
+        updateName['raw-data'] = categories[i];
 
-    updateName.setAttribute('class', 'update-category-name');
-    updateName.style.cssFloat = 'right';
-    deleteCategory.setAttribute('class', 'delete-category');
-    deleteCategory.innerHTML = '&times;';
-    deleteCategory['raw-data'] = categories[i];
+        updateName.setAttribute('class', 'update-category-name');
+        updateName.style.cssFloat = 'right';
+        deleteCategory.setAttribute('class', 'delete-category');
+        deleteCategory.innerHTML = '&times;';
+        deleteCategory['raw-data'] = categories[i];
 
-    addEventListenerCategories(deleteCategory, categories[i]);
-    addEventListenerOnUpdateButton(updateName, categories[i]);
+        addEventListenerCategories(deleteCategory, categories[i]);
+        addEventListenerOnUpdateButton(updateName, categories[i]);
 
+            li.appendChild(deleteCategory);
+            li.appendChild(updateName);
+    }
     li.appendChild(arrow);
     li.appendChild(priority);
     li.appendChild(name);
-    li.appendChild(deleteCategory);
-    li.appendChild(updateName);
+
 
     list.appendChild(li);
   }
