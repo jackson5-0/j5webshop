@@ -24,38 +24,33 @@ function showStatistics(jsonData){
                               }
                    };
     if(numberOfAllProducts !==0){
-    var ct1 = document.getElementById('chart1').getContext("2d");
-    var data = {
-        labels: [`Aktív termékek`, `Törölt termékek`],
-        datasets: [{
-            data: [numberOfActiveProducts, numberOfAllProducts-numberOfActiveProducts],
-            backgroundColor: [
+        var ct1 = document.getElementById('chart1').getContext("2d");
+        var data = {
+            labels: [`Aktív termékek`, `Törölt termékek`],
+            datasets: [{
+                data: [numberOfActiveProducts, numberOfAllProducts-numberOfActiveProducts],
+                backgroundColor: [
                             '#00654F',
                             '#B2D142'
                             ],
-            borderColor: [
+                borderColor: [
                             '#00654F',
                             '#B2D142'
                          ],
                          borderWidth:1
-        }]
-     };
-
-
-    var myPieChart = new Chart(ct1, {
-        type: 'pie',
-        data: data,
-        options: options
-    });
+            }]
+        };
+        var myPieChart = new Chart(ct1, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
     } else {
-
         document.getElementById('message-product').innerHTML = "Nincsenek termékek a rendszerben.";
     }
-
     if(numberOfAllOrders !==0){
-    var ct2 = document.getElementById('chart2').getContext("2d");
-
-    var data2 = {
+        var ct2 = document.getElementById('chart2').getContext("2d");
+        var data2 = {
             labels: [`Aktív rendelések`, `Nem aktív rendelések`],
             datasets: [{
                 data: [numberOfActiveOrders, numberOfAllOrders-numberOfActiveOrders],
@@ -71,14 +66,12 @@ function showStatistics(jsonData){
                              borderWidth:1
             }],
          };
-
-
         var myPieChart = new Chart(ct2, {
             type: 'pie',
             data: data2,
             options: options
         });
-        } else {
-            document.getElementById('message-order').innerHTML="Nincsenek rendelések a rendszerben.";
-        }
+    } else {
+        document.getElementById('message-order').innerHTML="Nincsenek rendelések a rendszerben.";
+    }
 }

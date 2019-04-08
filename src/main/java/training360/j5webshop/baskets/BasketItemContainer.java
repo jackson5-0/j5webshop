@@ -4,8 +4,8 @@ import training360.j5webshop.products.Product;
 
 public class BasketItemContainer {
 
-    public Product product;
-    public int quantity;
+    private Product product;
+    private int quantity;
 
     public BasketItemContainer(Product product, int quantity) {
         this.product = product;

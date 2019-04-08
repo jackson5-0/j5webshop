@@ -17,10 +17,10 @@ public class StatisticsService {
 
     public Statistics getStatistics(){
         int numberOfActiveUsers = userDao.listUsers().size();
-        int numberOfActieProducts = productDao.getLengthOfProductList();
+        int numberOfActiveProducts = productDao.getLengthOfProductList();
         int numberOfAllProducts = productDao.listAllProducts().size();
         int numberOfActiveOrders = reportDao.sizeOfActiveOrders();
         int numberOfAllOrders = reportDao.sizeOfAllOrders();
-        return new Statistics(numberOfActiveUsers,numberOfActieProducts,numberOfAllProducts,numberOfActiveOrders,numberOfAllOrders);
+        return new Statistics(numberOfActiveUsers,numberOfActiveProducts,numberOfAllProducts,numberOfActiveOrders,numberOfAllOrders);
     }
 }

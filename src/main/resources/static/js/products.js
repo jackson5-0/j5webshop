@@ -148,7 +148,7 @@ function createReviewDiv(product) {
 
                     writeReviewDiv.appendChild(ratingDiv);
 
-                    br = document.createElement('br');
+                    var br = document.createElement('br');
                     ratingDiv.appendChild(br);
 
                     var addReviewButton = document.createElement('button');
@@ -218,14 +218,14 @@ function createReviewListDiv(product) {
                     avg += jsonData[i].rating;
                 }
                 reviewListDiv.innerHTML = '<br><br>' + 'Értékelések átlaga: ' + Number((avg / jsonData.length).toFixed(1)) + '<br/>';
-                for (var i = 0; i < jsonData.length; i++) {
+                for (var j = 0; j < jsonData.length; j++) {
                     var singleReviewDiv = document.createElement('div');
                     singleReviewDiv.setAttribute('class', 'single-review-div');
                     singleReviewDiv.style.padding = "25px";
-                    star = `<font color="#c59b08">&starf;</font>`;
-                    singleReviewDiv.innerHTML = jsonData[i].reviewDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16) +
-                        '<br/><br/>' + jsonData[i].user.userName + '<br><br>Értékelés: ' + (star).repeat(jsonData[i].rating) +
-                        '<br/><br><br/>' + jsonData[i].message + '<br/>';
+                    var star = `<font color="#c59b08">&starf;</font>`;
+                    singleReviewDiv.innerHTML = jsonData[j].reviewDate.replace(/-/g, '.').replace(/T/g, ' ').substring(0, 16) +
+                        '<br/><br/>' + jsonData[j].user.userName + '<br><br>Értékelés: ' + (star).repeat(jsonData[j].rating) +
+                        '<br/><br><br/>' + jsonData[j].message + '<br/>';
                     reviewListDiv.appendChild(singleReviewDiv);
                 }
                 productDiv.appendChild(reviewListDiv);
@@ -248,7 +248,7 @@ function addReview() {
     var message = document.getElementById('rev-input').value;
     var radios = document.getElementsByName('rate');
     var valueOfRadio;
-    for (i = 0; i < radios.length; i++) {
+    for (var i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
             valueOfRadio = radios[i].value;
         }
@@ -314,7 +314,7 @@ function modifyReview() {
     var message = document.getElementById('rev-input').value;
     var radios = document.getElementsByName('rate');
     var valueOfRadio;
-    for (i = 0; i < radios.length; i++) {
+    for (var i = 0; i < radios.length; i++) {
         if (radios[i].checked) {
             valueOfRadio = radios[i].value;
         }

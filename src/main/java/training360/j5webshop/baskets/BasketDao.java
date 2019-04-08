@@ -40,8 +40,9 @@ public class BasketDao {
     }
 
     public void addToBasketWithQuantity(int quantity, long productId, long basketId) throws DataIntegrityViolationException{
-        for(int i =0; i<quantity;i++)
-        jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
+        for (int i =0; i<quantity;i++) {
+            jdbcTemplate.update("insert into basket_item (basket_id, product_id) values(?, ?)", basketId, productId);
+        }
     }
 
     public int decreaseAmountInBasket(long productId, long basketId, int quantity){

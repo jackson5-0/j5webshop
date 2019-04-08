@@ -61,13 +61,6 @@ public class BasketController {
         Long basketId = userService.findBasketId(userName);
         return basketService.basketItemsWithQuantity(basketId);
     }
-//    public Set<Product> listProductsOfBasket(Authentication auth) {
-//        String userName = auth.getName();
-//        Long id = userService.findBasketId(userName);
-//        return basketService.listProductsOfBasket(id).keySet();
-////        Alternativ megoldas a kosar kilistazasara
-////        return basketService.listProductsOfBasket(auth.getName());
-//    }
 
     @DeleteMapping("/basket/{basket}")
     public ResponseStatus deleteItemFromBasket(@PathVariable long basket, @RequestParam long productId) {

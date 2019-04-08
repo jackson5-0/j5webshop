@@ -34,6 +34,7 @@ function fetchLast3() {
 }
 
 function showTop3(jsonData) {
+  console.log(jsonData);
   var top3Div = document.getElementById('top3');
   top3Div.innerHTML = '';
   for (var i = 0; i < jsonData.length; i++) {
@@ -43,7 +44,7 @@ function showTop3(jsonData) {
 
     var img = document.createElement('img');
     img.setAttribute('class', 'picture');
-    if (jsonData[i].image != null) {
+    if (jsonData[i].image !== null) {
       img.src = "data:image/png;base64," + jsonData[i].image;
     } else {
       img.setAttribute('src', '/img/fantasy_game_dice.jpg');

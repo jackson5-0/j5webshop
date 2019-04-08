@@ -3,10 +3,7 @@ package training360.j5webshop.reviews;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import training360.j5webshop.products.ProductDao;
 import training360.j5webshop.validation.ResponseStatus;
-import training360.j5webshop.validation.ValidationStatus;
-import training360.j5webshop.validation.Validator;
 
 import java.util.List;
 

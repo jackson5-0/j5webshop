@@ -25,7 +25,7 @@ public class ReviewDao {
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public long createReview(Review review) {
         KeyHolder keyHolder = new GeneratedKeyHolder();

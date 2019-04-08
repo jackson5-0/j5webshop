@@ -1,7 +1,6 @@
 package training360.j5webshop.baskets;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.products.Product;
 import training360.j5webshop.products.ProductDao;
@@ -16,7 +15,7 @@ public class BasketService {
     @Autowired
     private ProductDao productDao;
 
-    public void addToBasketWithQuantity(int quantity, long productId, String userName) throws DataIntegrityViolationException {
+    public void addToBasketWithQuantity(int quantity, long productId, String userName) {
         Long basketId = basketDao.findBasketIdByUserName(userName);
         basketDao.addToBasketWithQuantity(quantity, productId, basketId);
     }
@@ -36,17 +35,6 @@ public class BasketService {
             productMap.put(productDao.findProductById(id), 1);
         }
         return productMap;
-//        Alternativ megoldas a kosar tartalmanak listazasara
-//        return new HashSet<>(basketDao.findBasketProductsByUserName(userName));
-    }
-
-    private boolean productAlreadyAdded(long basketId, long productId) {
-        for (Long l : basketDao.listProductIdsOfBasket(basketId)) {
-            if (productId == l) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public int deleteItemFromBasket(long basketId, long productId) {

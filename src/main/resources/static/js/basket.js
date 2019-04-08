@@ -29,8 +29,8 @@ function initPopup() {
       confirm.style.display = "none";
     }
   }
-  for (var i = 0; i < span.length; i++) {
-    span[i].onclick = function () {
+  for (var j = 0; j < span.length; j++) {
+    span[j].onclick = function () {
       confirm.style.display = "none";
     }
   }
@@ -200,7 +200,6 @@ function deleteBasketItem() {
 
 function increaseAmount() {
   var productId = this["raw-data"].product.id;
-  var basketId = user.basketId;
   var quantity = 1;
   fetch(`/basket?quantity=${quantity}&productId=${productId}`, {
       method: "POST"
