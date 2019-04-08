@@ -391,7 +391,6 @@ function deleteReview() {
         })
         .then(function (product) {
             createReviewListDiv(product);
-            console.log("del");
         });
     return false;
 }

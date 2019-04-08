@@ -3,7 +3,6 @@ package training360.j5webshop.orders;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.products.Product;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,6 @@ public class Order {
     }
 
     public Order(Basket basket) {
-        this.id = id;
         this.purchaseDate = LocalDateTime.now();
         this.orderStatus = OrderStatus.ACTIVE;
         this.userId = basket.getUserId();

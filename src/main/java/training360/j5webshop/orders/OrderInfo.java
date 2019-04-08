@@ -1,7 +1,6 @@
 package training360.j5webshop.orders;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 public class OrderInfo {
     private long id;

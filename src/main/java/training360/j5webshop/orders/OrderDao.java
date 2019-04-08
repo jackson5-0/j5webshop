@@ -4,7 +4,6 @@ package training360.j5webshop.orders;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
@@ -15,10 +14,8 @@ import training360.j5webshop.products.ProductDao;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -93,6 +90,17 @@ public class OrderDao {
         return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where orders.status !='deleted' and users.username =? order by purchase_date DESC",
                 ORDER_ROW_MAPPER, userName);
     }
+
+    public List<Order> listActiveOrder(String userName) {
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where orders.status ='active' and users.username =? order by purchase_date DESC",
+                ORDER_ROW_MAPPER, userName);
+    }
+
+    public List<Order> listAllOrderWithDeleted(String userName) {
+        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where users.username =? order by purchase_date DESC",
+                ORDER_ROW_MAPPER, userName);
+    }
+
     public List<Product> listLast3OrderedItem() {
         return jdbcTemplate.query("SELECT product.id, product.code, product.name, product.address, product.publisher, product.price, product.status, product.image FROM `product`" +
                         " JOIN order_item on product.id = order_item.product_id" +
@@ -105,15 +113,7 @@ public class OrderDao {
                 (resultSet, i) -> new Product(resultSet.getLong("id"),resultSet.getString("code"),resultSet.getString("name"),resultSet.getString("address"), resultSet.getString("publisher"),resultSet.getInt("price"),resultSet.getString("status"), resultSet.getBytes("image")));
     }
 
-    public List<Order> listActiveOrder(String userName) {
-        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where orders.status ='active' and users.username =? order by purchase_date DESC",
-                ORDER_ROW_MAPPER, userName);
-    }
 
-    public List<Order> listAllOrderWithDeleted(String userName) {
-        return jdbcTemplate.query("SELECT orders.id, orders.user_id, orders.purchase_date, orders.status, orders.shipping_address FROM `orders` JOIN users on orders.user_id = users.id where users.username =? order by purchase_date DESC",
-                ORDER_ROW_MAPPER, userName);
-    }
 
     //ADMINORDERS
     public List<OrderInfo> listAdminOrders(){
