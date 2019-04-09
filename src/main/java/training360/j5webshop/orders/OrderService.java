@@ -1,5 +1,6 @@
 package training360.j5webshop.orders;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.baskets.BasketDao;
@@ -15,18 +16,11 @@ import java.util.Set;
 @Service
 public class OrderService {
 
+    @Autowired
     private OrderDao orderDao;
+    @Autowired
     private BasketDao basketDao;
 
-
-
-    public OrderService(OrderDao orderDao) {
-        this.orderDao = orderDao;
-    }
-
-    public OrderService(BasketDao basketDao) {
-        this.basketDao = basketDao;
-    }
 
     public ResponseStatus createOrder(long basketId, String userName, String address) {
         ResponseStatus rs = new ResponseStatus();

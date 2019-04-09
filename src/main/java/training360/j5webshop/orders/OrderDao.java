@@ -1,5 +1,6 @@
 package training360.j5webshop.orders;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -20,7 +21,7 @@ public class OrderDao {
 
 
     private JdbcTemplate jdbcTemplate;
-
+    @Autowired
     private ProductDao productDao;
 
     private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -66,10 +67,6 @@ public class OrderDao {
 
     public OrderDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    public OrderDao(ProductDao productDao) {
-        this.productDao = productDao;
     }
 
     public long createOrder(long userId, String address) {
