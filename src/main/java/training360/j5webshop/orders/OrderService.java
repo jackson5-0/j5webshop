@@ -1,11 +1,9 @@
 package training360.j5webshop.orders;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import training360.j5webshop.baskets.Basket;
 import training360.j5webshop.baskets.BasketDao;
 import training360.j5webshop.products.Product;
-import training360.j5webshop.products.ProductDao;
 import training360.j5webshop.validation.ResponseStatus;
 import training360.j5webshop.validation.ValidationStatus;
 import training360.j5webshop.validation.Validator;
@@ -17,16 +15,17 @@ import java.util.Set;
 @Service
 public class OrderService {
 
-    @Autowired
     private OrderDao orderDao;
-    @Autowired
     private BasketDao basketDao;
-    @Autowired
-    private ProductDao productDao;
+
 
 
     public OrderService(OrderDao orderDao) {
         this.orderDao = orderDao;
+    }
+
+    public OrderService(BasketDao basketDao) {
+        this.basketDao = basketDao;
     }
 
     public ResponseStatus createOrder(long basketId, String userName, String address) {
@@ -78,6 +77,7 @@ public class OrderService {
     public Set<Product> listLast3OrderedItem(){
         return new HashSet<>(orderDao.listLast3OrderedItem());
     }
+
     public List<Order> listAllOrder(String userName){
         return orderDao.listAllOrder(userName);
     }
@@ -93,15 +93,19 @@ public class OrderService {
     public List<OrderedProduct> findOrderedProductByOrderId(long id){
         return orderDao.findOrderedProductByOrderId(id);
     }
+
     public List<OrderInfo> listActiveAdminOrders(){
         return orderDao.listActiveAdminOrders();
     }
+
     public List<OrderInfo> listAdminOrders(){
         return orderDao.listAdminOrders();
     }
+
     public void deleteOrders(long id){
         orderDao.deleteWholeOrder(id);
     }
+
     public void deleteItem(long id, String address){
         orderDao.deleteItem(id,address);
     }
